@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mobile | #error NO_MONEY]]></title>
+  <link href="http://enukane.github.io/blog/categories/mobile/atom.xml" rel="self"/>
+  <link href="http://enukane.github.io/"/>
+  <updated>2015-01-16T19:55:03+09:00</updated>
+  <id>http://enukane.github.io/</id>
+  <author>
+    <name><![CDATA[n_kane]]></name>
+    <email><![CDATA[enukane@glenda9.org]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SIM Freeか否か]]></title>
+    <link href="http://enukane.github.io/blog/2015/01/16/simfreeornot/"/>
+    <updated>2015-01-16T21:03:33+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/01/16/simfreeornot</id>
+    <content type="html"><![CDATA[<p>今月がちょうど Softbank の2年縛りが切れる月なのでそろそろどうするか考えてみる.
+&ldquo;@vodafone.ne.jp&#8221;なアドレスに執着が無ければ移るかも.</p>
+
+<h3>直近4ヶ月の Softbank 請求金額</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">月</th>
+<th style="text-align:right;">1月(計算中)</th>
+<th style="text-align:right;">12月</th>
+<th style="text-align:right;">11月</th>
+<th style="text-align:right;">10月</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">合計</td>
+<td style="text-align:right;"> 8232 </td>
+<td style="text-align:right;"> 9214 </td>
+<td style="text-align:right;"> 9344 </td>
+<td style="text-align:right;"> 8847 </td>
+</tr>
+<tr>
+<td style="text-align:center;">基本使用料</td>
+<td style="text-align:right;"> 934 </td>
+<td style="text-align:right;"> 934 </td>
+<td style="text-align:right;"> 934 </td>
+<td style="text-align:right;"> 934 </td>
+</tr>
+<tr>
+<td style="text-align:center;">パケット定額料等</td>
+<td style="text-align:right;"> 5200 </td>
+<td style="text-align:right;"> 5200 </td>
+<td style="text-align:right;"> 5200 </td>
+<td style="text-align:right;">  5200 </td>
+</tr>
+<tr>
+<td style="text-align:center;">通話料</td>
+<td style="text-align:right;"> 400 </td>
+<td style="text-align:right;"> 340 </td>
+<td style="text-align:right;"> 460 </td>
+<td style="text-align:right;"> 0 </td>
+</tr>
+<tr>
+<td style="text-align:center;">オプションサービス料</td>
+<td style="text-align:right;"> 1685</td>
+<td style="text-align:right;"> 1250 </td>
+<td style="text-align:right;"> 1250 </td>
+<td style="text-align:right;"> 1250 </td>
+</tr>
+<tr>
+<td style="text-align:center;">その他</td>
+<td style="text-align:right;"> 13 </td>
+<td style="text-align:right;"> 13 </td>
+<td style="text-align:right;"> 13 </td>
+<td style="text-align:right;"> 13 </td>
+</tr>
+<tr>
+<td style="text-align:center;">端末台(月月割引き後) </td>
+<td style="text-align:right;"> 0 </td>
+<td style="text-align:right;">  1018 </td>
+<td style="text-align:right;"> 1018 </td>
+<td style="text-align:right;"> 1018 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 消費税 </td>
+<td style="text-align:right;">  - </td>
+<td style="text-align:right;"> 459 </td>
+<td style="text-align:right;"> 469 </td>
+<td style="text-align:right;"> 432 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 通信料 </td>
+<td style="text-align:right;"> - </td>
+<td style="text-align:right;"> 2.55GB </td>
+<td style="text-align:right;"> 5.08GB </td>
+<td style="text-align:right;"> 3.23GB</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>オプションサービス料はこんな感じらしい。削ったつもりだったけど、まだいろいろついてんね。</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">月</th>
+<th style="text-align:right;"> 2月 </th>
+<th style="text-align:right;"> 1月 </th>
+<th style="text-align:right;"> 10〜12月 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">合計</td>
+<td style="text-align:right;"> 1750 </td>
+<td style="text-align:right;"> 1685 </td>
+<td style="text-align:right;"> 1250 </td>
+</tr>
+<tr>
+<td style="text-align:center;">S!ベーシックパック(i) </td>
+<td style="text-align:right;"> 300 </td>
+<td style="text-align:right;"> 300 </td>
+<td style="text-align:right;"> 300 </td>
+</tr>
+<tr>
+<td style="text-align:center;">Wi-FIスポット(割引後) </td>
+<td style="text-align:right;"> 0 </td>
+<td style="text-align:right;"> 0 </td>
+<td style="text-align:right;"> 0 </td>
+</tr>
+<tr>
+<td style="text-align:center;">あんしん保証パック(i) </td>
+<td style="text-align:right;"> 475 </td>
+<td style="text-align:right;"> 475 </td>
+<td style="text-align:right;"> 475 </td>
+</tr>
+<tr>
+<td style="text-align:center;">テザリングオプション(割引後) </td>
+<td style="text-align:right;"> 500 </td>
+<td style="text-align:right;"> 435 </td>
+<td style="text-align:right;"> 0 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> iphone基本パック </td>
+<td style="text-align:right;"> 475 </td>
+<td style="text-align:right;"> 475 </td>
+<td style="text-align:right;"> 475 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>少なくとも以下のオプションは削れそう。950円のマイナス。</p>
+
+<ul>
+<li>iPhone基本パック (475)</li>
+<li>あんしん保証パック (475)</li>
+</ul>
+
+
+<p>削ったとして結局のところ1月換算で行くなら,  8232 - 950 + 460 (消費税概算) = 7700ぐらい。
+なお、MNP転出手数料は2000円。</p>
+
+<h3>みおふぉんに変えてみるプラン</h3>
+
+<p>とりあえず端末代は度外視するとして。</p>
+
+<ul>
+<li>ファミリーシェアプラン 7GB : 2560円/月 (税抜)</li>
+<li>SIMカード(一枚目): 音声通話機能付き 700円 (税抜)</li>
+<li>SIMカード(二枚目): データ専用 0円(税抜き)</li>
+</ul>
+
+
+<p>初期費用、通話料、ユニバーサルサービス料は含まれてない。音声通話は20円/o.5分(税抜き)とのこと。</p>
+
+<ul>
+<li>初期費用: 3000
+
+<ul>
+<li>ここに転出手数料 2000</li>
+</ul>
+</li>
+<li>通話料: ソフトバンク側と同じく400円程度とする</li>
+<li>ユニバーサルサービス料: 誤差なので含めない</li>
+</ul>
+
+
+<p>これで合計金額を取ると, 月4000円ぐらい？</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,99 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>#error NO_MONEY</title>
-  <meta name="author" content="n_kane">
-
-  
-  <meta name="description" content="今月がちょうど Softbank の2年縛りが切れる月なのでそろそろどうするか考えてみる.
-&ldquo;@vodafone.ne.jp"なアドレスに執着が無ければ移るかも. 直近4ヶ月の Softbank 請求金額 月
-1月(計算中)
-12月
-11月
-10月 合計 8232 9214 9344 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><![CDATA[#error NO_MONEY]]></title>
+  <link href="http://enukane.github.io/atom.xml" rel="self"/>
+  <link href="http://enukane.github.io/"/>
+  <updated>2015-01-16T19:55:03+09:00</updated>
+  <id>http://enukane.github.io/</id>
+  <author>
+    <name><![CDATA[n_kane]]></name>
+    <email><![CDATA[enukane@glenda9.org]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-  <link rel="canonical" href="http://enukane.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/stylesheets/data-table.css" rel="stylesheet" type="text/css" />
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">#error NO_MONEY</a></h1>
-  
-    <h2>/var/crach/n_kane</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="enukane.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/16/simfreeornot/">SIM Freeか否か</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-01-16T21:03:33+09:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:03 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今月がちょうど Softbank の2年縛りが切れる月なのでそろそろどうするか考えてみる.
+  <entry>
+    <title type="html"><![CDATA[SIM Freeか否か]]></title>
+    <link href="http://enukane.github.io/blog/2015/01/16/simfreeornot/"/>
+    <updated>2015-01-16T21:03:33+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/01/16/simfreeornot</id>
+    <content type="html"><![CDATA[<p>今月がちょうど Softbank の2年縛りが切れる月なのでそろそろどうするか考えてみる.
 &ldquo;@vodafone.ne.jp&#8221;なアドレスに執着が無ければ移るかも.</p>
 
 <h3>直近4ヶ月の Softbank 請求金額</h3>
@@ -265,35 +190,15 @@
 
 
 <p>これで合計金額を取ると, 月4000円ぐらい？</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/01/newyear/">2014年のまとめをちらほらと、2015年にやりたいことをだらだらと</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-01-01T09:24:55+09:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>9:24 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>2014年のまとめ</h1>
+  <entry>
+    <title type="html"><![CDATA[2014年のまとめをちらほらと、2015年にやりたいことをだらだらと]]></title>
+    <link href="http://enukane.github.io/blog/2015/01/01/newyear/"/>
+    <updated>2015-01-01T09:24:55+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/01/01/newyear</id>
+    <content type="html"><![CDATA[<h1>2014年のまとめ</h1>
 
 <ul>
 <li>犬吠埼に初日の出観に行った。寒かった。</li>
@@ -338,35 +243,15 @@
 <li>もっと馬鹿をやろう. Keep it stupid, simple (誤字にあらず)</li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/12/12/syspaper-adventcalendar-2014/">システム系論文紹介 Advent Calendar 2014</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-12-12T09:58:24+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:58 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本記事は、<a href="http://www.adventar.org/calendars/440">システム系論文紹介 Advent Calendar 2014</a> 12/11 のための記事です</p>
+  <entry>
+    <title type="html"><![CDATA[システム系論文紹介 Advent Calendar 2014]]></title>
+    <link href="http://enukane.github.io/blog/2014/12/12/syspaper-adventcalendar-2014/"/>
+    <updated>2014-12-12T09:58:24+09:00</updated>
+    <id>http://enukane.github.io/blog/2014/12/12/syspaper-adventcalendar-2014</id>
+    <content type="html"><![CDATA[<p>本記事は、<a href="http://www.adventar.org/calendars/440">システム系論文紹介 Advent Calendar 2014</a> 12/11 のための記事です</p>
 
 <h1>はじめに</h1>
 
@@ -501,76 +386,7 @@ NICにパケットを引き渡すまでlocalityを維持したまま通信がで
 
 
 <p>Unikernelsは@suma90h さんが既にシステム系論文輪読会で<a href="http://www.slideshare.net/suma_/reading-unikernels">お読みになってた</a> のでパス。HACKは、無線LAN系 &amp; 今年のATCでのBest Paperということもあって気になっているのですが別枠で読むことに。3や4は、NetVMと同じく&#8221;えすでーえぬ&#8221;とか&#8221;えぬえふぶい&#8221;といった類いに属しそうなのと、先日のIIJ-II セミナーで&#8221;ClickOS and the Art of Network Function Virtualization&#8221;のお話があったので関連文献として上げてみました。</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2015/01/16/simfreeornot/">SIM Freeか否か</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/01/newyear/">2014年のまとめをちらほらと、2015年にやりたいことをだらだらと</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/12/12/syspaper-adventcalendar-2014/">システム系論文紹介 Advent Calendar 2014</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - n_kane -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>
