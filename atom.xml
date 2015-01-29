@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-01-29T12:42:04+09:00</updated>
+  <updated>2015-01-29T19:55:53+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -18,7 +18,29 @@
     <link href="http://enukane.github.io/blog/2015/01/29/2015-01-28-embulk-playground/"/>
     <updated>2015-01-29T00:03:51+09:00</updated>
     <id>http://enukane.github.io/blog/2015/01/29/2015-01-28-embulk-playground</id>
-    <content type="html"><![CDATA[<p>前々からやっているコミケその他イベントでの無線LAN解析(※)に良い感じに使えそうなので
+    <content type="html"><![CDATA[<h3>追記 (2015/01/29 19:49)</h3>
+
+<p>手元で動作確認してたらいつの間にか次のバージョンのembulkがリリースされてた.
+おかしいぞ&hellip;さっきのpullreqで入れてもらったワークアラウンド試し始めたばっかりなのに&hellip;
+(もう不要になった)</p>
+
+<h3>追記 (2015/01/29 19:38)</h3>
+
+<p>frsyuki先生から後ろ方のてきとーなメモに対する, 大変丁寧なコメントを頂けた. なるほどなるほど.</p>
+
+<p><a href="https://gist.github.com/frsyuki/dcfb30690fd453542f45">https://gist.github.com/frsyuki/dcfb30690fd453542f45</a></p>
+
+<p>ついでにいろいろと手直しして頂いて感謝感謝</p>
+
+<ul>
+<li><a href="https://github.com/enukane/embulk-plugin-input-pcapng-files/pull/1">https://github.com/enukane/embulk-plugin-input-pcapng-files/pull/1</a></li>
+<li><a href="https://github.com/enukane/embulk-plugin-input-pcapng-files/pull/2">https://github.com/enukane/embulk-plugin-input-pcapng-files/pull/2</a></li>
+</ul>
+
+
+<h3>はじめに</h3>
+
+<p>前々からやっているコミケその他イベントでの無線LAN解析(※)に良い感じに使えそうなので
 pcapngファイルからの入力を取れる &ldquo;embulk-plugin-input-pcapng-files&rdquo; なるプラグインを書いてみました.</p>
 
 <ul>
