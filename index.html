@@ -9,8 +9,8 @@
   <meta name="author" content="n_kane">
 
   
-  <meta name="description" content="前回の検討の続き。結局乗り換えた。
-ファミリーシェアプラン(7GB)で, 音声SIM 1枚(MicroSIM)とデータ専用SIM 1枚(NanoSIM). 転出・転入の手続き周りでかかった費用は以下の通り. MNP転出側 (Softbank) 解約手数料: 0円 2年1ヶ月目ちょうどだったので &hellip;">
+  <meta name="description" content="前々からやっているコミケその他イベントでの無線LAN解析(※)に良い感じに使えそうなので
+pcapngファイルからの入力を取れる &ldquo;embulk-plugin-input-pcapng-files&rdquo; なるプラグインを書いてみました. enukane/embulk- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,272 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/01/29/2015-01-28-embulk-playground/">2015-01-28 Embulk-plugin-input-pcapng-files書いた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-01-29T00:03:51+09:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:03 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>前々からやっているコミケその他イベントでの無線LAN解析(※)に良い感じに使えそうなので
+pcapngファイルからの入力を取れる &ldquo;embulk-plugin-input-pcapng-files&rdquo; なるプラグインを書いてみました.</p>
+
+<ul>
+<li><a href="https://github.com/enukane/embulk-plugin-input-pcapng-files">enukane/embulk-plugin-input-pcapng-files</a></li>
+<li><p><a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">rubygems - embulk-plugin-input-pcapng-files</a></p></li>
+<li><p>※</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/enukane/comiket-space-29723016">http://www.slideshare.net/enukane/comiket-space-29723016</a></li>
+<li><a href="http://www.slideshare.net/enukane/comiket-space-c86">http://www.slideshare.net/enukane/comiket-space-c86</a></li>
+<li><a href="http://www.slideshare.net/enukane/c87-wifi-comiket-space">http://www.slideshare.net/enukane/c87-wifi-comiket-space</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>中身はまんまtshark呼んでるだけですが, 抽出条件をコンフィグに書けたり出力先を柔軟に変更可能だったりと
+embulkのよさげなところを活かせそうなのが良い感じです.</p>
+
+<p>今までは集めた多量のpcapngファイルを, ひとつひとつ真心()込めてスクリプトに食わせてたので
+これを期に自動化の流れが造れるとベター.
+またそこまで行かなくともこれまでに溜め込んだpcapngファイルの再掘り起こしが容易になるので
+それだけでも良い感じです.</p>
+
+<h3>使い方</h3>
+
+<p>コンフィグファイルはこんな感じになります.
+いわゆるguessはできないので手打ちで全部書く必要があります.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>exec: {}
+</span><span class='line'>in:
+</span><span class='line'>  type: pcapng_files
+</span><span class='line'>  paths: [/Users/enukane/Desktop/emtestpcap/, /tmp]
+</span><span class='line'>  threads: 3
+</span><span class='line'>  schema:
+</span><span class='line'>    - { name: frame.time_epoch, type: long }
+</span><span class='line'>    - { name: frame.len, type: long }
+</span><span class='line'>    - { name: wlan.ta, type: string }
+</span><span class='line'>    - { name: wlan.ra, type: string }
+</span><span class='line'>out: {type: stdout}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>typeにはpcapng_filesを指定します</li>
+<li>pathsには, 処理したいpcapngファイルが入ったディレクトリを配列で指定します</li>
+<li>threadsは, 並列度を指定します
+
+<ul>
+<li>上記paths内で見つかったpcapngファイルたちをこのthreadsの数に分配して並行に処理がなされる, はず</li>
+<li>ちゃんと動いてるかは未確認&hellip;</li>
+</ul>
+</li>
+<li>schemaにはpcapng中の抽出したいフィールド名(name)と変換先の型(type)を指定します
+
+<ul>
+<li>フィールド名は, wireshark/tsharkで -e オプションのfilterとして使っている名前が指定できます</li>
+<li>型は今のところstringかlongのみ</li>
+</ul>
+</li>
+</ul>
+
+
+<p>これをpreviewコマンドで指定してみるとこんな感じ</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>enukane@glenda-lairなう（´・ω・｀）つ ~/Sources/embulk-test % java -jar embulk.jar preview config.yml
+</span><span class='line'>+-------------------------------------------------+-----------------------+----------------+-------------------+-------------------+
+</span><span class='line'>|                                     path:string | frame.time_epoch:long | frame.len:long |    wlan.ta:string |    wlan.ra:string |
+</span><span class='line'>+-------------------------------------------------+-----------------------+----------------+-------------------+-------------------+
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             45 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             39 |                   | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             57 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             45 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             39 |                   | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            146 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             57 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            151 | c4:7d:4f:56:e5:1c | 33:33:00:01:00:03 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            131 | c4:7d:4f:56:e5:1c | 01:00:5e:00:00:fc |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            283 | c4:7d:4f:56:e5:18 | ff:ff:ff:ff:ff:ff |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             45 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             39 |                   | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            146 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             57 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             45 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             39 |                   | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             57 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             45 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             39 |                   | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            146 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             57 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            151 | c4:7d:4f:56:e5:1c | 33:33:00:01:00:03 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            131 | c4:7d:4f:56:e5:1c | 01:00:5e:00:00:fc |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            283 | c4:7d:4f:56:e5:18 | ff:ff:ff:ff:ff:ff |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             45 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             39 |                   | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            146 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             57 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>+-------------------------------------------------+-----------------------+----------------+-------------------+-------------------+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>previewでは部分的なタスクしか実行されません (ここではtask5.pcapngがぬけている)
+
+<ul>
+<li>runコマンドで出力される, &ldquo;次の状態のコンフィグ&#8221;も出力されません</li>
+</ul>
+</li>
+<li>ただし上記のように良い感じに表っぽい出力がなされます</li>
+</ul>
+
+
+<p>実際にrunコマンドで走らせると以下の様になります</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>enukane@glenda-lairなう（´・ω・｀）つ ~/Sources/embulk-test % java -jar embulk.jar run config.yml -o config.yml
+</span><span class='line'>2015-01-29 11:29:44,264 [INFO]: main:org.embulk.exec.LocalExecutor: Running 3 tasks using 8 local threads
+</span><span class='line'>2015-01-29 11:29:44,265 [INFO]: main:org.embulk.exec.LocalExecutor: {done:  0 / 3, running: 0}
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test5.pcapng,1413615217,45,28:cf:e9:4d:bb:91,c4:7d:4f:56:e5:1d
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test5.pcapng,1413615217,39,,28:cf:e9:4d:bb:91
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test5.pcapng,1413615217,155,28:cf:e9:4d:bb:91,c4:7d:4f:56:e5:1d
+</span><span class='line'>(中略)
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test1.pcapng,1413615217,283,c4:7d:4f:56:e5:18,ff:ff:ff:ff:ff:ff
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test1.pcapng,1413615217,146,c4:7d:4f:56:e5:19,20:c9:d0:d8:37:31
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test1.pcapng,1413615217,57,20:c9:d0:d8:37:31,c4:7d:4f:56:e5:19
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test2.pcapng,1413615217,45,c4:7d:4f:56:e5:19,20:c9:d0:d8:37:31
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test2.pcapng,1413615217,39,,c4:7d:4f:56:e5:19
+</span><span class='line'>(中略)
+</span><span class='line'>2015-01-29 11:29:47,517 [INFO]: main:org.embulk.exec.LocalExecutor: {done:  3 / 3, running: 0}
+</span><span class='line'>2015-01-29 11:29:47,517 [INFO]: main:org.embulk.exec.LocalExecutor: {done:  3 / 3, running: 0}
+</span><span class='line'>2015-01-29 11:29:47,517 [INFO]: main:org.embulk.exec.LocalExecutor: {done:  3 / 3, running: 0}
+</span><span class='line'>2015-01-29 11:29:47,535 [INFO]: main:org.embulk.command.Runner: next config: {"type":"pcapng_files","paths":["/Users/enukane/Desktop/emtestpcap/","/tmp"],"threads":3,"schema":[{"name":"frame.time_epoch","type":"long"},{"name":"frame.len","type":"long"},{"name":"wlan.ta","
+</span><span class='line'>type":"string"},{"name":"wlan.ra","type":"string"}],"done":["/Users/enukane/Desktop/emtestpcap//test1.pcapng","/Users/enukane/Desktop/emtestpcap//test2.pcapng","/Users/enukane/Desktop/emtestpcap//test5.pcapng"]}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>-oオプションで実行中のコンフィグと同じパスを指定してやると, 元のコンフィグに「今処理したファイルリスト」を付け加えます
+
+<ul>
+<li>既にdoneが合った場合とか考慮してない等々で今はきちんと動いてない模様&hellip; (to be fixed)</li>
+<li>いわゆるcommit reportとして, 次回に重複処理しないように考慮 (したかった)</li>
+</ul>
+</li>
+<li>outがstdoutになっているので, previewの様な表ではなくcsv形式で出力.
+
+<ul>
+<li>stdoutなのでログとも混ざる. 基本的にはあくまで確認用.</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>embulk弄ってたときのメモ</h3>
+
+<ul>
+<li>embulkの<a href="https://github.com/embulk/embulk">README</a>をよめばだいたいどうにかなる。</li>
+<li>bundleコマンドで作成したディレクトリ以下でプラグインの新規追加・名前変更等したときは, 再度bundleコマンド発行すること</li>
+<li>本来的にはinputプラグインではなくFile input内のparser/decoderプラグインとして造るべきでは？
+
+<ul>
+<li>処理対象のファイル一覧→スレッドへの分配あたりを再開発してる感</li>
+<li>input/output以外のプラグインがどの程度rubyで差し込みできるのかよく見えない. 要調査.
+
+<ul>
+<li>file inputのメインのロジックはJava側で書かれてるようなのでbundle側からのインタラクション次第か?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>task to threadsのベストプラクティスが欲しい&hellip;</li>
+<li>transactionとrunの間のデータ受け渡し, これでいいのかな感
+
+<ul>
+<li>引数でスレッドローカルなオブジェクト渡すものだと思ってたけど&hellip;</li>
+</ul>
+</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -611,6 +877,10 @@ NICにパケットを引き渡すまでlocalityを維持したまま通信がで
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/01/29/2015-01-28-embulk-playground/">2015-01-28 Embulk-plugin-input-pcapng-files書いた</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/25/2015-01-25-iijmiosim/">2015-01-25 Softbank から IIJmio にかえた</a>
       </li>
     
@@ -630,7 +900,7 @@ NICにパケットを引き渡すまでlocalityを維持したまま通信がで
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (1)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/research'>research (1)</a></li><li><a href='/blog/categories/tech'>tech (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (1)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/research'>research (1)</a></li><li><a href='/blog/categories/tech'>tech (2)</a></li></ul>
 </section>
 
 
