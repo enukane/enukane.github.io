@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-01-29T20:07:12+09:00</updated>
+  <updated>2015-01-29T20:08:19+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -20,7 +20,7 @@
     <id>http://enukane.github.io/blog/2015/01/29/2015-01-28-embulk-playground</id>
     <content type="html"><![CDATA[<h3>追記 (2015/01/29 20:03)</h3>
 
-<p>0.0.2切った.</p>
+<p>ver 0.0.2切った. ファイルのソート周りはまだ直してない.</p>
 
 <p><a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">https://rubygems.org/gems/embulk-plugin-input-pcapng-files</a></p>
 
