@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-02-13T02:43:22+09:00</updated>
+  <updated>2015-02-13T02:48:09+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -73,25 +73,25 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 <td style="text-align:left;">                 </td>
 </tr>
 <tr>
-<td style="text-align:left;"> IIJmio            </td>
+<td style="text-align:left;"> IIJmio(PPPoE)     </td>
 <td style="text-align:center;">2     </td>
 <td style="text-align:right;">87.9      </td>
 <td style="text-align:left;">                 </td>
 </tr>
 <tr>
-<td style="text-align:left;"> IIJmio            </td>
+<td style="text-align:left;"> IIJmio(PPPoE)     </td>
 <td style="text-align:center;">3     </td>
 <td style="text-align:right;">73.7      </td>
 <td style="text-align:left;">                 </td>
 </tr>
 <tr>
-<td style="text-align:left;"> Interlink         </td>
+<td style="text-align:left;"> Interlink(PPPoE)  </td>
 <td style="text-align:center;">2     </td>
 <td style="text-align:right;">88.6      </td>
 <td style="text-align:left;">                 </td>
 </tr>
 <tr>
-<td style="text-align:left;"> Interlink         </td>
+<td style="text-align:left;"> Interlink(PPPoE)  </td>
 <td style="text-align:center;">3     </td>
 <td style="text-align:right;">69.4      </td>
 <td style="text-align:left;">                 </td>
