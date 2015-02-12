@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Network | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-02-13T02:51:39+09:00</updated>
+  <updated>2015-02-13T03:00:07+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -37,6 +37,9 @@ IPv4での疎通性を確保してみた.
 <p>tracerouteを取ってみるとこんな感じに transix.jp を通って
 IPv4インターネットに出て行けてることが確認できたら完了.
 <img src="/images/traceroute-dslite.png" alt="traceroute-dslite" /></p>
+
+<p>なお普通にIPv4 PPPoE経由でいくとこんな感じになる.
+<img src="/images/traceroute-iijmio.png" alt="traceroute-iijmio" /></p>
 
 <h2>速度計測</h2>
 
