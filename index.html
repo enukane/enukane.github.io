@@ -9,7 +9,10 @@
   <meta name="author" content="n_kane">
 
   
-  <meta name="description" content="追記 (2015/01/29 20:03) ver 0.0.2切った. ファイルのソート周りはまだ直してない. https://rubygems.org/gems/embulk-plugin-input-pcapng-files 追記 (2015/01/29 19:49) &hellip;">
+  <meta name="description" content="新居でのフレッツv6オプションおよび IIJmio FiberAccess/NF の準備ができたので
+DS-Liteで
+IPv4での疎通性を確保してみた.
+が, ちょいと速度面で問題?があったのでメモ. 設定 設定は以下を参照. フィルタ周りの設定やIPv4 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +69,136 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/12/2015-02-12-dslite/">2015-02-12 DS-Liteいれてみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-02-12T23:50:42+09:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:50 pm</span></time>
+        
+           | <a href="/blog/2015/02/12/2015-02-12-dslite/#disqus_thread"
+             data-disqus-identifier="http://enukane.github.io/blog/2015/02/12/2015-02-12-dslite/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>新居でのフレッツv6オプションおよび IIJmio FiberAccess/NF の準備ができたので
+<a href="https://www.iijmio.jp/guide/outline/ipv6/ipv6_access/dslite/">DS-Lite</a>で
+IPv4での疎通性を確保してみた.
+が, ちょいと速度面で問題?があったのでメモ.</p>
+
+<h2>設定</h2>
+
+<p>設定は以下を参照. フィルタ周りの設定やIPv4 PPPoe周りを継ぎ足してほぼそのままで導入.</p>
+
+<ul>
+<li><a href="http://www.seil.jp/blog/ds-lite">SEIL/x86でDS-Lite</a></li>
+</ul>
+
+
+<h2>動作確認</h2>
+
+<p>tracerouteを取ってみるとこんな感じに transix.jp を通って
+IPv4インターネットに出て行けてることが確認できたら完了.
+<img src="/images/traceroute-dslite.png" alt="traceroute-dslite" /></p>
+
+<h2>速度計測</h2>
+
+<p>問題は速度で, 以下の様な三者間で速度を測ってみるとどうにも DS-Lite 経由の iperf の結果が芳しくない.</p>
+
+<p><img src="/images/dslitevspppoe.png" alt="dslitevspppoe" /></p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">ISPまたは事業者    </th>
+<th style="text-align:center;">対戦表</th>
+<th style="text-align:right;">速度(Mbps)</th>
+<th style="text-align:left;">備考             </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> sakura internet?  </td>
+<td style="text-align:center;">1     </td>
+<td style="text-align:right;">87.2      </td>
+<td style="text-align:left;">VPS側の速度計測用</td>
+</tr>
+<tr>
+<td style="text-align:left;"> Multifeed(transix)</td>
+<td style="text-align:center;">2     </td>
+<td style="text-align:right;">46.5      </td>
+<td style="text-align:left;">                 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> Multifeed(transix)</td>
+<td style="text-align:center;">3     </td>
+<td style="text-align:right;">43.5      </td>
+<td style="text-align:left;">                 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> IIJmio            </td>
+<td style="text-align:center;">2     </td>
+<td style="text-align:right;">87.9      </td>
+<td style="text-align:left;">                 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> IIJmio            </td>
+<td style="text-align:center;">3     </td>
+<td style="text-align:right;">73.7      </td>
+<td style="text-align:left;">                 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> Interlink         </td>
+<td style="text-align:center;">2     </td>
+<td style="text-align:right;">88.6      </td>
+<td style="text-align:left;">                 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> Interlink         </td>
+<td style="text-align:center;">3     </td>
+<td style="text-align:right;">69.4      </td>
+<td style="text-align:left;">                 </td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>なお上流はフレッツ光マンションタイプ・ミニ(VDSL方式)なので,最大100Mbps</li>
+<li>ルータにはSEIL/X1を利用</li>
+<li>常にsakura VPS側がiperf server
+
+<ul>
+<li>1の場合は, 東京第二側をserverに</li>
+</ul>
+</li>
+<li>めんどうなので一発勝負. 5回平均や最大値採取はせず</li>
+</ul>
+
+
+<p>おおよそIIJmio側もInterlink側も70〜80Mbps程度は出ているように見受けられる.
+一方, DS-Liteを通すとなぜか40〜50Mbpsに下がる模様.</p>
+
+<p>さて, なんででしょう.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -917,6 +1050,10 @@ NICにパケットを引き渡すまでlocalityを維持したまま通信がで
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/12/2015-02-12-dslite/">2015-02-12 DS-Liteいれてみた</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/29/2015-01-28-embulk-playground/">2015-01-28 Embulk-plugin-input-pcapng-files書いた</a>
       </li>
     
@@ -932,15 +1069,11 @@ NICにパケットを引き渡すまでlocalityを維持したまま通信がで
         <a href="/blog/2015/01/01/newyear/">2014年のまとめをちらほらと、2015年にやりたいことをだらだらと</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/12/12/syspaper-adventcalendar-2014/">システム系論文紹介 Advent Calendar 2014</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (1)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/research'>research (1)</a></li><li><a href='/blog/categories/tech'>tech (2)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (2)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/network'>network (1)</a></li><li><a href='/blog/categories/research'>research (1)</a></li><li><a href='/blog/categories/tech'>tech (3)</a></li></ul>
 </section>
 
 
