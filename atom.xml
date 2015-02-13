@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-02-13T03:01:43+09:00</updated>
+  <updated>2015-02-13T22:46:04+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -18,7 +18,16 @@
     <link href="http://enukane.github.io/blog/2015/02/12/2015-02-12-dslite/"/>
     <updated>2015-02-12T23:50:42+09:00</updated>
     <id>http://enukane.github.io/blog/2015/02/12/2015-02-12-dslite</id>
-    <content type="html"><![CDATA[<p>新居でのフレッツv6オプションおよび IIJmio FiberAccess/NF の準備ができたので
+    <content type="html"><![CDATA[<h2>追記</h2>
+
+<ul>
+<li>2015/02/13 「速度計測その2」を追加</li>
+</ul>
+
+
+<h2>はじめに</h2>
+
+<p>新居でのフレッツv6オプションおよび IIJmio FiberAccess/NF の準備ができたので
 <a href="https://www.iijmio.jp/guide/outline/ipv6/ipv6_access/dslite/">DS-Lite</a>で
 IPv4での疎通性を確保してみた.
 が, ちょいと速度面で問題?があったのでメモ.</p>
@@ -128,6 +137,112 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 一方, DS-Liteを通すとなぜか40〜50Mbpsに下がる模様.</p>
 
 <p>さて, なんででしょう.</p>
+
+<h2>速度計測その2</h2>
+
+<p>上記速度計測では, LAN内からはiperf clientとしてしか通信していなかったので,
+ここではiperf3 (ver 3.0.11)のReverseモードを使って, 上り下り両方を測ってみる.
+なお, 上記速度計測とは以下の違いがある.</p>
+
+<ul>
+<li>今度は MacBookAir + Thunderbolt Ethernet Adapterをiperf clientとして利用
+
+<ul>
+<li>若干速くなってる</li>
+</ul>
+</li>
+<li>IIJmioとinterlinkには速度差はあまりないのでinterlink側経由の速度は省略</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">経由       </th>
+<th style="text-align:left;">ISPまたは事業者    </th>
+<th style="text-align:center;">対戦表</th>
+<th style="text-align:center;">向き      </th>
+<th style="text-align:right;">速度(Mbps): sender</th>
+<th style="text-align:right;">速度(Mbps): receiver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">DS-Lite    </td>
+<td style="text-align:left;"> Multifeed(transix)</td>
+<td style="text-align:center;">2     </td>
+<td style="text-align:center;"> UP       </td>
+<td style="text-align:right;"><strong>51.5</strong>          </td>
+<td style="text-align:right;"><strong>51.2</strong>            </td>
+</tr>
+<tr>
+<td style="text-align:left;">DS-Lite    </td>
+<td style="text-align:left;"> Multifeed(transix)</td>
+<td style="text-align:center;">2     </td>
+<td style="text-align:center;"> DOWN     </td>
+<td style="text-align:right;">90.4              </td>
+<td style="text-align:right;">89.9                </td>
+</tr>
+<tr>
+<td style="text-align:left;">DS-Lite    </td>
+<td style="text-align:left;"> Multifeed(transix)</td>
+<td style="text-align:center;">3     </td>
+<td style="text-align:center;"> UP       </td>
+<td style="text-align:right;"><strong>53.5</strong>          </td>
+<td style="text-align:right;"><strong>53.1</strong>            </td>
+</tr>
+<tr>
+<td style="text-align:left;">DS-Lite    </td>
+<td style="text-align:left;"> Multifeed(transix)</td>
+<td style="text-align:center;">3     </td>
+<td style="text-align:center;"> DOWN     </td>
+<td style="text-align:right;">90.9              </td>
+<td style="text-align:right;">90.4                </td>
+</tr>
+<tr>
+<td style="text-align:left;">IPv4 PPPoE </td>
+<td style="text-align:left;"> IIJmio            </td>
+<td style="text-align:center;">2     </td>
+<td style="text-align:center;"> UP       </td>
+<td style="text-align:right;">93.8              </td>
+<td style="text-align:right;">93.8                </td>
+</tr>
+<tr>
+<td style="text-align:left;">IPv4 PPPoE </td>
+<td style="text-align:left;"> IIJmio            </td>
+<td style="text-align:center;">2     </td>
+<td style="text-align:center;"> DOWN     </td>
+<td style="text-align:right;">94.1              </td>
+<td style="text-align:right;">93.4                </td>
+</tr>
+<tr>
+<td style="text-align:left;">IPv4 PPPoE </td>
+<td style="text-align:left;"> IIJmio            </td>
+<td style="text-align:center;">3     </td>
+<td style="text-align:center;"> UP       </td>
+<td style="text-align:right;">87.3              </td>
+<td style="text-align:right;">86.3                </td>
+</tr>
+<tr>
+<td style="text-align:left;">IPv4 PPPoE </td>
+<td style="text-align:left;"> IIJmio            </td>
+<td style="text-align:center;">3     </td>
+<td style="text-align:center;"> DOWN     </td>
+<td style="text-align:right;">88.6              </td>
+<td style="text-align:right;">87.5                </td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>iperf3はクライアント側からサーバ側に向けてトラフィックを出す</li>
+<li>&ldquo;-R&#8221;オプションで逆方向になる</li>
+<li>このため, &ldquo;-R&#8221;なしがUP, &rdquo;-R&#8221;ありがDOWN</li>
+</ul>
+
+
+<p>DS-LiteのUP方向が妙に抑えられているようだ. DOWN方向は普通に速度が出ている.</p>
 ]]></content>
   </entry>
   
