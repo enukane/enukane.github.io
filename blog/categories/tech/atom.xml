@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-02-17T01:02:06+09:00</updated>
+  <updated>2015-02-24T09:23:08+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,72 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2015-02-23 Released Embulk-input-pcapng-files 0.1.0]]></title>
+    <link href="http://enukane.github.io/blog/2015/02/24/2015-02-23-embulk-input-pcapng-files/"/>
+    <updated>2015-02-24T09:07:52+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/02/24/2015-02-23-embulk-input-pcapng-files</id>
+    <content type="html"><![CDATA[<p>pcapngファイルを読み込むembulk inputプラグインの新しいのをリリースしました.</p>
+
+<ul>
+<li><a href="https://rubygems.org/gems/embulk-input-pcapng-files">embulk-input-pcapng-files</a></li>
+<li><a href="https://github.com/enukane/embulk-input-pcapng-files">enukane/embulk-input-pcapng-files</a></li>
+</ul>
+
+
+<p>embulk 0.4.X系ではプラグイン体系が0.3.X系のそれとは異なっているため,
+これまで晒していた<a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">embulk-plugin-input-pcapng-files</a>
+が動作しません. これを修正したものが上記になります.</p>
+
+<p>使い方自体は変わらず, 以下の様なconfig.ymlを書いて実行すると&hellip;</p>
+
+<pre><code>exec: {}
+in:
+  type: pcapng_files
+  paths: [ /Users/enukane/Desktop/emtestpcap/ ]
+  threads: 2
+  schema:
+    - { name: frame.number,                 type: long }
+    - { name: frame.time_epoch,             type: long }
+    - { name: frame.len,                    type: long }
+    - { name: radiotap.length,              type: long }
+    - { name: radiotap.mactime,             type: long }
+    - { name: radiotap.flags.preamble,      type: long }
+    - { name: radiotap.flags.wep,           type: long }
+    - { name: radiotap.flags.fcs,           type: long }
+    - { name: radiotap.flags.shortgi,       type: long }
+    - { name: radiotap.datarate,            type: long }
+    - { name: radiotap.channel.freq,        type: long }
+    - { name: radiotap.channel.type.ofdm,   type: long }
+    - { name: radiotap.dbm_antsignal,       type: long }
+    - { name: radiotap.dbm_antnoise,        type: long }
+    - { name: radiotap.xchannel,            type: long }
+    - { name: radiotap.xchannel.freq,       type: long }
+    - { name: radiotap.xchannel.type.ofdm,  type: long }
+    - { name: radiotap.mcs.gi,              type: long }
+    - { name: radiotap.mcs.bw,              type: long }
+    - { name: radiotap.mcs.index,           type: long }
+    - { name: wlan.fc.type_subtype,         type: long }
+    - { name: wlan.ta,                      type: string }
+    - { name: wlan.ra,                      type: string }
+    - { name: wlan.sa,                      type: string }
+    - { name: wlan.da,                      type: string }
+out:
+  type: mysql
+  host: localhost
+  user: testuser
+  password: testpassword
+  database: testdb
+  table: testtb
+  mode: insert
+</code></pre>
+
+<p>こんな感じにoutput先 (今回の場合はMySQL) にデータをはき出してくれます.</p>
+
+<p><img src="/images/2015-02-23-pcapngmysql.png" alt="pcapng-mysql" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2015-02-12 DS-Liteいれてみた]]></title>
