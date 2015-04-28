@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 802.11 | #error NO_MONEY]]></title>
+  <link href="http://enukane.github.io/blog/categories/802-dot-11/atom.xml" rel="self"/>
+  <link href="http://enukane.github.io/"/>
+  <updated>2015-04-28T17:38:39+09:00</updated>
+  <id>http://enukane.github.io/</id>
+  <author>
+    <name><![CDATA[n_kane]]></name>
+    <email><![CDATA[enukane@glenda9.org]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Chokaigi 2015 Wi-Fiみてきた]]></title>
+    <link href="http://enukane.github.io/blog/2015/04/28/chokaigi2015-wifi/"/>
+    <updated>2015-04-28T17:31:09+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/04/28/chokaigi2015-wifi</id>
+    <content type="html"><![CDATA[<p>ニコニコ超会議2015で Free Wi-Fi が提供されている、とのことだったので
+どんな感じなのか偵察に行くついでにいつもの如くパケットあつめて
+データをまとめてみた.</p>
+
+<p><iframe src="http://www.slideshare.net/slideshow/embed_code/47427093 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
+]]></content>
+  </entry>
+  
+</feed>
