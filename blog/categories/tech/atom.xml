@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-04-28T17:38:39+09:00</updated>
+  <updated>2015-05-01T16:13:09+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,479 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[貧乏人でもスペアナがしたい!]]></title>
+    <link href="http://enukane.github.io/blog/2015/04/28/bimbo-spectrum-analyzer/"/>
+    <updated>2015-04-28T17:51:00+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/04/28/bimbo-spectrum-analyzer</id>
+    <content type="html"><![CDATA[<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
+
+<p>新品を買うと, どんなに周波数レンジが低くても数十万〜数百万だし, ヤフオク等の中古品でも明らかなジャンク品でないものに限ったとしても十〜数十万ぐらいは行ってしまう.</p>
+
+<p>やりたいことベースでのおおよその要件は以下の通り
+(貧乏人にしては盛りすぎだ!生意気だ!等のコメントはNO)</p>
+
+<ul>
+<li>(MUST) 無線LANの周波数帯がカバーできること
+
+<ul>
+<li>2.4 &amp; 5GHz帯</li>
+</ul>
+</li>
+<li>(MUST) PCと連携できること
+
+<ul>
+<li>(SHOULD) 外部のスクリプト等で扱える形式でデータがエクスポートできること</li>
+<li>(MAY) あるいは, 独自形式でもかまわないが仕様が公開されていること</li>
+</ul>
+</li>
+<li>(MUST) 数十万円後半は絶対にNO
+
+<ul>
+<li>10〜20万ぐらいが限度</li>
+</ul>
+</li>
+<li>(MAY) RBW と sweeptimeの両立がそこそこ成り立つこと
+
+<ul>
+<li>(MAY) できれば20/40MHzスパンに対して200〜300kHzのRBWで数百ms程度が望ましい (秒はかからない程度であれば)</li>
+</ul>
+</li>
+<li>(MAY) できれば普通のスペアナと同じような汎用性
+
+<ul>
+<li>スペアナのお勉強用に使えること</li>
+</ul>
+</li>
+<li>(MAY) Mac向けのアプリがあること
+
+<ul>
+<li>(MAY) あるいはUNIX系からアクセス可能なインタフェース(ライブラリ/API etc)が用意されていること</li>
+</ul>
+</li>
+<li>(MAY) USBバスパワーで動くこと</li>
+<li>(MAY) 携帯可能な電源仕様, 形状, 重さであること</li>
+</ul>
+
+
+<p>おおよそ2つの側面があって, きちんとしたスペアナ買ってお勉強したいというのと, 今までやってきている無線LANキャプチャに織り交ぜたいという2つの方向からの要求が混ざっている. 分けた方がいいような気はする.</p>
+
+<h2>候補になりそうな人たち</h2>
+
+<p>中古のスペアナをヤフオクで探すのは継続するとして, ハンディに使えそうな子達.</p>
+
+<ul>
+<li>Giga ST</li>
+<li>RF Explorer 6G Combo</li>
+<li>Aaronia AG
+
+<ul>
+<li>SPECTRAN HF-6060V4</li>
+<li>SPECTRAN HF-6060V4 X</li>
+</ul>
+</li>
+<li>Metageek WiSpy DBx</li>
+<li>Signal Hound
+
+<ul>
+<li>USB-SA124B</li>
+<li>BB60C</li>
+</ul>
+</li>
+<li>Tektronix RSA306</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">機種</th>
+<th style="text-align:right;">お値段</th>
+<th style="text-align:center;">周波数レンジ</th>
+<th style="text-align:left;">RBW</th>
+<th>スイープ時間</th>
+<th>アプリ対応OS</th>
+<th> export可? </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">GigaSt v5c</td>
+<td style="text-align:right;">29,000 (税, 送料込み)</td>
+<td style="text-align:center;">3 - 12000MHz</td>
+<td style="text-align:left;">15/30/180 KHz</td>
+<td>500ms? (SPAN:100MHz, RBW:180KHz)</td>
+<td>Windows</td>
+<td> 形式不明 </td>
+</tr>
+<tr>
+<td style="text-align:left;">RF Explorer 6G Combo</td>
+<td style="text-align:right;">43,800 (税込み)</td>
+<td style="text-align:center;">15 - 2700MHz, 4850 - 6100 MHz</td>
+<td style="text-align:left;"> 2.6 - 812 kHz </td>
+<td> 200ms? (Span: 60MHz, 600KHz) </td>
+<td>Windows, Mac(?) </td>
+<td> XML/CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">SPECTRAN HF-6060V4</td>
+<td style="text-align:right;"> €999.95 (129,384) </td>
+<td style="text-align:center;"> 10MHz - 6GHz </td>
+<td style="text-align:left;"> 3kHz - 50MHz </td>
+<td> 200ms (Span: 20MHz, RBW: 300kHz) </td>
+<td> Windows, Linux, Mac </td>
+<td> CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">SPECTRAN HF-6060V4 X</td>
+<td style="text-align:right;"> €999.95 (129,384) </td>
+<td style="text-align:center;"> 10MHz - 6GHz </td>
+<td style="text-align:left;"> 3kHz - 50MHz </td>
+<td> 200ms (Span: 20MHz, RBW: 300kHz) </td>
+<td> Windows, Linux, Mac </td>
+<td> CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">WiSpy DBx</td>
+<td style="text-align:right;"> $1,149 (136,834) </td>
+<td style="text-align:center;"> 2.4GHz帯, 5GHz帯 </td>
+<td style="text-align:left;"> 500ms (Span: 95MHz, RBW: 333KHz) </td>
+<td> 500ms or 1s ? </td>
+<td>Windows, Mac </td>
+<td> sqlite DB </td>
+</tr>
+<tr>
+<td style="text-align:left;">USB-SA124B</td>
+<td style="text-align:right;"> $1,995 (238,386) </td>
+<td style="text-align:center;"> 100kHz - 12.4GHz </td>
+<td style="text-align:left;"> 100Hz - 250KHz, 6MHz </td>
+<td> </td>
+<td> Windows </td>
+<td> ? </td>
+</tr>
+<tr>
+<td style="text-align:left;">BB60C</td>
+<td style="text-align:right;"> $2,879 (342,860) </td>
+<td style="text-align:center;"> 9kHz - 6GHz </td>
+<td style="text-align:left;"> 10khz </td>
+<td> 24GHz/sec </td>
+<td> Windows </td>
+<td> ? </td>
+</tr>
+<tr>
+<td style="text-align:left;">RSA306</td>
+<td style="text-align:right;">434,000</td>
+<td style="text-align:center;">9kHz - 6.2GHz</td>
+<td style="text-align:left;"> 10Hz - 10MHz </td>
+<td> 100us (Span: 400MHz, RBW: 300KHz) </td>
+<td> Windows </td>
+<td> CSV </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>諸々の前提</h3>
+
+<ul>
+<li>とりあえず無線LANターゲットなので, スパンとして20/40/80/160MHzがありうる
+
+<ul>
+<li>OFDMの各キャリアは312.5KHz間隔</li>
+</ul>
+</li>
+<li>RBWと掃引時間の関係: sweeptime [s] = (k * span [Hz]) / (RBW [Hz])<sup>2</sup>
+
+<ul>
+<li>掃引時間はRBWの二乗に反比例</li>
+<li>掃引時間は周波数スパンに比例</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>候補</h2>
+
+<h3>GigaSt v5c</h3>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="http://www.wa.commufa.jp/gigast/GigaSt5/GigaSt-v5.html">http://www.wa.commufa.jp/gigast/GigaSt5/GigaSt-v5.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=3vLZrA0e8EY">https://www.youtube.com/watch?v=3vLZrA0e8EY</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>安い! (送料込みで3万円以下)</li>
+<li>USBバスパワー駆動</li>
+<li>内部的にはシリアル(VCP) &amp; コントロール等々のドキュメントはそろってるので他OSでも触るのは簡単そう</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>ケースはないので自分で用意</li>
+<li>「グラフデータ保存機能」でどんな形式がサポートされてるか</li>
+<li>注文ウィンドウがよく分からない (受付してない時期がある?)</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>RF Explorer 6G Combo / WiFi Combo</h2>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="http://rfexplorer.com/combo-specs/">http://rfexplorer.com/combo-specs/</a></li>
+<li><a href="https://www.youtube.com/watch?v=3ZhdcUJanCI">https://www.youtube.com/watch?v=3ZhdcUJanCI</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>コンパクト</li>
+<li>そこそこお安い(5万内)</li>
+<li>千石電商でも売っているので手には入れやすい</li>
+<li>デバイスにLCDがついてる</li>
+<li>バッテリー付き(16時間+ぐらいは動くらしい)</li>
+<li>こちらも内部的にはシリアルっぽいのでコマンド叩けばいろいろ遊べる (<a href="https://code.google.com/p/rfexplorer/">rfexplorer</a>)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>2700MHz〜4850MHzの間は計測不可
+
+<ul>
+<li>とはいっても今のところ使い道はない</li>
+</ul>
+</li>
+<li>基本となるアプリ(<a href="http://rfexplorer.com/touchstone/">touchstone</a>)は無料だけど, 一部のアプリが有料 ($49)
+
+<ul>
+<li>有料版(PRO)でないとxml/csvへのエクスポート機能がない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Aaronia SPECTRAN HF-6060V4 / HF-6060V4 X</h2>
+
+<ul>
+<li>参考
+
+<ul>
+<li><a href="http://www.aaronia.com/products/spectrum-analyzers/HF-6060-V4-RF-Spectrum-Analyzer/">SPECTRAN HF-6060 V4</a></li>
+<li><a href="http://www.aaronia.com/products/spectrum-analyzers/HF-6060-V4-X-USB-remote-Analyzer/">SPECTRAN HF-6060 V4 X</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>V4はいわゆるハンドヘルド版で, V4 Xがデスクトップ向け.</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li><a href="http://www.aaronia.com/products/software/">MCS</a>なるアプリが無料, Win/Mac/Linuxをそれぞれサポートしてる</li>
+<li>V4ハンドヘルド版は単体で動作可能</li>
+<li>サポートしてる周波数帯は基本的に連続 (どこかで途切れてる可能性はあるが)</li>
+<li>悪くない価格 (11万程度)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>V4 XがUSBバスパワーだけでは動かない. 動いたら完璧だったのに&hellip;
+
+<ul>
+<li>モバイルバッテリーでは無理だろうが, DCなバッテリー + 電源ケーブル調達でなんとかなりそうではある</li>
+</ul>
+</li>
+<li>V4ハンドヘルド版の動作時間は?</li>
+<li>V4とV4 Xの機能面での差は?
+
+<ul>
+<li>LCD, ジョグダイヤルの有無</li>
+<li>付属アンテナ:</li>
+<li>HyperLOG EMC directional LogPer antenna: 7060 vs なし</li>
+<li>OmniLOG 90200 radial isotropic antenna: なし vs あり</li>
+<li>Xのみ: マーカの数unlimited, 複数デバイス操作可, スイープポイント無限等々
+
+<ul>
+<li>Xの方にだけPRO版ソフト?とやらが付いてくるらしいが?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>WiSpy DBx</h2>
+
+<ul>
+<li>参考
+
+<ul>
+<li><a href="http://www.metageek.com/products/wi-spy/">WiSpy</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>「無線LAN &amp; スペアナ」でググると一番最初に出てくるデファクトスタンダード品みたいなもの.</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li>無線LANに特化
+
+<ul>
+<li>AP(SSID)一覧との紐付けが標準で存在している</li>
+<li>「チャネル:周波数」の変換</li>
+</ul>
+</li>
+<li>Macのアプリがある (Channalyzer)</li>
+<li>kismetが出してる<a href="https://www.kismetwireless.net/spectools/">spectools</a>を使えばLinuxでも動きそう</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>スペアナと見たときに, 細かいことがあまりできない
+
+<ul>
+<li>細かいパラメータがいじれない</li>
+<li>無線LAN以外にはあまり使えなさそう
+
+<ul>
+<li>無線LAN特化のスペアナという立ち位置</li>
+<li>現状無線LAN以外に使う予定はないが, 勉強用なので諸々のパラメータは弄りたい</li>
+</ul>
+</li>
+<li>5GHz帯は細かくチャネルごとに見れない
+
+<ul>
+<li>2.4GHz帯はチャネル毎に見れる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>その割には値段が高い (13万ぐらい)</li>
+</ul>
+</li>
+</ul>
+
+
+<p>スイープの性能については以下の通り. 見てる幅により固定になっている.</p>
+
+<ul>
+<li>2.4GHz 全体
+
+<ul>
+<li>Span: 95.310MHz ( 2400 - 2495 MHz )</li>
+<li>RBW: 333.3 KHz</li>
+<li>スイープ時間: 500ms?</li>
+</ul>
+</li>
+<li>2.4GHz各チャネル (例としてチャネル 1)
+
+<ul>
+<li>Span: 424MHz ( 2400 - 2424 MHz )</li>
+<li>RBW: 100kHz</li>
+<li>スイープ時間: 500ms?</li>
+</ul>
+</li>
+<li>5GHz
+
+<ul>
+<li>Span: 676.7 MHz ( 5160 - 5836 MHz )</li>
+<li>RBW: 150.0 KHz</li>
+<li>スイープ時間: 1s?</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Signal Hound USB-SA124B / BB60C</h2>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="https://signalhound.com/products/bb60c/">BB60C</a></li>
+<li><a href="https://signalhound.com/products/usb-sa124b/">USB-SA124B</a></li>
+<li><a href="https://www.youtube.com/watch?v=OWrp4M-T2r0">BBC60 Demo and Remote</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL3IOktxB0nG5baFmDHwiZrb284akt6n9K">SA-Series Videos</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>スぺアナというよりはHackRFとかUSRPみたいなSDRデバイス + スペアナができるアプリという感じ</li>
+<li>BB60Cに至っては24GHz/sec sweep speed (>= 10kHz RBW)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>お値段は微妙 (RSA306に手が届きそうな値段)</li>
+<li>スペアナというよりSDR. これかうならHackRF買った方がよさそうな気はする.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Tektronix RSA306</h2>
+
+<ul>
+<li><a href="http://jp.tek.com/spectrum-analyzer/rsa306-0">RSA306型USBスペクトラム・アナライザ</a></li>
+</ul>
+
+
+<p>Tektronixが出した「USBリアルタイムスペクトラムアナライザ」</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li>反応めっちゃはやい
+
+<ul>
+<li>40MHz幅内ならRBW 120KHzぐらいまでならだいぶぬるぬる表示する</li>
+</ul>
+</li>
+<li>ソフトはタダ (基本部分は, という条件付きだが)</li>
+<li>USB3.0ポート一つで制御・電源供給</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>お値段
+
+<ul>
+<li>とはいえこの性能比で考えれば破格. 単純に予算の問題</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Chokaigi 2015 Wi-Fiみてきた]]></title>
@@ -620,149 +1093,6 @@ type":"string"},{"name":"wlan.ra","type":"string"}],"done":["/Users/enukane/Desk
 </li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[システム系論文紹介 Advent Calendar 2014]]></title>
-    <link href="http://enukane.github.io/blog/2014/12/12/syspaper-adventcalendar-2014/"/>
-    <updated>2014-12-12T09:58:24+09:00</updated>
-    <id>http://enukane.github.io/blog/2014/12/12/syspaper-adventcalendar-2014</id>
-    <content type="html"><![CDATA[<p>本記事は、<a href="http://www.adventar.org/calendars/440">システム系論文紹介 Advent Calendar 2014</a> 12/11 のための記事です</p>
-
-<h1>はじめに</h1>
-
-<p>本エントリでは、NSDI&#8217;14 にて発表のあった &ldquo;NetVM&rdquo; について紹介します。</p>
-
-<h1>&ldquo;NetVM: High Performance and Flexible Networking Using Virtualization on Commodity Platforms&rdquo;</h1>
-
-<h2>論文の概要</h2>
-
-<ul>
-<li>タイトル: <a href="https://www.usenix.org/conference/nsdi14/technical-sessions/presentation/hwang"><em>&ldquo;NetVM: High Performance and Flexible Networking Using Virtualization on Commodity Platforms&rdquo;</em></a></li>
-<li>著者: Jinho Hwang et al.</li>
-<li>出典: 11th USENIX Symposium on Networked Systems Design and Implementation (NSDI&#8217;14)</li>
-</ul>
-
-
-<p>この論文では表題にも登場する&#8221;Commodity Platforms&#8221;いわゆる普通の(?) x86マシンを使った、高度かつ高速なネットワークサービスを実現するための基盤として、&#8221;NetVM&#8221; というプラットフォームを提案&amp;実装しています。これまでお高い専用のハードウェアでなければ実用に足る性能が出せなかったファイヤーウォールやルーティング、ロードバランサといったネットワークに必要な諸機能。これらをソフトウェアだけで実現し、いわゆる<a href="http://www.etsi.org/technologies-clusters/technologies/nfv">NFV</a> 的なものの基盤として使える様にするといったことを目的としています。特にこの論文では、ハードウェアアプライアンスに負けない性能(==ワイヤーレート)を目指しつつ、ソフトウェアとしての展開の容易さや機能実現に対する柔軟性といったネットワークサービスインフラにおける利便性を実現することを主眼としています。</p>
-
-<h1>ここがひと味違うよNetVM</h1>
-
-<p>ここではNetVMを支える技術、として論文中よりNetVMにおける「こだわり」ポイントをいくつか紹介します。</p>
-
-<h2>Virtualization: 仮想化前提だよ</h2>
-
-<h3>NetVMにおける仮想マシン: 1コンポーネント == 1VM</h3>
-
-<p>NetVMにおける一つの特徴として、仮想化環境によるネットワークサービスの実現を特に意識している点が上げられます。
-いわゆるハコモノを用いる一般的なネットワークでは用途に応じて様々なハコを組み合わせてネットワークを構成します。
-これにはたとえばスイッチやルータ、ファイヤーウォールなどといったコンポーネントに設定を投入し、間を
-LANケーブルで敷設するイメージでしょうか。
-ブロードバンドルータなど一つのハコにまとめている場合もありますが、より大規模かつ高速な処理を要求される場合は
-専用のアプライアンスを持ってくることが一般的でしょう。</p>
-
-<p>NetVMでは、これらの物理的なハコとしての形を取っ払ってKVM上の仮想マシンを新たな仮想的なハコとしてそこに機能を押し込めています。
-これによりソフトウェアの柔軟性(デプロイや変更の自動化、大規模化 etc)といった利点をネットワークの構成に導入しています。</p>
-
-<p>それぞれのVMはハコモノとして、これまで行ってきたのと同じようにパケットの入力とそれに基づく出力の決定(宛先の変更やパケットの書き換えなど)を行います。
-もちろん仮想マシンに押し込めたところで物理配線が消える訳ではないのでそれらは依然として存在しますが、このハコモノの間を埋めるLANケーブル
-(とスイッチング)の役割の一部をNetVMではハイパバイザでも提供します。NetVMではこのホストで動く部分をNetVM Core, NetVM Managerと呼称しています。
-ネットワークコンポーネント間の結線にあたるこの部分もソフトウェアとして抱き込むことで、ハコモノを仮想化したのと同様の利点をネットワーキングにも導入しています。</p>
-
-<h2>VMという区分によるセキュリティ</h2>
-
-<p>一つのハコモノを一つのVMに押し込めて動かすことはセキュリティ面でも利点があります。
-NFV的な、一つの物理ハードウェア上に複数のネットワーク、複数のお客さん環境が載っている場合は
-それぞれの間がまぜこぜにならないことが肝要です。
-KVMが既にVMという区分で提供しているアイソレーションの仕組みに乗っかることでNetVMでは
-各ネットワークコンポーネントのセキュリティを担保しています。</p>
-
-<p>加えて必要なのは、それぞれのネットワーク間を間違って繋がないことです。
-ここはホストOSつまりNetVM CoreやNetVM Managerの領分になりますが、このためにVMのグルーピングができるようになっています。
-これにより、あるVM群は特定のユーザのもの、また別のVM群はそっちのユーザのものといった形で内部的に分離する事が可能です。</p>
-
-<p>なおあくまで内部的な区分けにつき、外に出たフレームは対象とはなりません。このため実際にNFVっぽいことの基盤として使うにはその部分でVLANかますなりトンネリングするなりでネットワーク的に区分けすることが必要だったり？また、一つの物理的なハードウェア上での組み合わせを主眼にしているためか外に出ないといけないような場合の想定があまりなされていない感じもあります。</p>
-
-<h2>High Performance: パケット処理性能↑</h2>
-
-<p>ハードウェアなアプライアンス箱に性能で勝つ、というのを第一目標においているためかチューニングやテクニックの記述に論文のそこそこの部分を割いているためその一部をここでは解説します。</p>
-
-<h3>DPDKで User-land Packet Processing</h3>
-
-<p>いわゆる「ポーリングモード」+ 「ユーザランドにおけるパケット処理」+「バッチ処理」による高速化は、Intel DPDKのリリースやnetmap、あとちょっとマニアックなところだとrump(はどうなんだろう&hellip;?)などの登場によりもはや当たり前のテクニックとなってきました。特に&#8221;なんらかのアプリケーション&#8221;に特化した通信を行いたい場合は、これまで先人がせっせと築き上げてきたOSのレイヤやらコンテキストスイッチングによるオーバヘッドをぶち抜けるため非常に高速にパケットを処理することが可能です。</p>
-
-<p>これらの仕組みはDPDKでもnetmapでも、基本的には直接ハードウェア(NIC)を触ってる人のみへの恩恵です。一方、NetVMではベースにDPDKを用いることでこれらの技術を利用しつつ、ネットワークサービスのコンポーネントたるVMの中のアプリケーションに対しても同様の利点を提供しています。</p>
-
-<h3>システム全体でのパケットバッファ共有</h3>
-
-<p>DPDKやnetmapは基本的に、NICとネットワークアプリケーションとで送受信リングとパケットバッファを共有することでコピーコストの削減を行っています。
-NetVMでもDPDKを利用しているため、ホストOSとNICとの間でこれはすでになされていますがこの構造をさらに拡張し、VMにたいしても
-同様の処理ができるように巨大な共有メモリ領域を用意し、ダミーのvirtual PCIデバイス経由でVMに対してこれを晒しています。
-これによりNIC-ホストOS-VMの三者間でのZero Copyを実現しています。
-このZero CopyはVM-VM間でも有効であり、ホストOS(NetVM Core)を通してのコンポーネント間のパケットのやりとりにあたっても
-同様の恩恵を得ることができます。これは、ホスト-VM間のRx/Txリングがそれぞれ独立である一方で&#8221;同じネットワーク&#8221;間では
-パケットバッファが共有されているためです。なお先に述べたネットワーク間のアイソレーション機能(グルーピング)は
-このパケットバッファの共有範囲を分けることでも実現されています。</p>
-
-<h3>CPU特性の活用</h3>
-
-<p>バッファ共有によるZero Copyの拡張に加えて、マルチコアシステムを前提として以下の工夫がなされています。</p>
-
-<ul>
-<li>Lockless なシステムデザイン</li>
-<li>NUMA-awareなデザイン</li>
-</ul>
-
-
-<p>netmapでも同様だったかと思いますが(マルチコアの場合はどうだったっけ&hellip;)、共有のパケットバッファの操作にあたりNetVMではロックを用いません。
-あるキュー(Rx/Tx)は同時にホスト内またはゲストから操作しないように構成されます(できないのではなくやらない)。
-ある一つのキューに対してロックが必要なケースは以下の場合です。</p>
-
-<ol>
-<li>ホストOS側でそれぞれのコアが同じキューを触ることがある場合</li>
-<li>ゲストOSとホストOSが同じキューを触ることがある場合</li>
-</ol>
-
-
-<p>これらを避けるために、NetVMではコア間で触るキューを分けるようになっています。
-まずNetVMのホストOS側ではコアごとにNICおよびVMとのキューを分けるようになっています。
-これにより1の、同じキューを別々のコア(上で動作するスレッド)が触ることがないようにしています。
-次に、ゲストOS(VM)側のスレッドとホストOS側のスレッドが同じキューを操作するシチュエーション(2)ですが、
-これも1と同様にあるゲストOS(VM)上のスレッドが動くCPUを限定することで対処しています。
-このゲスト上のスレッドも、同様に自分のCPUに割り当てられたキューしか触れないようにすることで実質的に
-いわゆるキューを挟んだconsumer-producerにおいてRX側では「ホストOSのスレッドとしてキューにpush」と
-「VM上のスレッドとしてキューからpop」が一つのCPUで完結することになります(これらは1つのCPU上では同時に実行されないためロックもいらない)。
-このあたりの実装にはKVMのvCPU周りの管理機構をいじくって実現したとのこと。</p>
-
-<p>NetVMではNUMAなマルチコアシステムにおけるメモリの距離とキャッシュの扱いについても考慮が入っています。
-基本的なデザインとして、NetVMでは自分のコアに距離的に近いメモリ領域以外は触らないように構成されています
-(遠いメモリにアクセスするとキャッシュは汚れるは遠いわで良くないよというお話はここでは割愛)。
-これは上記の「キューごとのコア」という構造をベースに作られます。
-まずNetVMではそれぞれのコアごとに触るメモリ領域を分けます (総メモリ量/コア数 == 1つのコアが触るメモリ領域)。
-そしてその各々のメモリ領域に「キューごとのコア」が作られ、ゲスト(VM)と共有されます。
-先に述べたように、Locklessデザインの制約によりあるキューはそれぞれ対応するCPUからしかアクセスされないため、
-あるCPU(とその上で動くホスト/ゲスト上のスレッド)は常に自分から近いメモリ領域のみを触る様になります。
-これは全てのホスト-ゲスト間のみならず、ゲスト-ゲスト間でのパケットのやりとりでも有効であり、最終的に
-NICにパケットを引き渡すまでlocalityを維持したまま通信ができるようになります。</p>
-
-<h1>終わりに</h1>
-
-<p>ここではNSDI&#8217;14より&#8221;NetVM&#8221;の紹介をしました。こういったNFV的なプラットフォームはネットワークベンダやキャリアなど各社それぞれ様々な構想を出しており、それらの一例として作り方まで踏み込んだものとして面白い論文ですが、なによりもチューニングに結構命かけているあたりがこのNetVMの面白いところです。</p>
-
-<h2>今回ボツになった他の候補者達</h2>
-
-<p>最後に、今回読もうと思ってた論文の候補たちを並べておきます。</p>
-
-<ol>
-<li>Unikernels: Library Operating Systems for the Cloud (ATC&#8217;13)</li>
-<li>HACK: Hierarchical ACKs for Efﬁcient Wireless Medium Utilization (ATC&#8217;14)</li>
-<li>Hyper-Switch: A Scalable Software Virtual Switching Architecture (ATC&#8217;13)</li>
-<li>Rekindling Network Protocol Innovation with User-Level Stacks (SIGCOMM Computer Communication Review)</li>
-</ol>
-
-
-<p>Unikernelsは@suma90h さんが既にシステム系論文輪読会で<a href="http://www.slideshare.net/suma_/reading-unikernels">お読みになってた</a> のでパス。HACKは、無線LAN系 &amp; 今年のATCでのBest Paperということもあって気になっているのですが別枠で読むことに。3や4は、NetVMと同じく&#8221;えすでーえぬ&#8221;とか&#8221;えぬえふぶい&#8221;といった類いに属しそうなのと、先日のIIJ-II セミナーで&#8221;ClickOS and the Art of Network Function Virtualization&#8221;のお話があったので関連文献として上げてみました。</p>
 ]]></content>
   </entry>
   
