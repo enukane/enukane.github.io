@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Research | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/research/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-08-28T09:26:21+09:00</updated>
+  <updated>2015-08-28T09:38:07+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -53,6 +53,7 @@
 <ul>
 <li>ネットワークに所属するデバイスたち: AP, クライアント端末(ノートPC, スマホ e.t.c), スイッチ, ルータ など</li>
 <li>情報: 接続断のイベント, 通信先 など</li>
+<li>Meraki(のサービス側)は, いわゆる無線LANコントローラなのでこれらの情報を常にpolling/収集している</li>
 </ul>
 </li>
 </ul>
