@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>イベント無線LANでのチャネル使用率調査 - #error NO_MONEY</title>
+  <meta name="author" content="n_kane">
+
+  
+  <meta name="description" content="概要 いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。 計測対象 今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/stylesheets/data-table.css" rel="stylesheet" type="text/css" />
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">#error NO_MONEY</a></h1>
+  
+    <h2>/var/crash/n_kane</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="enukane.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="https://github.com/enukane">GitHub</a></li>
+  <li><a href="http://twitter.com/n_kane">Twitter</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">イベント無線LANでのチャネル使用率調査</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-08-31T13:20:55+09:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>1:20 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://enukane.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>概要</h2>
+
+<p>いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。</p>
+
+<h3>計測対象</h3>
+
+<p>今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、定点観測的に収集をしています。</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">イベント              </th>
+<th style="text-align:left;">日             </th>
+<th style="text-align:center;">場所                           </th>
+<th style="text-align:center;"> 固定? </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">なにか                </td>
+<td style="text-align:left;"> 2015/08/02    </td>
+<td style="text-align:center;">どこか                         </td>
+<td style="text-align:center;"> <strong>Y</strong> </td>
+</tr>
+<tr>
+<td style="text-align:left;">コミケ (C88)          </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/15    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/16    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東)    </td>
+<td style="text-align:center;"> <strong>Y</strong> </td>
+</tr>
+<tr>
+<td style="text-align:left;">YAPC::Asia Tokyo 2015 </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">コミティア113         </td>
+<td style="text-align:left;"> 2015/08/30    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(2,3)   </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>チャネル利用率のヒートマップ</h2>
+
+<p>5分毎に区切って、チャネルごとにヒートマップ化したものを並べてみる。</p>
+
+<h3>2015/08/02 あたりのイベント</h3>
+
+<p><img src="/images/2015-08-31/ev0802-util.png" alt="2015-08-02-util" /></p>
+
+<p>客入れ前に設置し撤収前に停止した。</p>
+
+<h3>コミケ (C88)</h3>
+
+<p>コミケでは、1日目および2日目は一般参加、三日目のみサークル参加だったため東 P-18b にて定点観測を実施。
+動的観測の場合、列に並んだあとに観測開始し買い物が終わってビッグサイトから出て国際展示場に行くまでの間のどこかで停止している。</p>
+
+<ul>
+<li>列に並んだ時間 (西)
+
+<ul>
+<li>1日目: 10:15頃</li>
+<li>2日目: 10:10頃</li>
+</ul>
+</li>
+<li>ビッグサイトを出た時間
+
+<ul>
+<li>1日目: 12:50頃</li>
+<li>2日目: 11:10頃</li>
+</ul>
+</li>
+<li>彷徨ったルート (覚えてる範囲で)
+
+<ul>
+<li>1日目: 西(入場) → 東123→東456→西(退場)</li>
+<li>2日目: 西(入場) → 東123→東456→西(ホール)→西(退場)</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>1日目 (2015/08/14)</h4>
+
+<p><img src="/images/2015-08-31/c88-d1.png" alt="2015-08-14-util" /></p>
+
+<h4>2日目 (2015/08/15)</h4>
+
+<p><img src="/images/2015-08-31/c88-d2.png" alt="2015-08-15-util" /></p>
+
+<h4>3日目 (2015/08/16)</h4>
+
+<p><img src="/images/2015-08-31/c88-d3.png" alt="2015-08-16-util" /></p>
+
+<h3>YAPC::Asia Tokyo 2015</h3>
+
+<p>こちらは CONBU チーム (いわゆる Wi-Fi 班)として参加したときのもの. 作業時に邪魔にならない場合、ショルダーバッグにデバイスを入れて彷徨うようにはしていました. が、バックヤードに起きっぱなしの時間も大分あったため有為なデータが取れていない可能性は多々ありそう。</p>
+
+<h4>1日目 (2015/08/21)</h4>
+
+<p><img src="/images/2015-08-31/yapc2015-d1.png" alt="2015-08-21-util" /></p>
+
+<h4>2日目 (2015/08/22)</h4>
+
+<p><img src="/images/2015-08-31/yapc2015-d2.png" alt="2015-08-22-util" /></p>
+
+<h3>コミティア113 (2015/08/30)</h3>
+
+<p><img src="/images/2015-08-31/comitia113.png" alt="2015-08-22-util" /></p>
+
+<h2>考察</h2>
+
+<ul>
+<li>何となく移動が見える
+
+<ul>
+<li>特にビッグサイト(ホール)
+
+<ul>
+<li>5GHz帯 36、48、64、100 chの濃淡
+
+<ul>
+<li>ホールから抜けたかどうかが判断できそう</li>
+</ul>
+</li>
+<li>C88 1日目、2日目の</li>
+</ul>
+</li>
+<li>YAPCの結果を見ても、場所変化には連動している模様</li>
+<li>ただし濃淡の変化 => 移動、ではない</li>
+</ul>
+</li>
+<li>2.4GHz帯側の分布具合
+
+<ul>
+<li>8/2 と YAPCのそれはだいぶ綺麗にみえる
+
+<ul>
+<li>1、6、11 chの中央とそれらの両隣が濃く出ている</li>
+<li>これらのイベントでは、会場内無線LANのコントロールが提供側でそこそこなされていたため？</li>
+<li>野良APまたはクライアントの絶対数の有無?</li>
+</ul>
+</li>
+<li>&ldquo;人の密集度 == 2.4GHz帯側の濃度&rdquo; という仮説
+
+<ul>
+<li>C88 1日目、2日目の2.4GHz と 5GHz の比較より</li>
+<li>ホールを抜けたと思しき時間、帰途についてビッグサイトを出た時間</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>実装</h2>
+
+<p>以下、軽く実装についてメモ</p>
+
+<h3>情報源として用いる情報</h3>
+
+<p>チャネル利用率の算出には iw コマンドの以下のオプションを用いました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% iw wlan0 survey dump</span></code></pre></td></tr></table></div></figure>
+
+
+<p>survey dumpでは以下の様にそのチャネルに移動してからのアクティブ時間(=移動後の経過時間)とビジーだった時間が得られます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Survey data from wlan0
+</span><span class='line'>        frequency:                      2412 MHz [in use]
+</span><span class='line'>        noise:                          -83 dBm
+</span><span class='line'>        channel active time:            35900 ms
+</span><span class='line'>        channel busy time:              24814 ms
+</span><span class='line'>        channel transmit time:          0 ms</span></code></pre></td></tr></table></div></figure>
+
+
+<p>今回用いたデバイス(WLP-UC-AG300, チップはRT2870)の場合、この値はソースコード上の以下の部分で計算しています。
+<a href="https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984">https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984</a></p>
+
+<p>なおここでの&#8221;ビジー&#8221;は、送受信またはノイズによりこれらがストップしていたチップの動作時間であり、以下の様な関係式がなりたちます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>channel busy time   = receive time + transmit time + other time
+</span><span class='line'>channel active time = busy time + idle time</span></code></pre></td></tr></table></div></figure>
+
+
+<p>チップによっては transmit time の他に receive time も個別に取り出せるので other つまり 802.11 以外の電波により送受信ができていなかった時間も取れるのですが今回は対象外としました。</p>
+
+<h3>tochkad での記録</h3>
+
+<p>このように取れるチャネル利用率を、パケットキャプチャデバイスの主観部分を担う <a href="https://github.com/enukane/tochka/">tochkad</a> のチャネル遷移部分で取得するようにしました。</p>
+
+<ul>
+<li><a href="https://github.com/enukane/tochka/blob/master/lib/tochka/athsurvey.rb">athsurvey.rb</a></li>
+</ul>
+
+
+<p>tochkadは0.5秒毎にチャネル遷移するので大分短い時間ではありますが、ログ上に以下の様に utilization (利用率)が載るようになります。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[2015-08-02 15:20:43 +0900]     DEBUG: channel moved to 11 from 10 (dur=6510、size=481767780、walk=6062、utilization=59.68 uch=10)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>この利用率は tochka デバイスについている LCD ディスプレイ (tochka-miniui) にも出すようにしています (赤枠部分)</p>
+
+<p><img src="/images/2015-08-31/tochka-miniui.jpg" alt="tochka-miniui" /></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">n_kane</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-08-31T13:20:55+09:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>1:20 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/radio/'>radio</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/" data-via="" data-counturl="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/" title="Previous Post: SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む">&laquo; SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/08/31/event-radio-utilization/">イベント無線LANでのチャネル使用率調査</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/">SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/26/yapc2015/">YAPC2015 に CONBU プロジェクトメンバとして参加してきました</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/01/bimbo-spectrum-analyzer/">貧乏人でもスペアナがしたい!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/28/chokaigi2015-wifi/">Chokaigi 2015 Wi-Fiみてきた</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/802-dot-11'>802.11 (4)</a></li><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (2)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/network'>network (1)</a></li><li><a href='/blog/categories/radio'>radio (1)</a></li><li><a href='/blog/categories/report'>report (1)</a></li><li><a href='/blog/categories/research'>research (2)</a></li><li><a href='/blog/categories/rf'>rf (1)</a></li><li><a href='/blog/categories/tech'>tech (9)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - n_kane -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'enukane';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://enukane.github.io/blog/2015/08/31/event-radio-utilization/';
+        var disqus_url = 'http://enukane.github.io/blog/2015/08/31/event-radio-utilization/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-08-28T09:38:07+09:00</updated>
+  <updated>2015-08-31T18:24:36+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,240 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[イベント無線LANでのチャネル使用率調査]]></title>
+    <link href="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/"/>
+    <updated>2015-08-31T13:20:55+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/08/31/event-radio-utilization</id>
+    <content type="html"><![CDATA[<h2>概要</h2>
+
+<p>いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。</p>
+
+<h3>計測対象</h3>
+
+<p>今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、定点観測的に収集をしています。</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">イベント              </th>
+<th style="text-align:left;">日             </th>
+<th style="text-align:center;">場所                           </th>
+<th style="text-align:center;"> 固定? </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">なにか                </td>
+<td style="text-align:left;"> 2015/08/02    </td>
+<td style="text-align:center;">どこか                         </td>
+<td style="text-align:center;"> <strong>Y</strong> </td>
+</tr>
+<tr>
+<td style="text-align:left;">コミケ (C88)          </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/15    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/16    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東)    </td>
+<td style="text-align:center;"> <strong>Y</strong> </td>
+</tr>
+<tr>
+<td style="text-align:left;">YAPC::Asia Tokyo 2015 </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">コミティア113         </td>
+<td style="text-align:left;"> 2015/08/30    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(2,3)   </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>チャネル利用率のヒートマップ</h2>
+
+<p>5分毎に区切って、チャネルごとにヒートマップ化したものを並べてみる。</p>
+
+<h3>2015/08/02 あたりのイベント</h3>
+
+<p><img src="/images/2015-08-31/ev0802-util.png" alt="2015-08-02-util" /></p>
+
+<p>客入れ前に設置し撤収前に停止した。</p>
+
+<h3>コミケ (C88)</h3>
+
+<p>コミケでは、1日目および2日目は一般参加、三日目のみサークル参加だったため東 P-18b にて定点観測を実施。
+動的観測の場合、列に並んだあとに観測開始し買い物が終わってビッグサイトから出て国際展示場に行くまでの間のどこかで停止している。</p>
+
+<ul>
+<li>列に並んだ時間 (西)
+
+<ul>
+<li>1日目: 10:15頃</li>
+<li>2日目: 10:10頃</li>
+</ul>
+</li>
+<li>ビッグサイトを出た時間
+
+<ul>
+<li>1日目: 12:50頃</li>
+<li>2日目: 11:10頃</li>
+</ul>
+</li>
+<li>彷徨ったルート (覚えてる範囲で)
+
+<ul>
+<li>1日目: 西(入場) → 東123→東456→西(退場)</li>
+<li>2日目: 西(入場) → 東123→東456→西(ホール)→西(退場)</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>1日目 (2015/08/14)</h4>
+
+<p><img src="/images/2015-08-31/c88-d1.png" alt="2015-08-14-util" /></p>
+
+<h4>2日目 (2015/08/15)</h4>
+
+<p><img src="/images/2015-08-31/c88-d2.png" alt="2015-08-15-util" /></p>
+
+<h4>3日目 (2015/08/16)</h4>
+
+<p><img src="/images/2015-08-31/c88-d3.png" alt="2015-08-16-util" /></p>
+
+<h3>YAPC::Asia Tokyo 2015</h3>
+
+<p>こちらは CONBU チーム (いわゆる Wi-Fi 班)として参加したときのもの. 作業時に邪魔にならない場合、ショルダーバッグにデバイスを入れて彷徨うようにはしていました. が、バックヤードに起きっぱなしの時間も大分あったため有為なデータが取れていない可能性は多々ありそう。</p>
+
+<h4>1日目 (2015/08/21)</h4>
+
+<p><img src="/images/2015-08-31/yapc2015-d1.png" alt="2015-08-21-util" /></p>
+
+<h4>2日目 (2015/08/22)</h4>
+
+<p><img src="/images/2015-08-31/yapc2015-d2.png" alt="2015-08-22-util" /></p>
+
+<h3>コミティア113 (2015/08/30)</h3>
+
+<p><img src="/images/2015-08-31/comitia113.png" alt="2015-08-22-util" /></p>
+
+<h2>考察</h2>
+
+<ul>
+<li>何となく移動が見える
+
+<ul>
+<li>特にビッグサイト(ホール)
+
+<ul>
+<li>5GHz帯 36、48、64、100 chの濃淡
+
+<ul>
+<li>ホールから抜けたかどうかが判断できそう</li>
+</ul>
+</li>
+<li>C88 1日目、2日目の</li>
+</ul>
+</li>
+<li>YAPCの結果を見ても、場所変化には連動している模様</li>
+<li>ただし濃淡の変化 => 移動、ではない</li>
+</ul>
+</li>
+<li>2.4GHz帯側の分布具合
+
+<ul>
+<li>8/2 と YAPCのそれはだいぶ綺麗にみえる
+
+<ul>
+<li>1、6、11 chの中央とそれらの両隣が濃く出ている</li>
+<li>これらのイベントでは、会場内無線LANのコントロールが提供側でそこそこなされていたため？</li>
+<li>野良APまたはクライアントの絶対数の有無?</li>
+</ul>
+</li>
+<li>&ldquo;人の密集度 == 2.4GHz帯側の濃度&rdquo; という仮説
+
+<ul>
+<li>C88 1日目、2日目の2.4GHz と 5GHz の比較より</li>
+<li>ホールを抜けたと思しき時間、帰途についてビッグサイトを出た時間</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>実装</h2>
+
+<p>以下、軽く実装についてメモ</p>
+
+<h3>情報源として用いる情報</h3>
+
+<p>チャネル利用率の算出には iw コマンドの以下のオプションを用いました。</p>
+
+<pre><code>% iw wlan0 survey dump
+</code></pre>
+
+<p>survey dumpでは以下の様にそのチャネルに移動してからのアクティブ時間(=移動後の経過時間)とビジーだった時間が得られます。</p>
+
+<pre><code>Survey data from wlan0
+        frequency:                      2412 MHz [in use]
+        noise:                          -83 dBm
+        channel active time:            35900 ms
+        channel busy time:              24814 ms
+        channel transmit time:          0 ms
+</code></pre>
+
+<p>今回用いたデバイス(WLP-UC-AG300, チップはRT2870)の場合、この値はソースコード上の以下の部分で計算しています。
+<a href="https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984">https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984</a></p>
+
+<p>なおここでの&#8221;ビジー&#8221;は、送受信またはノイズによりこれらがストップしていたチップの動作時間であり、以下の様な関係式がなりたちます。</p>
+
+<pre><code>channel busy time   = receive time + transmit time + other time
+channel active time = busy time + idle time
+</code></pre>
+
+<p>チップによっては transmit time の他に receive time も個別に取り出せるので other つまり 802.11 以外の電波により送受信ができていなかった時間も取れるのですが今回は対象外としました。</p>
+
+<h3>tochkad での記録</h3>
+
+<p>このように取れるチャネル利用率を、パケットキャプチャデバイスの主観部分を担う <a href="https://github.com/enukane/tochka/">tochkad</a> のチャネル遷移部分で取得するようにしました。</p>
+
+<ul>
+<li><a href="https://github.com/enukane/tochka/blob/master/lib/tochka/athsurvey.rb">athsurvey.rb</a></li>
+</ul>
+
+
+<p>tochkadは0.5秒毎にチャネル遷移するので大分短い時間ではありますが、ログ上に以下の様に utilization (利用率)が載るようになります。</p>
+
+<pre><code>[2015-08-02 15:20:43 +0900]     DEBUG: channel moved to 11 from 10 (dur=6510、size=481767780、walk=6062、utilization=59.68 uch=10)
+</code></pre>
+
+<p>この利用率は tochka デバイスについている LCD ディスプレイ (tochka-miniui) にも出すようにしています (赤枠部分)</p>
+
+<p><img src="/images/2015-08-31/tochka-miniui.jpg" alt="tochka-miniui" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む]]></title>
@@ -802,72 +1036,6 @@
 データをまとめてみた.</p>
 
 <p><iframe src="http://www.slideshare.net/slideshow/embed_code/47427093 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2015-02-23 Released Embulk-input-pcapng-files 0.1.0]]></title>
-    <link href="http://enukane.github.io/blog/2015/02/24/2015-02-23-embulk-input-pcapng-files/"/>
-    <updated>2015-02-24T09:07:52+09:00</updated>
-    <id>http://enukane.github.io/blog/2015/02/24/2015-02-23-embulk-input-pcapng-files</id>
-    <content type="html"><![CDATA[<p>pcapngファイルを読み込むembulk inputプラグインの新しいのをリリースしました.</p>
-
-<ul>
-<li><a href="https://rubygems.org/gems/embulk-input-pcapng-files">embulk-input-pcapng-files</a></li>
-<li><a href="https://github.com/enukane/embulk-input-pcapng-files">enukane/embulk-input-pcapng-files</a></li>
-</ul>
-
-
-<p>embulk 0.4.X系ではプラグイン体系が0.3.X系のそれとは異なっているため,
-これまで晒していた<a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">embulk-plugin-input-pcapng-files</a>
-が動作しません. これを修正したものが上記になります.</p>
-
-<p>使い方自体は変わらず, 以下の様なconfig.ymlを書いて実行すると&hellip;</p>
-
-<pre><code>exec: {}
-in:
-  type: pcapng_files
-  paths: [ /Users/enukane/Desktop/emtestpcap/ ]
-  threads: 2
-  schema:
-    - { name: frame.number,                 type: long }
-    - { name: frame.time_epoch,             type: long }
-    - { name: frame.len,                    type: long }
-    - { name: radiotap.length,              type: long }
-    - { name: radiotap.mactime,             type: long }
-    - { name: radiotap.flags.preamble,      type: long }
-    - { name: radiotap.flags.wep,           type: long }
-    - { name: radiotap.flags.fcs,           type: long }
-    - { name: radiotap.flags.shortgi,       type: long }
-    - { name: radiotap.datarate,            type: long }
-    - { name: radiotap.channel.freq,        type: long }
-    - { name: radiotap.channel.type.ofdm,   type: long }
-    - { name: radiotap.dbm_antsignal,       type: long }
-    - { name: radiotap.dbm_antnoise,        type: long }
-    - { name: radiotap.xchannel,            type: long }
-    - { name: radiotap.xchannel.freq,       type: long }
-    - { name: radiotap.xchannel.type.ofdm,  type: long }
-    - { name: radiotap.mcs.gi,              type: long }
-    - { name: radiotap.mcs.bw,              type: long }
-    - { name: radiotap.mcs.index,           type: long }
-    - { name: wlan.fc.type_subtype,         type: long }
-    - { name: wlan.ta,                      type: string }
-    - { name: wlan.ra,                      type: string }
-    - { name: wlan.sa,                      type: string }
-    - { name: wlan.da,                      type: string }
-out:
-  type: mysql
-  host: localhost
-  user: testuser
-  password: testpassword
-  database: testdb
-  table: testtb
-  mode: insert
-</code></pre>
-
-<p>こんな感じにoutput先 (今回の場合はMySQL) にデータをはき出してくれます.</p>
-
-<p><img src="/images/2015-02-23-pcapngmysql.png" alt="pcapng-mysql" /></p>
 ]]></content>
   </entry>
   
