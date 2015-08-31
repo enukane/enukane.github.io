@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-08-31T18:25:38+09:00</updated>
+  <updated>2015-08-31T18:33:27+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[イベント無線LANでのチャネル使用率調査]]></title>
     <link href="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/"/>
-    <updated>2015-08-31T13:20:55+09:00</updated>
+    <updated>2015-08-31T18:20:55+09:00</updated>
     <id>http://enukane.github.io/blog/2015/08/31/event-radio-utilization</id>
     <content type="html"><![CDATA[<h2>概要</h2>
 
@@ -187,7 +187,15 @@
 
 <ul>
 <li>C88 1日目、2日目の2.4GHz と 5GHz の比較より</li>
-<li>ホールを抜けたと思しき時間、帰途についてビッグサイトを出た時間</li>
+<li>ホールから出て 5GHz 帯側が明らかに薄くなっていて、2.4GHz帯側はそこまで落ちない時間がある
+
+<ul>
+<li>まだ列に並んでると思しき時間</li>
+<li>ホール間移動と思しき時間</li>
+<li>帰途についてビッグサイトを出たと思しき時間</li>
+</ul>
+</li>
+<li>モバイルルータの影響？</li>
 </ul>
 </li>
 </ul>
@@ -1035,7 +1043,7 @@ channel active time = busy time + idle time
 どんな感じなのか偵察に行くついでにいつもの如くパケットあつめて
 データをまとめてみた.</p>
 
-<p>{% slideshare 47427093 %}</p>
+<p><iframe src="http://www.slideshare.net/slideshow/embed_code/47427093 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
 ]]></content>
   </entry>
   
