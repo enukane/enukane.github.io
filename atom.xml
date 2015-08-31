@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-08-31T18:33:27+09:00</updated>
+  <updated>2015-08-31T18:35:21+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -165,11 +165,11 @@
 <li>ホールから抜けたかどうかが判断できそう</li>
 </ul>
 </li>
-<li>C88 1日目、2日目の</li>
+<li>C88 1日目、2日目の移動に連動していそう?</li>
 </ul>
 </li>
 <li>YAPCの結果を見ても、場所変化には連動している模様</li>
-<li>ただし濃淡の変化 => 移動、ではない</li>
+<li>Wi-Fiをオフされた時も同様の状況になりうるので一概に逆は言えないが&hellip;.</li>
 </ul>
 </li>
 <li>2.4GHz帯側の分布具合
