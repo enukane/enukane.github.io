@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2015-08-31T18:24:36+09:00</updated>
+  <updated>2015-08-31T18:25:38+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -1035,7 +1035,7 @@ channel active time = busy time + idle time
 どんな感じなのか偵察に行くついでにいつもの如くパケットあつめて
 データをまとめてみた.</p>
 
-<p><iframe src="http://www.slideshare.net/slideshow/embed_code/47427093 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
+<p>{% slideshare 47427093 %}</p>
 ]]></content>
   </entry>
   
