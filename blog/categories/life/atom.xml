@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Life | #error NO_MONEY]]></title>
+  <link href="http://enukane.github.io/blog/categories/life/atom.xml" rel="self"/>
+  <link href="http://enukane.github.io/"/>
+  <updated>2016-09-13T08:40:31+09:00</updated>
+  <id>http://enukane.github.io/</id>
+  <author>
+    <name><![CDATA[n_kane]]></name>
+    <email><![CDATA[enukane@glenda9.org]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[2015-01-25 Softbank から IIJmio にかえた]]></title>
+    <link href="http://enukane.github.io/blog/2015/01/25/2015-01-25-iijmiosim/"/>
+    <updated>2015-01-25T11:38:08+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/01/25/2015-01-25-iijmiosim</id>
+    <content type="html"><![CDATA[<p><a href="/blog/2015/01/16/simfreeornot/">前回</a>の検討の続き。結局乗り換えた。
+ファミリーシェアプラン(7GB)で, 音声SIM 1枚(MicroSIM)とデータ専用SIM 1枚(NanoSIM).</p>
+
+<p><img src="/images/P_20150125_120530.jpg" alt="sim" /></p>
+
+<p>転出・転入の手続き周りでかかった費用は以下の通り.</p>
+
+<ul>
+<li>MNP転出側 (Softbank)
+
+<ul>
+<li>解約手数料: 0円
+
+<ul>
+<li>2年1ヶ月目ちょうどだったので</li>
+</ul>
+</li>
+<li>MNP転出手数料: 3000円</li>
+</ul>
+</li>
+<li>MNP転入側 (IIJmio)
+
+<ul>
+<li>初期費用: 0円
+
+<ul>
+<li>後述するASUSのキャンペーン</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>その他:
+
+<ul>
+<li>端末購入費用: 28940円
+
+<ul>
+<li>ASUS ZenFone 5 A500KL-RD16</li>
+<li>IIJmio音声通話パックと同時購入でパッケージ費用 3000円がタダになるキャンペーンやってた</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>月額費用はこんな感じになるはず (予定)</p>
+
+<ul>
+<li>合計: 3520円 (税込)
+
+<ul>
+<li>月額費用: 2560円
+
+<ul>
+<li>ファミリーシェアプラン 7GB</li>
+</ul>
+</li>
+<li>音声通話機能付帯料: 700円</li>
+</ul>
+</li>
+</ul>
+
+
+<p>&ldquo;@t.vodafone.ne.jp&#8221;なメアドが消滅したので, 何人かとのリンクが消滅したことになる.
+数年来連絡とってないひとばっかりなので問題にはならないでしょう, きっと.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SIM Freeか否か]]></title>
+    <link href="http://enukane.github.io/blog/2015/01/16/simfreeornot/"/>
+    <updated>2015-01-16T21:03:33+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/01/16/simfreeornot</id>
+    <content type="html"><![CDATA[<p>今月がちょうど Softbank の2年縛りが切れる月なのでそろそろどうするか考えてみる.
+&ldquo;@vodafone.ne.jp&#8221;なアドレスに執着が無ければ移るかも.</p>
+
+<h3>直近4ヶ月の Softbank 請求金額</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">月</th>
+<th style="text-align:right;">1月(計算中)</th>
+<th style="text-align:right;">12月</th>
+<th style="text-align:right;">11月</th>
+<th style="text-align:right;">10月</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">合計</td>
+<td style="text-align:right;"> 8232 </td>
+<td style="text-align:right;"> 9214 </td>
+<td style="text-align:right;"> 9344 </td>
+<td style="text-align:right;"> 8847 </td>
+</tr>
+<tr>
+<td style="text-align:center;">基本使用料</td>
+<td style="text-align:right;"> 934 </td>
+<td style="text-align:right;"> 934 </td>
+<td style="text-align:right;"> 934 </td>
+<td style="text-align:right;"> 934 </td>
+</tr>
+<tr>
+<td style="text-align:center;">パケット定額料等</td>
+<td style="text-align:right;"> 5200 </td>
+<td style="text-align:right;"> 5200 </td>
+<td style="text-align:right;"> 5200 </td>
+<td style="text-align:right;">  5200 </td>
+</tr>
+<tr>
+<td style="text-align:center;">通話料</td>
+<td style="text-align:right;"> 400 </td>
+<td style="text-align:right;"> 340 </td>
+<td style="text-align:right;"> 460 </td>
+<td style="text-align:right;"> 0 </td>
+</tr>
+<tr>
+<td style="text-align:center;">オプションサービス料</td>
+<td style="text-align:right;"> 1685</td>
+<td style="text-align:right;"> 1250 </td>
+<td style="text-align:right;"> 1250 </td>
+<td style="text-align:right;"> 1250 </td>
+</tr>
+<tr>
+<td style="text-align:center;">その他</td>
+<td style="text-align:right;"> 13 </td>
+<td style="text-align:right;"> 13 </td>
+<td style="text-align:right;"> 13 </td>
+<td style="text-align:right;"> 13 </td>
+</tr>
+<tr>
+<td style="text-align:center;">端末台(月月割引き後) </td>
+<td style="text-align:right;"> 0 </td>
+<td style="text-align:right;">  1018 </td>
+<td style="text-align:right;"> 1018 </td>
+<td style="text-align:right;"> 1018 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 消費税 </td>
+<td style="text-align:right;">  - </td>
+<td style="text-align:right;"> 459 </td>
+<td style="text-align:right;"> 469 </td>
+<td style="text-align:right;"> 432 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 通信料 </td>
+<td style="text-align:right;"> - </td>
+<td style="text-align:right;"> 2.55GB </td>
+<td style="text-align:right;"> 5.08GB </td>
+<td style="text-align:right;"> 3.23GB</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>オプションサービス料はこんな感じらしい。削ったつもりだったけど、まだいろいろついてんね。</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">月</th>
+<th style="text-align:right;"> 2月 </th>
+<th style="text-align:right;"> 1月 </th>
+<th style="text-align:right;"> 10〜12月 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">合計</td>
+<td style="text-align:right;"> 1750 </td>
+<td style="text-align:right;"> 1685 </td>
+<td style="text-align:right;"> 1250 </td>
+</tr>
+<tr>
+<td style="text-align:center;">S!ベーシックパック(i) </td>
+<td style="text-align:right;"> 300 </td>
+<td style="text-align:right;"> 300 </td>
+<td style="text-align:right;"> 300 </td>
+</tr>
+<tr>
+<td style="text-align:center;">Wi-FIスポット(割引後) </td>
+<td style="text-align:right;"> 0 </td>
+<td style="text-align:right;"> 0 </td>
+<td style="text-align:right;"> 0 </td>
+</tr>
+<tr>
+<td style="text-align:center;">あんしん保証パック(i) </td>
+<td style="text-align:right;"> 475 </td>
+<td style="text-align:right;"> 475 </td>
+<td style="text-align:right;"> 475 </td>
+</tr>
+<tr>
+<td style="text-align:center;">テザリングオプション(割引後) </td>
+<td style="text-align:right;"> 500 </td>
+<td style="text-align:right;"> 435 </td>
+<td style="text-align:right;"> 0 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> iphone基本パック </td>
+<td style="text-align:right;"> 475 </td>
+<td style="text-align:right;"> 475 </td>
+<td style="text-align:right;"> 475 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>少なくとも以下のオプションは削れそう。950円のマイナス。</p>
+
+<ul>
+<li>iPhone基本パック (475)</li>
+<li>あんしん保証パック (475)</li>
+</ul>
+
+
+<p>削ったとして結局のところ1月換算で行くなら,  8232 - 950 + 460 (消費税概算) = 7700ぐらい。
+なお、MNP転出手数料は2000円。</p>
+
+<h3>みおふぉんに変えてみるプラン</h3>
+
+<p>とりあえず端末代は度外視するとして。</p>
+
+<ul>
+<li>ファミリーシェアプラン 7GB : 2560円/月 (税抜)</li>
+<li>SIMカード(一枚目): 音声通話機能付き 700円 (税抜)</li>
+<li>SIMカード(二枚目): データ専用 0円(税抜き)</li>
+</ul>
+
+
+<p>初期費用、通話料、ユニバーサルサービス料は含まれてない。音声通話は20円/o.5分(税抜き)とのこと。</p>
+
+<ul>
+<li>初期費用: 3000
+
+<ul>
+<li>ここに転出手数料 2000</li>
+</ul>
+</li>
+<li>通話料: ソフトバンク側と同じく400円程度とする</li>
+<li>ユニバーサルサービス料: 誤差なので含めない</li>
+</ul>
+
+
+<p>これで合計金額を取ると, 月4000円ぐらい？</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[2014年のまとめをちらほらと、2015年にやりたいことをだらだらと]]></title>
+    <link href="http://enukane.github.io/blog/2015/01/01/newyear/"/>
+    <updated>2015-01-01T09:24:55+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/01/01/newyear</id>
+    <content type="html"><![CDATA[<h1>2014年のまとめ</h1>
+
+<ul>
+<li>犬吠埼に初日の出観に行った。寒かった。</li>
+<li>C85のデータをまとめて公開した: <a href="http://www.slideshare.net/enukane/comiket-space-29723016">&ldquo;続・ららら、(無線的に)素敵なComiket Space&rdquo;</a></li>
+<li>部署名が一昨年のそれに戻った</li>
+<li>某文学系イベントでの無線LANネットワーク構築の準備・面倒見その他をした</li>
+<li>会社が神保町から飯田橋に引っ越した</li>
+<li>ロードバイクかった。2013年に比べるとあんまり乗ってない。</li>
+<li>秋山郷ハッカソン行ってきた。成果はない。星空綺麗だった。</li>
+<li>夏のコミケで<a href="https://github.com/enukane/c86book">&ldquo;キャプチャリング802.11&rdquo;</a>を出した</li>
+<li>C86のデータをまとめて公開した: <a href="http://www.slideshare.net/enukane/comiket-space-c86">続々・ららら、(無線的に)素敵なComiket Space C86</a></li>
+<li>某ゲーム系イベントで一部無線LAN周りの面倒見をした</li>
+<li>亀有から王子に引っ越した。githubで管理しようと思ってたけどうまくできなかった ( <a href="https://github.com/enukane/HIKKOSHI2014">残骸</a> )</li>
+<li>冬コミ落ちて、引越を言い訳に何もしなかった (最終日だけデバイス動かした)</li>
+<li>リバウンドしてた (一昨年の体重に戻った)</li>
+</ul>
+
+
+<h1>2015年にやりたいこと</h1>
+
+<ul>
+<li>夏コミ(C88)に受かりますように</li>
+<li>C87で取ったデータの分析 &amp; まとめ。手法の再検討とC88でのリトライをしたい。</li>
+<li>&ldquo;Linuxのブートプロセスをみる&#8221;のPlan 9版を書いてコミケで出したい</li>
+<li>9load の EFI対応? とりあえず勉強するところから&hellip;</li>
+<li>OSvでNetVM的なことできないか遊んでみる</li>
+<li>DPDKで遊びたい</li>
+<li>オレオレネットワークツールをきちんとまとめよう</li>
+<li>集めたデータ分析の方向の掘り下げ方を考えよう</li>
+<li>通信速度その他を図りながらの計測デバイスを作ってみる</li>
+<li>Raspberry Piで玄関先カメラシステム作りたい</li>
+<li>ネットワーク自動化周りをきちんと自宅に組み込む, 生活で使う</li>
+<li>自宅鯖環境の復旧</li>
+<li>監視系の作り込みをしよう</li>
+<li>こんどこそちゃんと背景透過なグレンダさんステッカーを作る</li>
+<li>忍耐を要求しないHTML/JavaScriptというよりWebUIの書き方・常道を勉強する</li>
+<li>論文読んだらきちんとまとめと所感を書く習慣をつけよう</li>
+<li>手元でてきとーに作ったツールをきちんと見直してどこかに放り込んでおく習慣をつけよう</li>
+<li>2016年の初日の出は犬吠埼か九十九里のどこかで観たい</li>
+<li>電子書籍になれよう</li>
+<li>やせよう ( -15kg )</li>
+<li>もっと馬鹿をやろう. Keep it stupid, simple (誤字にあらず)</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

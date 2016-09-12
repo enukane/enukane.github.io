@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DIY電波望遠鏡 - 部材検討 - #error NO_MONEY</title>
+  <meta name="author" content="n_kane">
+
+  
+  <meta name="description" content="HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる. 参考 マイ・電波望遠鏡とExcelで電波地図を作る
+宇宙の電波をキャッチしてみよう
+BSアンテナ電波望遠鏡で 7/22 部分日食を観察しよう
+ＢＳアンテナを用いた電波望遠鏡の教育利用 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://enukane.github.io/blog/2015/09/08/2015-09-08-radio-telescope/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/stylesheets/data-table.css" rel="stylesheet" type="text/css" />
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">#error NO_MONEY</a></h1>
+  
+    <h2>/var/crash/n_kane</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="enukane.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me/index.html">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="https://github.com/enukane">GitHub</a></li>
+  <li><a href="http://twitter.com/n_kane">Twitter</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">DIY電波望遠鏡 - 部材検討</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-09-08T21:36:21+09:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:36 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://enukane.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる.</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/2012_105_10/105_631.pdf">マイ・電波望遠鏡とExcelで電波地図を作る</a></li>
+<li><a href="https://www.jarl.org/Japanese/1_Tanoshimo/1-3_Ham-Fair/2010/radio-observation.pdf">宇宙の電波をキャッチしてみよう</a></li>
+<li><a href="http://tenkyo.net/kaiho/pdf/2009_05/2009-05-03.pdf">BSアンテナ電波望遠鏡で 7/22 部分日食を観察しよう</a></li>
+<li><a href="http://www.nhao.jp/research/annual_report/docs/ar2011-2.pdf">ＢＳアンテナを用いた電波望遠鏡の教育利用</a></li>
+<li><a href="http://ir.lib.osaka-kyoiku.ac.jp/dspace/bitstream/123456789/5789/1/KJ382300123.pdf">簡単なアンテナによる銀河電波の測定</a></li>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/1989/pdf/19890707.pdf">簡単な電波望遠鏡による低周波電波天文学</a></li>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/1993/pdf/19930402c.pdf">私の電波望遠鏡 - II</a></li>
+<li><a href="http://www.rtl-sdr.com/tag/simple_ra/">RTL-SDR FOR BUDGET RADIO ASTRONOMY</a></li>
+<li><a href="http://www.britastro.org/radio/projects/An_SDR_Radio_Telescope.pdf">Experiments with a Software Defined Radio Telescope</a></li>
+</ul>
+
+
+<h2>構成</h2>
+
+<p><img src="/images/2015-09-08/plan-diy-radio-telescope.png" alt="2015-09-08-diy-rt" /></p>
+
+<ul>
+<li>SDRデバイスはRaspiで操作</li>
+<li><a href="https://github.com/patchvonbraun/simple_ra">simple_ra</a>を利用して観測・記録
+
+<ul>
+<li>場合によっては改造すること</li>
+<li>要ソース読み</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>必要な物品</h2>
+
+<h3>既に持っているもの</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">部材</th>
+<th style="text-align:center;">品目</th>
+<th style="text-align:right;">値段</th>
+<th style="text-align:center;">個数</th>
+<th style="text-align:left;">用途</th>
+<th style="text-align:left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">SDRデバイス</td>
+<td style="text-align:center;"> DVB-T+DAB+FM USB チューナ</td>
+<td style="text-align:right;"> 1,420 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SDR用 </td>
+<td style="text-align:left;"> BNC端子へのアダプタ必要, できればこっちを使う </td>
+</tr>
+<tr>
+<td style="text-align:center;"></td>
+<td style="text-align:center;"> HackRF One </td>
+<td style="text-align:right;"> $300.00 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SDR用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:center;">BNC-SMA コネクタ </td>
+<td style="text-align:center;"> ??? </td>
+<td style="text-align:right;"> ??? </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> DVB-T用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:center;">同軸ケーブル(SMA) </td>
+<td style="text-align:center;"> ??? </td>
+<td style="text-align:right;"> ??? </td>
+<td style="text-align:center;"> 2 </td>
+<td style="text-align:left;"> SDRデバイスへの接続用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>買うべき物</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">部材</th>
+<th style="text-align:center;">品目(候補)</th>
+<th style="text-align:right;">値段</th>
+<th style="text-align:center;">個数</th>
+<th style="text-align:left;">用途</th>
+<th style="text-align:left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;"> BS/CSアンテナ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B00XZX39EI">東芝 BCA-453A</a> </td>
+<td style="text-align:right;"> 4,580 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> 受信用 </td>
+<td style="text-align:left;"> 周波数範囲(11.7〜12.75GHz), ビックカメラの方が<a href="http://www.biccamera.com/bc/disp/CSfGoodsPage_001.jsp?GOODS_NO=3118307">安いかも</a> </td>
+</tr>
+<tr>
+<td style="text-align:center;"> アンテナ取り付け金具 </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B006ZCFGH4">DXアンテナ VM321H</a> </td>
+<td style="text-align:right;"> 3,730 (送料込み) </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> ベランダ取り付け用 </td>
+<td style="text-align:left;"> 9cm幅, 7cm下がる様な金具 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> BS/CS ブースタ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B000TW9D66">日本アンテナ CSB-C25-SP</a> </td>
+<td style="text-align:right;"> 2,370 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> アンプ用 </td>
+<td style="text-align:left;"> 電源供給が必要, 場合に依っては電源付きのブースタの方がいいかも </td>
+</tr>
+<tr>
+<td style="text-align:center;"> パワーインサータ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B008R6A3QK">プレクス PX-LNBADAPTOR</a> </td>
+<td style="text-align:right;"> 1,980 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> アンテナへの電源供給(ラインブースタの場合) </td>
+<td style="text-align:left;"> 分配器が必要 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 分配器 </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B003WSYUNK">HORIC BCUV-971</a> </td>
+<td style="text-align:right;"> 880 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> パワーインサータと入出力の結合 </td>
+<td style="text-align:left;"> 40cmのケーブル x 2が付属 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> すき間ケーブル(F形) </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B005025U0I">SOLIDCABLE #3232E/0.3</a> </td>
+<td style="text-align:right;"> 1080 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> 窓通す用 </td>
+<td style="text-align:left;"> 30cm </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 同軸ケーブル(F形) </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B00IJ2H1Z8">S-4C-FB</a> </td>
+<td style="text-align:right;"> 570 </td>
+<td style="text-align:center;"> 2 </td>
+<td style="text-align:left;"> 外用 + 中用 </td>
+<td style="text-align:left;"> 1.5m </td>
+</tr>
+<tr>
+<td style="text-align:center;"> F-SMA変換アダプタ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B0057STB8W">F-SMAP 変換アダプタ</a> </td>
+<td style="text-align:right;"> 563 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SMA同軸ケーブルへの接続用 </td>
+<td style="text-align:left;"> SMAJ-SMAJが必要 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>合計 17000円弱?</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">n_kane</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-09-08T21:36:21+09:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:36 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/radio/'>radio</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://enukane.github.io/blog/2015/09/08/2015-09-08-radio-telescope/" data-via="" data-counturl="http://enukane.github.io/blog/2015/09/08/2015-09-08-radio-telescope/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/08/31/event-radio-utilization/" title="Previous Post: イベント無線LANでのチャネル使用率調査">&laquo; イベント無線LANでのチャネル使用率調査</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/09/08/2015-09-08-radio-telescope/">DIY電波望遠鏡 - 部材検討</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/31/event-radio-utilization/">イベント無線LANでのチャネル使用率調査</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/">SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/26/yapc2015/">YAPC2015 に CONBU プロジェクトメンバとして参加してきました</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/01/bimbo-spectrum-analyzer/">貧乏人でもスペアナがしたい!</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/802-dot-11'>802.11 (4)</a></li><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (2)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/network'>network (1)</a></li><li><a href='/blog/categories/radio'>radio (2)</a></li><li><a href='/blog/categories/report'>report (1)</a></li><li><a href='/blog/categories/research'>research (2)</a></li><li><a href='/blog/categories/rf'>rf (1)</a></li><li><a href='/blog/categories/tech'>tech (10)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - n_kane -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'enukane';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://enukane.github.io/blog/2015/09/08/2015-09-08-radio-telescope/';
+        var disqus_url = 'http://enukane.github.io/blog/2015/09/08/2015-09-08-radio-telescope/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

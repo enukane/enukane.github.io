@@ -1,0 +1,1211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
+  <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
+  <link href="http://enukane.github.io/"/>
+  <updated>2016-09-13T08:40:31+09:00</updated>
+  <id>http://enukane.github.io/</id>
+  <author>
+    <name><![CDATA[n_kane]]></name>
+    <email><![CDATA[enukane@glenda9.org]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[DIY電波望遠鏡 - 部材検討]]></title>
+    <link href="http://enukane.github.io/blog/2015/09/08/2015-09-08-radio-telescope/"/>
+    <updated>2015-09-08T21:36:21+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/09/08/2015-09-08-radio-telescope</id>
+    <content type="html"><![CDATA[<p>HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる.</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/2012_105_10/105_631.pdf">マイ・電波望遠鏡とExcelで電波地図を作る</a></li>
+<li><a href="https://www.jarl.org/Japanese/1_Tanoshimo/1-3_Ham-Fair/2010/radio-observation.pdf">宇宙の電波をキャッチしてみよう</a></li>
+<li><a href="http://tenkyo.net/kaiho/pdf/2009_05/2009-05-03.pdf">BSアンテナ電波望遠鏡で 7/22 部分日食を観察しよう</a></li>
+<li><a href="http://www.nhao.jp/research/annual_report/docs/ar2011-2.pdf">ＢＳアンテナを用いた電波望遠鏡の教育利用</a></li>
+<li><a href="http://ir.lib.osaka-kyoiku.ac.jp/dspace/bitstream/123456789/5789/1/KJ382300123.pdf">簡単なアンテナによる銀河電波の測定</a></li>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/1989/pdf/19890707.pdf">簡単な電波望遠鏡による低周波電波天文学</a></li>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/1993/pdf/19930402c.pdf">私の電波望遠鏡 - II</a></li>
+<li><a href="http://www.rtl-sdr.com/tag/simple_ra/">RTL-SDR FOR BUDGET RADIO ASTRONOMY</a></li>
+<li><a href="http://www.britastro.org/radio/projects/An_SDR_Radio_Telescope.pdf">Experiments with a Software Defined Radio Telescope</a></li>
+</ul>
+
+
+<h2>構成</h2>
+
+<p><img src="/images/2015-09-08/plan-diy-radio-telescope.png" alt="2015-09-08-diy-rt" /></p>
+
+<ul>
+<li>SDRデバイスはRaspiで操作</li>
+<li><a href="https://github.com/patchvonbraun/simple_ra">simple_ra</a>を利用して観測・記録
+
+<ul>
+<li>場合によっては改造すること</li>
+<li>要ソース読み</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>必要な物品</h2>
+
+<h3>既に持っているもの</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">部材</th>
+<th style="text-align:center;">品目</th>
+<th style="text-align:right;">値段</th>
+<th style="text-align:center;">個数</th>
+<th style="text-align:left;">用途</th>
+<th style="text-align:left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">SDRデバイス</td>
+<td style="text-align:center;"> DVB-T+DAB+FM USB チューナ</td>
+<td style="text-align:right;"> 1,420 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SDR用 </td>
+<td style="text-align:left;"> BNC端子へのアダプタ必要, できればこっちを使う </td>
+</tr>
+<tr>
+<td style="text-align:center;"></td>
+<td style="text-align:center;"> HackRF One </td>
+<td style="text-align:right;"> $300.00 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SDR用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:center;">BNC-SMA コネクタ </td>
+<td style="text-align:center;"> ??? </td>
+<td style="text-align:right;"> ??? </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> DVB-T用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:center;">同軸ケーブル(SMA) </td>
+<td style="text-align:center;"> ??? </td>
+<td style="text-align:right;"> ??? </td>
+<td style="text-align:center;"> 2 </td>
+<td style="text-align:left;"> SDRデバイスへの接続用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>買うべき物</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">部材</th>
+<th style="text-align:center;">品目(候補)</th>
+<th style="text-align:right;">値段</th>
+<th style="text-align:center;">個数</th>
+<th style="text-align:left;">用途</th>
+<th style="text-align:left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;"> BS/CSアンテナ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B00XZX39EI">東芝 BCA-453A</a> </td>
+<td style="text-align:right;"> 4,580 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> 受信用 </td>
+<td style="text-align:left;"> 周波数範囲(11.7〜12.75GHz), ビックカメラの方が<a href="http://www.biccamera.com/bc/disp/CSfGoodsPage_001.jsp?GOODS_NO=3118307">安いかも</a> </td>
+</tr>
+<tr>
+<td style="text-align:center;"> アンテナ取り付け金具 </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B006ZCFGH4">DXアンテナ VM321H</a> </td>
+<td style="text-align:right;"> 3,730 (送料込み) </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> ベランダ取り付け用 </td>
+<td style="text-align:left;"> 9cm幅, 7cm下がる様な金具 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> BS/CS ブースタ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B000TW9D66">日本アンテナ CSB-C25-SP</a> </td>
+<td style="text-align:right;"> 2,370 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> アンプ用 </td>
+<td style="text-align:left;"> 電源供給が必要, 場合に依っては電源付きのブースタの方がいいかも </td>
+</tr>
+<tr>
+<td style="text-align:center;"> パワーインサータ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B008R6A3QK">プレクス PX-LNBADAPTOR</a> </td>
+<td style="text-align:right;"> 1,980 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> アンテナへの電源供給(ラインブースタの場合) </td>
+<td style="text-align:left;"> 分配器が必要 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 分配器 </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B003WSYUNK">HORIC BCUV-971</a> </td>
+<td style="text-align:right;"> 880 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> パワーインサータと入出力の結合 </td>
+<td style="text-align:left;"> 40cmのケーブル x 2が付属 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> すき間ケーブル(F形) </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B005025U0I">SOLIDCABLE #3232E/0.3</a> </td>
+<td style="text-align:right;"> 1080 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> 窓通す用 </td>
+<td style="text-align:left;"> 30cm </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 同軸ケーブル(F形) </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B00IJ2H1Z8">S-4C-FB</a> </td>
+<td style="text-align:right;"> 570 </td>
+<td style="text-align:center;"> 2 </td>
+<td style="text-align:left;"> 外用 + 中用 </td>
+<td style="text-align:left;"> 1.5m </td>
+</tr>
+<tr>
+<td style="text-align:center;"> F-SMA変換アダプタ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B0057STB8W">F-SMAP 変換アダプタ</a> </td>
+<td style="text-align:right;"> 563 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SMA同軸ケーブルへの接続用 </td>
+<td style="text-align:left;"> SMAJ-SMAJが必要 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>合計 17000円弱?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[イベント無線LANでのチャネル使用率調査]]></title>
+    <link href="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/"/>
+    <updated>2015-08-31T18:20:55+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/08/31/event-radio-utilization</id>
+    <content type="html"><![CDATA[<h2>概要</h2>
+
+<p>いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。</p>
+
+<h3>計測対象</h3>
+
+<p>今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、定点観測的に収集をしています。</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">イベント              </th>
+<th style="text-align:left;">日             </th>
+<th style="text-align:center;">場所                           </th>
+<th style="text-align:center;"> 固定? </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">なにか                </td>
+<td style="text-align:left;"> 2015/08/02    </td>
+<td style="text-align:center;">どこか                         </td>
+<td style="text-align:center;"> <strong>Y</strong> </td>
+</tr>
+<tr>
+<td style="text-align:left;">コミケ (C88)          </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/15    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/16    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(東)    </td>
+<td style="text-align:center;"> <strong>Y</strong> </td>
+</tr>
+<tr>
+<td style="text-align:left;">YAPC::Asia Tokyo 2015 </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">                      </td>
+<td style="text-align:left;"> 2015/08/14    </td>
+<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+<tr>
+<td style="text-align:left;">コミティア113         </td>
+<td style="text-align:left;"> 2015/08/30    </td>
+<td style="text-align:center;">東京ビッグサイト ホール(2,3)   </td>
+<td style="text-align:center;"> N     </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>チャネル利用率のヒートマップ</h2>
+
+<p>5分毎に区切って、チャネルごとにヒートマップ化したものを並べてみる。</p>
+
+<h3>2015/08/02 あたりのイベント</h3>
+
+<p><img src="/images/2015-08-31/ev0802-util.png" alt="2015-08-02-util" /></p>
+
+<h3>コミケ (C88)</h3>
+
+<p>コミケでは、1日目および2日目は一般参加、三日目のみサークル参加だったため東 P-18b にて定点観測を実施。
+動的観測の場合、列に並んだあとに観測開始し買い物が終わってビッグサイトから出て国際展示場に行くまでの間のどこかで停止している。</p>
+
+<ul>
+<li>列に並んだ時間 (西)
+
+<ul>
+<li>1日目: 10:15頃</li>
+<li>2日目: 10:10頃</li>
+</ul>
+</li>
+<li>ビッグサイトを出た時間
+
+<ul>
+<li>1日目: 12:50頃</li>
+<li>2日目: 11:10頃</li>
+</ul>
+</li>
+<li>彷徨ったルート (覚えてる範囲で)
+
+<ul>
+<li>1日目: 西(入場) → 東123→東456→西(退場)</li>
+<li>2日目: 西(入場) → 東123→東456→西(ホール)→西(退場)</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>1日目 (2015/08/14)</h4>
+
+<p><img src="/images/2015-08-31/c88-d1.png" alt="2015-08-14-util" /></p>
+
+<h4>2日目 (2015/08/15)</h4>
+
+<p><img src="/images/2015-08-31/c88-d2.png" alt="2015-08-15-util" /></p>
+
+<h4>3日目 (2015/08/16)</h4>
+
+<p><img src="/images/2015-08-31/c88-d3.png" alt="2015-08-16-util" /></p>
+
+<h3>YAPC::Asia Tokyo 2015</h3>
+
+<p>こちらは CONBU チーム (いわゆる Wi-Fi 班)として参加したときのもの. 作業時に邪魔にならない場合、ショルダーバッグにデバイスを入れて彷徨うようにはしていました. が、バックヤードに起きっぱなしの時間も大分あったため有為なデータが取れていない可能性は多々ありそう。</p>
+
+<h4>1日目 (2015/08/21)</h4>
+
+<p><img src="/images/2015-08-31/yapc2015-d1.png" alt="2015-08-21-util" /></p>
+
+<h4>2日目 (2015/08/22)</h4>
+
+<p><img src="/images/2015-08-31/yapc2015-d2.png" alt="2015-08-22-util" /></p>
+
+<h3>コミティア113 (2015/08/30)</h3>
+
+<p><img src="/images/2015-08-31/comitia113.png" alt="2015-08-22-util" /></p>
+
+<h2>考察</h2>
+
+<ul>
+<li>何となく移動が見える
+
+<ul>
+<li>特にビッグサイト(ホール)
+
+<ul>
+<li>5GHz帯 36、48、64、100 chの濃淡
+
+<ul>
+<li>ホールから抜けたかどうかが判断できそう</li>
+</ul>
+</li>
+<li>C88 1日目、2日目の移動に連動していそう?</li>
+</ul>
+</li>
+<li>YAPCの結果を見ても、場所変化には連動している模様</li>
+<li>Wi-Fiをオフされた時も同様の状況になりうるので一概に逆は言えないが&hellip;.</li>
+</ul>
+</li>
+<li>2.4GHz帯側の分布具合
+
+<ul>
+<li>8/2 と YAPCのそれはだいぶ綺麗にみえる
+
+<ul>
+<li>1、6、11 chの中央とそれらの両隣が濃く出ている</li>
+<li>これらのイベントでは、会場内無線LANのコントロールが提供側でそこそこなされていたため？</li>
+<li>野良APまたはクライアントの絶対数の有無?</li>
+</ul>
+</li>
+<li>&ldquo;人の密集度 == 2.4GHz帯側の濃度&rdquo; という仮説
+
+<ul>
+<li>C88 1日目、2日目の2.4GHz と 5GHz の比較より</li>
+<li>ホールから出て 5GHz 帯側が明らかに薄くなっていて、2.4GHz帯側はそこまで落ちない時間がある
+
+<ul>
+<li>まだ列に並んでると思しき時間</li>
+<li>ホール間移動と思しき時間</li>
+<li>帰途についてビッグサイトを出たと思しき時間</li>
+</ul>
+</li>
+<li>モバイルルータの影響？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>実装</h2>
+
+<p>以下、軽く実装についてメモ</p>
+
+<h3>情報源として用いる情報</h3>
+
+<p>チャネル利用率の算出には iw コマンドの以下のオプションを用いました。</p>
+
+<pre><code>% iw wlan0 survey dump
+</code></pre>
+
+<p>survey dumpでは以下の様にそのチャネルに移動してからのアクティブ時間(=移動後の経過時間)とビジーだった時間が得られます。</p>
+
+<pre><code>Survey data from wlan0
+        frequency:                      2412 MHz [in use]
+        noise:                          -83 dBm
+        channel active time:            35900 ms
+        channel busy time:              24814 ms
+        channel transmit time:          0 ms
+</code></pre>
+
+<p>今回用いたデバイス(WLP-UC-AG300, チップはRT2870)の場合、この値はソースコード上の以下の部分で計算しています。
+<a href="https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984">https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984</a></p>
+
+<p>なおここでの&#8221;ビジー&#8221;は、送受信またはノイズによりこれらがストップしていたチップの動作時間であり、以下の様な関係式がなりたちます。</p>
+
+<pre><code>channel busy time   = receive time + transmit time + other time
+channel active time = busy time + idle time
+</code></pre>
+
+<p>チップによっては transmit time の他に receive time も個別に取り出せるので other つまり 802.11 以外の電波により送受信ができていなかった時間も取れるのですが今回は対象外としました。</p>
+
+<h3>tochkad での記録</h3>
+
+<p>このように取れるチャネル利用率を、パケットキャプチャデバイスの主観部分を担う <a href="https://github.com/enukane/tochka/">tochkad</a> のチャネル遷移部分で取得するようにしました。</p>
+
+<ul>
+<li><a href="https://github.com/enukane/tochka/blob/master/lib/tochka/athsurvey.rb">athsurvey.rb</a></li>
+</ul>
+
+
+<p>tochkadは0.5秒毎にチャネル遷移するので大分短い時間ではありますが、ログ上に以下の様に utilization (利用率)が載るようになります。</p>
+
+<pre><code>[2015-08-02 15:20:43 +0900]     DEBUG: channel moved to 11 from 10 (dur=6510、size=481767780、walk=6062、utilization=59.68 uch=10)
+</code></pre>
+
+<p>この利用率は tochka デバイスについている LCD ディスプレイ (tochka-miniui) にも出すようにしています (赤枠部分)</p>
+
+<p><img src="/images/2015-08-31/tochka-miniui.jpg" alt="tochka-miniui" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む]]></title>
+    <link href="http://enukane.github.io/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/"/>
+    <updated>2015-08-28T09:10:56+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/08/28/sigcomm2015-large-scale-wlan-net</id>
+    <content type="html"><![CDATA[<h2>概要</h2>
+
+<p>リンク: <a href="http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf">http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf</a></p>
+
+<ul>
+<li>SIGCOMM &lsquo;15で発表された論文。Cisco Merakiの人たちが著者。</li>
+<li>Merakiはいわゆるクラウド型無線LANコントローラとAPのセットのサービス。</li>
+<li>自社のサービスを展開している中で収集されたデータのオーバービュー的な文章。</li>
+</ul>
+
+
+<h3>読んだモチベーション</h3>
+
+<ul>
+<li>Wireless Network という題に惹かれて</li>
+<li>お仕事で似た様なことやってるため</li>
+</ul>
+
+
+<h2>内容</h2>
+
+<p><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">落合先生フォーマット</a>に従って並べてみる</p>
+
+<h3>どんなもの？</h3>
+
+<ul>
+<li>Merakiのサービスを提供するに当たって収集したデータの分析を行った
+
+<ul>
+<li>2万台のMeraki AP, 2万個のネットワーク, 5百万クライアント/week の規模</li>
+<li>これらのネットワークにぶら下がる数百万のデバイスの様々な情報が自社のDBに溜まっている
+
+<ul>
+<li>ネットワークに所属するデバイスたち: AP, クライアント端末(ノートPC, スマホ e.t.c), スイッチ, ルータ など</li>
+<li>情報: 接続断のイベント, 通信先 など</li>
+<li>Meraki(のサービス側)は, いわゆる無線LANコントローラなのでこれらの情報を常にpolling/収集している</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>これだけ規模が大きく, 期間も長いと&#8221;無線LANネットワークのトレンド&#8221;的なものが見えてくる
+
+<ul>
+<li>電波的な傾向
+
+<ul>
+<li>他のAP or 802.11以外の干渉</li>
+</ul>
+</li>
+<li>規格上の傾向
+
+<ul>
+<li>2.4 or 5GHz帯への偏り</li>
+<li>802.11g, a, n, acの偏り(利用率の変化)</li>
+<li>チャネル幅の遷移</li>
+<li>ストリーム数の遷移</li>
+</ul>
+</li>
+<li>クライアントの傾向
+
+<ul>
+<li>OSのバリエーション</li>
+<li>信号強度</li>
+</ul>
+</li>
+<li>ネットワークの傾向
+
+<ul>
+<li>いわゆる普通のトラフィック分析</li>
+<li>アプリケーション利用率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>先行研究と比べて何がすごい？何が違う？</h3>
+
+<ul>
+<li>まず数
+
+<ul>
+<li>Gemberら(当該研究者が所属する大学ネットワークや施設のネットワークが対象)、Rodrigら(カンファレンスネットワークが対象)等、干渉の計測やネットワークトラフィックの分析を行った研究は存在する。この論文では、さらに大規模なユーザベースでの分析を行っている。</li>
+<li>Hotspotを対象にそこそこの規模で行った例としては Ghoshら(243000デバイス)、Google (500AP, 30000クライアント)等があるがこれらはあくまでHotspot向けであり、この論文(およびMerakiのサービス)が対象としているオフィス/キャンパスユースではない</li>
+</ul>
+</li>
+<li>計測期間の長さ (とそこから来るデータ量)
+
+<ul>
+<li>おもに他の研究ではショットないし1年内程度のスパンで行ったものが主
+
+<ul>
+<li>短いスパンであれば、個々の技術・計測に関する分析を行った既存研究は多種存在する</li>
+<li>干渉の定性的分析や規格の技術的妥当性の検証という観点で</li>
+</ul>
+</li>
+<li>この論文では5年程度のスパンで見ている
+
+<ul>
+<li>&ldquo;トレンド&#8221;という点に着目できる内容になっている</li>
+<li>さらに取得した、サービスの継続にあたって重要な無線LANインフラ(!=無線LAN only)の情報を分析対象としている</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>技術の手法とかキモはどこ？</h3>
+
+<ul>
+<li>サービスのプロダクション環境に当該情報収集系を組み込んだところ
+
+<ul>
+<li>いわゆる&#8221;実用&#8221;の場でのデータが取れる</li>
+<li>お客さんのバリエーション == &ldquo;実用”の度合い に直結する</li>
+</ul>
+</li>
+<li>観点として「サービスの継続性」のための情報収集に特化しているところ
+
+<ul>
+<li>個々の規格・技術の妥当性検証というよりは、その現れ方・利用され方の観測が主</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>どうやって有効だと検証した？</h3>
+
+<ul>
+<li>Evaluationとして有効性を示す文章はない</li>
+<li>強いて言えば実環境でこんな感じのデータが取れたぜ！という報告に近い?</li>
+</ul>
+
+
+<h3>議論はある？</h3>
+
+<ul>
+<li>(TBD)</li>
+</ul>
+
+
+<h3>次に読むべき論文は？</h3>
+
+<ul>
+<li>GamberらのとGoogleのやつ？
+
+<ul>
+<li><ol type="a">
+<li>Gember, A. Anand, and A. Akella. A comparative study of handheld and non-handheld traffic in campus wi-fi networks.</li>
+</ol>
+</li>
+<li><ol type="a">
+<li>Afanasyev, T. Chen, G. M. Voelker, and A. C. Snoeren. Usage patterns in an urban wifi network</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Senらの&#8221;Cspy: finding the best quality channel without probing&#8221;も気になる
+
+<ul>
+<li><ol type="a">
+<li>Sen, B. Radunovic, J. Lee, and K.-H. Kim. Cspy: finding the best quality channel without probing.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[YAPC2015 に CONBU プロジェクトメンバとして参加してきました]]></title>
+    <link href="http://enukane.github.io/blog/2015/08/26/yapc2015/"/>
+    <updated>2015-08-26T13:57:56+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/08/26/yapc2015</id>
+    <content type="html"><![CDATA[<p>掲題の通り YAPC::Asia Tokyo 2015 に CONBU スタッフ (いわゆる Wi-Fi 班)として参加してきました.
+今年で最後の yapcasia だそうですが, 今回が初参加なので最初で最後になってしまいました.
+なおずっとpingの結果と, スペアナの画面だけ見ていたので内容まできちんと聞き入ってたセッションがありません&hellip;.</p>
+
+<p>CONBUの華々しい活動については, 以下をご覧頂くと良いかと思います.</p>
+
+<ul>
+<li><a href="http://tsuchinoko.dmmlabs.com/?p=2122">YAPC::Asia Tokyo2015 の会場ネットワークをCONBUが構築しました</a></li>
+<li><a href="http://togetter.com/li/864607">CONBUの記録 (YAPC::Asia Tokyo 2015編)</a></li>
+</ul>
+
+
+<h3>感想</h3>
+
+<p>正直なところ, ネットワーク周りに首ったけになっていた結果 Perl のカンファレンスに参加したというよりお祭りに参加してネットワーク敷設のお手伝いしてきた, という印象の方が強かったです. Perl は10年ぐらいまえに CGI で遊んでた頃に書いたっきり全く触ってなかったので perl mongers に取り囲まれてぼっこぼこにされるんじゃないかと震えてたのですが, ruby やら go やら思ったより多様性に溢れていたのが印象的でした. なおちらっと Larry Wall の実物は見ることができました.</p>
+
+<h3>YAPCらしきことをつぶやいてたログ</h3>
+
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">なおこんな感じのアロハ <a href="http://t.co/f1VfP6BJZW">pic.twitter.com/f1VfP6BJZW</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/634266022900400128">2015, 8月 20</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
+
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">コミケ6日目 (@ 東京国際展示場 (東京ビッグサイト/Tokyo Big Sight) - <a href="https://twitter.com/T_Bigsight">@t_bigsight</a> in Koto, 東京都) <a href="https://t.co/9s894TJKVj">https://t.co/9s894TJKVj</a> <a href="http://t.co/lHRKGaVziW">pic.twitter.com/lHRKGaVziW</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/634876158719361024">2015, 8月 21</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>どこまでベラベラしゃべって良いのか判断ついてなかったので, あんまりないね&hellip;</p>
+
+<h3>聞いてたセッション</h3>
+
+<p>かろうじて片耳で聞いてたセッションの一覧はこんな感じ</p>
+
+<ul>
+<li><a href="http://yapcasia.org/2015/talk/show/cc0ec485-1879-11e5-aca1-525412004261">TBD</a> by Matz
+
+<ul>
+<li>streemのお話からセッションに潜入.</li>
+</ul>
+</li>
+<li><a href="http://yapcasia.org/2015/talk/show/523b9508-0d77-11e5-8174-67dc7d574c3a">うっかりをなくす技術</a> by karupanerura</li>
+<li><a href="http://yapcasia.org/2015/talk/show/39a15ad4-0ff5-11e5-a984-d7f07d574c3a">Discover the Microsoft Azure </a> by Tatsuro Hisamori
+
+<ul>
+<li><a href="https://docs.com/hisamori-tatsur/1104">1日140円から始めるIoTデータ分析・可視化</a> はちょっと読んでおきたい</li>
+</ul>
+</li>
+<li><a href="http://yapcasia.org/2015/talk/show/dd8ce20e-fad2-11e4-b6e7-8ab37d574c3a">データ分析基盤を支える技術</a>  by repeatedly
+
+<ul>
+<li>ちょうど後述する「パケット集め」で集めたデータどうするかーという段階だったので一番気になるセッションではありました</li>
+</ul>
+</li>
+<li><a href="http://yapcasia.org/2015/talk/show/81342dae-1351-11e5-ab94-d9f87d574c3a">カンファレンスネットワークの作り方</a> by CONBU
+
+<ul>
+<li>みんな聞きにきたよね?</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Wi-Fi的にはD, Eが激戦区だったのでそのあたりには居たのですがセッションの内容まで覚えてるのはこの辺りの模様&hellip;</p>
+
+<h3>なぜか CONBU は LT で設営デモもやりました</h3>
+
+<p>どこかに映ってる, ヒゲダルマを探そう.</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">CONBUの設営、すばらしい！ <a href="https://twitter.com/hashtag/yapcasia?src=hash">#yapcasia</a> <a href="http://t.co/NNn4sRdc4a">pic.twitter.com/NNn4sRdc4a</a></p>&mdash; 馮　富久/FUON Tomihisa (@tomihisa) <a href="https://twitter.com/tomihisa/status/635003905504481280">2015, 8月 22</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
+
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">突然目の前に無線APが生えてきた <a href="https://twitter.com/hashtag/yapcasia?src=hash">#yapcasia</a> <a href="http://t.co/UWcSzvRv08">pic.twitter.com/UWcSzvRv08</a></p>&mdash; ぷりんたいは求職中です、 (@spacepro_be) <a href="https://twitter.com/spacepro_be/status/635004222291902464">2015, 8月 22</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
+
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr"><a href="https://twitter.com/n_kane">@n_kane</a> <a href="https://twitter.com/kichi_robo">@kichi_robo</a> 未公開シーンです、ご査収ください <a href="http://t.co/mcF5xBafUJ">pic.twitter.com/mcF5xBafUJ</a></p>&mdash; ぷりんたいは求職中です、 (@spacepro_be) <a href="https://twitter.com/spacepro_be/status/635038626984816640">2015, 8月 22</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<h3>パケット集め</h3>
+
+<p>一週間前にあったコミケでも持ち込んだ下記のデバイスを YAPC でも持ち込んで, バッグのなかに入れつつうろうろしてました.
+(下記はコミケの時の写真)</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">あとスペースの裏側で、今日も今日とて無線LAN(802.11)のパケットキャプチャしてます。今回書きたかった&amp;次回書きたい、キャプチャデバイス→embulk→DB→解析系の一連の流れ、に食わせる最初の一歩の子になります。 <a href="http://t.co/TeMvyv3whl">pic.twitter.com/TeMvyv3whl</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/632757086124838912">2015, 8月 16</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>最終的に, 単純なpcapngのデータサイズとしては 3GBほど, フレーム数にして 10M フレーム, となかなか良い感じにあつまりました.
+会場Wi-Fi, 日中は定常的に 100Mbps ほど出ていたとのことでフレーム飛び交いまくってたはずなのでやっぱり集まりが良いようです.</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">朝方postgreにぶち込み終わってたはずのC88とYAPC2015で集めたフレームたちのヘッダデータ、良い感じの分量だ。さすがにYAPCでは通信が盛んだったのか二日分の割にコミケのそれより倍多い。 <a href="http://t.co/9wvHk3nrDV">pic.twitter.com/9wvHk3nrDV</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/636094941878292480">2015, 8月 25</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<h3>終わりに</h3>
+
+<p>最初で最後の YAPC::Asia Tokyo にネットワークスタッフとして参加, そしてそっちに夢中になっててあんまり本編を聞いていないとかどういうこっちゃという感じではありますが, それはそうとしてそれなりに楽しまさせていただきました. 関係者の皆様ありがとうございました.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[貧乏人でもスペアナがしたい!]]></title>
+    <link href="http://enukane.github.io/blog/2015/05/01/bimbo-spectrum-analyzer/"/>
+    <updated>2015-05-01T12:51:00+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/05/01/bimbo-spectrum-analyzer</id>
+    <content type="html"><![CDATA[<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
+
+<p>新品を買うと, 数十万〜数百万だし, ヤフオク等の中古品でも明らかなジャンク品でないものに限ったとしても十〜数十万ぐらいは行ってしまう.</p>
+
+<p>やりたいことができて, こわしても気落ちしない程度のモノが欲しいので探してみたメモ.</p>
+
+<p>やりたいことベースでのおおよその要件は以下の通り
+(貧乏人にしては盛りすぎだ!生意気だ!等のコメントはNO)</p>
+
+<ul>
+<li>(MUST) 無線LANの周波数帯がカバーできること
+
+<ul>
+<li>2.4 &amp; 5GHz帯</li>
+</ul>
+</li>
+<li>(MUST) PCと連携できること
+
+<ul>
+<li>(SHOULD) 外部のスクリプト等で扱える形式でデータがエクスポートできること</li>
+<li>(MAY) あるいは, 独自形式でもかまわないが仕様が公開されていること</li>
+</ul>
+</li>
+<li>(MUST) 数十万円後半は絶対にNO
+
+<ul>
+<li>10〜20万ぐらいが限度</li>
+</ul>
+</li>
+<li>(MAY) RBW と sweeptimeの両立がそこそこ成り立つこと
+
+<ul>
+<li>(MAY) できれば20/40MHzスパンに対して200〜300kHzのRBWで数百ms程度が望ましい (秒はかからない程度であれば)</li>
+</ul>
+</li>
+<li>(MAY) できれば普通のスペアナと同じような汎用性
+
+<ul>
+<li>スペアナのお勉強用に使えること</li>
+</ul>
+</li>
+<li>(MAY) Mac向けのアプリがあること
+
+<ul>
+<li>(MAY) あるいはUNIX系からアクセス可能なインタフェース(ライブラリ/API etc)が用意されていること</li>
+</ul>
+</li>
+<li>(MAY) USBバスパワーで動くこと</li>
+<li>(MAY) 携帯可能な電源仕様, 形状, 重さであること</li>
+</ul>
+
+
+<p>おおよそ2つの側面があって, きちんとしたスペアナ買ってお勉強したいというのと, 今までやってきている無線LANキャプチャに織り交ぜたいという2つの方向からの要求が混ざっている. 分けた方がいいような気はする.</p>
+
+<h2>候補になりそうな人たち</h2>
+
+<p>中古のスペアナをヤフオクで探すのは継続するとして, ハンディに使えそうな子達.</p>
+
+<ul>
+<li>Giga ST</li>
+<li>RF Explorer 6G Combo</li>
+<li>Aaronia AG
+
+<ul>
+<li>SPECTRAN HF-6060V4</li>
+<li>SPECTRAN HF-6060V4 X</li>
+</ul>
+</li>
+<li>Metageek WiSpy DBx</li>
+<li>Signal Hound
+
+<ul>
+<li>USB-SA124B</li>
+<li>BB60C</li>
+</ul>
+</li>
+<li>Tektronix RSA306</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">機種</th>
+<th style="text-align:right;">お値段</th>
+<th style="text-align:center;">周波数レンジ</th>
+<th style="text-align:left;">RBW</th>
+<th>スイープ時間</th>
+<th>アプリ対応OS</th>
+<th> export可? </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">GigaSt v5c</td>
+<td style="text-align:right;">29,000 (税, 送料込み)</td>
+<td style="text-align:center;">3 - 12000MHz</td>
+<td style="text-align:left;">15/30/180 KHz</td>
+<td>500ms? (SPAN:100MHz, RBW:180KHz)</td>
+<td>Windows</td>
+<td> 形式不明 </td>
+</tr>
+<tr>
+<td style="text-align:left;">RF Explorer 6G Combo</td>
+<td style="text-align:right;">43,800 (税込み)</td>
+<td style="text-align:center;">15 - 2700MHz, 4850 - 6100 MHz</td>
+<td style="text-align:left;"> 2.6 - 812 kHz </td>
+<td> 200ms? (Span: 60MHz, 600KHz) </td>
+<td>Windows, Mac(?) </td>
+<td> XML/CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">SPECTRAN HF-6060V4</td>
+<td style="text-align:right;"> €999.95 (129,384) </td>
+<td style="text-align:center;"> 10MHz - 6GHz </td>
+<td style="text-align:left;"> 3kHz - 50MHz </td>
+<td> 200ms (Span: 20MHz, RBW: 300kHz) </td>
+<td> Windows, Linux, Mac </td>
+<td> CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">SPECTRAN HF-6060V4 X</td>
+<td style="text-align:right;"> €999.95 (129,384) </td>
+<td style="text-align:center;"> 10MHz - 6GHz </td>
+<td style="text-align:left;"> 3kHz - 50MHz </td>
+<td> 200ms (Span: 20MHz, RBW: 300kHz) </td>
+<td> Windows, Linux, Mac </td>
+<td> CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">WiSpy DBx</td>
+<td style="text-align:right;"> $1,149 (136,834) </td>
+<td style="text-align:center;"> 2.4GHz帯, 5GHz帯 </td>
+<td style="text-align:left;"> 500ms (Span: 95MHz, RBW: 333KHz) </td>
+<td> 500ms or 1s ? </td>
+<td>Windows, Mac </td>
+<td> sqlite DB </td>
+</tr>
+<tr>
+<td style="text-align:left;">USB-SA124B</td>
+<td style="text-align:right;"> $1,995 (238,386) </td>
+<td style="text-align:center;"> 100kHz - 12.4GHz </td>
+<td style="text-align:left;"> 100Hz - 250KHz, 6MHz </td>
+<td> </td>
+<td> Windows </td>
+<td> ? </td>
+</tr>
+<tr>
+<td style="text-align:left;">BB60C</td>
+<td style="text-align:right;"> $2,879 (342,860) </td>
+<td style="text-align:center;"> 9kHz - 6GHz </td>
+<td style="text-align:left;"> 10khz </td>
+<td> 24GHz/sec </td>
+<td> Windows </td>
+<td> ? </td>
+</tr>
+<tr>
+<td style="text-align:left;">RSA306</td>
+<td style="text-align:right;">434,000</td>
+<td style="text-align:center;">9kHz - 6.2GHz</td>
+<td style="text-align:left;"> 10Hz - 10MHz </td>
+<td> 100us (Span: 400MHz, RBW: 300KHz) </td>
+<td> Windows </td>
+<td> CSV </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>諸々の前提</h3>
+
+<ul>
+<li>とりあえず無線LANターゲットなので, スパンとして20/40/80/160MHzがありうる
+
+<ul>
+<li>OFDMの各キャリアは312.5KHz間隔</li>
+</ul>
+</li>
+<li>RBWと掃引時間の関係: sweeptime [s] = (k * span [Hz]) / (RBW [Hz])<sup>2</sup>
+
+<ul>
+<li>掃引時間はRBWの二乗に反比例</li>
+<li>掃引時間は周波数スパンに比例</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>候補</h2>
+
+<h3>GigaSt v5c</h3>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="http://www.wa.commufa.jp/gigast/GigaSt5/GigaSt-v5.html">http://www.wa.commufa.jp/gigast/GigaSt5/GigaSt-v5.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=3vLZrA0e8EY">https://www.youtube.com/watch?v=3vLZrA0e8EY</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>安い! (送料込みで3万円以下)</li>
+<li>USBバスパワー駆動</li>
+<li>内部的にはシリアル(VCP) &amp; コントロール等々のドキュメントはそろってるので他OSでも触るのは簡単そう</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>ケースはないので自分で用意</li>
+<li>「グラフデータ保存機能」でどんな形式がサポートされてるか</li>
+<li>注文ウィンドウがよく分からない (受付してない時期がある?)</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>RF Explorer 6G Combo / WiFi Combo</h2>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="http://rfexplorer.com/combo-specs/">http://rfexplorer.com/combo-specs/</a></li>
+<li><a href="https://www.youtube.com/watch?v=3ZhdcUJanCI">https://www.youtube.com/watch?v=3ZhdcUJanCI</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>コンパクト</li>
+<li>そこそこお安い(5万内)</li>
+<li>千石電商でも売っているので手には入れやすい</li>
+<li>デバイスにLCDがついてる</li>
+<li>バッテリー付き(16時間+ぐらいは動くらしい)</li>
+<li>こちらも内部的にはシリアルっぽいのでコマンド叩けばいろいろ遊べる (<a href="https://code.google.com/p/rfexplorer/">rfexplorer</a>)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>2700MHz〜4850MHzの間は計測不可
+
+<ul>
+<li>とはいっても今のところ使い道はない</li>
+</ul>
+</li>
+<li>基本となるアプリ(<a href="http://rfexplorer.com/touchstone/">touchstone</a>)は無料だけど, 一部のアプリが有料 ($49)
+
+<ul>
+<li>有料版(PRO)でないとxml/csvへのエクスポート機能がない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Aaronia SPECTRAN HF-6060V4 / HF-6060V4 X</h2>
+
+<ul>
+<li>参考
+
+<ul>
+<li><a href="http://www.aaronia.com/products/spectrum-analyzers/HF-6060-V4-RF-Spectrum-Analyzer/">SPECTRAN HF-6060 V4</a></li>
+<li><a href="http://www.aaronia.com/products/spectrum-analyzers/HF-6060-V4-X-USB-remote-Analyzer/">SPECTRAN HF-6060 V4 X</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>V4はいわゆるハンドヘルド版で, V4 Xがデスクトップ向け.</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li><a href="http://www.aaronia.com/products/software/">MCS</a>なるアプリが無料, Win/Mac/Linuxをそれぞれサポートしてる</li>
+<li>V4ハンドヘルド版は単体で動作可能</li>
+<li>サポートしてる周波数帯は基本的に連続 (どこかで途切れてる可能性はあるが)</li>
+<li>悪くない価格 (11万程度)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>V4 XがUSBバスパワーだけでは動かない. 動いたら完璧だったのに&hellip;
+
+<ul>
+<li>モバイルバッテリーでは無理だろうが, DCなバッテリー + 電源ケーブル調達でなんとかなりそうではある</li>
+</ul>
+</li>
+<li>V4ハンドヘルド版の動作時間は?</li>
+<li>V4とV4 Xの機能面での差は?
+
+<ul>
+<li>LCD, ジョグダイヤルの有無</li>
+<li>付属アンテナ:</li>
+<li>HyperLOG EMC directional LogPer antenna: 7060 vs なし</li>
+<li>OmniLOG 90200 radial isotropic antenna: なし vs あり</li>
+<li>Xのみ: マーカの数unlimited, 複数デバイス操作可, スイープポイント無限等々
+
+<ul>
+<li>Xの方にだけPRO版ソフト?とやらが付いてくるらしいが?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>WiSpy DBx</h2>
+
+<ul>
+<li>参考
+
+<ul>
+<li><a href="http://www.metageek.com/products/wi-spy/">WiSpy</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>「無線LAN &amp; スペアナ」でググると一番最初に出てくるデファクトスタンダード品みたいなもの.</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li>無線LANに特化
+
+<ul>
+<li>AP(SSID)一覧との紐付けが標準で存在している</li>
+<li>「チャネル:周波数」の変換</li>
+</ul>
+</li>
+<li>Macのアプリがある (Channalyzer)</li>
+<li>kismetが出してる<a href="https://www.kismetwireless.net/spectools/">spectools</a>を使えばLinuxでも動きそう</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>スペアナと見たときに, 細かいことがあまりできない
+
+<ul>
+<li>細かいパラメータがいじれない</li>
+<li>無線LAN以外にはあまり使えなさそう
+
+<ul>
+<li>無線LAN特化のスペアナという立ち位置</li>
+<li>現状無線LAN以外に使う予定はないが, 勉強用なので諸々のパラメータは弄りたい</li>
+</ul>
+</li>
+<li>5GHz帯は細かくチャネルごとに見れない
+
+<ul>
+<li>2.4GHz帯はチャネル毎に見れる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>その割には値段が高い (13万ぐらい)</li>
+</ul>
+</li>
+</ul>
+
+
+<p>スイープの性能については以下の通り. 見てる幅により固定になっている.</p>
+
+<ul>
+<li>2.4GHz 全体
+
+<ul>
+<li>Span: 95.310MHz ( 2400 - 2495 MHz )</li>
+<li>RBW: 333.3 KHz</li>
+<li>スイープ時間: 500ms?</li>
+</ul>
+</li>
+<li>2.4GHz各チャネル (例としてチャネル 1)
+
+<ul>
+<li>Span: 424MHz ( 2400 - 2424 MHz )</li>
+<li>RBW: 100kHz</li>
+<li>スイープ時間: 500ms?</li>
+</ul>
+</li>
+<li>5GHz
+
+<ul>
+<li>Span: 676.7 MHz ( 5160 - 5836 MHz )</li>
+<li>RBW: 150.0 KHz</li>
+<li>スイープ時間: 1s?</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Signal Hound USB-SA124B / BB60C</h2>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="https://signalhound.com/products/bb60c/">BB60C</a></li>
+<li><a href="https://signalhound.com/products/usb-sa124b/">USB-SA124B</a></li>
+<li><a href="https://www.youtube.com/watch?v=OWrp4M-T2r0">BBC60 Demo and Remote</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL3IOktxB0nG5baFmDHwiZrb284akt6n9K">SA-Series Videos</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>スぺアナというよりはHackRFとかUSRPみたいなSDRデバイス + スペアナができるアプリという感じ</li>
+<li>BB60Cに至っては24GHz/sec sweep speed (>= 10kHz RBW)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>お値段は微妙 (RSA306に手が届きそうな値段)</li>
+<li>スペアナというよりSDR. これかうならHackRF買った方がよさそうな気はする.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Tektronix RSA306</h2>
+
+<ul>
+<li><a href="http://jp.tek.com/spectrum-analyzer/rsa306-0">RSA306型USBスペクトラム・アナライザ</a></li>
+</ul>
+
+
+<p>Tektronixが出した「USBリアルタイムスペクトラムアナライザ」</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li>反応めっちゃはやい
+
+<ul>
+<li>40MHz幅内ならRBW 120KHzぐらいまでならだいぶぬるぬる表示する</li>
+</ul>
+</li>
+<li>ソフトはタダ (基本部分は, という条件付きだが)</li>
+<li>USB3.0ポート一つで制御・電源供給</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>お値段
+
+<ul>
+<li>とはいえこの性能比で考えれば破格. 単純に予算の問題</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

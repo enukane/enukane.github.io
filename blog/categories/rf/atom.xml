@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rf | #error NO_MONEY]]></title>
+  <link href="http://enukane.github.io/blog/categories/rf/atom.xml" rel="self"/>
+  <link href="http://enukane.github.io/"/>
+  <updated>2016-09-13T08:40:31+09:00</updated>
+  <id>http://enukane.github.io/</id>
+  <author>
+    <name><![CDATA[n_kane]]></name>
+    <email><![CDATA[enukane@glenda9.org]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[貧乏人でもスペアナがしたい!]]></title>
+    <link href="http://enukane.github.io/blog/2015/05/01/bimbo-spectrum-analyzer/"/>
+    <updated>2015-05-01T12:51:00+09:00</updated>
+    <id>http://enukane.github.io/blog/2015/05/01/bimbo-spectrum-analyzer</id>
+    <content type="html"><![CDATA[<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
+
+<p>新品を買うと, 数十万〜数百万だし, ヤフオク等の中古品でも明らかなジャンク品でないものに限ったとしても十〜数十万ぐらいは行ってしまう.</p>
+
+<p>やりたいことができて, こわしても気落ちしない程度のモノが欲しいので探してみたメモ.</p>
+
+<p>やりたいことベースでのおおよその要件は以下の通り
+(貧乏人にしては盛りすぎだ!生意気だ!等のコメントはNO)</p>
+
+<ul>
+<li>(MUST) 無線LANの周波数帯がカバーできること
+
+<ul>
+<li>2.4 &amp; 5GHz帯</li>
+</ul>
+</li>
+<li>(MUST) PCと連携できること
+
+<ul>
+<li>(SHOULD) 外部のスクリプト等で扱える形式でデータがエクスポートできること</li>
+<li>(MAY) あるいは, 独自形式でもかまわないが仕様が公開されていること</li>
+</ul>
+</li>
+<li>(MUST) 数十万円後半は絶対にNO
+
+<ul>
+<li>10〜20万ぐらいが限度</li>
+</ul>
+</li>
+<li>(MAY) RBW と sweeptimeの両立がそこそこ成り立つこと
+
+<ul>
+<li>(MAY) できれば20/40MHzスパンに対して200〜300kHzのRBWで数百ms程度が望ましい (秒はかからない程度であれば)</li>
+</ul>
+</li>
+<li>(MAY) できれば普通のスペアナと同じような汎用性
+
+<ul>
+<li>スペアナのお勉強用に使えること</li>
+</ul>
+</li>
+<li>(MAY) Mac向けのアプリがあること
+
+<ul>
+<li>(MAY) あるいはUNIX系からアクセス可能なインタフェース(ライブラリ/API etc)が用意されていること</li>
+</ul>
+</li>
+<li>(MAY) USBバスパワーで動くこと</li>
+<li>(MAY) 携帯可能な電源仕様, 形状, 重さであること</li>
+</ul>
+
+
+<p>おおよそ2つの側面があって, きちんとしたスペアナ買ってお勉強したいというのと, 今までやってきている無線LANキャプチャに織り交ぜたいという2つの方向からの要求が混ざっている. 分けた方がいいような気はする.</p>
+
+<h2>候補になりそうな人たち</h2>
+
+<p>中古のスペアナをヤフオクで探すのは継続するとして, ハンディに使えそうな子達.</p>
+
+<ul>
+<li>Giga ST</li>
+<li>RF Explorer 6G Combo</li>
+<li>Aaronia AG
+
+<ul>
+<li>SPECTRAN HF-6060V4</li>
+<li>SPECTRAN HF-6060V4 X</li>
+</ul>
+</li>
+<li>Metageek WiSpy DBx</li>
+<li>Signal Hound
+
+<ul>
+<li>USB-SA124B</li>
+<li>BB60C</li>
+</ul>
+</li>
+<li>Tektronix RSA306</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">機種</th>
+<th style="text-align:right;">お値段</th>
+<th style="text-align:center;">周波数レンジ</th>
+<th style="text-align:left;">RBW</th>
+<th>スイープ時間</th>
+<th>アプリ対応OS</th>
+<th> export可? </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">GigaSt v5c</td>
+<td style="text-align:right;">29,000 (税, 送料込み)</td>
+<td style="text-align:center;">3 - 12000MHz</td>
+<td style="text-align:left;">15/30/180 KHz</td>
+<td>500ms? (SPAN:100MHz, RBW:180KHz)</td>
+<td>Windows</td>
+<td> 形式不明 </td>
+</tr>
+<tr>
+<td style="text-align:left;">RF Explorer 6G Combo</td>
+<td style="text-align:right;">43,800 (税込み)</td>
+<td style="text-align:center;">15 - 2700MHz, 4850 - 6100 MHz</td>
+<td style="text-align:left;"> 2.6 - 812 kHz </td>
+<td> 200ms? (Span: 60MHz, 600KHz) </td>
+<td>Windows, Mac(?) </td>
+<td> XML/CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">SPECTRAN HF-6060V4</td>
+<td style="text-align:right;"> €999.95 (129,384) </td>
+<td style="text-align:center;"> 10MHz - 6GHz </td>
+<td style="text-align:left;"> 3kHz - 50MHz </td>
+<td> 200ms (Span: 20MHz, RBW: 300kHz) </td>
+<td> Windows, Linux, Mac </td>
+<td> CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">SPECTRAN HF-6060V4 X</td>
+<td style="text-align:right;"> €999.95 (129,384) </td>
+<td style="text-align:center;"> 10MHz - 6GHz </td>
+<td style="text-align:left;"> 3kHz - 50MHz </td>
+<td> 200ms (Span: 20MHz, RBW: 300kHz) </td>
+<td> Windows, Linux, Mac </td>
+<td> CSV </td>
+</tr>
+<tr>
+<td style="text-align:left;">WiSpy DBx</td>
+<td style="text-align:right;"> $1,149 (136,834) </td>
+<td style="text-align:center;"> 2.4GHz帯, 5GHz帯 </td>
+<td style="text-align:left;"> 500ms (Span: 95MHz, RBW: 333KHz) </td>
+<td> 500ms or 1s ? </td>
+<td>Windows, Mac </td>
+<td> sqlite DB </td>
+</tr>
+<tr>
+<td style="text-align:left;">USB-SA124B</td>
+<td style="text-align:right;"> $1,995 (238,386) </td>
+<td style="text-align:center;"> 100kHz - 12.4GHz </td>
+<td style="text-align:left;"> 100Hz - 250KHz, 6MHz </td>
+<td> </td>
+<td> Windows </td>
+<td> ? </td>
+</tr>
+<tr>
+<td style="text-align:left;">BB60C</td>
+<td style="text-align:right;"> $2,879 (342,860) </td>
+<td style="text-align:center;"> 9kHz - 6GHz </td>
+<td style="text-align:left;"> 10khz </td>
+<td> 24GHz/sec </td>
+<td> Windows </td>
+<td> ? </td>
+</tr>
+<tr>
+<td style="text-align:left;">RSA306</td>
+<td style="text-align:right;">434,000</td>
+<td style="text-align:center;">9kHz - 6.2GHz</td>
+<td style="text-align:left;"> 10Hz - 10MHz </td>
+<td> 100us (Span: 400MHz, RBW: 300KHz) </td>
+<td> Windows </td>
+<td> CSV </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>諸々の前提</h3>
+
+<ul>
+<li>とりあえず無線LANターゲットなので, スパンとして20/40/80/160MHzがありうる
+
+<ul>
+<li>OFDMの各キャリアは312.5KHz間隔</li>
+</ul>
+</li>
+<li>RBWと掃引時間の関係: sweeptime [s] = (k * span [Hz]) / (RBW [Hz])<sup>2</sup>
+
+<ul>
+<li>掃引時間はRBWの二乗に反比例</li>
+<li>掃引時間は周波数スパンに比例</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>候補</h2>
+
+<h3>GigaSt v5c</h3>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="http://www.wa.commufa.jp/gigast/GigaSt5/GigaSt-v5.html">http://www.wa.commufa.jp/gigast/GigaSt5/GigaSt-v5.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=3vLZrA0e8EY">https://www.youtube.com/watch?v=3vLZrA0e8EY</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>安い! (送料込みで3万円以下)</li>
+<li>USBバスパワー駆動</li>
+<li>内部的にはシリアル(VCP) &amp; コントロール等々のドキュメントはそろってるので他OSでも触るのは簡単そう</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>ケースはないので自分で用意</li>
+<li>「グラフデータ保存機能」でどんな形式がサポートされてるか</li>
+<li>注文ウィンドウがよく分からない (受付してない時期がある?)</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>RF Explorer 6G Combo / WiFi Combo</h2>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="http://rfexplorer.com/combo-specs/">http://rfexplorer.com/combo-specs/</a></li>
+<li><a href="https://www.youtube.com/watch?v=3ZhdcUJanCI">https://www.youtube.com/watch?v=3ZhdcUJanCI</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>コンパクト</li>
+<li>そこそこお安い(5万内)</li>
+<li>千石電商でも売っているので手には入れやすい</li>
+<li>デバイスにLCDがついてる</li>
+<li>バッテリー付き(16時間+ぐらいは動くらしい)</li>
+<li>こちらも内部的にはシリアルっぽいのでコマンド叩けばいろいろ遊べる (<a href="https://code.google.com/p/rfexplorer/">rfexplorer</a>)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>2700MHz〜4850MHzの間は計測不可
+
+<ul>
+<li>とはいっても今のところ使い道はない</li>
+</ul>
+</li>
+<li>基本となるアプリ(<a href="http://rfexplorer.com/touchstone/">touchstone</a>)は無料だけど, 一部のアプリが有料 ($49)
+
+<ul>
+<li>有料版(PRO)でないとxml/csvへのエクスポート機能がない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Aaronia SPECTRAN HF-6060V4 / HF-6060V4 X</h2>
+
+<ul>
+<li>参考
+
+<ul>
+<li><a href="http://www.aaronia.com/products/spectrum-analyzers/HF-6060-V4-RF-Spectrum-Analyzer/">SPECTRAN HF-6060 V4</a></li>
+<li><a href="http://www.aaronia.com/products/spectrum-analyzers/HF-6060-V4-X-USB-remote-Analyzer/">SPECTRAN HF-6060 V4 X</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>V4はいわゆるハンドヘルド版で, V4 Xがデスクトップ向け.</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li><a href="http://www.aaronia.com/products/software/">MCS</a>なるアプリが無料, Win/Mac/Linuxをそれぞれサポートしてる</li>
+<li>V4ハンドヘルド版は単体で動作可能</li>
+<li>サポートしてる周波数帯は基本的に連続 (どこかで途切れてる可能性はあるが)</li>
+<li>悪くない価格 (11万程度)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>V4 XがUSBバスパワーだけでは動かない. 動いたら完璧だったのに&hellip;
+
+<ul>
+<li>モバイルバッテリーでは無理だろうが, DCなバッテリー + 電源ケーブル調達でなんとかなりそうではある</li>
+</ul>
+</li>
+<li>V4ハンドヘルド版の動作時間は?</li>
+<li>V4とV4 Xの機能面での差は?
+
+<ul>
+<li>LCD, ジョグダイヤルの有無</li>
+<li>付属アンテナ:</li>
+<li>HyperLOG EMC directional LogPer antenna: 7060 vs なし</li>
+<li>OmniLOG 90200 radial isotropic antenna: なし vs あり</li>
+<li>Xのみ: マーカの数unlimited, 複数デバイス操作可, スイープポイント無限等々
+
+<ul>
+<li>Xの方にだけPRO版ソフト?とやらが付いてくるらしいが?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>WiSpy DBx</h2>
+
+<ul>
+<li>参考
+
+<ul>
+<li><a href="http://www.metageek.com/products/wi-spy/">WiSpy</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>「無線LAN &amp; スペアナ」でググると一番最初に出てくるデファクトスタンダード品みたいなもの.</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li>無線LANに特化
+
+<ul>
+<li>AP(SSID)一覧との紐付けが標準で存在している</li>
+<li>「チャネル:周波数」の変換</li>
+</ul>
+</li>
+<li>Macのアプリがある (Channalyzer)</li>
+<li>kismetが出してる<a href="https://www.kismetwireless.net/spectools/">spectools</a>を使えばLinuxでも動きそう</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>スペアナと見たときに, 細かいことがあまりできない
+
+<ul>
+<li>細かいパラメータがいじれない</li>
+<li>無線LAN以外にはあまり使えなさそう
+
+<ul>
+<li>無線LAN特化のスペアナという立ち位置</li>
+<li>現状無線LAN以外に使う予定はないが, 勉強用なので諸々のパラメータは弄りたい</li>
+</ul>
+</li>
+<li>5GHz帯は細かくチャネルごとに見れない
+
+<ul>
+<li>2.4GHz帯はチャネル毎に見れる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>その割には値段が高い (13万ぐらい)</li>
+</ul>
+</li>
+</ul>
+
+
+<p>スイープの性能については以下の通り. 見てる幅により固定になっている.</p>
+
+<ul>
+<li>2.4GHz 全体
+
+<ul>
+<li>Span: 95.310MHz ( 2400 - 2495 MHz )</li>
+<li>RBW: 333.3 KHz</li>
+<li>スイープ時間: 500ms?</li>
+</ul>
+</li>
+<li>2.4GHz各チャネル (例としてチャネル 1)
+
+<ul>
+<li>Span: 424MHz ( 2400 - 2424 MHz )</li>
+<li>RBW: 100kHz</li>
+<li>スイープ時間: 500ms?</li>
+</ul>
+</li>
+<li>5GHz
+
+<ul>
+<li>Span: 676.7 MHz ( 5160 - 5836 MHz )</li>
+<li>RBW: 150.0 KHz</li>
+<li>スイープ時間: 1s?</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Signal Hound USB-SA124B / BB60C</h2>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="https://signalhound.com/products/bb60c/">BB60C</a></li>
+<li><a href="https://signalhound.com/products/usb-sa124b/">USB-SA124B</a></li>
+<li><a href="https://www.youtube.com/watch?v=OWrp4M-T2r0">BBC60 Demo and Remote</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL3IOktxB0nG5baFmDHwiZrb284akt6n9K">SA-Series Videos</a></li>
+</ul>
+</li>
+<li><p>Pros</p>
+
+<ul>
+<li>スぺアナというよりはHackRFとかUSRPみたいなSDRデバイス + スペアナができるアプリという感じ</li>
+<li>BB60Cに至っては24GHz/sec sweep speed (>= 10kHz RBW)</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>お値段は微妙 (RSA306に手が届きそうな値段)</li>
+<li>スペアナというよりSDR. これかうならHackRF買った方がよさそうな気はする.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Tektronix RSA306</h2>
+
+<ul>
+<li><a href="http://jp.tek.com/spectrum-analyzer/rsa306-0">RSA306型USBスペクトラム・アナライザ</a></li>
+</ul>
+
+
+<p>Tektronixが出した「USBリアルタイムスペクトラムアナライザ」</p>
+
+<ul>
+<li>Pros
+
+<ul>
+<li>反応めっちゃはやい
+
+<ul>
+<li>40MHz幅内ならRBW 120KHzぐらいまでならだいぶぬるぬる表示する</li>
+</ul>
+</li>
+<li>ソフトはタダ (基本部分は, という条件付きだが)</li>
+<li>USB3.0ポート一つで制御・電源供給</li>
+</ul>
+</li>
+<li>Cons
+
+<ul>
+<li>お値段
+
+<ul>
+<li>とはいえこの性能比で考えれば破格. 単純に予算の問題</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>2015-01-28 Embulk-plugin-input-pcapng-files書いた - #error NO_MONEY</title>
+  <meta name="author" content="n_kane">
+
+  
+  <meta name="description" content="追記 (2015/01/29 20:03) ver 0.0.2切った. ファイルのソート周りはまだ直してない. https://rubygems.org/gems/embulk-plugin-input-pcapng-files 追記 (2015/01/29 19:49) &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://enukane.github.io/blog/2015/01/29/2015-01-28-embulk-playground/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/stylesheets/data-table.css" rel="stylesheet" type="text/css" />
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">#error NO_MONEY</a></h1>
+  
+    <h2>/var/crash/n_kane</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="enukane.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about-me/index.html">About Me</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="https://github.com/enukane">GitHub</a></li>
+  <li><a href="http://twitter.com/n_kane">Twitter</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">2015-01-28 Embulk-plugin-input-pcapng-files書いた</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-01-29T00:03:51+09:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:03 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://enukane.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>追記 (2015/01/29 20:03)</h3>
+
+<p>ver 0.0.2切った. ファイルのソート周りはまだ直してない.</p>
+
+<p><a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">https://rubygems.org/gems/embulk-plugin-input-pcapng-files</a></p>
+
+<h3>追記 (2015/01/29 19:49)</h3>
+
+<p>手元で動作確認してたらいつの間にか次のバージョンのembulkがリリースされてた.
+おかしいぞ&hellip;さっきのpullreqで入れてもらったワークアラウンド試し始めたばっかりなのに&hellip;(もう不要になった)</p>
+
+<p><a href="https://twitter.com/frsyuki/status/560750747608817665">https://twitter.com/frsyuki/status/560750747608817665</a></p>
+
+<h3>追記 (2015/01/29 19:38)</h3>
+
+<p>frsyuki先生から後ろ方のてきとーなメモに対する, 大変丁寧なコメントを頂けた. なるほどなるほど.</p>
+
+<p><a href="https://gist.github.com/frsyuki/dcfb30690fd453542f45">https://gist.github.com/frsyuki/dcfb30690fd453542f45</a></p>
+
+<p>ついでにいろいろと手直しして頂いて感謝感謝</p>
+
+<ul>
+<li><a href="https://github.com/enukane/embulk-plugin-input-pcapng-files/pull/1">https://github.com/enukane/embulk-plugin-input-pcapng-files/pull/1</a></li>
+<li><a href="https://github.com/enukane/embulk-plugin-input-pcapng-files/pull/2">https://github.com/enukane/embulk-plugin-input-pcapng-files/pull/2</a></li>
+</ul>
+
+
+<h2>はじめに</h2>
+
+<p>前々からやっているコミケその他イベントでの無線LAN解析(※)に良い感じに使えそうなので
+pcapngファイルからの入力を取れる &ldquo;embulk-plugin-input-pcapng-files&rdquo; なるプラグインを書いてみました.</p>
+
+<ul>
+<li><a href="https://github.com/enukane/embulk-plugin-input-pcapng-files">enukane/embulk-plugin-input-pcapng-files</a></li>
+<li><p><a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">rubygems - embulk-plugin-input-pcapng-files</a></p></li>
+<li><p>※</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/enukane/comiket-space-29723016">http://www.slideshare.net/enukane/comiket-space-29723016</a></li>
+<li><a href="http://www.slideshare.net/enukane/comiket-space-c86">http://www.slideshare.net/enukane/comiket-space-c86</a></li>
+<li><a href="http://www.slideshare.net/enukane/c87-wifi-comiket-space">http://www.slideshare.net/enukane/c87-wifi-comiket-space</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>中身はまんまtshark呼んでるだけですが, 抽出条件をコンフィグに書けたり出力先を柔軟に変更可能だったりと
+embulkのよさげなところを活かせそうなのが良い感じです.</p>
+
+<p>今までは集めた多量のpcapngファイルを, ひとつひとつ真心()込めてスクリプトに食わせてたので
+これを期に自動化の流れが造れるとベター.
+またそこまで行かなくともこれまでに溜め込んだpcapngファイルの再掘り起こしが容易になるので
+それだけでも良い感じです.</p>
+
+<p>正直pcapngをこんな感じに触りたい人いない気がするので, 誰にも使ってもらえない感&hellip;</p>
+
+<h3>使い方</h3>
+
+<p>コンフィグファイルはこんな感じになります.
+いわゆるguessはできないので手打ちで全部書く必要があります.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>exec: {}
+</span><span class='line'>in:
+</span><span class='line'>  type: pcapng_files
+</span><span class='line'>  paths: [/Users/enukane/Desktop/emtestpcap/, /tmp]
+</span><span class='line'>  threads: 3
+</span><span class='line'>  schema:
+</span><span class='line'>    - { name: frame.time_epoch, type: long }
+</span><span class='line'>    - { name: frame.len, type: long }
+</span><span class='line'>    - { name: wlan.ta, type: string }
+</span><span class='line'>    - { name: wlan.ra, type: string }
+</span><span class='line'>out: {type: stdout}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>typeにはpcapng_filesを指定します</li>
+<li>pathsには, 処理したいpcapngファイルが入ったディレクトリを配列で指定します</li>
+<li>threadsは, 並列度を指定します
+
+<ul>
+<li>上記paths内で見つかったpcapngファイルたちをこのthreadsの数に分配して並行に処理がなされる, はず</li>
+<li>ちゃんと動いてるかは未確認&hellip;</li>
+</ul>
+</li>
+<li>schemaにはpcapng中の抽出したいフィールド名(name)と変換先の型(type)を指定します
+
+<ul>
+<li>フィールド名は, wireshark/tsharkで -e オプションのfilterとして使っている名前が指定できます</li>
+<li>型は今のところstringかlongのみ</li>
+</ul>
+</li>
+</ul>
+
+
+<p>これをpreviewコマンドで指定してみるとこんな感じ</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>enukane@glenda-lairなう（´・ω・｀）つ ~/Sources/embulk-test % java -jar embulk.jar preview config.yml
+</span><span class='line'>+-------------------------------------------------+-----------------------+----------------+-------------------+-------------------+
+</span><span class='line'>|                                     path:string | frame.time_epoch:long | frame.len:long |    wlan.ta:string |    wlan.ra:string |
+</span><span class='line'>+-------------------------------------------------+-----------------------+----------------+-------------------+-------------------+
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             45 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             39 |                   | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             57 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             45 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             39 |                   | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            146 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             57 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            151 | c4:7d:4f:56:e5:1c | 33:33:00:01:00:03 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            131 | c4:7d:4f:56:e5:1c | 01:00:5e:00:00:fc |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            283 | c4:7d:4f:56:e5:18 | ff:ff:ff:ff:ff:ff |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             45 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             39 |                   | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |            146 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test1.pcapng |         1,413,615,217 |             57 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             45 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             39 |                   | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             57 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             45 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             39 |                   | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            146 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             57 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            151 | c4:7d:4f:56:e5:1c | 33:33:00:01:00:03 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            131 | c4:7d:4f:56:e5:1c | 01:00:5e:00:00:fc |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            283 | c4:7d:4f:56:e5:18 | ff:ff:ff:ff:ff:ff |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             45 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             39 |                   | c4:7d:4f:56:e5:19 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |            146 | c4:7d:4f:56:e5:19 | 20:c9:d0:d8:37:31 |
+</span><span class='line'>| /Users/enukane/Desktop/emtestpcap//test2.pcapng |         1,413,615,217 |             57 | 20:c9:d0:d8:37:31 | c4:7d:4f:56:e5:19 |
+</span><span class='line'>+-------------------------------------------------+-----------------------+----------------+-------------------+-------------------+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>previewでは部分的なタスクしか実行されません (ここではtask5.pcapngがぬけている)
+
+<ul>
+<li>runコマンドで出力される, &ldquo;次の状態のコンフィグ&#8221;も出力されません</li>
+</ul>
+</li>
+<li>ただし上記のように良い感じに表っぽい出力がなされます</li>
+</ul>
+
+
+<p>実際にrunコマンドで走らせると以下の様になります</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>enukane@glenda-lairなう（´・ω・｀）つ ~/Sources/embulk-test % java -jar embulk.jar run config.yml -o config.yml
+</span><span class='line'>2015-01-29 11:29:44,264 [INFO]: main:org.embulk.exec.LocalExecutor: Running 3 tasks using 8 local threads
+</span><span class='line'>2015-01-29 11:29:44,265 [INFO]: main:org.embulk.exec.LocalExecutor: {done:  0 / 3, running: 0}
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test5.pcapng,1413615217,45,28:cf:e9:4d:bb:91,c4:7d:4f:56:e5:1d
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test5.pcapng,1413615217,39,,28:cf:e9:4d:bb:91
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test5.pcapng,1413615217,155,28:cf:e9:4d:bb:91,c4:7d:4f:56:e5:1d
+</span><span class='line'>(中略)
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test1.pcapng,1413615217,283,c4:7d:4f:56:e5:18,ff:ff:ff:ff:ff:ff
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test1.pcapng,1413615217,146,c4:7d:4f:56:e5:19,20:c9:d0:d8:37:31
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test1.pcapng,1413615217,57,20:c9:d0:d8:37:31,c4:7d:4f:56:e5:19
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test2.pcapng,1413615217,45,c4:7d:4f:56:e5:19,20:c9:d0:d8:37:31
+</span><span class='line'>/Users/enukane/Desktop/emtestpcap//test2.pcapng,1413615217,39,,c4:7d:4f:56:e5:19
+</span><span class='line'>(中略)
+</span><span class='line'>2015-01-29 11:29:47,517 [INFO]: main:org.embulk.exec.LocalExecutor: {done:  3 / 3, running: 0}
+</span><span class='line'>2015-01-29 11:29:47,517 [INFO]: main:org.embulk.exec.LocalExecutor: {done:  3 / 3, running: 0}
+</span><span class='line'>2015-01-29 11:29:47,517 [INFO]: main:org.embulk.exec.LocalExecutor: {done:  3 / 3, running: 0}
+</span><span class='line'>2015-01-29 11:29:47,535 [INFO]: main:org.embulk.command.Runner: next config: {"type":"pcapng_files","paths":["/Users/enukane/Desktop/emtestpcap/","/tmp"],"threads":3,"schema":[{"name":"frame.time_epoch","type":"long"},{"name":"frame.len","type":"long"},{"name":"wlan.ta","
+</span><span class='line'>type":"string"},{"name":"wlan.ra","type":"string"}],"done":["/Users/enukane/Desktop/emtestpcap//test1.pcapng","/Users/enukane/Desktop/emtestpcap//test2.pcapng","/Users/enukane/Desktop/emtestpcap//test5.pcapng"]}</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>-oオプションで実行中のコンフィグと同じパスを指定してやると, 元のコンフィグに「今処理したファイルリスト」を付け加えます
+
+<ul>
+<li>既にdoneが合った場合とか考慮してない等々で今はきちんと動いてない模様&hellip; (to be fixed)</li>
+<li>いわゆるcommit reportとして, 次回に重複処理しないように考慮 (したかった)</li>
+</ul>
+</li>
+<li>outがstdoutになっているので, previewの様な表ではなくcsv形式で出力.</li>
+</ul>
+
+
+<h3>embulk弄ってたときのメモ</h3>
+
+<ul>
+<li>embulkの<a href="https://github.com/embulk/embulk">README</a>をよめばだいたいどうにかなる。</li>
+<li>bundleコマンドで作成したディレクトリ以下でプラグインの新規追加・名前変更等したときは, 再度bundleコマンド発行すること</li>
+<li>本来的にはinputプラグインではなくFile input内のparser/decoderプラグインとして造るべきでは？
+
+<ul>
+<li>処理対象のファイル一覧→スレッドへの分配あたりを再開発してる感</li>
+<li>input/output以外のプラグインがどの程度rubyで差し込みできるのかよく見えない. 要調査.
+
+<ul>
+<li>file inputのメインのロジックはJava側で書かれてるようなのでbundle側からのインタラクション次第か?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>task to threadsのベストプラクティスが欲しい&hellip;</li>
+<li>transactionとrunの間のデータ受け渡し, これでいいのかな感
+
+<ul>
+<li>引数でスレッドローカルなオブジェクト渡すものだと思ってたけど&hellip;</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">n_kane</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-01-29T00:03:51+09:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:03 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/tech/'>tech</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://enukane.github.io/blog/2015/01/29/2015-01-28-embulk-playground/" data-via="" data-counturl="http://enukane.github.io/blog/2015/01/29/2015-01-28-embulk-playground/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/01/25/2015-01-25-iijmiosim/" title="Previous Post: 2015-01-25 Softbank から IIJmio にかえた">&laquo; 2015-01-25 Softbank から IIJmio にかえた</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/02/12/2015-02-12-dslite/" title="Next Post: 2015-02-12 DS-Liteいれてみた">2015-02-12 DS-Liteいれてみた &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/09/08/2015-09-08-radio-telescope/">DIY電波望遠鏡 - 部材検討</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/31/event-radio-utilization/">イベント無線LANでのチャネル使用率調査</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/">SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/26/yapc2015/">YAPC2015 に CONBU プロジェクトメンバとして参加してきました</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/01/bimbo-spectrum-analyzer/">貧乏人でもスペアナがしたい!</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/802-dot-11'>802.11 (4)</a></li><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (2)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/network'>network (1)</a></li><li><a href='/blog/categories/radio'>radio (2)</a></li><li><a href='/blog/categories/report'>report (1)</a></li><li><a href='/blog/categories/research'>research (2)</a></li><li><a href='/blog/categories/rf'>rf (1)</a></li><li><a href='/blog/categories/tech'>tech (10)</a></li></ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - n_kane -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'enukane';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://enukane.github.io/blog/2015/01/29/2015-01-28-embulk-playground/';
+        var disqus_url = 'http://enukane.github.io/blog/2015/01/29/2015-01-28-embulk-playground/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
