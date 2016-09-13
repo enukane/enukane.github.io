@@ -9,10 +9,9 @@
   <meta name="author" content="n_kane">
 
   
-  <meta name="description" content="HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる. 参考 マイ・電波望遠鏡とExcelで電波地図を作る
-宇宙の電波をキャッチしてみよう
-BSアンテナ電波望遠鏡で 7/22 部分日食を観察しよう
-ＢＳアンテナを用いた電波望遠鏡の教育利用 &hellip;">
+  <meta name="description" content="特に必須ではないらしいけど、ワイヤーアンテナにはバランを噛ましましょうという記述があったので試しに作ってみた。
+無線機側の同軸ケーブルは外部導体が GND に落ちている「不平衡」である一方、アンテナからの入力は
+内部・外部導体ともに電気的に対称で「平衡」なのでこれが必要なのだとか。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +71,66 @@ BSアンテナ電波望遠鏡で 7/22 部分日食を観察しよう
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/09/13/balun/">バランを作る</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-13T08:43:22+09:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:43 am</span></time>
+        
+           | <a href="/blog/2016/09/13/balun/#disqus_thread"
+             data-disqus-identifier="http://enukane.github.io/blog/2016/09/13/balun/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>特に必須ではないらしいけど、ワイヤーアンテナにはバランを噛ましましょうという記述があったので試しに作ってみた。
+無線機側の同軸ケーブルは外部導体が GND に落ちている「不平衡」である一方、アンテナからの入力は
+内部・外部導体ともに電気的に対称で「平衡」なのでこれが必要なのだとか。</p>
+
+<ol>
+<li><a href="http://www.geocities.jp/gomafu_club/ham/wireant/wireant.html">バランから作るお手軽HFワイヤ・アンテナの製作</a></li>
+<li><a href="http://mk1502.web.fc2.com/sokuteiki/barun.htm">簡単に作れる、バランの作り方</a></li>
+<li><a href="http://mk1502.web.fc2.com/sokuteiki/barun.htm">パッチンコア(クランプコア)でバランを自作する</a></li>
+<li><a href="http://www.geocities.jp/bfgyjl3284/Balun.htm">バランの製作</a></li>
+<li><a href="http://www.ndxc.org/tech/horibapdf/000811-001.pdf">長波対応ロングワイヤ用バランの製作</a></li>
+<li><a href="http://www.na.rim.or.jp/~ja3haw/NO58B.PDF">バランの製作</a></li>
+</ol>
+
+
+<p>基本的な作り方は1番目のエントリを丸々なぞった。本当はFT-50-43なるトロイダルコアを使うのが筋らしのだが見つからなかったので秋月のそれっぽいやつで代用。5番目のエントリを見ると巻き数にきちんと計算が必要らしいのでてきとう極まりない出来。</p>
+
+<p>巻いたトロイダルコアはこんな感じ。
+なおどこのサイトの記述か忘れたが、撚り線を作るには電動ドライバに束ねた線の端を噛ませて作ると良いらしいとのこと。
+もう一方の端を手かペンチで保持してゆっくりドライバを回すといい感じに撚れる。</p>
+
+<p><img src="/images/2016-09-13/toroidal-core.jpg" alt="束縛されるトロイダルコア" /></p>
+
+<p>完成したバランはこんな感じ。</p>
+
+<p><img src="/images/2016-09-13/balun_01.jpg" alt="バラン試作0号" /></p>
+
+<p>SWR計を持ってないんでどれほどきちんと作れてるのかは不明。</p>
+
+<p>ところで手持ちの受信機で HF 帯まで受信できるの ALINCO の DJ-X7 しかない。早くアップコンバータが欲しい。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2200,103 +2259,6 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/25/2015-01-25-iijmiosim/">2015-01-25 Softbank から IIJmio にかえた</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-01-25T11:38:08+09:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:38 am</span></time>
-        
-           | <a href="/blog/2015/01/25/2015-01-25-iijmiosim/#disqus_thread"
-             data-disqus-identifier="http://enukane.github.io/blog/2015/01/25/2015-01-25-iijmiosim/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/blog/2015/01/16/simfreeornot/">前回</a>の検討の続き。結局乗り換えた。
-ファミリーシェアプラン(7GB)で, 音声SIM 1枚(MicroSIM)とデータ専用SIM 1枚(NanoSIM).</p>
-
-<p><img src="/images/P_20150125_120530.jpg" alt="sim" /></p>
-
-<p>転出・転入の手続き周りでかかった費用は以下の通り.</p>
-
-<ul>
-<li>MNP転出側 (Softbank)
-
-<ul>
-<li>解約手数料: 0円
-
-<ul>
-<li>2年1ヶ月目ちょうどだったので</li>
-</ul>
-</li>
-<li>MNP転出手数料: 3000円</li>
-</ul>
-</li>
-<li>MNP転入側 (IIJmio)
-
-<ul>
-<li>初期費用: 0円
-
-<ul>
-<li>後述するASUSのキャンペーン</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>その他:
-
-<ul>
-<li>端末購入費用: 28940円
-
-<ul>
-<li>ASUS ZenFone 5 A500KL-RD16</li>
-<li>IIJmio音声通話パックと同時購入でパッケージ費用 3000円がタダになるキャンペーンやってた</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<p>月額費用はこんな感じになるはず (予定)</p>
-
-<ul>
-<li>合計: 3520円 (税込)
-
-<ul>
-<li>月額費用: 2560円
-
-<ul>
-<li>ファミリーシェアプラン 7GB</li>
-</ul>
-</li>
-<li>音声通話機能付帯料: 700円</li>
-</ul>
-</li>
-</ul>
-
-
-<p>&ldquo;@t.vodafone.ne.jp&#8221;なメアドが消滅したので, 何人かとのリンクが消滅したことになる.
-数年来連絡とってないひとばっかりなので問題にはならないでしょう, きっと.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -2310,6 +2272,10 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/09/13/balun/">バランを作る</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/09/08/2015-09-08-radio-telescope/">DIY電波望遠鏡 - 部材検討</a>
@@ -2327,15 +2293,11 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
         <a href="/blog/2015/08/26/yapc2015/">YAPC2015 に CONBU プロジェクトメンバとして参加してきました</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/05/01/bimbo-spectrum-analyzer/">貧乏人でもスペアナがしたい!</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/802-dot-11'>802.11 (4)</a></li><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (2)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/network'>network (1)</a></li><li><a href='/blog/categories/radio'>radio (2)</a></li><li><a href='/blog/categories/report'>report (1)</a></li><li><a href='/blog/categories/research'>research (2)</a></li><li><a href='/blog/categories/rf'>rf (1)</a></li><li><a href='/blog/categories/tech'>tech (10)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/802-dot-11'>802.11 (4)</a></li><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (2)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/network'>network (1)</a></li><li><a href='/blog/categories/radio'>radio (3)</a></li><li><a href='/blog/categories/report'>report (1)</a></li><li><a href='/blog/categories/research'>research (2)</a></li><li><a href='/blog/categories/rf'>rf (1)</a></li><li><a href='/blog/categories/tech'>tech (11)</a></li></ul>
 </section>
 
 

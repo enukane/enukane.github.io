@@ -5,14 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>2014年のまとめをちらほらと、2015年にやりたいことをだらだらと - #error NO_MONEY</title>
+  <title>バランを作る - #error NO_MONEY</title>
   <meta name="author" content="n_kane">
 
   
-  <meta name="description" content="2014年のまとめ 犬吠埼に初日の出観に行った。寒かった。
-C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的に)素敵なComiket Space&rdquo;
-部署名が一昨年のそれに戻った
-某文学系イベントでの無線LANネットワーク構築の準備・面倒見その他をした &hellip;">
+  <meta name="description" content="特に必須ではないらしいけど、ワイヤーアンテナにはバランを噛ましましょうという記述があったので試しに作ってみた。
+無線機側の同軸ケーブルは外部導体が GND に落ちている「不平衡」である一方、アンテナからの入力は
+内部・外部導体ともに電気的に対称で「平衡」なのでこれが必要なのだとか。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +20,7 @@ C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://enukane.github.io/blog/2015/01/01/newyear/">
+  <link rel="canonical" href="http://enukane.github.io/blog/2016/09/13/balun/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
@@ -75,7 +74,7 @@ C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的�
   
   <header>
     
-      <h1 class="entry-title">2014年のまとめをちらほらと、2015年にやりたいことをだらだらと</h1>
+      <h1 class="entry-title">バランを作る</h1>
     
     
       <p class="meta">
@@ -84,7 +83,7 @@ C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的�
 
 
 
-<time class='entry-date' datetime='2015-01-01T09:24:55+09:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>9:24 am</span></time>
+<time class='entry-date' datetime='2016-09-13T08:43:22+09:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:43 am</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://enukane.github.io">Comments</a>
@@ -94,51 +93,35 @@ C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的�
   </header>
 
 
-<div class="entry-content"><h1>2014年のまとめ</h1>
+<div class="entry-content"><p>特に必須ではないらしいけど、ワイヤーアンテナにはバランを噛ましましょうという記述があったので試しに作ってみた。
+無線機側の同軸ケーブルは外部導体が GND に落ちている「不平衡」である一方、アンテナからの入力は
+内部・外部導体ともに電気的に対称で「平衡」なのでこれが必要なのだとか。</p>
 
-<ul>
-<li>犬吠埼に初日の出観に行った。寒かった。</li>
-<li>C85のデータをまとめて公開した: <a href="http://www.slideshare.net/enukane/comiket-space-29723016">&ldquo;続・ららら、(無線的に)素敵なComiket Space&rdquo;</a></li>
-<li>部署名が一昨年のそれに戻った</li>
-<li>某文学系イベントでの無線LANネットワーク構築の準備・面倒見その他をした</li>
-<li>会社が神保町から飯田橋に引っ越した</li>
-<li>ロードバイクかった。2013年に比べるとあんまり乗ってない。</li>
-<li>秋山郷ハッカソン行ってきた。成果はない。星空綺麗だった。</li>
-<li>夏のコミケで<a href="https://github.com/enukane/c86book">&ldquo;キャプチャリング802.11&rdquo;</a>を出した</li>
-<li>C86のデータをまとめて公開した: <a href="http://www.slideshare.net/enukane/comiket-space-c86">続々・ららら、(無線的に)素敵なComiket Space C86</a></li>
-<li>某ゲーム系イベントで一部無線LAN周りの面倒見をした</li>
-<li>亀有から王子に引っ越した。githubで管理しようと思ってたけどうまくできなかった ( <a href="https://github.com/enukane/HIKKOSHI2014">残骸</a> )</li>
-<li>冬コミ落ちて、引越を言い訳に何もしなかった (最終日だけデバイス動かした)</li>
-<li>リバウンドしてた (一昨年の体重に戻った)</li>
-</ul>
+<ol>
+<li><a href="http://www.geocities.jp/gomafu_club/ham/wireant/wireant.html">バランから作るお手軽HFワイヤ・アンテナの製作</a></li>
+<li><a href="http://mk1502.web.fc2.com/sokuteiki/barun.htm">簡単に作れる、バランの作り方</a></li>
+<li><a href="http://mk1502.web.fc2.com/sokuteiki/barun.htm">パッチンコア(クランプコア)でバランを自作する</a></li>
+<li><a href="http://www.geocities.jp/bfgyjl3284/Balun.htm">バランの製作</a></li>
+<li><a href="http://www.ndxc.org/tech/horibapdf/000811-001.pdf">長波対応ロングワイヤ用バランの製作</a></li>
+<li><a href="http://www.na.rim.or.jp/~ja3haw/NO58B.PDF">バランの製作</a></li>
+</ol>
 
 
-<h1>2015年にやりたいこと</h1>
+<p>基本的な作り方は1番目のエントリを丸々なぞった。本当はFT-50-43なるトロイダルコアを使うのが筋らしのだが見つからなかったので秋月のそれっぽいやつで代用。5番目のエントリを見ると巻き数にきちんと計算が必要らしいのでてきとう極まりない出来。</p>
 
-<ul>
-<li>夏コミ(C88)に受かりますように</li>
-<li>C87で取ったデータの分析 &amp; まとめ。手法の再検討とC88でのリトライをしたい。</li>
-<li>&ldquo;Linuxのブートプロセスをみる&#8221;のPlan 9版を書いてコミケで出したい</li>
-<li>9load の EFI対応? とりあえず勉強するところから&hellip;</li>
-<li>OSvでNetVM的なことできないか遊んでみる</li>
-<li>DPDKで遊びたい</li>
-<li>オレオレネットワークツールをきちんとまとめよう</li>
-<li>集めたデータ分析の方向の掘り下げ方を考えよう</li>
-<li>通信速度その他を図りながらの計測デバイスを作ってみる</li>
-<li>Raspberry Piで玄関先カメラシステム作りたい</li>
-<li>ネットワーク自動化周りをきちんと自宅に組み込む, 生活で使う</li>
-<li>自宅鯖環境の復旧</li>
-<li>監視系の作り込みをしよう</li>
-<li>こんどこそちゃんと背景透過なグレンダさんステッカーを作る</li>
-<li>忍耐を要求しないHTML/JavaScriptというよりWebUIの書き方・常道を勉強する</li>
-<li>論文読んだらきちんとまとめと所感を書く習慣をつけよう</li>
-<li>手元でてきとーに作ったツールをきちんと見直してどこかに放り込んでおく習慣をつけよう</li>
-<li>2016年の初日の出は犬吠埼か九十九里のどこかで観たい</li>
-<li>電子書籍になれよう</li>
-<li>やせよう ( -15kg )</li>
-<li>もっと馬鹿をやろう. Keep it stupid, simple (誤字にあらず)</li>
-</ul>
+<p>巻いたトロイダルコアはこんな感じ。
+なおどこのサイトの記述か忘れたが、撚り線を作るには電動ドライバに束ねた線の端を噛ませて作ると良いらしいとのこと。
+もう一方の端を手かペンチで保持してゆっくりドライバを回すといい感じに撚れる。</p>
 
+<p><img src="/images/2016-09-13/toroidal-core.jpg" alt="束縛されるトロイダルコア" /></p>
+
+<p>完成したバランはこんな感じ。</p>
+
+<p><img src="/images/2016-09-13/balun_01.jpg" alt="バラン試作0号" /></p>
+
+<p>SWR計を持ってないんでどれほどきちんと作れてるのかは不明。</p>
+
+<p>ところで手持ちの受信機で HF 帯まで受信できるの ALINCO の DJ-X7 しかない。早くアップコンバータが欲しい。</p>
 </div>
 
 
@@ -154,12 +137,12 @@ C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的�
 
 
 
-<time class='entry-date' datetime='2015-01-01T09:24:55+09:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>9:24 am</span></time>
+<time class='entry-date' datetime='2016-09-13T08:43:22+09:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:43 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/life/'>life</a>
+    <a class='category' href='/blog/categories/radio/'>radio</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
   
 </span>
 
@@ -168,7 +151,7 @@ C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的�
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://enukane.github.io/blog/2015/01/01/newyear/" data-via="" data-counturl="http://enukane.github.io/blog/2015/01/01/newyear/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://enukane.github.io/blog/2016/09/13/balun/" data-via="" data-counturl="http://enukane.github.io/blog/2016/09/13/balun/" >Tweet</a>
   
   
   
@@ -177,10 +160,8 @@ C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/12/12/syspaper-adventcalendar-2014/" title="Previous Post: システム系論文紹介 Advent Calendar 2014">&laquo; システム系論文紹介 Advent Calendar 2014</a>
+        <a class="basic-alignment left" href="/blog/2015/09/08/2015-09-08-radio-telescope/" title="Previous Post: DIY電波望遠鏡 - 部材検討">&laquo; DIY電波望遠鏡 - 部材検討</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/01/16/simfreeornot/" title="Next Post: SIM Freeか否か">SIM Freeか否か &raquo;</a>
       
     </p>
   </footer>
@@ -250,8 +231,8 @@ C85のデータをまとめて公開した: &ldquo;続・ららら、(無線的�
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://enukane.github.io/blog/2015/01/01/newyear/';
-        var disqus_url = 'http://enukane.github.io/blog/2015/01/01/newyear/';
+        var disqus_identifier = 'http://enukane.github.io/blog/2016/09/13/balun/';
+        var disqus_url = 'http://enukane.github.io/blog/2016/09/13/balun/';
         var disqus_script = 'embed.js';
       
     (function () {

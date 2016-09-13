@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Radio | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/radio/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2016-09-13T08:40:31+09:00</updated>
+  <updated>2016-09-13T09:12:53+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[バランを作る]]></title>
+    <link href="http://enukane.github.io/blog/2016/09/13/balun/"/>
+    <updated>2016-09-13T08:43:22+09:00</updated>
+    <id>http://enukane.github.io/blog/2016/09/13/balun</id>
+    <content type="html"><![CDATA[<p>特に必須ではないらしいけど、ワイヤーアンテナにはバランを噛ましましょうという記述があったので試しに作ってみた。
+無線機側の同軸ケーブルは外部導体が GND に落ちている「不平衡」である一方、アンテナからの入力は
+内部・外部導体ともに電気的に対称で「平衡」なのでこれが必要なのだとか。</p>
+
+<ol>
+<li><a href="http://www.geocities.jp/gomafu_club/ham/wireant/wireant.html">バランから作るお手軽HFワイヤ・アンテナの製作</a></li>
+<li><a href="http://mk1502.web.fc2.com/sokuteiki/barun.htm">簡単に作れる、バランの作り方</a></li>
+<li><a href="http://mk1502.web.fc2.com/sokuteiki/barun.htm">パッチンコア(クランプコア)でバランを自作する</a></li>
+<li><a href="http://www.geocities.jp/bfgyjl3284/Balun.htm">バランの製作</a></li>
+<li><a href="http://www.ndxc.org/tech/horibapdf/000811-001.pdf">長波対応ロングワイヤ用バランの製作</a></li>
+<li><a href="http://www.na.rim.or.jp/~ja3haw/NO58B.PDF">バランの製作</a></li>
+</ol>
+
+
+<p>基本的な作り方は1番目のエントリを丸々なぞった。本当はFT-50-43なるトロイダルコアを使うのが筋らしのだが見つからなかったので秋月のそれっぽいやつで代用。5番目のエントリを見ると巻き数にきちんと計算が必要らしいのでてきとう極まりない出来。</p>
+
+<p>巻いたトロイダルコアはこんな感じ。
+なおどこのサイトの記述か忘れたが、撚り線を作るには電動ドライバに束ねた線の端を噛ませて作ると良いらしいとのこと。
+もう一方の端を手かペンチで保持してゆっくりドライバを回すといい感じに撚れる。</p>
+
+<p><img src="/images/2016-09-13/toroidal-core.jpg" alt="束縛されるトロイダルコア" /></p>
+
+<p>完成したバランはこんな感じ。</p>
+
+<p><img src="/images/2016-09-13/balun_01.jpg" alt="バラン試作0号" /></p>
+
+<p>SWR計を持ってないんでどれほどきちんと作れてるのかは不明。</p>
+
+<p>ところで手持ちの受信機で HF 帯まで受信できるの ALINCO の DJ-X7 しかない。早くアップコンバータが欲しい。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[DIY電波望遠鏡 - 部材検討]]></title>
