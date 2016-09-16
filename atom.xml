@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2016-09-13T09:16:46+09:00</updated>
+  <updated>2016-09-17T01:47:39+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[\"Fluent Dashboard + SDR デバイスで周囲の電波状況を可視化してみる\" 書いた]]></title>
+    <link href="http://enukane.github.io/blog/2016/09/13/fluentdashboard-with-sdr/"/>
+    <updated>2016-09-13T23:02:15+09:00</updated>
+    <id>http://enukane.github.io/blog/2016/09/13/fluentdashboard-with-sdr</id>
+    <content type="html"><![CDATA[<p>久々に Qiita に記事書いた。</p>
+
+<blockquote><p><a href="http://qiita.com/n_kane/items/d9037c8744634053dbab">Fluentd Dashboard + SDR デバイスで周囲の電波状況を可視化してみる</a></p></blockquote>
+
+<p>Google SpreadSheet は便利だけど、描画の遅延とかが半端ないんでお次は App Engine + BigQuery かな。
+ElasticSearch + Kibana でいい感じに横並びなメトリックが掛けるならそれが一番なんだけど&hellip;</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[バランを作る]]></title>
@@ -32,7 +46,7 @@
 </ol>
 
 
-<p>基本的な作り方は1番目のエントリを丸々なぞった。本当はFT-50-43なるトロイダルコアを使うのが筋らしのだが見つからなかったので秋月のそれっぽいやつで代用。5番目のエントリを見ると巻き数にきちんと計算が必要らしいのでてきとう極まりない出来。</p>
+<p>基本的な作り方は1番目のエントリを丸々なぞった。FT-50-43なるトロイダルコアを使うのが筋らしい。が見つからなかったので秋月のそれっぽいやつで代用した。5番目のエントリを見ると巻き数にきちんと計算が必要らしいのでてきとう極まりない。</p>
 
 <p>巻いたトロイダルコアはこんな感じ。
 なおどこのサイトの記述か忘れたが、撚り線を作るには電動ドライバに束ねた線の端を噛ませて作ると良いらしいとのこと。
@@ -40,7 +54,7 @@
 
 <p><img src="http://enukane.github.io/images/2016-09-13/toroidal-core.jpg" alt="束縛されるトロイダルコア" /></p>
 
-<p>完成したバランはこんな感じ。</p>
+<p>完成したバランはこんな感じ。赤黒のターミナルがアンテナ行き、SMAが無線機行き。</p>
 
 <p><img src="http://enukane.github.io/images/2016-09-13/balun_01.jpg" alt="バラン試作0号" /></p>
 
