@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Network | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2016-09-17T01:47:39+09:00</updated>
+  <updated>2016-09-20T22:26:34+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SEIL で OPEN IPv6 DDNS for NGN を使う]]></title>
+    <link href="http://enukane.github.io/blog/2016/09/20/open-ipv6-ddns-on-seil/"/>
+    <updated>2016-09-20T21:16:46+09:00</updated>
+    <id>http://enukane.github.io/blog/2016/09/20/open-ipv6-ddns-on-seil</id>
+    <content type="html"><![CDATA[<p>また Qiita。</p>
+
+<blockquote><p><a href="http://qiita.com/n_kane/items/f4d098d6332f44ce5f8e">SEIL で OPEN IPv6 DDNS for NGN の DDNS 機能だけを使う</a></p></blockquote>
+
+<p>IPoE契約してるとお外から名前で引けるようになるの便利。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2015-02-12 DS-Liteいれてみた]]></title>

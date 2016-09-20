@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2016-09-17T01:47:39+09:00</updated>
+  <updated>2016-09-20T22:26:34+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SEIL で OPEN IPv6 DDNS for NGN を使う]]></title>
+    <link href="http://enukane.github.io/blog/2016/09/20/open-ipv6-ddns-on-seil/"/>
+    <updated>2016-09-20T21:16:46+09:00</updated>
+    <id>http://enukane.github.io/blog/2016/09/20/open-ipv6-ddns-on-seil</id>
+    <content type="html"><![CDATA[<p>また Qiita。</p>
+
+<blockquote><p><a href="http://qiita.com/n_kane/items/f4d098d6332f44ce5f8e">SEIL で OPEN IPv6 DDNS for NGN の DDNS 機能だけを使う</a></p></blockquote>
+
+<p>IPoE契約してるとお外から名前で引けるようになるの便利。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[\"Fluent Dashboard + SDR デバイスで周囲の電波状況を可視化してみる\" 書いた]]></title>
@@ -477,184 +490,6 @@ channel active time = busy time + idle time
 <p>この利用率は tochka デバイスについている LCD ディスプレイ (tochka-miniui) にも出すようにしています (赤枠部分)</p>
 
 <p><img src="/images/2015-08-31/tochka-miniui.jpg" alt="tochka-miniui" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む]]></title>
-    <link href="http://enukane.github.io/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/"/>
-    <updated>2015-08-28T09:10:56+09:00</updated>
-    <id>http://enukane.github.io/blog/2015/08/28/sigcomm2015-large-scale-wlan-net</id>
-    <content type="html"><![CDATA[<h2>概要</h2>
-
-<p>リンク: <a href="http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf">http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf</a></p>
-
-<ul>
-<li>SIGCOMM &lsquo;15で発表された論文。Cisco Merakiの人たちが著者。</li>
-<li>Merakiはいわゆるクラウド型無線LANコントローラとAPのセットのサービス。</li>
-<li>自社のサービスを展開している中で収集されたデータのオーバービュー的な文章。</li>
-</ul>
-
-
-<h3>読んだモチベーション</h3>
-
-<ul>
-<li>Wireless Network という題に惹かれて</li>
-<li>お仕事で似た様なことやってるため</li>
-</ul>
-
-
-<h2>内容</h2>
-
-<p><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">落合先生フォーマット</a>に従って並べてみる</p>
-
-<h3>どんなもの？</h3>
-
-<ul>
-<li>Merakiのサービスを提供するに当たって収集したデータの分析を行った
-
-<ul>
-<li>2万台のMeraki AP, 2万個のネットワーク, 5百万クライアント/week の規模</li>
-<li>これらのネットワークにぶら下がる数百万のデバイスの様々な情報が自社のDBに溜まっている
-
-<ul>
-<li>ネットワークに所属するデバイスたち: AP, クライアント端末(ノートPC, スマホ e.t.c), スイッチ, ルータ など</li>
-<li>情報: 接続断のイベント, 通信先 など</li>
-<li>Meraki(のサービス側)は, いわゆる無線LANコントローラなのでこれらの情報を常にpolling/収集している</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>これだけ規模が大きく, 期間も長いと&#8221;無線LANネットワークのトレンド&#8221;的なものが見えてくる
-
-<ul>
-<li>電波的な傾向
-
-<ul>
-<li>他のAP or 802.11以外の干渉</li>
-</ul>
-</li>
-<li>規格上の傾向
-
-<ul>
-<li>2.4 or 5GHz帯への偏り</li>
-<li>802.11g, a, n, acの偏り(利用率の変化)</li>
-<li>チャネル幅の遷移</li>
-<li>ストリーム数の遷移</li>
-</ul>
-</li>
-<li>クライアントの傾向
-
-<ul>
-<li>OSのバリエーション</li>
-<li>信号強度</li>
-</ul>
-</li>
-<li>ネットワークの傾向
-
-<ul>
-<li>いわゆる普通のトラフィック分析</li>
-<li>アプリケーション利用率</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>先行研究と比べて何がすごい？何が違う？</h3>
-
-<ul>
-<li>まず数
-
-<ul>
-<li>Gemberら(当該研究者が所属する大学ネットワークや施設のネットワークが対象)、Rodrigら(カンファレンスネットワークが対象)等、干渉の計測やネットワークトラフィックの分析を行った研究は存在する。この論文では、さらに大規模なユーザベースでの分析を行っている。</li>
-<li>Hotspotを対象にそこそこの規模で行った例としては Ghoshら(243000デバイス)、Google (500AP, 30000クライアント)等があるがこれらはあくまでHotspot向けであり、この論文(およびMerakiのサービス)が対象としているオフィス/キャンパスユースではない</li>
-</ul>
-</li>
-<li>計測期間の長さ (とそこから来るデータ量)
-
-<ul>
-<li>おもに他の研究ではショットないし1年内程度のスパンで行ったものが主
-
-<ul>
-<li>短いスパンであれば、個々の技術・計測に関する分析を行った既存研究は多種存在する</li>
-<li>干渉の定性的分析や規格の技術的妥当性の検証という観点で</li>
-</ul>
-</li>
-<li>この論文では5年程度のスパンで見ている
-
-<ul>
-<li>&ldquo;トレンド&#8221;という点に着目できる内容になっている</li>
-<li>さらに取得した、サービスの継続にあたって重要な無線LANインフラ(!=無線LAN only)の情報を分析対象としている</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>技術の手法とかキモはどこ？</h3>
-
-<ul>
-<li>サービスのプロダクション環境に当該情報収集系を組み込んだところ
-
-<ul>
-<li>いわゆる&#8221;実用&#8221;の場でのデータが取れる</li>
-<li>お客さんのバリエーション == &ldquo;実用”の度合い に直結する</li>
-</ul>
-</li>
-<li>観点として「サービスの継続性」のための情報収集に特化しているところ
-
-<ul>
-<li>個々の規格・技術の妥当性検証というよりは、その現れ方・利用され方の観測が主</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>どうやって有効だと検証した？</h3>
-
-<ul>
-<li>Evaluationとして有効性を示す文章はない</li>
-<li>強いて言えば実環境でこんな感じのデータが取れたぜ！という報告に近い?</li>
-</ul>
-
-
-<h3>議論はある？</h3>
-
-<ul>
-<li>(TBD)</li>
-</ul>
-
-
-<h3>次に読むべき論文は？</h3>
-
-<ul>
-<li>GamberらのとGoogleのやつ？
-
-<ul>
-<li><ol type="a">
-<li>Gember, A. Anand, and A. Akella. A comparative study of handheld and non-handheld traffic in campus wi-fi networks.</li>
-</ol>
-</li>
-<li><ol type="a">
-<li>Afanasyev, T. Chen, G. M. Voelker, and A. C. Snoeren. Usage patterns in an urban wifi network</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>Senらの&#8221;Cspy: finding the best quality channel without probing&#8221;も気になる
-
-<ul>
-<li><ol type="a">
-<li>Sen, B. Radunovic, J. Lee, and K.-H. Kim. Cspy: finding the best quality channel without probing.</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-
 ]]></content>
   </entry>
   

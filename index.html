@@ -9,8 +9,8 @@
   <meta name="author" content="n_kane">
 
   
-  <meta name="description" content="久々に Qiita に記事書いた。 Fluentd Dashboard + SDR デバイスで周囲の電波状況を可視化してみる Google SpreadSheet は便利だけど、描画の遅延とかが半端ないんでお次は App Engine + BigQuery かな。
-ElasticSearch + &hellip;">
+  <meta name="description" content="また Qiita。 SEIL で OPEN IPv6 DDNS for NGN の DDNS 機能だけを使う IPoE契約してるとお外から名前で引けるようになるの便利。
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +70,42 @@ ElasticSearch + &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/09/20/open-ipv6-ddns-on-seil/">SEIL で OPEN IPv6 DDNS for NGN を使う</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-20T21:16:46+09:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:16 pm</span></time>
+        
+           | <a href="/blog/2016/09/20/open-ipv6-ddns-on-seil/#disqus_thread"
+             data-disqus-identifier="http://enukane.github.io/blog/2016/09/20/open-ipv6-ddns-on-seil/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>また Qiita。</p>
+
+<blockquote><p><a href="http://qiita.com/n_kane/items/f4d098d6332f44ce5f8e">SEIL で OPEN IPv6 DDNS for NGN の DDNS 機能だけを使う</a></p></blockquote>
+
+<p>IPoE契約してるとお外から名前で引けるようになるの便利。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1656,350 +1692,6 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/02/12/2015-02-12-dslite/">2015-02-12 DS-Liteいれてみた</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-02-12T23:50:42+09:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:50 pm</span></time>
-        
-           | <a href="/blog/2015/02/12/2015-02-12-dslite/#disqus_thread"
-             data-disqus-identifier="http://enukane.github.io/blog/2015/02/12/2015-02-12-dslite/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>追記</h2>
-
-<ul>
-<li>2015/02/13 「速度計測その2」を追加</li>
-<li>2015/02/16 「速度計測その3」を追加</li>
-</ul>
-
-
-<h2>はじめに</h2>
-
-<p>新居でのフレッツv6オプションおよび IIJmio FiberAccess/NF の準備ができたので
-<a href="https://www.iijmio.jp/guide/outline/ipv6/ipv6_access/dslite/">DS-Lite</a>で
-IPv4での疎通性を確保してみた.
-が, ちょいと速度面で問題?があったのでメモ.</p>
-
-<h2>設定</h2>
-
-<p>設定は以下を参照. フィルタ周りの設定やIPv4 PPPoe周りを継ぎ足してほぼそのままで導入.</p>
-
-<ul>
-<li><a href="http://www.seil.jp/blog/ds-lite">SEIL/x86でDS-Lite</a></li>
-</ul>
-
-
-<h2>動作確認</h2>
-
-<p>tracerouteを取ってみるとこんな感じに transix.jp を通って
-IPv4インターネットに出て行けてることが確認できたら完了.
-<img src="/images/traceroute-dslite.png" alt="traceroute-dslite" /></p>
-
-<p>なお普通にIPv4 PPPoE経由でいくとこんな感じになる.
-<img src="/images/traceroute-iijmio.png" alt="traceroute-iijmio" /></p>
-
-<h2>速度計測</h2>
-
-<p>問題は速度で, 以下の様な三者間で速度を測ってみるとどうにも DS-Lite 経由の iperf の結果が芳しくない.</p>
-
-<p><img src="/images/dslitevspppoe.png" alt="dslitevspppoe" /></p>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">経由       </th>
-<th style="text-align:left;">ISPまたは事業者    </th>
-<th style="text-align:center;">対戦表</th>
-<th style="text-align:right;">速度(Mbps)</th>
-<th style="text-align:left;">備考             </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">???        </td>
-<td style="text-align:left;"> sakura internet?  </td>
-<td style="text-align:center;">1     </td>
-<td style="text-align:right;">87.2      </td>
-<td style="text-align:left;">VPS側の速度計測用</td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">2     </td>
-<td style="text-align:right;">46.5      </td>
-<td style="text-align:left;">                 </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">3     </td>
-<td style="text-align:right;">43.5      </td>
-<td style="text-align:left;">                 </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> IIJmio            </td>
-<td style="text-align:center;">2     </td>
-<td style="text-align:right;">87.9      </td>
-<td style="text-align:left;">                 </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> IIJmio            </td>
-<td style="text-align:center;">3     </td>
-<td style="text-align:right;">73.7      </td>
-<td style="text-align:left;">                 </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> Interlink         </td>
-<td style="text-align:center;">2     </td>
-<td style="text-align:right;">88.6      </td>
-<td style="text-align:left;">                 </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> Interlink         </td>
-<td style="text-align:center;">3     </td>
-<td style="text-align:right;">69.4      </td>
-<td style="text-align:left;">                 </td>
-</tr>
-</tbody>
-</table>
-
-
-<ul>
-<li>なお上流はフレッツ光マンションタイプ・ミニ(VDSL方式)なので,最大100Mbps</li>
-<li>ルータにはSEIL/X1を利用</li>
-<li>常にsakura VPS側がiperf server
-
-<ul>
-<li>1の場合は, 東京第二側をserverに</li>
-</ul>
-</li>
-<li>めんどうなので一発勝負. 5回平均や最大値採取はせず</li>
-</ul>
-
-
-<p>おおよそIIJmio側もInterlink側も70〜80Mbps程度は出ているように見受けられる.
-一方, DS-Liteを通すとなぜか40〜50Mbpsに下がる模様.</p>
-
-<p>さて, なんででしょう.</p>
-
-<h2>速度計測その2</h2>
-
-<p>上記速度計測では, LAN内からはiperf clientとしてしか通信していなかったので,
-ここではiperf3 (ver 3.0.11)のReverseモードを使って, 上り下り両方を測ってみる.
-なお, 上記速度計測とは以下の違いがある.</p>
-
-<ul>
-<li>今度は MacBookAir + Thunderbolt Ethernet Adapterをiperf clientとして利用
-
-<ul>
-<li>若干速くなってる</li>
-</ul>
-</li>
-<li>IIJmioとinterlinkには速度差はあまりないのでinterlink側経由の速度は省略</li>
-</ul>
-
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">経由       </th>
-<th style="text-align:left;">ISPまたは事業者    </th>
-<th style="text-align:center;">対戦表</th>
-<th style="text-align:center;">向き      </th>
-<th style="text-align:right;">速度(Mbps): sender</th>
-<th style="text-align:right;">速度(Mbps): receiver</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">2     </td>
-<td style="text-align:center;"> UP       </td>
-<td style="text-align:right;"><strong>51.5</strong>          </td>
-<td style="text-align:right;"><strong>51.2</strong>            </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">2     </td>
-<td style="text-align:center;"> DOWN     </td>
-<td style="text-align:right;">90.4              </td>
-<td style="text-align:right;">89.9                </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">3     </td>
-<td style="text-align:center;"> UP       </td>
-<td style="text-align:right;"><strong>53.5</strong>          </td>
-<td style="text-align:right;"><strong>53.1</strong>            </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">3     </td>
-<td style="text-align:center;"> DOWN     </td>
-<td style="text-align:right;">90.9              </td>
-<td style="text-align:right;">90.4                </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> IIJmio            </td>
-<td style="text-align:center;">2     </td>
-<td style="text-align:center;"> UP       </td>
-<td style="text-align:right;">93.8              </td>
-<td style="text-align:right;">93.8                </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> IIJmio            </td>
-<td style="text-align:center;">2     </td>
-<td style="text-align:center;"> DOWN     </td>
-<td style="text-align:right;">94.1              </td>
-<td style="text-align:right;">93.4                </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> IIJmio            </td>
-<td style="text-align:center;">3     </td>
-<td style="text-align:center;"> UP       </td>
-<td style="text-align:right;">87.3              </td>
-<td style="text-align:right;">86.3                </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> IIJmio            </td>
-<td style="text-align:center;">3     </td>
-<td style="text-align:center;"> DOWN     </td>
-<td style="text-align:right;">88.6              </td>
-<td style="text-align:right;">87.5                </td>
-</tr>
-</tbody>
-</table>
-
-
-<ul>
-<li>iperf3はクライアント側からサーバ側に向けてトラフィックを出す</li>
-<li>&ldquo;-R&#8221;オプションで逆方向になる</li>
-<li>このため, &ldquo;-R&#8221;なしがUP, &rdquo;-R&#8221;ありがDOWN</li>
-</ul>
-
-
-<p>DS-LiteのUP方向が妙に抑えられているようだ. DOWN方向は普通に速度が出ている.</p>
-
-<h2>速度計測その3</h2>
-
-<p>&ldquo;option ipv6 avoid-path-mtu-discovery on|off&#8221;を切り替えてみる.
-対戦表は2のみ.</p>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">経由       </th>
-<th style="text-align:left;">ISPまたは事業者    </th>
-<th style="text-align:center;">avoid-path-mtu-discovery</th>
-<th style="text-align:center;">向き      </th>
-<th style="text-align:right;">速度(Mbps): sender</th>
-<th style="text-align:right;">速度(Mbps): receiver</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">default                 </td>
-<td style="text-align:center;"> UP       </td>
-<td style="text-align:right;"><strong>50.4</strong>          </td>
-<td style="text-align:right;"><strong>50.2</strong>            </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">default                 </td>
-<td style="text-align:center;"> DOWN     </td>
-<td style="text-align:right;">90.2              </td>
-<td style="text-align:right;">89.8                </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">off                     </td>
-<td style="text-align:center;"> UP       </td>
-<td style="text-align:right;"><strong>75.0</strong>          </td>
-<td style="text-align:right;"><strong>74.9</strong>            </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">off                     </td>
-<td style="text-align:center;"> DOWN     </td>
-<td style="text-align:right;">90.5              </td>
-<td style="text-align:right;">90.0                </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">on                      </td>
-<td style="text-align:center;"> UP       </td>
-<td style="text-align:right;"><strong>52.0</strong>          </td>
-<td style="text-align:right;"><strong>51.7</strong>            </td>
-</tr>
-<tr>
-<td style="text-align:left;">DS-Lite    </td>
-<td style="text-align:left;"> Multifeed(transix)</td>
-<td style="text-align:center;">on                      </td>
-<td style="text-align:center;"> DOWN     </td>
-<td style="text-align:right;">90.7              </td>
-<td style="text-align:right;">90.4                </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> IIJmio            </td>
-<td style="text-align:center;">X                       </td>
-<td style="text-align:center;"> UP       </td>
-<td style="text-align:right;">93.7              </td>
-<td style="text-align:right;">93.7                </td>
-</tr>
-<tr>
-<td style="text-align:left;">IPv4 PPPoE </td>
-<td style="text-align:left;"> IIJmio            </td>
-<td style="text-align:center;">X                       </td>
-<td style="text-align:center;"> DOWN     </td>
-<td style="text-align:right;">93.4              </td>
-<td style="text-align:right;">92.5                </td>
-</tr>
-</tbody>
-</table>
-
-
-<p>offにすると少し良くなるようだ.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -2013,6 +1705,10 @@ IPv4インターネットに出て行けてることが確認できたら完了.
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/09/20/open-ipv6-ddns-on-seil/">SEIL で OPEN IPv6 DDNS for NGN を使う</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2016/09/13/fluentdashboard-with-sdr/">&#34;Fluent Dashboard + SDR デバイスで周囲の電波状況を可視化してみる&#34; 書いた</a>
@@ -2030,15 +1726,11 @@ IPv4インターネットに出て行けてることが確認できたら完了.
         <a href="/blog/2015/08/31/event-radio-utilization/">イベント無線LANでのチャネル使用率調査</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/">SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/802-dot-11'>802.11 (4)</a></li><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (2)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/network'>network (1)</a></li><li><a href='/blog/categories/radio'>radio (4)</a></li><li><a href='/blog/categories/report'>report (1)</a></li><li><a href='/blog/categories/research'>research (2)</a></li><li><a href='/blog/categories/rf'>rf (1)</a></li><li><a href='/blog/categories/tech'>tech (12)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/802-dot-11'>802.11 (4)</a></li><li><a href='/blog/categories/life'>life (3)</a></li><li><a href='/blog/categories/memo'>memo (2)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/network'>network (2)</a></li><li><a href='/blog/categories/radio'>radio (4)</a></li><li><a href='/blog/categories/report'>report (1)</a></li><li><a href='/blog/categories/research'>research (2)</a></li><li><a href='/blog/categories/rf'>rf (1)</a></li><li><a href='/blog/categories/tech'>tech (13)</a></li></ul>
 </section>
 
 
