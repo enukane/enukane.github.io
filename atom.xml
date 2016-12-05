@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2016-12-05T12:47:49+09:00</updated>
+  <updated>2016-12-05T12:49:55+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -140,7 +140,7 @@ Idleキャラクタのコントロールブロックは Ethernet フレームが
 <h2>評価</h2>
 
 <p>有効性の評価としてこの論文では DTP が PTP と比べて非決定性を抑制できていることを確認しています.
-PTPでは負荷の状況をなし, 中度, 重度と買えたときに300ns程度内, 25us程度内, 100us程度内と
+PTPでは負荷の状況をなし, 中度, 重度と変えたときに300ns程度内, 25us程度内, 100us程度内と
 誤差が大きくなっていきまた定常的にもブレが大きいことが見て取れます.
 一方の DTP ではMTU 1500バイトの通常のEthernetややジャンボフレームの場合に負荷を掛けても
 ワーストケースで 4T = 25.6 ns内に常に収まっていることが確認できます.</p>
