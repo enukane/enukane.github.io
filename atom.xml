@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2016-12-08T11:49:42+09:00</updated>
+  <updated>2017-01-01T00:15:00+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,79 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[今年やりたいこと＠2017]]></title>
+    <link href="http://enukane.github.io/blog/2017/01/01/2017-01-01-hofu/"/>
+    <updated>2017-01-01T00:06:53+09:00</updated>
+    <id>http://enukane.github.io/blog/2017/01/01/2017-01-01-hofu</id>
+    <content type="html"><![CDATA[<h2>2016年やれたこと</h2>
+
+<ul>
+<li>新年初日からておくれた(初日の出号のチケットが無駄に…)</li>
+<li>生まれ年のウィスキー買った(グレンタレット 1986, 27年物)</li>
+<li>同人誌2冊新刊だせた(Plan9 と 802.11それぞれ)
+
+<ul>
+<li>頒布同人誌、昨年比で併せて三倍の数刷った、個人的にはかなり冒険な数だけどなんとか捌けた。感謝。</li>
+<li>念願の、印刷所に印刷お願いした同人誌だせた。仕上がりとっても綺麗。</li>
+</ul>
+</li>
+<li>一陸特とった。4.9Ghz帯で遊ぶためだったのにデバイスはまだない。</li>
+<li>ジョギングはじめた(頻度は低い)</li>
+<li>イベント向け無線LAN構築: 8件
+
+<ul>
+<li>主担当1件、お手伝い7件。基本的に無線LANの運用監視中心。</li>
+</ul>
+</li>
+<li>はじめてのJANOG参加と沖縄</li>
+<li>島
+
+<ul>
+<li>八丈島と沖縄いった</li>
+</ul>
+</li>
+<li>葉巻始めました</li>
+<li>メガネっ漢はじめました。本格的に目がだめだ。</li>
+</ul>
+
+
+<h2>2017年にやりたいこと</h2>
+
+<ul>
+<li>厳かに而立を迎える＠3月</li>
+<li>言語系
+
+<ul>
+<li>仏検(2017/06, 4or3級)とる</li>
+<li>独検(2017/06/25, 4or3級)とる</li>
+<li>漢語水平考試(12/03, 2級)とる</li>
+<li>アイスランド語勉強する</li>
+<li>仏語で「Le Mythe de Sisyphe」読み切る</li>
+</ul>
+</li>
+<li>一陸技(秋)とる</li>
+<li>CCNA WIFUNDとる、たぶんCCENTが事前に必要っぽい</li>
+<li>IEEE WCETうけたい(一陸技が必要で、受験料55k、つらい)</li>
+<li>作る物の半分をgoにしてみる (from ruby)</li>
+<li>CAD覚える
+
+<ul>
+<li>3Dプリンタでpanopticonのケースつくってみる</li>
+<li>基板を起こしてみる(quickcharge用)</li>
+</ul>
+</li>
+<li>IndesignまたはScribusへのｳｽｲﾎﾝ作成環境の移行(vivliostyleでもいいかも): acrobat proからの脱却</li>
+<li>HarveyOS入門まとめる。今までの内容盛り込みつつ。</li>
+<li>オペラ「ニーベルングの指環」第三夜見にいく</li>
+<li>片方の系の財政健全化</li>
+<li>原付免許とる</li>
+<li>船舶免許取りたい</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[システム系論文紹介 Advent Calendar 2016 - 時刻同期話]]></title>
