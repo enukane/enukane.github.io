@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-01T14:02:28+09:00</updated>
+  <updated>2017-01-01T14:03:55+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -68,7 +68,8 @@
 <li>一陸技(秋)とる</li>
 <li>CCNA WIFUNDとる、たぶんCCENTが事前に必要っぽい</li>
 <li>IEEE WCETうけたい(一陸技が必要で、受験料55k、つらい)</li>
-<li>作る物の半分をgoにしてみる (from ruby)</li>
+<li>無線LAN利用状況監視の新しい方向性を作る</li>
+<li>作る物の半分をgolangにしてみる (from ruby)</li>
 <li>CAD覚える
 
 <ul>
