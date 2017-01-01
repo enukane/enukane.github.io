@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-01T14:03:55+09:00</updated>
+  <updated>2017-01-01T14:07:46+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -53,6 +53,8 @@
 
 <h2>2017年にやりたいこと</h2>
 
+<p>追記中</p>
+
 <ul>
 <li>厳かに而立を迎える＠3月</li>
 <li>言語系
@@ -77,6 +79,8 @@
 <li>基板を起こしてみる(quickcharge用)</li>
 </ul>
 </li>
+<li>ネットワークアナライザの使い方を覚える</li>
+<li>FPGAとRFフロントエンドでなにかやりたい(ぼくの考えたさいきょーのキャプチャ箱とか)</li>
 <li>IndesignまたはScribusへのｳｽｲﾎﾝ作成環境の移行(vivliostyleでもいいかも): acrobat proからの脱却</li>
 <li>HarveyOS入門まとめる。今までの内容盛り込みつつ。</li>
 <li>今年こそ「Plan9のブートプロセスを見る」の同人誌を作る</li>
