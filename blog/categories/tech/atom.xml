@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-11T18:58:32+09:00</updated>
+  <updated>2017-01-11T19:02:33+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -493,6 +493,7 @@ CaptiveNetworkSupport-306.20.1 wispr
 <li>ブレッドボードはつらい</li>
 </ul>
 </li>
+<li>DHCP Fingerprinting で遊びたい</li>
 <li>別の場所での運用
 
 <ul>
