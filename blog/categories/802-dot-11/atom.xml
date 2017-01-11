@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 802.11 | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/802-dot-11/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-11T19:02:33+09:00</updated>
+  <updated>2017-01-11T20:01:39+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -194,7 +194,7 @@ AliasMatch でこれを実現します。</p>
 &lt;/Directory&gt;
 </code></pre>
 
-<p>これにより全てのHTTP アクセス荷対して /index.html の中見を返すようになります。
+<p>これにより全てのHTTP アクセスに対して /index.html の中見を返すようになります。
 このHTMLファイル中に、先に挙げたWebページを詰め込んでおきます。</p>
 
 <a name="L............"></a>
@@ -279,7 +279,7 @@ androidだと<strong>android-XXXXXXXX</strong>といった乱数要素を含ん�
 
 
 <p>上記に挙げたとおり android にてホスト名に機種名を用いている例が4つありました。
-以下の通り全ててHuawei製品であり、このベンダでは一律このポリシーを採っているのかもしれません。</p>
+以下の通り全てHuawei製品であり、このベンダでは一律このポリシーを採っているのかもしれません。</p>
 
 <ul>
 <li>HUAWEI_P9</li>
