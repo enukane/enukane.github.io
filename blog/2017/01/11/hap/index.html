@@ -231,7 +231,7 @@ OpenWRT を導入できカスタマイズ性も高いため今回はこれを用
 基板に起こすのは間に合わなかったので Arduino そのままとブレッドボードで動かしていました。
 たまに結線が外れてリブートしてたり。。。。</p>
 
-<p><img class="center" src="/images/2017-01-11/hap-power.jpg"></p>
+<p><img class="center" src="/images/2017-01-11/hap-power.jpg" width="350"></p>
 
 <a name="L.....................................on.OpenWRT"></a>
 <h2>簡易キャプティブポータル on OpenWRT</h2>
@@ -252,8 +252,7 @@ OpenWRT を導入できカスタマイズ性も高いため今回はこれを用
 </ul>
 
 
-<p>dnsmasqのレコード上書き機能を用いて
-これを用いて全てのホスト名に対して自分のアドレスを返すことで、
+<p>dnsmasqのレコード上書き機能を用いて全てのホスト名に対して自分のアドレスを返すことで、
 アクセスを自身にねじ曲げます。
 現状 /etc/init.d/dnsmasq にて dnsmasq コマンドの引数に以下を
 加えてこれを実現しています。本来的には /etc/config/dhcp に list address の
