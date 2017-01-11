@@ -4,7 +4,7 @@
   <title><![CDATA[Category: memo | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/memo/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-01T14:13:37+09:00</updated>
+  <updated>2017-01-11T18:58:32+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -18,7 +18,8 @@
     <link href="http://enukane.github.io/blog/2017/01/01/2017-01-01-hofu/"/>
     <updated>2017-01-01T00:06:53+09:00</updated>
     <id>http://enukane.github.io/blog/2017/01/01/2017-01-01-hofu</id>
-    <content type="html"><![CDATA[<h2>2016年やれたこと</h2>
+    <content type="html"><![CDATA[<a name="L2016.................."></a>
+<h2>2016年やれたこと</h2>
 
 <ul>
 <li>新年初日からておくれた(初日の出号のチケットが無駄に…)</li>
@@ -51,6 +52,7 @@
 </ul>
 
 
+<a name="L2017........................"></a>
 <h2>2017年にやりたいこと</h2>
 
 <p>追記中</p>
@@ -99,7 +101,8 @@
     <link href="http://enukane.github.io/blog/2015/02/12/2015-02-12-dslite/"/>
     <updated>2015-02-12T23:50:42+09:00</updated>
     <id>http://enukane.github.io/blog/2015/02/12/2015-02-12-dslite</id>
-    <content type="html"><![CDATA[<h2>追記</h2>
+    <content type="html"><![CDATA[<a name="L......"></a>
+<h2>追記</h2>
 
 <ul>
 <li>2015/02/13 「速度計測その2」を追加</li>
@@ -107,6 +110,7 @@
 </ul>
 
 
+<a name="L............"></a>
 <h2>はじめに</h2>
 
 <p>新居でのフレッツv6オプションおよび IIJmio FiberAccess/NF の準備ができたので
@@ -114,6 +118,7 @@
 IPv4での疎通性を確保してみた.
 が, ちょいと速度面で問題?があったのでメモ.</p>
 
+<a name="L......"></a>
 <h2>設定</h2>
 
 <p>設定は以下を参照. フィルタ周りの設定やIPv4 PPPoe周りを継ぎ足してほぼそのままで導入.</p>
@@ -123,6 +128,7 @@ IPv4での疎通性を確保してみた.
 </ul>
 
 
+<a name="L............"></a>
 <h2>動作確認</h2>
 
 <p>tracerouteを取ってみるとこんな感じに transix.jp を通って
@@ -132,6 +138,7 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 <p>なお普通にIPv4 PPPoE経由でいくとこんな感じになる.
 <img src="/images/traceroute-iijmio.png" alt="traceroute-iijmio" /></p>
 
+<a name="L............"></a>
 <h2>速度計測</h2>
 
 <p>問題は速度で, 以下の様な三者間で速度を測ってみるとどうにも DS-Lite 経由の iperf の結果が芳しくない.</p>
@@ -220,6 +227,7 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 
 <p>さて, なんででしょう.</p>
 
+<a name="L..................2"></a>
 <h2>速度計測その2</h2>
 
 <p>上記速度計測では, LAN内からはiperf clientとしてしか通信していなかったので,
@@ -326,6 +334,7 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 
 <p>DS-LiteのUP方向が妙に抑えられているようだ. DOWN方向は普通に速度が出ている.</p>
 
+<a name="L..................3"></a>
 <h2>速度計測その3</h2>
 
 <p>&ldquo;option ipv6 avoid-path-mtu-discovery on|off&#8221;を切り替えてみる.

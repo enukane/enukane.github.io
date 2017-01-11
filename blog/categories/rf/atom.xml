@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rf | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/rf/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-01T14:13:37+09:00</updated>
+  <updated>2017-01-11T18:58:32+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -18,7 +18,8 @@
     <link href="http://enukane.github.io/blog/2015/05/01/bimbo-spectrum-analyzer/"/>
     <updated>2015-05-01T12:51:00+09:00</updated>
     <id>http://enukane.github.io/blog/2015/05/01/bimbo-spectrum-analyzer</id>
-    <content type="html"><![CDATA[<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
+    <content type="html"><![CDATA[<a name="L......................................................"></a>
+<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
 
 <p>新品を買うと, 数十万〜数百万だし, ヤフオク等の中古品でも明らかなジャンク品でないものに限ったとしても十〜数十万ぐらいは行ってしまう.</p>
 
@@ -72,6 +73,7 @@
 
 <p>おおよそ2つの側面があって, きちんとしたスペアナ買ってお勉強したいというのと, 今までやってきている無線LANキャプチャに織り交ぜたいという2つの方向からの要求が混ざっている. 分けた方がいいような気はする.</p>
 
+<a name="L................................."></a>
 <h2>候補になりそうな人たち</h2>
 
 <p>中古のスペアナをヤフオクで探すのは継続するとして, ハンディに使えそうな子達.</p>
@@ -187,6 +189,7 @@
 </table>
 
 
+<a name="L..............."></a>
 <h3>諸々の前提</h3>
 
 <ul>
@@ -206,8 +209,10 @@
 </ul>
 
 
+<a name="L......"></a>
 <h2>候補</h2>
 
+<a name="GigaSt.v5c"></a>
 <h3>GigaSt v5c</h3>
 
 <ul>
@@ -237,6 +242,7 @@
 </ul>
 
 
+<a name="RF.Explorer.6G.Combo...WiFi.Combo"></a>
 <h2>RF Explorer 6G Combo / WiFi Combo</h2>
 
 <ul>
@@ -278,6 +284,7 @@
 </ul>
 
 
+<a name="Aaronia.SPECTRAN.HF-6060V4...HF-6060V4.X"></a>
 <h2>Aaronia SPECTRAN HF-6060V4 / HF-6060V4 X</h2>
 
 <ul>
@@ -333,6 +340,7 @@
 </ul>
 
 
+<a name="WiSpy.DBx"></a>
 <h2>WiSpy DBx</h2>
 
 <ul>
@@ -420,6 +428,7 @@
 </ul>
 
 
+<a name="Signal.Hound.USB-SA124B...BB60C"></a>
 <h2>Signal Hound USB-SA124B / BB60C</h2>
 
 <ul>
@@ -449,6 +458,7 @@
 </ul>
 
 
+<a name="Tektronix.RSA306"></a>
 <h2>Tektronix RSA306</h2>
 
 <ul>

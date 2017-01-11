@@ -4,7 +4,7 @@
   <title><![CDATA[Category: report | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/report/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-01T14:13:37+09:00</updated>
+  <updated>2017-01-11T18:58:32+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -30,10 +30,12 @@
 </ul>
 
 
+<a name="L......"></a>
 <h3>感想</h3>
 
 <p>正直なところ, ネットワーク周りに首ったけになっていた結果 Perl のカンファレンスに参加したというよりお祭りに参加してネットワーク敷設のお手伝いしてきた, という印象の方が強かったです. Perl は10年ぐらいまえに CGI で遊んでた頃に書いたっきり全く触ってなかったので perl mongers に取り囲まれてぼっこぼこにされるんじゃないかと震えてたのですが, ruby やら go やら思ったより多様性に溢れていたのが印象的でした. なおちらっと Larry Wall の実物は見ることができました.</p>
 
+<a name="YAPC.........................................."></a>
 <h3>YAPCらしきことをつぶやいてたログ</h3>
 
 <blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">なおこんな感じのアロハ <a href="http://t.co/f1VfP6BJZW">pic.twitter.com/f1VfP6BJZW</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/634266022900400128">2015, 8月 20</a></blockquote>
@@ -52,6 +54,7 @@
 
 <p>どこまでベラベラしゃべって良いのか判断ついてなかったので, あんまりないね&hellip;</p>
 
+<a name="L..........................."></a>
 <h3>聞いてたセッション</h3>
 
 <p>かろうじて片耳で聞いてたセッションの一覧はこんな感じ</p>
@@ -87,6 +90,7 @@
 
 <p>Wi-Fi的にはD, Eが激戦区だったのでそのあたりには居たのですがセッションの内容まで覚えてるのはこの辺りの模様&hellip;</p>
 
+<a name="L..........CONBU.....LT.................................."></a>
 <h3>なぜか CONBU は LT で設営デモもやりました</h3>
 
 <p>どこかに映ってる, ヒゲダルマを探そう.</p>
@@ -113,6 +117,7 @@
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
+<a name="L.................."></a>
 <h3>パケット集め</h3>
 
 <p>一週間前にあったコミケでも持ち込んだ下記のデバイスを YAPC でも持ち込んで, バッグのなかに入れつつうろうろしてました.
@@ -133,6 +138,7 @@
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
+<a name="L............"></a>
 <h3>終わりに</h3>
 
 <p>最初で最後の YAPC::Asia Tokyo にネットワークスタッフとして参加, そしてそっちに夢中になっててあんまり本編を聞いていないとかどういうこっちゃという感じではありますが, それはそうとしてそれなりに楽しまさせていただきました. 関係者の皆様ありがとうございました.</p>

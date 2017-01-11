@@ -9,10 +9,7 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="memo Comments 今年やりたいこと＠2017 2016年やれたこと 新年初日からておくれた(初日の出号のチケットが無駄に…)
-メガネっ漢はじめました。本格的に目がだめだ。
-生まれ年のウィスキー買った(グレンタレット 1986, 27年物)
-同人誌2冊新刊だせた(Plan9 と 802. &hellip;">
+	<meta name="description" content="802.11, tech Comments 2017-01-11 コミケ91で、ハニーポット無線LANアクセスポイント立てたお話 概要 ハニーポットAPの見え方 ハニーポットAPの機材について AP本体 APへの電源供給 簡易キャプティブポータル on OpenWRT 設置場所 提供結果 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -115,6 +112,543 @@
   
 
 
+<time datetime="2017-01-11T09:35:12+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2017/01/11/hap/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2017/01/11/hap/" itemprop="url">2017-01-11 コミケ91で、ハニーポット無線LANアクセスポイント立てたお話</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><ul>
+ <li><a href="#L......">概要</a></li>
+ <li><a href="#L..................AP............">ハニーポットAPの見え方</a></li>
+ <li><a href="#L..................AP.....................">ハニーポットAPの機材について</a>
+ <ul>
+  <li><a href="#AP......">AP本体</a></li>
+  <li><a href="#AP..................">APへの電源供給</a></li>
+  <li><a href="#L.....................................on.OpenWRT">簡易キャプティブポータル on OpenWRT</a></li>
+  <li><a href="#L............">設置場所</a></li>
+ </ul>
+ </li>
+ <li><a href="#L............">提供結果</a>
+ <ul>
+  <li><a href="#L......LAN">無線LAN</a></li>
+  <li><a href="#DHCP">DHCP</a></li>
+  <li><a href="#DNS..........">DNS クエリ</a></li>
+  <li><a href="#L..............................">キャプティブポータル</a></li>
+ </ul>
+ </li>
+ <li><a href="#L.........">まとめ</a></li>
+ <li><a href="#Future.Work">Future Work</a></li>
+</ul>
+
+</p>
+
+<a name="L......"></a>
+<h1>概要</h1>
+
+<p>今冬のコミックマーケット91にて、1日目 西1 み-18a &ldquo;glenda9&rdquo; で出展するにあたって
+自スペースにハニーポット無線LANアクセスポイント(以下 ハニポAP)を立てました。
+ここではその提供方法、構成および結果について記述します。</p>
+
+<p>この手のイベントでは「応仁のLAN」といった面白SSIDを告知する遊びをする人がいます。
+これに倣って自分のスペース名をSSIDで告知というのも可能ですが、
+せっかくAPを立てるからにはもうすこし遊びを入れたいところです。</p>
+
+<p>もうちょっと真面目な目的としては各種プラットフォームが備えているキャプティブポータル検知の実装を見てみたい、
+この手のイベントでいかにもセキュリティの甘そうなAPをおいておくと
+どれくらいの人が引っかかるのか見てみたいといったモチベーションがありました。</p>
+
+<p>ここではAPとキャプティブポータルを組み合わせてイベント環境にデプロイし、
+クライアントの通信を特定コンテンツにねじ曲げて以下の様なページを強制表示するようにしつつ各種ログを収集しました。</p>
+
+<p><img class="center" src="/images/2017-01-11/captive-webui.png" width="350"></p>
+
+<!---
+# 目的
+
+- APを用いた宣伝、お客さんを釣る
+- どれくらいの人がハニポAPに引っかかるかをみる
+- キャプティブポータル検知の仕組みを実際に引っかけて調べる
+
+先にも述べたように単純にSSIDを「み-18a glenda9」などとして宣伝する方法もあります。
+が、一般的なハニーポットとしては"Free Wi-Fi"といったそれらしいSSIDをつけておきたいところです。
+威力業務妨害扱いにもなりそうなので、今回はやりませんでしたが他のFree Wi-Fiで用いている
+SSIDをつけるという案もあります。
+コミケの環境では、PCというよりスマホ・タブレットが主として用いられると思われ
+またさらにいえばWi-Fiよりは3G/LTEを用いるであろうと思われるためあまり引っかかる人はいなさそうです。
+しかし、無線LANがデフォルト有効かつ暗号化なしSSIDに自動的に接続しに行くデバイスや、
+テザリング接続時にたまたまフリーっぽいSSIDを見つけて手動接続するユーザはいると思われます。
+これらをターゲットとしてSSIDを告知します。
+
+各種プラットフォームではそれぞれ [HOW AUTOMATIC DETECTION OF CAPTIVE PORTAL WORKS](https://success.tanaza.com/s/article/How-Automatic-Detection-of-Captive-Portal-works)にあるようなキャプティブポータル検知の仕組みを導入しています。
+これを実際に調べるとともに、この際に発生する接続からアドレス取得、名前解決からHTTPアクセスまでの
+一連の流れから読み取れることを探ってみます。
+
+-->
+
+
+<a name="L..................AP............"></a>
+<h1>ハニーポットAPの見え方</h1>
+
+<p>ハニポAPのSSIDとして「  Not Free Wi-Fi」を告知するようにしました。
+SSIDの先頭に半角スペースを2つ入れることで、
+「0000」で始まるものやアンダースコアから始まるSSIDよりも上位に出現するようにしています。
+2.4GHz帯と5GHz帯でSSIDを分けており、
+下記の様に2.4GHz帯側には&#8221;-g&#8221;とのサフィクスをつけました。</p>
+
+<p><img class="center" src="/images/2017-01-11/not-free-wifi-ssid_hide.png" width="300"></p>
+
+<!--- 引っかかると --->
+
+
+<p>このSSIDに接続すると、
+大抵のプラットフォームに入っているキャプティブポータル検知の仕組みによりスプラッシュページが表示されます。
+Androidのスマホで見ると、ハニーポットAPのSSIDを選択後しばらくすると以下の画面がポップアップします。</p>
+
+<p><img class="center" src="/images/2017-01-11/sp-captive.jpg" width="300"></p>
+
+<a name="L..................AP....................."></a>
+<h1>ハニーポットAPの機材について</h1>
+
+<a name="AP......"></a>
+<h2>AP本体</h2>
+
+<p>ハニーポットAPには、Buffalo WZR-HP-AG300H に OpenWRT を載せたものを用いました。</p>
+
+<p><img class="center" src="/images/2017-01-11/hap.png" width="300"></p>
+
+<p>C90で同様の試みをしたときは Raspberry Pi と USB Wi-Fi アダプタを用いていました(以下)。
+その際は、混雑している2.4GHz帯でしか運用せず出力も弱めであったため、
+あまり接続数を稼げませんでした。</p>
+
+<p><img class="center" src="/images/2017-01-11/old-hap.png" width="300"></p>
+
+<p>WZR-HP-AG300H は家庭用APとしてそれなりにきちんとしたアンテナを備え、
+2.4GHz/5GHz帯の同時運用も可能です。
+OpenWRT を導入できカスタマイズ性も高いため今回はこれを用いてハニーポットAPを実装しました。</p>
+
+<a name="AP.................."></a>
+<h2>APへの電源供給</h2>
+
+<p>WZR-HP-AG300Hの消費電力は最大13.2Wであり、付属のACアダプタは定格 12V/2.0A となっています。
+通常のUSBモバイルバッテリーではここまでの電圧は出せないため、
+簡単にやるにはACが取れる電源などの大きめのバッテリーを用意する必要があります。
+これらは価格も高い上にでかいし重いしで大変に邪魔なので、
+ここでは以下のページに従ってQuickCharge 2.0対応のバッテリー(今回は AUKEY PB-T4 を利用)から12Vを引き出すようにしました。</p>
+
+<ul>
+<li><a href="https://lowreal.net/2015/12/07/3">Quick Charge 2.0 電源から 12V とる</a></li>
+</ul>
+
+
+<p>なお上記ページのコードでは上手く動かなかったため、
+挿入するディレイの長さを変更して運用しています。コードは下記をご参照ください。</p>
+
+<ul>
+<li><a href="https://gist.github.com/enukane/26f3af8938ed2a775296f472b1c71168">https://gist.github.com/enukane/26f3af8938ed2a775296f472b1c71168</a></li>
+</ul>
+
+
+<p>後述するとおり 10000mAh のバッテリーで6時間程度は運用できました。</p>
+
+<a name="L.....................................on.OpenWRT"></a>
+<h2>簡易キャプティブポータル on OpenWRT</h2>
+
+<p>簡易キャプティブポータル実現のため、以下の細工を入れています。</p>
+
+<ul>
+<li>管理用WebUIはWAN側インタフェースでのみ受付</li>
+<li>LAN から WAN への通信を全て遮断</li>
+<li>DHCPで配布するDNSサーバを自身(10.0.0.1)に設定</li>
+<li>DNSサーバにて全てのAレコードのクエリに対して自身のアドレスで応答</li>
+<li>LAN側(キャプティブポータル提供側)では Apache で HTTP アクセスを待ち受け
+
+<ul>
+<li>全てのHTTPアクセスを /index.html に置き換え</li>
+</ul>
+</li>
+</ul>
+
+
+<p>dnsmasqのレコード上書き機能を用いて
+これを用いて全てのホスト名に対して自分のアドレスを返すことで、
+アクセスを自身にねじ曲げます。
+現状 /etc/init.d/dnsmasq にて dnsmasq コマンドの引数に以下を
+加えてこれを実現しています。本来的には /etc/config/dhcp に list address の
+行を追加すれば動くはずですが、上手く動作しないようでした。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>--address='/#/10.0.0.1'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>キャプティブポータルとして HTTP アクセスを受け付ける側には Apache を用います。
+上記 DNS の細工により、HTTP アクセスはこちらに向きますがパスは不定のためリダイレクト等が必要です。
+OpenWRT デフォルトの apache では mod_rewrite が使えないため、
+AliasMatch でこれを実現します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>AliasMatch ^/.+$ /root/www/index.html
+</span><span class='line'>&lt;Directory "/root/www"&gt;
+</span><span class='line'>  Options Indexes FollowSymLinks SymLinksIfOwnerMatch
+</span><span class='line'>  AllowOverride None
+</span><span class='line'>  Order allow,deny
+</span><span class='line'>  Allow from all
+</span><span class='line'>&lt;/Directory&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これにより全てのHTTP アクセス荷対して /index.html の中見を返すようになります。
+このHTMLファイル中に、先に挙げたWebページを詰め込んでおきます。</p>
+
+<a name="L............"></a>
+<h2>設置場所</h2>
+
+<p>ハニーポットAP は コミックマーケット91 1日目 (2016/12/29) の西ホール1、
+み-18a の机の上に設置しました。西ホールのだいたい赤丸の位置に自スペースがあります。</p>
+
+<p><img class="center" src="/images/2017-01-11/map.png" width="200"></p>
+
+<p><img src="/images/2017-01-11/my-space_cap.png"></p>
+
+<p>机の上の可能な限り高いところに、
+設置しましたができればポスタースタンドなどにくくりつけてより高さを稼ぎたいところではあります。</p>
+
+<a name="L............"></a>
+<h1>提供結果</h1>
+
+<p>ハニーポットAPの提供は 12/29 09:05:29 から 15:09:15 までの期間、6時間3分46秒に渡って実施しました。</p>
+
+<a name="L......LAN"></a>
+<h2>無線LAN</h2>
+
+<p>接続しにきたユニーククライアント数は 62 台でした。
+この値は、ログ中の接続(Authentication)イベントに紐付くMACアドレスのユニークアドレス数を計上したものです。
+なお、いくつかの端末は Authentication Response に対してACKを返せていないため実際にAssociationまで至ったクライアントは
+56 台です。</p>
+
+<p>MACアドレスのOUIからベンダ名を引き、分布を図示した物が以下になります。
+全体でベンダは10種類でした。コミケという利用環境上、大半がスマートフォンであると推測できます。
+この中でも大半が Apple (おそらくiPhone/iPad) と Huawei で占められています。
+&ldquo;IEEE Registration Authority&#8221;という名前になっているものがありますが、
+一部のスマホでは自社のベンダ名を登録していないためこうなっているようです。</p>
+
+<p><img src="/images/2017-01-11/sta_oui_histogram.png" alt="sta-oui-histogram" /></p>
+
+<p>ハニーポットAPでは2.4/5GHz帯でそれぞれ別のSSIDを告知しています。
+以下は帯域毎のユニーク接続クライアント数の分布です。
+2.4GHz帯は18端末、5GHz帯は42端末と後者に寄っています。
+接続イベント数上も2.4GHz帯は 33回、5GHz帯は 63回となっており、
+5GHz帯側に接続しにくることが多かったようです。</p>
+
+<p><img src="/images/2017-01-11/sta_per_band.png" alt="sta-per-band" /></p>
+
+<p>以下は端末の接続持続時間のヒストグラムです。端末が接続してから切断するまでの期間(秒)と発生回数をプロットしています。
+10秒単位で丸めています。大半は1分以内ですが、最長で1030秒(17分程度)の場合もあったようです。
+300秒にて山がありますが、これは5分毎に走るGTKの更新失敗やらのタイムアウトに起因するものと推測しています。
+移動が激しいコミケのような環境では、接続後そのまま明示的に切断せずにクライアントが離脱することが多いため、
+このような傾向があるものと考えています。</p>
+
+<p><img src="/images/2017-01-11/sta_dur_histogram.png" alt="sta-dur-histogram" /></p>
+
+<a name="DHCP"></a>
+<h2>DHCP</h2>
+
+<p>DHCPサーバがアドレスを割り当てた端末は 50 台でした。
+先に述べたとおり、Assocした端末数は56端末であるため6台はDHCPによるアドレス取得まで至らなかったようです。</p>
+
+<p>割り当てたアドレスは10.0.0.0/8から 45 アドレス分でした。
+dnsmasqは比較的割り当てアドレスをばらけさせる傾向にありますが、うち5アドレスは重複して配布しています。
+デフォルトでは DHCP Lease Time が 1h であるため再利用されたようです。</p>
+
+<p>DHCPクライアントは DHCP Requestのオプションとしてホスト名を付与する場合があります。
+このホスト名のユニーク数は今回 39 種でした。
+ホスト名文字列として何が付与されるかは端末により異なります。
+iOS系だと<strong>〜のiPhone</strong>といった形式、
+androidだと<strong>android-XXXXXXXX</strong>といった乱数要素を含んだ文字列を用いる場合があります。
+詳細は伏せますが、今回は以下の様な文字列が検出されました。</p>
+
+<ul>
+<li>iPhone/iPod Touchと推測されるもの(&ldquo;iphone&rdquo;, &ldquo;ipod&#8221;が含まれる): 14 個</li>
+<li>iPadと推測されるもの(&ldquo;ipad&#8221;が含まれる): 5 個</li>
+<li>androidと推測されるもの
+
+<ul>
+<li>&ldquo;android-XXXXX&rdquo; の形式: 12 個</li>
+<li>機種名: 4 個</li>
+</ul>
+</li>
+<li>不明(端末を推測可能な文字列を含まない): 4 個</li>
+</ul>
+
+
+<p>上記に挙げたとおり android にてホスト名に機種名を用いている例が4つありました。
+以下の通り全ててHuawei製品であり、このベンダでは一律このポリシーを採っているのかもしれません。</p>
+
+<ul>
+<li>HUAWEI_P9</li>
+<li>HUAWEI_P9_lite</li>
+<li>HUAWEI_Mate_9</li>
+<li>Honor_8</li>
+</ul>
+
+
+<a name="DNS.........."></a>
+<h2>DNS クエリ</h2>
+
+<p>ハニポAPで動作しているDNSサーバでは期間中に合計556回 DNS クエリを受け取っており、
+この対象レコードの内訳は以下の通りです。</p>
+
+<ul>
+<li>Aレコード: 504回</li>
+<li>AAAAレコード: 50回</li>
+<li>PTRレコード: 2回</li>
+</ul>
+
+
+<p>合計 123 個の名前にたいしてクエリを受信しました。
+以下はその中で回数の多いほうからトップ10をプロットしたグラフです。
+<em>connectivitycheck.gstatic.com</em> や <em>captive.apple.com</em>
+のようにキャプティブポータル検知に用いられるホストが多く現れています。
+またプッシュ通知を司るホスト向けの通信が多いことも伺えます。</p>
+
+<p><img src="/images/2017-01-11/query_top10.png" alt="query-top10" /></p>
+
+<p>AAAA レコードへのクエリのみを抽出すると、以下の5ホストに対してのクエリを受信していました。
+IPv6はサポートしていないため、一律NODATAを返しています。</p>
+
+<ul>
+<li>connectivitycheck.gstatic.com</li>
+<li>clients3.google.com</li>
+<li>mobile.pipe.aria.microsoft.com</li>
+<li>a.config.skype.com</li>
+<li>b.config.skype.com</li>
+</ul>
+
+
+<a name="L.............................."></a>
+<h2>キャプティブポータル</h2>
+
+<p>名前でねじ曲げられた先のキャプティブポータルに対するアクセスは以下のようになっています。</p>
+
+<ul>
+<li>HTTPアクセス回数: 246 回</li>
+<li>HTTPアクセスのユニーク送信元アドレス数: 43 個
+
+<ul>
+<li>うち5つのアドレスは重複割り当ての可能性あり</li>
+</ul>
+</li>
+<li>HTTPアクセス対象ホストのユニーク数: 21 ホスト
+
+<ul>
+<li>先のクエリ対象ホストが123だったのに比べるとだいぶ少なめ</li>
+<li>HTTPのみ対象のため？</li>
+</ul>
+</li>
+</ul>
+
+
+<p>以下はアクセス数の多いほうから、ホスト名のトップ10をプロットしたグラフです。
+やはりキャプティブポータル検知用ホストへのアクセスが多めです。</p>
+
+<p><img src="/images/2017-01-11/http_host_histogram.png" alt="http-host-histogram" /></p>
+
+<p>アクセス数のヒストグラムをURL全体に拡張し、そのトップ10を並べたものを以下に記載します。
+全体では31個のURLに対するアクセスを記録しています。</p>
+
+<p><img src="/images/2017-01-11/http_url_histogram.png" alt="http-url-histogram" /></p>
+
+<p>通常のWebアクセスらしきものや、Simejiの通信なども見えますが
+大多数はキャプティブポータル検知用のURLに対するアクセスです。</p>
+
+<ul>
+<li>Apple系
+
+<ul>
+<li><a href="http://captive.apple.com/hotspot-detect.html">http://captive.apple.com/hotspot-detect.html</a></li>
+<li><a href="http://captive.apple.com/XXXXXXXXXX/YYYYYYYYYYY/ZZZZZZZZZZZZZZZZZZZZZ.html">http://captive.apple.com/XXXXXXXXXX/YYYYYYYYYYY/ZZZZZZZZZZZZZZZZZZZZZ.html</a>
+
+<ul>
+<li>captive.apple.com はどのパスでも固定の応答が返る模様</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Android系
+
+<ul>
+<li><a href="http://connectivitycheck.gstatic.com/generate_204">http://connectivitycheck.gstatic.com/generate_204</a></li>
+<li><a href="http://clients3.google.com/generate_204">http://clients3.google.com/generate_204</a></li>
+<li><a href="http://connectivitycheck.android.com/generate_204">http://connectivitycheck.android.com/generate_204</a></li>
+<li><a href="http://10.0.0.1/generate_204">http://10.0.0.1/generate_204</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>今回検出したアクセス時のUser-Agentは大別すると以下の4種類に分けられそれぞれ一定の役割のもと
+用いられているようです。</p>
+
+<ul>
+<li>CaptiveNetworkSupport系</li>
+<li>Dalvik系</li>
+<li>WebKit系</li>
+<li>その他</li>
+</ul>
+
+
+<p>CaptivePortalSupportは主に captive.apple.com 向けの通信に使われていました。
+ただしこれだけ、と言うわけではなく以下の様に CaptiveNetworkSupport系とMozilla系のUser-Agentを交互に利用しているようです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>10.0.0.73 GET /hotspot-detect.html FryingPan.lan captive.apple.com "CaptiveNetworkSupport-325.10.1 wispr" 200
+</span><span class='line'>10.0.0.73 GET /hotspot-detect.html FryingPan.lan captive.apple.com "Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G34" 200</span></code></pre></td></tr></table></div></figure>
+
+
+<p>CaptiveNetworkSupportを含むUser-Agent文字列には以下のパターンが存在していました。
+WISPrの仕様上、User-Agent文字列は &ldquo;WISPR!任意の文字列&rdquo; ということになっているので
+CaptiveNetworkSupportの文字列の出典および後続する数値列の意味は不明です。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CaptiveNetworkSupport-346 wispr
+</span><span class='line'>CaptiveNetworkSupport-325.10.1 wispr
+</span><span class='line'>CaptiveNetworkSupport-277.10.5 wispr
+</span><span class='line'>CaptiveNetworkSupport-306.20.1 wispr</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Android向けであると推測される connectivitycheck.gstatic.com等へのアクセスは主に Dalvik系 User-Agent から
+なされています。が、Apple系とおなじくMozilla系Uer-Agentでのアクセスも確認されています。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>10.0.0.13 GET /generate_204 FryingPan.lan connectivitycheck.gstatic.com "Dalvik/2.1.0 (Linux; U; Android 7.0; Nexus 6 Build/NBD91P)" 200
+</span><span class='line'>10.0.0.13 GET /generate_204 FryingPan.lan connectivitycheck.gstatic.com "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD91P; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/55.0.2883.91 Mobile Safari/537.36" 200</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!---
+
+- "KT/6.0.1 An/4.4.2 ko"
+  - アプリ内の広告表示アクセスっぽい
+- なし
+  - simejiっぽい
+- "iPad5,3/9.3.3 (13G34)"
+  - iOSのPush通知関連？
+- "dianxinos-user-agent"
+  - Baidu系っぽい
+- "LINE/2016.1114.1637 CFNetwork/758.5.3 Darwin/15.6.0"
+  - LINE?
+- "DXCoreService"
+- "com.baidujp.Simeji.SimejiKB/243 CFNetwork/758.5.3 Darwin/15.6.0"
+  - Simeji
+- "Alamofire"
+  - Simejiっぽい
+
+--->
+
+
+<a name="L........."></a>
+<h1>まとめ</h1>
+
+<ul>
+<li>コミケ91 1日目にてハニーポットAPを動かしてみた</li>
+<li>62人のお客さんが釣れた
+
+<ul>
+<li>うち43人程度にはキャプティブWebページを見てもらえた模様</li>
+<li>前回 (C90, 10人程度) に比べてだいぶアクセスしてもらえた</li>
+</ul>
+</li>
+<li>キャプティブポータル検知をしてるらしい動きが見れた
+
+<ul>
+<li>iphone &amp; android がメイン?</li>
+<li>PC系は今回はほぼいないのもあって確認できず</li>
+<li>1台だけ Ubuntu マシンがいたが、キャプティブ検知っぽい動作はしていなかった</li>
+</ul>
+</li>
+</ul>
+
+
+<a name="Future.Work"></a>
+<h1>Future Work</h1>
+
+<p>お次やるとしたらこう工夫しようというToDoリスト</p>
+
+<ul>
+<li>DHCP リースタイムの延長
+
+<ul>
+<li>1日程度の方が良さそう</li>
+</ul>
+</li>
+<li>運用時の可視化方法
+
+<ul>
+<li>本当は ruby 動かして管理用 WebUI が見れるはずだったけど、上手く動かなかった</li>
+</ul>
+</li>
+<li>自律的な時刻同期
+
+<ul>
+<li>会期中一回落ちて時刻がおかしくなった</li>
+<li>3G/LTE で NTP ?</li>
+</ul>
+</li>
+<li>電源モジュールの基板化
+
+<ul>
+<li>ブレッドボードはつらい</li>
+</ul>
+</li>
+<li>別の場所での運用
+
+<ul>
+<li>PC が多そうな環境で見てみたい</li>
+</ul>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
 <time datetime="2017-01-01T00:06:53+09:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
@@ -129,7 +663,8 @@
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2017/01/01/2017-01-01-hofu/" itemprop="url">今年やりたいこと＠2017</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<h2>2016年やれたこと</h2>
+		<a name="L2016.................."></a>
+<h2>2016年やれたこと</h2>
 
 <ul>
 <li>新年初日からておくれた(初日の出号のチケットが無駄に…)</li>
@@ -162,6 +697,7 @@
 </ul>
 
 
+<a name="L2017........................"></a>
 <h2>2017年にやりたいこと</h2>
 
 <p>追記中</p>
@@ -238,10 +774,12 @@
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2016/12/04/2016-system-paper-adv-calendar/" itemprop="url">システム系論文紹介 Advent Calendar 2016 - 時刻同期話</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<h1>論文紹介: “Globally Synchronized Time via Datacenter Networks”</h1>
+		<a name="L............:....Globally.Synchronized.Time.via.Datacenter.Networks..."></a>
+<h1>論文紹介: “Globally Synchronized Time via Datacenter Networks”</h1>
 
 <p>本記事は システム系論文紹介 Advent Calendar 2016の4日目, 12/04 のための記事です.</p>
 
+<a name="L............"></a>
 <h2>はじめに</h2>
 
 <p>4日目 n_kane の担当分では今年の ACM SIGCOMM 2016 より時刻同期話ということで以下の論文を取り上げます.</p>
@@ -261,6 +799,7 @@
 
 <p>セッション自体の括りはデータセンター, 内容としても DC 環境での分散システム向けの時刻同期をターゲットにしています. このあたりは個人的な興味ではなかったのですが, 最近時刻同期関連(GPS, NTP, PTP 等等)を勉強しようと思っておりました. その矢先にこの論文を見つけたため今回取り上げることにしました.</p>
 
+<a name="L..........................."></a>
 <h2>対象としている問題</h2>
 
 <p>NTPやPTPをベースにした時刻同期はもはや無くてはならないプロトコルですが, ナノ秒レベルでの時刻同期が必要な場合, 精度に非決定性があるというのが本論文で取り上げ解決策を提示している問題です.</p>
@@ -269,12 +808,14 @@
 
 <p>この流れの RTT 計測, クロックの維持, 再計測に非決定的な誤差を生む要因がある, と本論文では主張しています. NTP, PTPはともに UDP ベースのプロトコルでありネットワーク帯域を消費しているため 間の経路の経路, 輻輳, 機器類のバッファリングや送受信のスケジューリングによる影響を受けます. ベースとなるRTT計測は往路復路が同じであることを前提としていますが, これが常に満たされるとは限りません. クロックの維持も誤差要因となります. 原子時計と異なり一般的なx86の計算機に積まれたクロックはそれぞれに 一定の誤差を生じながら動くため, 時が進むにつれズレが発生します. この補正のためには頻繁な再計測・再同期を行う必要がありますが, あまりに同期対象や頻度が多い場合に時刻同期に帯域を取られてしまうといった問題があります.</p>
 
+<a name="L........."></a>
 <h2>解決策</h2>
 
 <p>この論文では時刻同期を Ethernet で直結された2台の計算機間において PHY レイヤで行うことで 前節の問題を解決しようとしています. キモはEthernet で接続された計算機間では「既にNIC同士のクロックが同期されている」という点です. Figure 2 にクロックドメインについての図が掲載されていますが, Ethernetのフレームを送受信するにあたって送信側と受信側は実質同じ回路になっており 送信側のクロックに併せて動作をしていると考えることができます.</p>
 
 <p>このNICレベルでのクロック同期を, システムレベルでのクロック同期に利用するというのが 本論文で提示する手法になっています. この手法を用いたクロック同期として DTP (Datacenter Time Protocol) とそれを実装した 10Gbit Ethernet PHY を取り上げています.</p>
 
+<a name="L............"></a>
 <h2>ポイント</h2>
 
 <p>この論文で DTP の推しポイントとして主張されているのは以下の3点です.</p>
@@ -286,6 +827,7 @@
 </ol>
 
 
+<a name="L1.............................0.................."></a>
 <h3>1. オーバーヘッド実質0のプロトコル</h3>
 
 <p>NTPやPTPと同じく DTP も RTT の計測からの一方向遅延の算出を基本としています. 最終的なクロック合わせをオフセットの計算ではなく「一番速いやつに合わせる」 というアルゴリズムの違いはありますが, やっていることはあまり替わりません.</p>
@@ -296,6 +838,7 @@
 
 <p>この方法の利点として Ethernet の伝送を邪魔しないこと, 高頻度にクロック同期が可能であることが挙げられます. Idleキャラクタのコントロールブロックは Ethernet フレームが流れる時はその前後に, 何も流れていない時は継続的に差し込まれるため Ethernet の帯域を消費しません. いわゆる10GbE, 100GbEといった速度はこの制御系の通信を除いたものであるためです. このコントロールブロックは輻輳している場合でも 1280〜7680ns の間隔で挿入が可能です. ワーストケースでも数usの周期でクロック同期を回すことが可能であるため, 精度の維持</p>
 
+<a name="L2.............................................................."></a>
 <h3>2. ナノ秒レベルで誤差予測可能なクロック同期</h3>
 
 <p>DTP では同期誤差が「4T」に決定的(deterministic)に収まるように設計されています. ここで T は最も速いクロックの周期であり, 10Gbit Ethernetの場合は T = 1 / f = 1 / 156.25MHz = 6.4 nsとなるため, 25.6ns内に収まることになります.</p>
@@ -304,20 +847,24 @@
 
 <p>複数のPHYを計算機に挿すことでPTPのBoundary Clockのようにネットワークを跨がって時刻を 同期することも可能です. この場合でも「4TD + 8T」に誤差が収まるとしています. ここで D はホップ数を挿します. スモールワールド現象に則って6ホップ経由すればデータセンターの 全ての計算機にリーチできると仮定すると, どの計算機の間でも 153.6ns 以内に誤差が収まる クロック同期が可能となります.</p>
 
+<a name="L3..................................."></a>
 <h3>3. スケーラブルな時刻同期</h3>
 
 <p>DTP は Ethernet が直結された2台間で行うことが基本ですが, スイッチがDTPをサポートすることで 2台以上のクロック同期が可能となっています. 前提としてスイッチの全ポートが同じクロックを共有するスイッチチップにより制御されていることが 必須にはなりますが, これを基軸として全ポートと DTP のやりとりを行うことで現在の最速クロックに 合わせるという動作が可能です.</p>
 
+<a name="L......"></a>
 <h2>評価</h2>
 
 <p>有効性の評価としてこの論文では DTP が PTP と比べて非決定性を抑制できていることを確認しています. PTPでは負荷の状況をなし, 中度, 重度と変えたときに300ns程度内, 25us程度内, 100us程度内と 誤差が大きくなっていきまた定常的にもブレが大きいことが見て取れます. 一方の DTP ではMTU 1500バイトの通常のEthernetややジャンボフレームの場合に負荷を掛けても ワーストケースで 4T = 25.6 ns内に常に収まっていることが確認できます.</p>
 
+<a name="L........................"></a>
 <h2>まとめとおわりに</h2>
 
 <p>ここでは Ethernet の PHY レイヤを用いたクロック同期手法 DTP (Datacenter Time Protocol) についての論文を取り上げました. 時刻同期というよりはクロック同期であり, PTPと比してさらにハードウェアのサポートが必要であること, 同期ピア間でケーブルの直結が必要であることなど制約がより強い手法ではあります. ただし誤差の予測がネットワークを跨いでも可能であり必ずしも局所的にしか使えないといったものでもないようです.</p>
 
 <p>スイッチの実装はまだ構想段階のようなので論文中の前提がフィールドで適用できるかどうかや, DTP を実装する NIC PHY のコストや性能への実際の影響についてはより調査や実験が必要と感じました. 個人的には IEEE 802.11ae の PCS をある意味ハックしているのが面白く感じました. また REFERENCES に時刻同期関連の一通りが並んでいるので大変にありがたい文章です.</p>
 
+<a name="L.........:............."></a>
 <h2>後付け: 他の候補</h2>
 
 <p>その他, 今回紹介しようと思った候補としては以下に挙げるものがありました.</p>
@@ -517,6 +1064,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 	<div class="entry-content" itemprop="articleBody">
 		<p>HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる.</p>
 
+<a name="L......"></a>
 <h2>参考</h2>
 
 <ul>
@@ -532,6 +1080,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L......"></a>
 <h2>構成</h2>
 
 <p><img src="/images/2015-09-08/plan-diy-radio-telescope.png" alt="2015-09-08-diy-rt" /></p>
@@ -548,8 +1097,10 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L..............."></a>
 <h2>必要な物品</h2>
 
+<a name="L..........................."></a>
 <h3>既に持っているもの</h3>
 
 <table>
@@ -600,6 +1151,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </table>
 
 
+<a name="L..............."></a>
 <h3>買うべき物</h3>
 
 <table>
@@ -719,10 +1271,12 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2015/08/31/event-radio-utilization/" itemprop="url">イベント無線LANでのチャネル使用率調査</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<h2>概要</h2>
+		<a name="L......"></a>
+<h2>概要</h2>
 
 <p>いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。</p>
 
+<a name="L............"></a>
 <h3>計測対象</h3>
 
 <p>今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、定点観測的に収集をしています。</p>
@@ -783,14 +1337,17 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </table>
 
 
+<a name="L.........................................."></a>
 <h2>チャネル利用率のヒートマップ</h2>
 
 <p>5分毎に区切って、チャネルごとにヒートマップ化したものを並べてみる。</p>
 
+<a name="L2015.08.02........................."></a>
 <h3>2015/08/02 あたりのイベント</h3>
 
 <p><img src="/images/2015-08-31/ev0802-util.png" alt="2015-08-02-util" /></p>
 
+<a name="L...........C88."></a>
 <h3>コミケ (C88)</h3>
 
 <p>コミケでは、1日目および2日目は一般参加、三日目のみサークル参加だったため東 P-18b にて定点観測を実施。
@@ -821,34 +1378,42 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L1........2015.08.14."></a>
 <h4>1日目 (2015/08/14)</h4>
 
 <p><img src="/images/2015-08-31/c88-d1.png" alt="2015-08-14-util" /></p>
 
+<a name="L2........2015.08.15."></a>
 <h4>2日目 (2015/08/15)</h4>
 
 <p><img src="/images/2015-08-31/c88-d2.png" alt="2015-08-15-util" /></p>
 
+<a name="L3........2015.08.16."></a>
 <h4>3日目 (2015/08/16)</h4>
 
 <p><img src="/images/2015-08-31/c88-d3.png" alt="2015-08-16-util" /></p>
 
+<a name="YAPC::Asia.Tokyo.2015"></a>
 <h3>YAPC::Asia Tokyo 2015</h3>
 
 <p>こちらは CONBU チーム (いわゆる Wi-Fi 班)として参加したときのもの. 作業時に邪魔にならない場合、ショルダーバッグにデバイスを入れて彷徨うようにはしていました. が、バックヤードに起きっぱなしの時間も大分あったため有為なデータが取れていない可能性は多々ありそう。</p>
 
+<a name="L1........2015.08.21."></a>
 <h4>1日目 (2015/08/21)</h4>
 
 <p><img src="/images/2015-08-31/yapc2015-d1.png" alt="2015-08-21-util" /></p>
 
+<a name="L2........2015.08.22."></a>
 <h4>2日目 (2015/08/22)</h4>
 
 <p><img src="/images/2015-08-31/yapc2015-d2.png" alt="2015-08-22-util" /></p>
 
+<a name="L...............113..2015.08.30."></a>
 <h3>コミティア113 (2015/08/30)</h3>
 
 <p><img src="/images/2015-08-31/comitia113.png" alt="2015-08-22-util" /></p>
 
+<a name="L......"></a>
 <h2>考察</h2>
 
 <ul>
@@ -902,10 +1467,12 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L......"></a>
 <h2>実装</h2>
 
 <p>以下、軽く実装についてメモ</p>
 
+<a name="L................................."></a>
 <h3>情報源として用いる情報</h3>
 
 <p>チャネル利用率の算出には iw コマンドの以下のオプションを用いました。</p>
@@ -943,6 +1510,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 
 <p>チップによっては transmit time の他に receive time も個別に取り出せるので other つまり 802.11 以外の電波により送受信ができていなかった時間も取れるのですが今回は対象外としました。</p>
 
+<a name="tochkad............."></a>
 <h3>tochkad での記録</h3>
 
 <p>このように取れるチャネル利用率を、パケットキャプチャデバイスの主観部分を担う <a href="https://github.com/enukane/tochka/">tochkad</a> のチャネル遷移部分で取得するようにしました。</p>
@@ -997,7 +1565,8 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/" itemprop="url">SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<h2>概要</h2>
+		<a name="L......"></a>
+<h2>概要</h2>
 
 <p>リンク: <a href="http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf">http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf</a></p>
 
@@ -1008,6 +1577,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L.............................."></a>
 <h3>読んだモチベーション</h3>
 
 <ul>
@@ -1016,10 +1586,12 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L......"></a>
 <h2>内容</h2>
 
 <p><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">落合先生フォーマット</a>に従って並べてみる</p>
 
+<a name="L.................."></a>
 <h3>どんなもの？</h3>
 
 <ul>
@@ -1074,6 +1646,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L........................................................."></a>
 <h3>先行研究と比べて何がすごい？何が違う？</h3>
 
 <ul>
@@ -1106,6 +1679,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L......................................."></a>
 <h3>技術の手法とかキモはどこ？</h3>
 
 <ul>
@@ -1125,6 +1699,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L.........................................."></a>
 <h3>どうやって有効だと検証した？</h3>
 
 <ul>
@@ -1133,6 +1708,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L.................."></a>
 <h3>議論はある？</h3>
 
 <ul>
@@ -1140,6 +1716,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L.............................."></a>
 <h3>次に読むべき論文は？</h3>
 
 <ul>
@@ -1215,10 +1792,12 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
+<a name="L......"></a>
 <h3>感想</h3>
 
 <p>正直なところ, ネットワーク周りに首ったけになっていた結果 Perl のカンファレンスに参加したというよりお祭りに参加してネットワーク敷設のお手伝いしてきた, という印象の方が強かったです. Perl は10年ぐらいまえに CGI で遊んでた頃に書いたっきり全く触ってなかったので perl mongers に取り囲まれてぼっこぼこにされるんじゃないかと震えてたのですが, ruby やら go やら思ったより多様性に溢れていたのが印象的でした. なおちらっと Larry Wall の実物は見ることができました.</p>
 
+<a name="YAPC.........................................."></a>
 <h3>YAPCらしきことをつぶやいてたログ</h3>
 
 <blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">なおこんな感じのアロハ <a href="http://t.co/f1VfP6BJZW">pic.twitter.com/f1VfP6BJZW</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/634266022900400128">2015, 8月 20</a></blockquote>
@@ -1237,6 +1816,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 
 <p>どこまでベラベラしゃべって良いのか判断ついてなかったので, あんまりないね&hellip;</p>
 
+<a name="L..........................."></a>
 <h3>聞いてたセッション</h3>
 
 <p>かろうじて片耳で聞いてたセッションの一覧はこんな感じ</p>
@@ -1272,6 +1852,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 
 <p>Wi-Fi的にはD, Eが激戦区だったのでそのあたりには居たのですがセッションの内容まで覚えてるのはこの辺りの模様&hellip;</p>
 
+<a name="L..........CONBU.....LT.................................."></a>
 <h3>なぜか CONBU は LT で設営デモもやりました</h3>
 
 <p>どこかに映ってる, ヒゲダルマを探そう.</p>
@@ -1298,6 +1879,7 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
+<a name="L.................."></a>
 <h3>パケット集め</h3>
 
 <p>一週間前にあったコミケでも持ち込んだ下記のデバイスを YAPC でも持ち込んで, バッグのなかに入れつつうろうろしてました.
@@ -1318,512 +1900,10 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
+<a name="L............"></a>
 <h3>終わりに</h3>
 
 <p>最初で最後の YAPC::Asia Tokyo にネットワークスタッフとして参加, そしてそっちに夢中になっててあんまり本編を聞いていないとかどういうこっちゃという感じではありますが, それはそうとしてそれなりに楽しまさせていただきました. 関係者の皆様ありがとうございました.</p>
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-05-01T12:51:00+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/rf/'>rf</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2015/05/01/bimbo-spectrum-analyzer/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/05/01/bimbo-spectrum-analyzer/" itemprop="url">貧乏人でもスペアナがしたい!</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
-
-<p>新品を買うと, 数十万〜数百万だし, ヤフオク等の中古品でも明らかなジャンク品でないものに限ったとしても十〜数十万ぐらいは行ってしまう.</p>
-
-<p>やりたいことができて, こわしても気落ちしない程度のモノが欲しいので探してみたメモ.</p>
-
-<p>やりたいことベースでのおおよその要件は以下の通り
-(貧乏人にしては盛りすぎだ!生意気だ!等のコメントはNO)</p>
-
-<ul>
-<li>(MUST) 無線LANの周波数帯がカバーできること
-
-<ul>
-<li>2.4 &amp; 5GHz帯</li>
-</ul>
-</li>
-<li>(MUST) PCと連携できること
-
-<ul>
-<li>(SHOULD) 外部のスクリプト等で扱える形式でデータがエクスポートできること</li>
-<li>(MAY) あるいは, 独自形式でもかまわないが仕様が公開されていること</li>
-</ul>
-</li>
-<li>(MUST) 数十万円後半は絶対にNO
-
-<ul>
-<li>10〜20万ぐらいが限度</li>
-</ul>
-</li>
-<li>(MAY) RBW と sweeptimeの両立がそこそこ成り立つこと
-
-<ul>
-<li>(MAY) できれば20/40MHzスパンに対して200〜300kHzのRBWで数百ms程度が望ましい (秒はかからない程度であれば)</li>
-</ul>
-</li>
-<li>(MAY) できれば普通のスペアナと同じような汎用性
-
-<ul>
-<li>スペアナのお勉強用に使えること</li>
-</ul>
-</li>
-<li>(MAY) Mac向けのアプリがあること
-
-<ul>
-<li>(MAY) あるいはUNIX系からアクセス可能なインタフェース(ライブラリ/API etc)が用意されていること</li>
-</ul>
-</li>
-<li>(MAY) USBバスパワーで動くこと</li>
-<li>(MAY) 携帯可能な電源仕様, 形状, 重さであること</li>
-</ul>
-
-
-<p>おおよそ2つの側面があって, きちんとしたスペアナ買ってお勉強したいというのと, 今までやってきている無線LANキャプチャに織り交ぜたいという2つの方向からの要求が混ざっている. 分けた方がいいような気はする.</p>
-
-<h2>候補になりそうな人たち</h2>
-
-<p>中古のスペアナをヤフオクで探すのは継続するとして, ハンディに使えそうな子達.</p>
-
-<ul>
-<li>Giga ST</li>
-<li>RF Explorer 6G Combo</li>
-<li>Aaronia AG
-
-<ul>
-<li>SPECTRAN HF-6060V4</li>
-<li>SPECTRAN HF-6060V4 X</li>
-</ul>
-</li>
-<li>Metageek WiSpy DBx</li>
-<li>Signal Hound
-
-<ul>
-<li>USB-SA124B</li>
-<li>BB60C</li>
-</ul>
-</li>
-<li>Tektronix RSA306</li>
-</ul>
-
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">機種</th>
-<th style="text-align:right;">お値段</th>
-<th style="text-align:center;">周波数レンジ</th>
-<th style="text-align:left;">RBW</th>
-<th>スイープ時間</th>
-<th>アプリ対応OS</th>
-<th> export可? </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">GigaSt v5c</td>
-<td style="text-align:right;">29,000 (税, 送料込み)</td>
-<td style="text-align:center;">3 - 12000MHz</td>
-<td style="text-align:left;">15/30/180 KHz</td>
-<td>500ms? (SPAN:100MHz, RBW:180KHz)</td>
-<td>Windows</td>
-<td> 形式不明 </td>
-</tr>
-<tr>
-<td style="text-align:left;">RF Explorer 6G Combo</td>
-<td style="text-align:right;">43,800 (税込み)</td>
-<td style="text-align:center;">15 - 2700MHz, 4850 - 6100 MHz</td>
-<td style="text-align:left;"> 2.6 - 812 kHz </td>
-<td> 200ms? (Span: 60MHz, 600KHz) </td>
-<td>Windows, Mac(?) </td>
-<td> XML/CSV </td>
-</tr>
-<tr>
-<td style="text-align:left;">SPECTRAN HF-6060V4</td>
-<td style="text-align:right;"> €999.95 (129,384) </td>
-<td style="text-align:center;"> 10MHz - 6GHz </td>
-<td style="text-align:left;"> 3kHz - 50MHz </td>
-<td> 200ms (Span: 20MHz, RBW: 300kHz) </td>
-<td> Windows, Linux, Mac </td>
-<td> CSV </td>
-</tr>
-<tr>
-<td style="text-align:left;">SPECTRAN HF-6060V4 X</td>
-<td style="text-align:right;"> €999.95 (129,384) </td>
-<td style="text-align:center;"> 10MHz - 6GHz </td>
-<td style="text-align:left;"> 3kHz - 50MHz </td>
-<td> 200ms (Span: 20MHz, RBW: 300kHz) </td>
-<td> Windows, Linux, Mac </td>
-<td> CSV </td>
-</tr>
-<tr>
-<td style="text-align:left;">WiSpy DBx</td>
-<td style="text-align:right;"> $1,149 (136,834) </td>
-<td style="text-align:center;"> 2.4GHz帯, 5GHz帯 </td>
-<td style="text-align:left;"> 500ms (Span: 95MHz, RBW: 333KHz) </td>
-<td> 500ms or 1s ? </td>
-<td>Windows, Mac </td>
-<td> sqlite DB </td>
-</tr>
-<tr>
-<td style="text-align:left;">USB-SA124B</td>
-<td style="text-align:right;"> $1,995 (238,386) </td>
-<td style="text-align:center;"> 100kHz - 12.4GHz </td>
-<td style="text-align:left;"> 100Hz - 250KHz, 6MHz </td>
-<td> </td>
-<td> Windows </td>
-<td> ? </td>
-</tr>
-<tr>
-<td style="text-align:left;">BB60C</td>
-<td style="text-align:right;"> $2,879 (342,860) </td>
-<td style="text-align:center;"> 9kHz - 6GHz </td>
-<td style="text-align:left;"> 10khz </td>
-<td> 24GHz/sec </td>
-<td> Windows </td>
-<td> ? </td>
-</tr>
-<tr>
-<td style="text-align:left;">RSA306</td>
-<td style="text-align:right;">434,000</td>
-<td style="text-align:center;">9kHz - 6.2GHz</td>
-<td style="text-align:left;"> 10Hz - 10MHz </td>
-<td> 100us (Span: 400MHz, RBW: 300KHz) </td>
-<td> Windows </td>
-<td> CSV </td>
-</tr>
-</tbody>
-</table>
-
-
-<h3>諸々の前提</h3>
-
-<ul>
-<li>とりあえず無線LANターゲットなので, スパンとして20/40/80/160MHzがありうる
-
-<ul>
-<li>OFDMの各キャリアは312.5KHz間隔</li>
-</ul>
-</li>
-<li>RBWと掃引時間の関係: sweeptime [s] = (k * span [Hz]) / (RBW [Hz])<sup>2</sup>
-
-<ul>
-<li>掃引時間はRBWの二乗に反比例</li>
-<li>掃引時間は周波数スパンに比例</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>候補</h2>
-
-<h3>GigaSt v5c</h3>
-
-<ul>
-<li><p>参考</p>
-
-<ul>
-<li><a href="http://www.wa.commufa.jp/gigast/GigaSt5/GigaSt-v5.html">http://www.wa.commufa.jp/gigast/GigaSt5/GigaSt-v5.html</a></li>
-<li><a href="https://www.youtube.com/watch?v=3vLZrA0e8EY">https://www.youtube.com/watch?v=3vLZrA0e8EY</a></li>
-</ul>
-</li>
-<li><p>Pros</p>
-
-<ul>
-<li>安い! (送料込みで3万円以下)</li>
-<li>USBバスパワー駆動</li>
-<li>内部的にはシリアル(VCP) &amp; コントロール等々のドキュメントはそろってるので他OSでも触るのは簡単そう</li>
-</ul>
-</li>
-<li>Cons
-
-<ul>
-<li>ケースはないので自分で用意</li>
-<li>「グラフデータ保存機能」でどんな形式がサポートされてるか</li>
-<li>注文ウィンドウがよく分からない (受付してない時期がある?)</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>RF Explorer 6G Combo / WiFi Combo</h2>
-
-<ul>
-<li><p>参考</p>
-
-<ul>
-<li><a href="http://rfexplorer.com/combo-specs/">http://rfexplorer.com/combo-specs/</a></li>
-<li><a href="https://www.youtube.com/watch?v=3ZhdcUJanCI">https://www.youtube.com/watch?v=3ZhdcUJanCI</a></li>
-</ul>
-</li>
-<li><p>Pros</p>
-
-<ul>
-<li>コンパクト</li>
-<li>そこそこお安い(5万内)</li>
-<li>千石電商でも売っているので手には入れやすい</li>
-<li>デバイスにLCDがついてる</li>
-<li>バッテリー付き(16時間+ぐらいは動くらしい)</li>
-<li>こちらも内部的にはシリアルっぽいのでコマンド叩けばいろいろ遊べる (<a href="https://code.google.com/p/rfexplorer/">rfexplorer</a>)</li>
-</ul>
-</li>
-<li>Cons
-
-<ul>
-<li>2700MHz〜4850MHzの間は計測不可
-
-<ul>
-<li>とはいっても今のところ使い道はない</li>
-</ul>
-</li>
-<li>基本となるアプリ(<a href="http://rfexplorer.com/touchstone/">touchstone</a>)は無料だけど, 一部のアプリが有料 ($49)
-
-<ul>
-<li>有料版(PRO)でないとxml/csvへのエクスポート機能がない</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>Aaronia SPECTRAN HF-6060V4 / HF-6060V4 X</h2>
-
-<ul>
-<li>参考
-
-<ul>
-<li><a href="http://www.aaronia.com/products/spectrum-analyzers/HF-6060-V4-RF-Spectrum-Analyzer/">SPECTRAN HF-6060 V4</a></li>
-<li><a href="http://www.aaronia.com/products/spectrum-analyzers/HF-6060-V4-X-USB-remote-Analyzer/">SPECTRAN HF-6060 V4 X</a></li>
-</ul>
-</li>
-</ul>
-
-
-<p>V4はいわゆるハンドヘルド版で, V4 Xがデスクトップ向け.</p>
-
-<ul>
-<li>Pros
-
-<ul>
-<li><a href="http://www.aaronia.com/products/software/">MCS</a>なるアプリが無料, Win/Mac/Linuxをそれぞれサポートしてる</li>
-<li>V4ハンドヘルド版は単体で動作可能</li>
-<li>サポートしてる周波数帯は基本的に連続 (どこかで途切れてる可能性はあるが)</li>
-<li>悪くない価格 (11万程度)</li>
-</ul>
-</li>
-<li>Cons
-
-<ul>
-<li>V4 XがUSBバスパワーだけでは動かない. 動いたら完璧だったのに&hellip;
-
-<ul>
-<li>モバイルバッテリーでは無理だろうが, DCなバッテリー + 電源ケーブル調達でなんとかなりそうではある</li>
-</ul>
-</li>
-<li>V4ハンドヘルド版の動作時間は?</li>
-<li>V4とV4 Xの機能面での差は?
-
-<ul>
-<li>LCD, ジョグダイヤルの有無</li>
-<li>付属アンテナ:</li>
-<li>HyperLOG EMC directional LogPer antenna: 7060 vs なし</li>
-<li>OmniLOG 90200 radial isotropic antenna: なし vs あり</li>
-<li>Xのみ: マーカの数unlimited, 複数デバイス操作可, スイープポイント無限等々
-
-<ul>
-<li>Xの方にだけPRO版ソフト?とやらが付いてくるらしいが?</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>WiSpy DBx</h2>
-
-<ul>
-<li>参考
-
-<ul>
-<li><a href="http://www.metageek.com/products/wi-spy/">WiSpy</a></li>
-</ul>
-</li>
-</ul>
-
-
-<p>「無線LAN &amp; スペアナ」でググると一番最初に出てくるデファクトスタンダード品みたいなもの.</p>
-
-<ul>
-<li>Pros
-
-<ul>
-<li>無線LANに特化
-
-<ul>
-<li>AP(SSID)一覧との紐付けが標準で存在している</li>
-<li>「チャネル:周波数」の変換</li>
-</ul>
-</li>
-<li>Macのアプリがある (Channalyzer)</li>
-<li>kismetが出してる<a href="https://www.kismetwireless.net/spectools/">spectools</a>を使えばLinuxでも動きそう</li>
-</ul>
-</li>
-<li>Cons
-
-<ul>
-<li>スペアナと見たときに, 細かいことがあまりできない
-
-<ul>
-<li>細かいパラメータがいじれない</li>
-<li>無線LAN以外にはあまり使えなさそう
-
-<ul>
-<li>無線LAN特化のスペアナという立ち位置</li>
-<li>現状無線LAN以外に使う予定はないが, 勉強用なので諸々のパラメータは弄りたい</li>
-</ul>
-</li>
-<li>5GHz帯は細かくチャネルごとに見れない
-
-<ul>
-<li>2.4GHz帯はチャネル毎に見れる</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>その割には値段が高い (13万ぐらい)</li>
-</ul>
-</li>
-</ul>
-
-
-<p>スイープの性能については以下の通り. 見てる幅により固定になっている.</p>
-
-<ul>
-<li>2.4GHz 全体
-
-<ul>
-<li>Span: 95.310MHz ( 2400 - 2495 MHz )</li>
-<li>RBW: 333.3 KHz</li>
-<li>スイープ時間: 500ms?</li>
-</ul>
-</li>
-<li>2.4GHz各チャネル (例としてチャネル 1)
-
-<ul>
-<li>Span: 424MHz ( 2400 - 2424 MHz )</li>
-<li>RBW: 100kHz</li>
-<li>スイープ時間: 500ms?</li>
-</ul>
-</li>
-<li>5GHz
-
-<ul>
-<li>Span: 676.7 MHz ( 5160 - 5836 MHz )</li>
-<li>RBW: 150.0 KHz</li>
-<li>スイープ時間: 1s?</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>Signal Hound USB-SA124B / BB60C</h2>
-
-<ul>
-<li><p>参考</p>
-
-<ul>
-<li><a href="https://signalhound.com/products/bb60c/">BB60C</a></li>
-<li><a href="https://signalhound.com/products/usb-sa124b/">USB-SA124B</a></li>
-<li><a href="https://www.youtube.com/watch?v=OWrp4M-T2r0">BBC60 Demo and Remote</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PL3IOktxB0nG5baFmDHwiZrb284akt6n9K">SA-Series Videos</a></li>
-</ul>
-</li>
-<li><p>Pros</p>
-
-<ul>
-<li>スぺアナというよりはHackRFとかUSRPみたいなSDRデバイス + スペアナができるアプリという感じ</li>
-<li>BB60Cに至っては24GHz/sec sweep speed (>= 10kHz RBW)</li>
-</ul>
-</li>
-<li>Cons
-
-<ul>
-<li>お値段は微妙 (RSA306に手が届きそうな値段)</li>
-<li>スペアナというよりSDR. これかうならHackRF買った方がよさそうな気はする.</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>Tektronix RSA306</h2>
-
-<ul>
-<li><a href="http://jp.tek.com/spectrum-analyzer/rsa306-0">RSA306型USBスペクトラム・アナライザ</a></li>
-</ul>
-
-
-<p>Tektronixが出した「USBリアルタイムスペクトラムアナライザ」</p>
-
-<ul>
-<li>Pros
-
-<ul>
-<li>反応めっちゃはやい
-
-<ul>
-<li>40MHz幅内ならRBW 120KHzぐらいまでならだいぶぬるぬる表示する</li>
-</ul>
-</li>
-<li>ソフトはタダ (基本部分は, という条件付きだが)</li>
-<li>USB3.0ポート一つで制御・電源供給</li>
-</ul>
-</li>
-<li>Cons
-
-<ul>
-<li>お値段
-
-<ul>
-<li>とはいえこの性能比で考えれば破格. 単純に予算の問題</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
 
 		
 		
