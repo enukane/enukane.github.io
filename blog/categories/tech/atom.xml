@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-11T20:01:39+09:00</updated>
+  <updated>2017-01-11T21:12:44+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -149,7 +149,11 @@ OpenWRT を導入できカスタマイズ性も高いため今回はこれを用
 </ul>
 
 
-<p>後述するとおり 10000mAh のバッテリーで6時間程度は運用できました。</p>
+<p>後述するとおり 10000mAh のバッテリーで6時間程度は運用できました。
+基板に起こすのは間に合わなかったので Arduino そのままとブレッドボードで動かしていました。
+たまに結線が外れてリブートしてたり。。。。</p>
+
+<p><img class="center" src="/images/2017-01-11/hap-power.jpg"></p>
 
 <a name="L.....................................on.OpenWRT"></a>
 <h2>簡易キャプティブポータル on OpenWRT</h2>
