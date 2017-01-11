@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 802.11 | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/802-dot-11/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-11T22:37:25+09:00</updated>
+  <updated>2017-01-12T00:21:01+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[コミケ91 1日目の無線LAN模様]]></title>
+    <link href="http://enukane.github.io/blog/2017/01/11/c91-wifi/"/>
+    <updated>2017-01-11T23:59:31+09:00</updated>
+    <id>http://enukane.github.io/blog/2017/01/11/c91-wifi</id>
+    <content type="html"><![CDATA[<p>いつものやつ書きました。「C91 Wi-Fi 〜ららら、(無線的に)素敵なComiket Space〜」。</p>
+
+<p><iframe src="http://www.slideshare.net/slideshow/embed_code/70907756 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
+
+<p>今回は、自スペースが西1にまた戻ってきました。
+そのため前回のC90 (西3だった)とはまた様子が異なっています。
+比較のために、次はできれば東に割り当てられたいですね。</p>
+
+<p>今回は新要素として以下を追加しています。</p>
+
+<ul>
+<li>18.1 AP滞在時間のヒストグラム(10分以上のみ抽出)
+
+<ul>
+<li>APが見えていた時間をプロット</li>
+<li>大半がヒットアンドランで0秒付近に張り付く傾向があるので、一定時間以上に絞って長期傾向を見る</li>
+</ul>
+</li>
+<li>19.1 端末の滞在時間ヒストグラム(10分以上のみ抽出)
+
+<ul>
+<li>同上</li>
+</ul>
+</li>
+<li><ol>
+<li>Data &amp; BlockAckフレームの収集数/s</li>
+<li>&ldquo;14. 正常フレームの収集数/s&rdquo; のうち、さらに Dataフレームと Block Ackフレームに絞り込み</li>
+<li>サンプリングが妥当であれば、このFPSがデータ送信の活発さの指標になりうる</li>
+<li>ただし長さは考慮されない</li>
+<li>ただし高レートすぎて見えないフレームは Block Ack でしか考慮されない
+
+<ul>
+<li>Block Ack またはその他の要素から、これらのフレームを復元する方法が必要</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>FCS OKフレームの時間的占有率</li>
+<li>毎回1秒キャプチャしてた間に見つけたFCS good なフレームの Duration (秒) と 1秒内の割合の推移をプロット</li>
+<li>「13. チャネル使用率」のうち、どれくらいが有効に使われていたかを判断できるはず
+
+<ul>
+<li>正確な一致には FCS bad なフレームの考慮による検証が必要 (TODO)</li>
+</ul>
+</li>
+<li>チャネル使用率との差分が、無駄になった時間
+
+<ul>
+<li>このDurationのうち、データフレームに使えた時間と長さを考慮してチャネル使用率との対比を取ると、有効に使えた度合いが取れる？</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2017-01-11 コミケ91で、ハニーポット無線LANアクセスポイント立てたお話]]></title>
@@ -1433,19 +1497,6 @@ channel active time = busy time + idle time
 </li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Chokaigi 2015 Wi-Fiみてきた]]></title>
-    <link href="http://enukane.github.io/blog/2015/04/28/chokaigi2015-wifi/"/>
-    <updated>2015-04-28T17:31:09+09:00</updated>
-    <id>http://enukane.github.io/blog/2015/04/28/chokaigi2015-wifi</id>
-    <content type="html"><![CDATA[<p>ニコニコ超会議2015で Free Wi-Fi が提供されている、とのことだったので
-どんな感じなのか偵察に行くついでにいつもの如くパケットあつめて
-データをまとめてみた.</p>
-
-<p><iframe src="http://www.slideshare.net/slideshow/embed_code/47427093 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
 ]]></content>
   </entry>
   

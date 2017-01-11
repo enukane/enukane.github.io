@@ -9,7 +9,8 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="802.11, tech Comments 2017-01-11 コミケ91で、ハニーポット無線LANアクセスポイント立てたお話 概要 ハニーポットAPの見え方 ハニーポットAPの機材について AP本体 APへの電源供給 簡易キャプティブポータル on OpenWRT 設置場所 提供結果 &hellip;">
+	<meta name="description" content="802.11, tech Comments コミケ91 1日目の無線LAN模様 いつものやつ書きました。「C91 Wi-Fi 〜ららら、(無線的に)素敵なComiket Space〜」。 今回は、自スペースが西1にまた戻ってきました。
+そのため前回のC90 (西3だった) &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +97,101 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-01-11T23:59:31+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2017/01/11/c91-wifi/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2017/01/11/c91-wifi/" itemprop="url">コミケ91 1日目の無線LAN模様</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>いつものやつ書きました。「C91 Wi-Fi 〜ららら、(無線的に)素敵なComiket Space〜」。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/70907756 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe>
+
+
+<p></p>
+
+<p>今回は、自スペースが西1にまた戻ってきました。
+そのため前回のC90 (西3だった)とはまた様子が異なっています。
+比較のために、次はできれば東に割り当てられたいですね。</p>
+
+<p>今回は新要素として以下を追加しています。</p>
+
+<ul>
+<li>18.1 AP滞在時間のヒストグラム(10分以上のみ抽出)
+
+<ul>
+<li>APが見えていた時間をプロット</li>
+<li>大半がヒットアンドランで0秒付近に張り付く傾向があるので、一定時間以上に絞って長期傾向を見る</li>
+</ul>
+</li>
+<li>19.1 端末の滞在時間ヒストグラム(10分以上のみ抽出)
+
+<ul>
+<li>同上</li>
+</ul>
+</li>
+<li><ol>
+<li>Data &amp; BlockAckフレームの収集数/s</li>
+<li>&ldquo;14. 正常フレームの収集数/s&rdquo; のうち、さらに Dataフレームと Block Ackフレームに絞り込み</li>
+<li>サンプリングが妥当であれば、このFPSがデータ送信の活発さの指標になりうる</li>
+<li>ただし長さは考慮されない</li>
+<li>ただし高レートすぎて見えないフレームは Block Ack でしか考慮されない
+
+<ul>
+<li>Block Ack またはその他の要素から、これらのフレームを復元する方法が必要</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>FCS OKフレームの時間的占有率</li>
+<li>毎回1秒キャプチャしてた間に見つけたFCS good なフレームの Duration (秒) と 1秒内の割合の推移をプロット</li>
+<li>「13. チャネル使用率」のうち、どれくらいが有効に使われていたかを判断できるはず
+
+<ul>
+<li>正確な一致には FCS bad なフレームの考慮による検証が必要 (TODO)</li>
+</ul>
+</li>
+<li>チャネル使用率との差分が、無駄になった時間
+
+<ul>
+<li>このDurationのうち、データフレームに使えた時間と長さを考慮してチャネル使用率との対比を取ると、有効に使えた度合いが取れる？</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -1748,166 +1844,6 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </li>
 </ul>
 
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-08-26T13:57:56+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/report/'>report</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2015/08/26/yapc2015/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/26/yapc2015/" itemprop="url">YAPC2015 に CONBU プロジェクトメンバとして参加してきました</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>掲題の通り YAPC::Asia Tokyo 2015 に CONBU スタッフ (いわゆる Wi-Fi 班)として参加してきました.
-今年で最後の yapcasia だそうですが, 今回が初参加なので最初で最後になってしまいました.
-なおずっとpingの結果と, スペアナの画面だけ見ていたので内容まできちんと聞き入ってたセッションがありません&hellip;.</p>
-
-<p>CONBUの華々しい活動については, 以下をご覧頂くと良いかと思います.</p>
-
-<ul>
-<li><a href="http://tsuchinoko.dmmlabs.com/?p=2122">YAPC::Asia Tokyo2015 の会場ネットワークをCONBUが構築しました</a></li>
-<li><a href="http://togetter.com/li/864607">CONBUの記録 (YAPC::Asia Tokyo 2015編)</a></li>
-</ul>
-
-
-<a name="L......"></a>
-<h3>感想</h3>
-
-<p>正直なところ, ネットワーク周りに首ったけになっていた結果 Perl のカンファレンスに参加したというよりお祭りに参加してネットワーク敷設のお手伝いしてきた, という印象の方が強かったです. Perl は10年ぐらいまえに CGI で遊んでた頃に書いたっきり全く触ってなかったので perl mongers に取り囲まれてぼっこぼこにされるんじゃないかと震えてたのですが, ruby やら go やら思ったより多様性に溢れていたのが印象的でした. なおちらっと Larry Wall の実物は見ることができました.</p>
-
-<a name="YAPC.........................................."></a>
-<h3>YAPCらしきことをつぶやいてたログ</h3>
-
-<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">なおこんな感じのアロハ <a href="http://t.co/f1VfP6BJZW">pic.twitter.com/f1VfP6BJZW</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/634266022900400128">2015, 8月 20</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-
-
-<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">コミケ6日目 (@ 東京国際展示場 (東京ビッグサイト/Tokyo Big Sight) - <a href="https://twitter.com/T_Bigsight">@t_bigsight</a> in Koto, 東京都) <a href="https://t.co/9s894TJKVj">https://t.co/9s894TJKVj</a> <a href="http://t.co/lHRKGaVziW">pic.twitter.com/lHRKGaVziW</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/634876158719361024">2015, 8月 21</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>どこまでベラベラしゃべって良いのか判断ついてなかったので, あんまりないね&hellip;</p>
-
-<a name="L..........................."></a>
-<h3>聞いてたセッション</h3>
-
-<p>かろうじて片耳で聞いてたセッションの一覧はこんな感じ</p>
-
-<ul>
-<li><a href="http://yapcasia.org/2015/talk/show/cc0ec485-1879-11e5-aca1-525412004261">TBD</a> by Matz
-
-<ul>
-<li>streemのお話からセッションに潜入.</li>
-</ul>
-</li>
-<li><a href="http://yapcasia.org/2015/talk/show/523b9508-0d77-11e5-8174-67dc7d574c3a">うっかりをなくす技術</a> by karupanerura</li>
-<li><a href="http://yapcasia.org/2015/talk/show/39a15ad4-0ff5-11e5-a984-d7f07d574c3a">Discover the Microsoft Azure </a> by Tatsuro Hisamori
-
-<ul>
-<li><a href="https://docs.com/hisamori-tatsur/1104">1日140円から始めるIoTデータ分析・可視化</a> はちょっと読んでおきたい</li>
-</ul>
-</li>
-<li><a href="http://yapcasia.org/2015/talk/show/dd8ce20e-fad2-11e4-b6e7-8ab37d574c3a">データ分析基盤を支える技術</a>  by repeatedly
-
-<ul>
-<li>ちょうど後述する「パケット集め」で集めたデータどうするかーという段階だったので一番気になるセッションではありました</li>
-</ul>
-</li>
-<li><a href="http://yapcasia.org/2015/talk/show/81342dae-1351-11e5-ab94-d9f87d574c3a">カンファレンスネットワークの作り方</a> by CONBU
-
-<ul>
-<li>みんな聞きにきたよね?</li>
-</ul>
-</li>
-</ul>
-
-
-<p>Wi-Fi的にはD, Eが激戦区だったのでそのあたりには居たのですがセッションの内容まで覚えてるのはこの辺りの模様&hellip;</p>
-
-<a name="L..........CONBU.....LT.................................."></a>
-<h3>なぜか CONBU は LT で設営デモもやりました</h3>
-
-<p>どこかに映ってる, ヒゲダルマを探そう.</p>
-
-<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">CONBUの設営、すばらしい！ <a href="https://twitter.com/hashtag/yapcasia?src=hash">#yapcasia</a> <a href="http://t.co/NNn4sRdc4a">pic.twitter.com/NNn4sRdc4a</a></p>&mdash; 馮　富久/FUON Tomihisa (@tomihisa) <a href="https://twitter.com/tomihisa/status/635003905504481280">2015, 8月 22</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-
-
-<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">突然目の前に無線APが生えてきた <a href="https://twitter.com/hashtag/yapcasia?src=hash">#yapcasia</a> <a href="http://t.co/UWcSzvRv08">pic.twitter.com/UWcSzvRv08</a></p>&mdash; ぷりんたいは求職中です、 (@spacepro_be) <a href="https://twitter.com/spacepro_be/status/635004222291902464">2015, 8月 22</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-
-
-<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr"><a href="https://twitter.com/n_kane">@n_kane</a> <a href="https://twitter.com/kichi_robo">@kichi_robo</a> 未公開シーンです、ご査収ください <a href="http://t.co/mcF5xBafUJ">pic.twitter.com/mcF5xBafUJ</a></p>&mdash; ぷりんたいは求職中です、 (@spacepro_be) <a href="https://twitter.com/spacepro_be/status/635038626984816640">2015, 8月 22</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<a name="L.................."></a>
-<h3>パケット集め</h3>
-
-<p>一週間前にあったコミケでも持ち込んだ下記のデバイスを YAPC でも持ち込んで, バッグのなかに入れつつうろうろしてました.
-(下記はコミケの時の写真)</p>
-
-<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">あとスペースの裏側で、今日も今日とて無線LAN(802.11)のパケットキャプチャしてます。今回書きたかった&amp;次回書きたい、キャプチャデバイス→embulk→DB→解析系の一連の流れ、に食わせる最初の一歩の子になります。 <a href="http://t.co/TeMvyv3whl">pic.twitter.com/TeMvyv3whl</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/632757086124838912">2015, 8月 16</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>最終的に, 単純なpcapngのデータサイズとしては 3GBほど, フレーム数にして 10M フレーム, となかなか良い感じにあつまりました.
-会場Wi-Fi, 日中は定常的に 100Mbps ほど出ていたとのことでフレーム飛び交いまくってたはずなのでやっぱり集まりが良いようです.</p>
-
-<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">朝方postgreにぶち込み終わってたはずのC88とYAPC2015で集めたフレームたちのヘッダデータ、良い感じの分量だ。さすがにYAPCでは通信が盛んだったのか二日分の割にコミケのそれより倍多い。 <a href="http://t.co/9wvHk3nrDV">pic.twitter.com/9wvHk3nrDV</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/636094941878292480">2015, 8月 25</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<a name="L............"></a>
-<h3>終わりに</h3>
-
-<p>最初で最後の YAPC::Asia Tokyo にネットワークスタッフとして参加, そしてそっちに夢中になっててあんまり本編を聞いていないとかどういうこっちゃという感じではありますが, それはそうとしてそれなりに楽しまさせていただきました. 関係者の皆様ありがとうございました.</p>
 
 		
 		
