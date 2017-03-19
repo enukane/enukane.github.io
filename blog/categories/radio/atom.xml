@@ -4,7 +4,7 @@
   <title><![CDATA[Category: radio | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/radio/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-12T00:41:09+09:00</updated>
+  <updated>2017-03-20T02:24:07+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -75,7 +75,6 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
     <id>http://enukane.github.io/blog/2015/09/08/2015-09-08-radio-telescope</id>
     <content type="html"><![CDATA[<p>HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる.</p>
 
-<a name="L......"></a>
 <h2>参考</h2>
 
 <ul>
@@ -91,7 +90,6 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
-<a name="L......"></a>
 <h2>構成</h2>
 
 <p><img src="/images/2015-09-08/plan-diy-radio-telescope.png" alt="2015-09-08-diy-rt" /></p>
@@ -108,10 +106,8 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
-<a name="L..............."></a>
 <h2>必要な物品</h2>
 
-<a name="L..........................."></a>
 <h3>既に持っているもの</h3>
 
 <table>
@@ -162,7 +158,6 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </table>
 
 
-<a name="L..............."></a>
 <h3>買うべき物</h3>
 
 <table>
@@ -254,12 +249,10 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
     <link href="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/"/>
     <updated>2015-08-31T18:20:55+09:00</updated>
     <id>http://enukane.github.io/blog/2015/08/31/event-radio-utilization</id>
-    <content type="html"><![CDATA[<a name="L......"></a>
-<h2>概要</h2>
+    <content type="html"><![CDATA[<h2>概要</h2>
 
 <p>いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。</p>
 
-<a name="L............"></a>
 <h3>計測対象</h3>
 
 <p>今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、定点観測的に収集をしています。</p>
@@ -320,17 +313,14 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </table>
 
 
-<a name="L.........................................."></a>
 <h2>チャネル利用率のヒートマップ</h2>
 
 <p>5分毎に区切って、チャネルごとにヒートマップ化したものを並べてみる。</p>
 
-<a name="L2015.08.02........................."></a>
 <h3>2015/08/02 あたりのイベント</h3>
 
 <p><img src="/images/2015-08-31/ev0802-util.png" alt="2015-08-02-util" /></p>
 
-<a name="L...........C88."></a>
 <h3>コミケ (C88)</h3>
 
 <p>コミケでは、1日目および2日目は一般参加、三日目のみサークル参加だったため東 P-18b にて定点観測を実施。
@@ -361,42 +351,34 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
-<a name="L1........2015.08.14."></a>
 <h4>1日目 (2015/08/14)</h4>
 
 <p><img src="/images/2015-08-31/c88-d1.png" alt="2015-08-14-util" /></p>
 
-<a name="L2........2015.08.15."></a>
 <h4>2日目 (2015/08/15)</h4>
 
 <p><img src="/images/2015-08-31/c88-d2.png" alt="2015-08-15-util" /></p>
 
-<a name="L3........2015.08.16."></a>
 <h4>3日目 (2015/08/16)</h4>
 
 <p><img src="/images/2015-08-31/c88-d3.png" alt="2015-08-16-util" /></p>
 
-<a name="YAPC::Asia.Tokyo.2015"></a>
 <h3>YAPC::Asia Tokyo 2015</h3>
 
 <p>こちらは CONBU チーム (いわゆる Wi-Fi 班)として参加したときのもの. 作業時に邪魔にならない場合、ショルダーバッグにデバイスを入れて彷徨うようにはしていました. が、バックヤードに起きっぱなしの時間も大分あったため有為なデータが取れていない可能性は多々ありそう。</p>
 
-<a name="L1........2015.08.21."></a>
 <h4>1日目 (2015/08/21)</h4>
 
 <p><img src="/images/2015-08-31/yapc2015-d1.png" alt="2015-08-21-util" /></p>
 
-<a name="L2........2015.08.22."></a>
 <h4>2日目 (2015/08/22)</h4>
 
 <p><img src="/images/2015-08-31/yapc2015-d2.png" alt="2015-08-22-util" /></p>
 
-<a name="L...............113..2015.08.30."></a>
 <h3>コミティア113 (2015/08/30)</h3>
 
 <p><img src="/images/2015-08-31/comitia113.png" alt="2015-08-22-util" /></p>
 
-<a name="L......"></a>
 <h2>考察</h2>
 
 <ul>
@@ -450,12 +432,10 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 </ul>
 
 
-<a name="L......"></a>
 <h2>実装</h2>
 
 <p>以下、軽く実装についてメモ</p>
 
-<a name="L................................."></a>
 <h3>情報源として用いる情報</h3>
 
 <p>チャネル利用率の算出には iw コマンドの以下のオプションを用いました。</p>
@@ -484,7 +464,6 @@ channel active time = busy time + idle time
 
 <p>チップによっては transmit time の他に receive time も個別に取り出せるので other つまり 802.11 以外の電波により送受信ができていなかった時間も取れるのですが今回は対象外としました。</p>
 
-<a name="tochkad............."></a>
 <h3>tochkad での記録</h3>
 
 <p>このように取れるチャネル利用率を、パケットキャプチャデバイスの主観部分を担う <a href="https://github.com/enukane/tochka/">tochkad</a> のチャネル遷移部分で取得するようにしました。</p>

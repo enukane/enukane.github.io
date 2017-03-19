@@ -9,7 +9,8 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="2017-01-11 コミケ91で、ハニーポット無線LANアクセスポイント立てたお話 概要 ハニーポットAPの見え方 ハニーポットAPの機材について AP本体 APへの電源供給 簡易キャプティブポータル on OpenWRT 設置場所 提供結果 無線LAN DHCP DNS クエリ &hellip;">
+	<meta name="description" content="2017-01-11 コミケ91で、ハニーポット無線LANアクセスポイント立てたお話 {:TOC} 概要 今冬のコミックマーケット91にて、1日目 西1 み-18a &ldquo;glenda9&rdquo; で出展するにあたって
+自スペースにハニーポット無線LANアクセスポイント(以下 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,32 +97,8 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">2017-01-11 コミケ91で、ハニーポット無線LANアクセスポイント立てたお話</h1>
-	<div class="entry-content" itemprop="articleBody"><p><ul>
- <li><a href="#L......">概要</a></li>
- <li><a href="#L..................AP............">ハニーポットAPの見え方</a></li>
- <li><a href="#L..................AP.....................">ハニーポットAPの機材について</a>
- <ul>
-  <li><a href="#AP......">AP本体</a></li>
-  <li><a href="#AP..................">APへの電源供給</a></li>
-  <li><a href="#L.....................................on.OpenWRT">簡易キャプティブポータル on OpenWRT</a></li>
-  <li><a href="#L............">設置場所</a></li>
- </ul>
- </li>
- <li><a href="#L............">提供結果</a>
- <ul>
-  <li><a href="#L......LAN">無線LAN</a></li>
-  <li><a href="#DHCP">DHCP</a></li>
-  <li><a href="#DNS..........">DNS クエリ</a></li>
-  <li><a href="#L..............................">キャプティブポータル</a></li>
- </ul>
- </li>
- <li><a href="#L.........">まとめ</a></li>
- <li><a href="#Future.Work">Future Work</a></li>
-</ul>
+	<div class="entry-content" itemprop="articleBody"><p>{:TOC}</p>
 
-</p>
-
-<a name="L......"></a>
 <h1>概要</h1>
 
 <p>今冬のコミックマーケット91にて、1日目 西1 み-18a &ldquo;glenda9&rdquo; で出展するにあたって
@@ -165,7 +142,6 @@ SSIDをつけるという案もあります。
 -->
 
 
-<a name="L..................AP............"></a>
 <h1>ハニーポットAPの見え方</h1>
 
 <p>ハニポAPのSSIDとして「  Not Free Wi-Fi」を告知するようにしました。
@@ -185,10 +161,8 @@ Androidのスマホで見ると、ハニーポットAPのSSIDを選択後しば�
 
 <p><img class="center" src="/images/2017-01-11/sp-captive.jpg" width="300"></p>
 
-<a name="L..................AP....................."></a>
 <h1>ハニーポットAPの機材について</h1>
 
-<a name="AP......"></a>
 <h2>AP本体</h2>
 
 <p>ハニーポットAPには、Buffalo WZR-HP-AG300H に OpenWRT を載せたものを用いました。</p>
@@ -205,7 +179,6 @@ Androidのスマホで見ると、ハニーポットAPのSSIDを選択後しば�
 2.4GHz/5GHz帯の同時運用も可能です。
 OpenWRT を導入できカスタマイズ性も高いため今回はこれを用いてハニーポットAPを実装しました。</p>
 
-<a name="AP.................."></a>
 <h2>APへの電源供給</h2>
 
 <p>WZR-HP-AG300Hの消費電力は最大13.2Wであり、付属のACアダプタは定格 12V/2.0A となっています。
@@ -233,7 +206,6 @@ OpenWRT を導入できカスタマイズ性も高いため今回はこれを用
 
 <p><img class="center" src="/images/2017-01-11/hap-power.jpg" width="350"></p>
 
-<a name="L.....................................on.OpenWRT"></a>
 <h2>簡易キャプティブポータル on OpenWRT</h2>
 
 <p>簡易キャプティブポータル実現のため、以下の細工を入れています。</p>
@@ -286,7 +258,6 @@ AliasMatch でこれを実現します。</p>
 <p>これにより全てのHTTP アクセスに対して /index.html の中見を返すようになります。
 このHTMLファイル中に、先に挙げたWebページを詰め込んでおきます。</p>
 
-<a name="L............"></a>
 <h2>設置場所</h2>
 
 <p>ハニーポットAP は コミックマーケット91 1日目 (2016/12/29) の西ホール1、
@@ -299,12 +270,10 @@ AliasMatch でこれを実現します。</p>
 <p>机の上の可能な限り高いところに、
 設置しましたができればポスタースタンドなどにくくりつけてより高さを稼ぎたいところではあります。</p>
 
-<a name="L............"></a>
 <h1>提供結果</h1>
 
 <p>ハニーポットAPの提供は 12/29 09:05:29 から 15:09:15 までの期間、6時間3分46秒に渡って実施しました。</p>
 
-<a name="L......LAN"></a>
 <h2>無線LAN</h2>
 
 <p>接続しにきたユニーククライアント数は 62 台でした。
@@ -336,7 +305,6 @@ AliasMatch でこれを実現します。</p>
 
 <p><img src="/images/2017-01-11/sta_dur_histogram.png" alt="sta-dur-histogram" /></p>
 
-<a name="DHCP"></a>
 <h2>DHCP</h2>
 
 <p>DHCPサーバがアドレスを割り当てた端末は 50 台でした。
@@ -378,7 +346,6 @@ androidだと<strong>android-XXXXXXXX</strong>といった乱数要素を含ん�
 </ul>
 
 
-<a name="DNS.........."></a>
 <h2>DNS クエリ</h2>
 
 <p>ハニポAPで動作しているDNSサーバでは期間中に合計556回 DNS クエリを受け取っており、
@@ -411,7 +378,6 @@ IPv6はサポートしていないため、一律NODATAを返しています。<
 </ul>
 
 
-<a name="L.............................."></a>
 <h2>キャプティブポータル</h2>
 
 <p>名前でねじ曲げられた先のキャプティブポータルに対するアクセスは以下のようになっています。</p>
@@ -538,7 +504,6 @@ CaptiveNetworkSupportの文字列の出典および後続する数値列の意�
 --->
 
 
-<a name="L........."></a>
 <h1>まとめ</h1>
 
 <ul>
@@ -561,7 +526,6 @@ CaptiveNetworkSupportの文字列の出典および後続する数値列の意�
 </ul>
 
 
-<a name="Future.Work"></a>
 <h1>Future Work</h1>
 
 <p>お次やるとしたらこう工夫しようというToDoリスト</p>

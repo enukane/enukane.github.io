@@ -9,8 +9,7 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="report, tech Comments YAPC2015 に CONBU プロジェクトメンバとして参加してきました 掲題の通り YAPC::Asia Tokyo 2015 に CONBU スタッフ (いわゆる Wi-Fi 班)として参加してきました.
-今年で最後の yapcasia &hellip;">
+	<meta name="description" content="802.11, research, tech Comments SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む 概要 リンク: http://conferences.sigcomm.org/ &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,6 +112,212 @@
   
 
 
+<time datetime="2015-08-28T09:10:56+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/research/'>research</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/" itemprop="url">SIGCOMM2015: Large-scale Measurements of Wireless Network Behavior を読む</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>概要</h2>
+
+<p>リンク: <a href="http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf">http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf</a></p>
+
+<ul>
+<li>SIGCOMM &lsquo;15で発表された論文。Cisco Merakiの人たちが著者。</li>
+<li>Merakiはいわゆるクラウド型無線LANコントローラとAPのセットのサービス。</li>
+<li>自社のサービスを展開している中で収集されたデータのオーバービュー的な文章。</li>
+</ul>
+
+
+<h3>読んだモチベーション</h3>
+
+<ul>
+<li>Wireless Network という題に惹かれて</li>
+<li>お仕事で似た様なことやってるため</li>
+</ul>
+
+
+<h2>内容</h2>
+
+<p><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">落合先生フォーマット</a>に従って並べてみる</p>
+
+<h3>どんなもの？</h3>
+
+<ul>
+<li>Merakiのサービスを提供するに当たって収集したデータの分析を行った
+
+<ul>
+<li>2万台のMeraki AP, 2万個のネットワーク, 5百万クライアント/week の規模</li>
+<li>これらのネットワークにぶら下がる数百万のデバイスの様々な情報が自社のDBに溜まっている
+
+<ul>
+<li>ネットワークに所属するデバイスたち: AP, クライアント端末(ノートPC, スマホ e.t.c), スイッチ, ルータ など</li>
+<li>情報: 接続断のイベント, 通信先 など</li>
+<li>Meraki(のサービス側)は, いわゆる無線LANコントローラなのでこれらの情報を常にpolling/収集している</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>これだけ規模が大きく, 期間も長いと&#8221;無線LANネットワークのトレンド&#8221;的なものが見えてくる
+
+<ul>
+<li>電波的な傾向
+
+<ul>
+<li>他のAP or 802.11以外の干渉</li>
+</ul>
+</li>
+<li>規格上の傾向
+
+<ul>
+<li>2.4 or 5GHz帯への偏り</li>
+<li>802.11g, a, n, acの偏り(利用率の変化)</li>
+<li>チャネル幅の遷移</li>
+<li>ストリーム数の遷移</li>
+</ul>
+</li>
+<li>クライアントの傾向
+
+<ul>
+<li>OSのバリエーション</li>
+<li>信号強度</li>
+</ul>
+</li>
+<li>ネットワークの傾向
+
+<ul>
+<li>いわゆる普通のトラフィック分析</li>
+<li>アプリケーション利用率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>先行研究と比べて何がすごい？何が違う？</h3>
+
+<ul>
+<li>まず数
+
+<ul>
+<li>Gemberら(当該研究者が所属する大学ネットワークや施設のネットワークが対象)、Rodrigら(カンファレンスネットワークが対象)等、干渉の計測やネットワークトラフィックの分析を行った研究は存在する。この論文では、さらに大規模なユーザベースでの分析を行っている。</li>
+<li>Hotspotを対象にそこそこの規模で行った例としては Ghoshら(243000デバイス)、Google (500AP, 30000クライアント)等があるがこれらはあくまでHotspot向けであり、この論文(およびMerakiのサービス)が対象としているオフィス/キャンパスユースではない</li>
+</ul>
+</li>
+<li>計測期間の長さ (とそこから来るデータ量)
+
+<ul>
+<li>おもに他の研究ではショットないし1年内程度のスパンで行ったものが主
+
+<ul>
+<li>短いスパンであれば、個々の技術・計測に関する分析を行った既存研究は多種存在する</li>
+<li>干渉の定性的分析や規格の技術的妥当性の検証という観点で</li>
+</ul>
+</li>
+<li>この論文では5年程度のスパンで見ている
+
+<ul>
+<li>&ldquo;トレンド&#8221;という点に着目できる内容になっている</li>
+<li>さらに取得した、サービスの継続にあたって重要な無線LANインフラ(!=無線LAN only)の情報を分析対象としている</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>技術の手法とかキモはどこ？</h3>
+
+<ul>
+<li>サービスのプロダクション環境に当該情報収集系を組み込んだところ
+
+<ul>
+<li>いわゆる&#8221;実用&#8221;の場でのデータが取れる</li>
+<li>お客さんのバリエーション == &ldquo;実用”の度合い に直結する</li>
+</ul>
+</li>
+<li>観点として「サービスの継続性」のための情報収集に特化しているところ
+
+<ul>
+<li>個々の規格・技術の妥当性検証というよりは、その現れ方・利用され方の観測が主</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>どうやって有効だと検証した？</h3>
+
+<ul>
+<li>Evaluationとして有効性を示す文章はない</li>
+<li>強いて言えば実環境でこんな感じのデータが取れたぜ！という報告に近い?</li>
+</ul>
+
+
+<h3>議論はある？</h3>
+
+<ul>
+<li>(TBD)</li>
+</ul>
+
+
+<h3>次に読むべき論文は？</h3>
+
+<ul>
+<li>GamberらのとGoogleのやつ？
+
+<ul>
+<li><ol type="a">
+<li>Gember, A. Anand, and A. Akella. A comparative study of handheld and non-handheld traffic in campus wi-fi networks.</li>
+</ol>
+</li>
+<li><ol type="a">
+<li>Afanasyev, T. Chen, G. M. Voelker, and A. C. Snoeren. Usage patterns in an urban wifi network</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Senらの&#8221;Cspy: finding the best quality channel without probing&#8221;も気になる
+
+<ul>
+<li><ol type="a">
+<li>Sen, B. Radunovic, J. Lee, and K.-H. Kim. Cspy: finding the best quality channel without probing.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
 <time datetime="2015-08-26T13:57:56+09:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
@@ -139,12 +344,10 @@
 </ul>
 
 
-<a name="L......"></a>
 <h3>感想</h3>
 
 <p>正直なところ, ネットワーク周りに首ったけになっていた結果 Perl のカンファレンスに参加したというよりお祭りに参加してネットワーク敷設のお手伝いしてきた, という印象の方が強かったです. Perl は10年ぐらいまえに CGI で遊んでた頃に書いたっきり全く触ってなかったので perl mongers に取り囲まれてぼっこぼこにされるんじゃないかと震えてたのですが, ruby やら go やら思ったより多様性に溢れていたのが印象的でした. なおちらっと Larry Wall の実物は見ることができました.</p>
 
-<a name="YAPC.........................................."></a>
 <h3>YAPCらしきことをつぶやいてたログ</h3>
 
 <blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">なおこんな感じのアロハ <a href="http://t.co/f1VfP6BJZW">pic.twitter.com/f1VfP6BJZW</a></p>&mdash; えぬかね@C88ありがとうございました (@n_kane) <a href="https://twitter.com/n_kane/status/634266022900400128">2015, 8月 20</a></blockquote>
@@ -163,7 +366,6 @@
 
 <p>どこまでベラベラしゃべって良いのか判断ついてなかったので, あんまりないね&hellip;</p>
 
-<a name="L..........................."></a>
 <h3>聞いてたセッション</h3>
 
 <p>かろうじて片耳で聞いてたセッションの一覧はこんな感じ</p>
@@ -199,7 +401,6 @@
 
 <p>Wi-Fi的にはD, Eが激戦区だったのでそのあたりには居たのですがセッションの内容まで覚えてるのはこの辺りの模様&hellip;</p>
 
-<a name="L..........CONBU.....LT.................................."></a>
 <h3>なぜか CONBU は LT で設営デモもやりました</h3>
 
 <p>どこかに映ってる, ヒゲダルマを探そう.</p>
@@ -226,7 +427,6 @@
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<a name="L.................."></a>
 <h3>パケット集め</h3>
 
 <p>一週間前にあったコミケでも持ち込んだ下記のデバイスを YAPC でも持ち込んで, バッグのなかに入れつつうろうろしてました.
@@ -247,7 +447,6 @@
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<a name="L............"></a>
 <h3>終わりに</h3>
 
 <p>最初で最後の YAPC::Asia Tokyo にネットワークスタッフとして参加, そしてそっちに夢中になっててあんまり本編を聞いていないとかどういうこっちゃという感じではありますが, それはそうとしてそれなりに楽しまさせていただきました. 関係者の皆様ありがとうございました.</p>
@@ -287,8 +486,7 @@
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2015/05/01/bimbo-spectrum-analyzer/" itemprop="url">貧乏人でもスペアナがしたい!</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<a name="L......................................................"></a>
-<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
+		<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
 
 <p>新品を買うと, 数十万〜数百万だし, ヤフオク等の中古品でも明らかなジャンク品でないものに限ったとしても十〜数十万ぐらいは行ってしまう.</p>
 
@@ -342,7 +540,6 @@
 
 <p>おおよそ2つの側面があって, きちんとしたスペアナ買ってお勉強したいというのと, 今までやってきている無線LANキャプチャに織り交ぜたいという2つの方向からの要求が混ざっている. 分けた方がいいような気はする.</p>
 
-<a name="L................................."></a>
 <h2>候補になりそうな人たち</h2>
 
 <p>中古のスペアナをヤフオクで探すのは継続するとして, ハンディに使えそうな子達.</p>
@@ -458,7 +655,6 @@
 </table>
 
 
-<a name="L..............."></a>
 <h3>諸々の前提</h3>
 
 <ul>
@@ -478,10 +674,8 @@
 </ul>
 
 
-<a name="L......"></a>
 <h2>候補</h2>
 
-<a name="GigaSt.v5c"></a>
 <h3>GigaSt v5c</h3>
 
 <ul>
@@ -511,7 +705,6 @@
 </ul>
 
 
-<a name="RF.Explorer.6G.Combo...WiFi.Combo"></a>
 <h2>RF Explorer 6G Combo / WiFi Combo</h2>
 
 <ul>
@@ -553,7 +746,6 @@
 </ul>
 
 
-<a name="Aaronia.SPECTRAN.HF-6060V4...HF-6060V4.X"></a>
 <h2>Aaronia SPECTRAN HF-6060V4 / HF-6060V4 X</h2>
 
 <ul>
@@ -609,7 +801,6 @@
 </ul>
 
 
-<a name="WiSpy.DBx"></a>
 <h2>WiSpy DBx</h2>
 
 <ul>
@@ -697,7 +888,6 @@
 </ul>
 
 
-<a name="Signal.Hound.USB-SA124B...BB60C"></a>
 <h2>Signal Hound USB-SA124B / BB60C</h2>
 
 <ul>
@@ -727,7 +917,6 @@
 </ul>
 
 
-<a name="Tektronix.RSA306"></a>
 <h2>Tektronix RSA306</h2>
 
 <ul>
@@ -978,8 +1167,7 @@
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2015/02/12/2015-02-12-dslite/" itemprop="url">2015-02-12 DS-Liteいれてみた</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<a name="L......"></a>
-<h2>追記</h2>
+		<h2>追記</h2>
 
 <ul>
 <li>2015/02/13 「速度計測その2」を追加</li>
@@ -987,7 +1175,6 @@
 </ul>
 
 
-<a name="L............"></a>
 <h2>はじめに</h2>
 
 <p>新居でのフレッツv6オプションおよび IIJmio FiberAccess/NF の準備ができたので
@@ -995,7 +1182,6 @@
 IPv4での疎通性を確保してみた.
 が, ちょいと速度面で問題?があったのでメモ.</p>
 
-<a name="L......"></a>
 <h2>設定</h2>
 
 <p>設定は以下を参照. フィルタ周りの設定やIPv4 PPPoe周りを継ぎ足してほぼそのままで導入.</p>
@@ -1005,7 +1191,6 @@ IPv4での疎通性を確保してみた.
 </ul>
 
 
-<a name="L............"></a>
 <h2>動作確認</h2>
 
 <p>tracerouteを取ってみるとこんな感じに transix.jp を通って
@@ -1015,7 +1200,6 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 <p>なお普通にIPv4 PPPoE経由でいくとこんな感じになる.
 <img src="/images/traceroute-iijmio.png" alt="traceroute-iijmio" /></p>
 
-<a name="L............"></a>
 <h2>速度計測</h2>
 
 <p>問題は速度で, 以下の様な三者間で速度を測ってみるとどうにも DS-Lite 経由の iperf の結果が芳しくない.</p>
@@ -1104,7 +1288,6 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 
 <p>さて, なんででしょう.</p>
 
-<a name="L..................2"></a>
 <h2>速度計測その2</h2>
 
 <p>上記速度計測では, LAN内からはiperf clientとしてしか通信していなかったので,
@@ -1211,7 +1394,6 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 
 <p>DS-LiteのUP方向が妙に抑えられているようだ. DOWN方向は普通に速度が出ている.</p>
 
-<a name="L..................3"></a>
 <h2>速度計測その3</h2>
 
 <p>&ldquo;option ipv6 avoid-path-mtu-discovery on|off&#8221;を切り替えてみる.
@@ -1334,14 +1516,12 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2015/01/29/2015-01-28-embulk-playground/" itemprop="url">2015-01-28 Embulk-plugin-input-pcapng-files書いた</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<a name="L........2015.01.29.20:03."></a>
-<h3>追記 (2015/01/29 20:03)</h3>
+		<h3>追記 (2015/01/29 20:03)</h3>
 
 <p>ver 0.0.2切った. ファイルのソート周りはまだ直してない.</p>
 
 <p><a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">https://rubygems.org/gems/embulk-plugin-input-pcapng-files</a></p>
 
-<a name="L........2015.01.29.19:49."></a>
 <h3>追記 (2015/01/29 19:49)</h3>
 
 <p>手元で動作確認してたらいつの間にか次のバージョンのembulkがリリースされてた.
@@ -1349,7 +1529,6 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 
 <p><a href="https://twitter.com/frsyuki/status/560750747608817665">https://twitter.com/frsyuki/status/560750747608817665</a></p>
 
-<a name="L........2015.01.29.19:38."></a>
 <h3>追記 (2015/01/29 19:38)</h3>
 
 <p>frsyuki先生から後ろ方のてきとーなメモに対する, 大変丁寧なコメントを頂けた. なるほどなるほど.</p>
@@ -1364,7 +1543,6 @@ IPv4インターネットに出て行けてることが確認できたら完了.
 </ul>
 
 
-<a name="L............"></a>
 <h2>はじめに</h2>
 
 <p>前々からやっているコミケその他イベントでの無線LAN解析(※)に良い感じに使えそうなので
@@ -1394,7 +1572,6 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 
 <p>正直pcapngをこんな感じに触りたい人いない気がするので, 誰にも使ってもらえない感&hellip;</p>
 
-<a name="L........."></a>
 <h3>使い方</h3>
 
 <p>コンフィグファイルはこんな感じになります.
@@ -1577,7 +1754,6 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 </ul>
 
 
-<a name="embulk..........................."></a>
 <h3>embulk弄ってたときのメモ</h3>
 
 <ul>
@@ -1745,7 +1921,6 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 		<p>今月がちょうど Softbank の2年縛りが切れる月なのでそろそろどうするか考えてみる.
 &ldquo;@vodafone.ne.jp&#8221;なアドレスに執着が無ければ移るかも.</p>
 
-<a name="L......4..........Softbank............."></a>
 <h3>直近4ヶ月の Softbank 請求金額</h3>
 
 <table>
@@ -1889,7 +2064,6 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 <p>削ったとして結局のところ1月換算で行くなら,  8232 - 950 + 460 (消費税概算) = 7700ぐらい。
 なお、MNP転出手数料は2000円。</p>
 
-<a name="L.........................................."></a>
 <h3>みおふぉんに変えてみるプラン</h3>
 
 <p>とりあえず端末代は度外視するとして。</p>
@@ -1952,8 +2126,7 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2015/01/01/newyear/" itemprop="url">2014年のまとめをちらほらと、2015年にやりたいことをだらだらと</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<a name="L2014..............."></a>
-<h1>2014年のまとめ</h1>
+		<h1>2014年のまとめ</h1>
 
 <ul>
 <li>犬吠埼に初日の出観に行った。寒かった。</li>
@@ -1972,7 +2145,6 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 </ul>
 
 
-<a name="L2015........................"></a>
 <h1>2015年にやりたいこと</h1>
 
 <ul>
@@ -2006,195 +2178,13 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 
 </article>
 
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-12-12T09:58:24+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/research/'>research</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2014/12/12/syspaper-adventcalendar-2014/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/12/12/syspaper-adventcalendar-2014/" itemprop="url">システム系論文紹介 Advent Calendar 2014</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>本記事は、<a href="http://www.adventar.org/calendars/440">システム系論文紹介 Advent Calendar 2014</a> 12/11 のための記事です</p>
-
-<a name="L............"></a>
-<h1>はじめに</h1>
-
-<p>本エントリでは、NSDI&#8217;14 にて発表のあった &ldquo;NetVM&rdquo; について紹介します。</p>
-
-<a name="L.NetVM:.High.Performance.and.Flexible.Networking.Using.Virtualization.on.Commodity.Platforms."></a>
-<h1>&ldquo;NetVM: High Performance and Flexible Networking Using Virtualization on Commodity Platforms&rdquo;</h1>
-
-<a name="L..............."></a>
-<h2>論文の概要</h2>
-
-<ul>
-<li>タイトル: <a href="https://www.usenix.org/conference/nsdi14/technical-sessions/presentation/hwang"><em>&ldquo;NetVM: High Performance and Flexible Networking Using Virtualization on Commodity Platforms&rdquo;</em></a></li>
-<li>著者: Jinho Hwang et al.</li>
-<li>出典: 11th USENIX Symposium on Networked Systems Design and Implementation (NSDI&#8217;14)</li>
-</ul>
-
-
-<p>この論文では表題にも登場する&#8221;Commodity Platforms&#8221;いわゆる普通の(?) x86マシンを使った、高度かつ高速なネットワークサービスを実現するための基盤として、&#8221;NetVM&#8221; というプラットフォームを提案&amp;実装しています。これまでお高い専用のハードウェアでなければ実用に足る性能が出せなかったファイヤーウォールやルーティング、ロードバランサといったネットワークに必要な諸機能。これらをソフトウェアだけで実現し、いわゆる<a href="http://www.etsi.org/technologies-clusters/technologies/nfv">NFV</a> 的なものの基盤として使える様にするといったことを目的としています。特にこの論文では、ハードウェアアプライアンスに負けない性能(==ワイヤーレート)を目指しつつ、ソフトウェアとしての展開の容易さや機能実現に対する柔軟性といったネットワークサービスインフラにおける利便性を実現することを主眼としています。</p>
-
-<a name="L...........................NetVM"></a>
-<h1>ここがひと味違うよNetVM</h1>
-
-<p>ここではNetVMを支える技術、として論文中よりNetVMにおける「こだわり」ポイントをいくつか紹介します。</p>
-
-<a name="Virtualization:......................"></a>
-<h2>Virtualization: 仮想化前提だよ</h2>
-
-<a name="NetVM...........................:.1.........................1VM"></a>
-<h3>NetVMにおける仮想マシン: 1コンポーネント == 1VM</h3>
-
-<p>NetVMにおける一つの特徴として、仮想化環境によるネットワークサービスの実現を特に意識している点が上げられます。
-いわゆるハコモノを用いる一般的なネットワークでは用途に応じて様々なハコを組み合わせてネットワークを構成します。
-これにはたとえばスイッチやルータ、ファイヤーウォールなどといったコンポーネントに設定を投入し、間を
-LANケーブルで敷設するイメージでしょうか。
-ブロードバンドルータなど一つのハコにまとめている場合もありますが、より大規模かつ高速な処理を要求される場合は
-専用のアプライアンスを持ってくることが一般的でしょう。</p>
-
-<p>NetVMでは、これらの物理的なハコとしての形を取っ払ってKVM上の仮想マシンを新たな仮想的なハコとしてそこに機能を押し込めています。
-これによりソフトウェアの柔軟性(デプロイや変更の自動化、大規模化 etc)といった利点をネットワークの構成に導入しています。</p>
-
-<p>それぞれのVMはハコモノとして、これまで行ってきたのと同じようにパケットの入力とそれに基づく出力の決定(宛先の変更やパケットの書き換えなど)を行います。
-もちろん仮想マシンに押し込めたところで物理配線が消える訳ではないのでそれらは依然として存在しますが、このハコモノの間を埋めるLANケーブル
-(とスイッチング)の役割の一部をNetVMではハイパバイザでも提供します。NetVMではこのホストで動く部分をNetVM Core, NetVM Managerと呼称しています。
-ネットワークコンポーネント間の結線にあたるこの部分もソフトウェアとして抱き込むことで、ハコモノを仮想化したのと同様の利点をネットワーキングにも導入しています。</p>
-
-<a name="VM.........................................."></a>
-<h2>VMという区分によるセキュリティ</h2>
-
-<p>一つのハコモノを一つのVMに押し込めて動かすことはセキュリティ面でも利点があります。
-NFV的な、一つの物理ハードウェア上に複数のネットワーク、複数のお客さん環境が載っている場合は
-それぞれの間がまぜこぜにならないことが肝要です。
-KVMが既にVMという区分で提供しているアイソレーションの仕組みに乗っかることでNetVMでは
-各ネットワークコンポーネントのセキュリティを担保しています。</p>
-
-<p>加えて必要なのは、それぞれのネットワーク間を間違って繋がないことです。
-ここはホストOSつまりNetVM CoreやNetVM Managerの領分になりますが、このためにVMのグルーピングができるようになっています。
-これにより、あるVM群は特定のユーザのもの、また別のVM群はそっちのユーザのものといった形で内部的に分離する事が可能です。</p>
-
-<p>なおあくまで内部的な区分けにつき、外に出たフレームは対象とはなりません。このため実際にNFVっぽいことの基盤として使うにはその部分でVLANかますなりトンネリングするなりでネットワーク的に区分けすることが必要だったり？また、一つの物理的なハードウェア上での組み合わせを主眼にしているためか外に出ないといけないような場合の想定があまりなされていない感じもあります。</p>
-
-<a name="High.Performance:............................"></a>
-<h2>High Performance: パケット処理性能↑</h2>
-
-<p>ハードウェアなアプライアンス箱に性能で勝つ、というのを第一目標においているためかチューニングやテクニックの記述に論文のそこそこの部分を割いているためその一部をここでは解説します。</p>
-
-<a name="DPDK....User-land.Packet.Processing"></a>
-<h3>DPDKで User-land Packet Processing</h3>
-
-<p>いわゆる「ポーリングモード」+ 「ユーザランドにおけるパケット処理」+「バッチ処理」による高速化は、Intel DPDKのリリースやnetmap、あとちょっとマニアックなところだとrump(はどうなんだろう&hellip;?)などの登場によりもはや当たり前のテクニックとなってきました。特に&#8221;なんらかのアプリケーション&#8221;に特化した通信を行いたい場合は、これまで先人がせっせと築き上げてきたOSのレイヤやらコンテキストスイッチングによるオーバヘッドをぶち抜けるため非常に高速にパケットを処理することが可能です。</p>
-
-<p>これらの仕組みはDPDKでもnetmapでも、基本的には直接ハードウェア(NIC)を触ってる人のみへの恩恵です。一方、NetVMではベースにDPDKを用いることでこれらの技術を利用しつつ、ネットワークサービスのコンポーネントたるVMの中のアプリケーションに対しても同様の利点を提供しています。</p>
-
-<a name="L......................................................"></a>
-<h3>システム全体でのパケットバッファ共有</h3>
-
-<p>DPDKやnetmapは基本的に、NICとネットワークアプリケーションとで送受信リングとパケットバッファを共有することでコピーコストの削減を行っています。
-NetVMでもDPDKを利用しているため、ホストOSとNICとの間でこれはすでになされていますがこの構造をさらに拡張し、VMにたいしても
-同様の処理ができるように巨大な共有メモリ領域を用意し、ダミーのvirtual PCIデバイス経由でVMに対してこれを晒しています。
-これによりNIC-ホストOS-VMの三者間でのZero Copyを実現しています。
-このZero CopyはVM-VM間でも有効であり、ホストOS(NetVM Core)を通してのコンポーネント間のパケットのやりとりにあたっても
-同様の恩恵を得ることができます。これは、ホスト-VM間のRx/Txリングがそれぞれ独立である一方で&#8221;同じネットワーク&#8221;間では
-パケットバッファが共有されているためです。なお先に述べたネットワーク間のアイソレーション機能(グルーピング)は
-このパケットバッファの共有範囲を分けることでも実現されています。</p>
-
-<a name="CPU..............."></a>
-<h3>CPU特性の活用</h3>
-
-<p>バッファ共有によるZero Copyの拡張に加えて、マルチコアシステムを前提として以下の工夫がなされています。</p>
-
-<ul>
-<li>Lockless なシステムデザイン</li>
-<li>NUMA-awareなデザイン</li>
-</ul>
-
-
-<p>netmapでも同様だったかと思いますが(マルチコアの場合はどうだったっけ&hellip;)、共有のパケットバッファの操作にあたりNetVMではロックを用いません。
-あるキュー(Rx/Tx)は同時にホスト内またはゲストから操作しないように構成されます(できないのではなくやらない)。
-ある一つのキューに対してロックが必要なケースは以下の場合です。</p>
-
-<ol>
-<li>ホストOS側でそれぞれのコアが同じキューを触ることがある場合</li>
-<li>ゲストOSとホストOSが同じキューを触ることがある場合</li>
-</ol>
-
-
-<p>これらを避けるために、NetVMではコア間で触るキューを分けるようになっています。
-まずNetVMのホストOS側ではコアごとにNICおよびVMとのキューを分けるようになっています。
-これにより1の、同じキューを別々のコア(上で動作するスレッド)が触ることがないようにしています。
-次に、ゲストOS(VM)側のスレッドとホストOS側のスレッドが同じキューを操作するシチュエーション(2)ですが、
-これも1と同様にあるゲストOS(VM)上のスレッドが動くCPUを限定することで対処しています。
-このゲスト上のスレッドも、同様に自分のCPUに割り当てられたキューしか触れないようにすることで実質的に
-いわゆるキューを挟んだconsumer-producerにおいてRX側では「ホストOSのスレッドとしてキューにpush」と
-「VM上のスレッドとしてキューからpop」が一つのCPUで完結することになります(これらは1つのCPU上では同時に実行されないためロックもいらない)。
-このあたりの実装にはKVMのvCPU周りの管理機構をいじくって実現したとのこと。</p>
-
-<p>NetVMではNUMAなマルチコアシステムにおけるメモリの距離とキャッシュの扱いについても考慮が入っています。
-基本的なデザインとして、NetVMでは自分のコアに距離的に近いメモリ領域以外は触らないように構成されています
-(遠いメモリにアクセスするとキャッシュは汚れるは遠いわで良くないよというお話はここでは割愛)。
-これは上記の「キューごとのコア」という構造をベースに作られます。
-まずNetVMではそれぞれのコアごとに触るメモリ領域を分けます (総メモリ量/コア数 == 1つのコアが触るメモリ領域)。
-そしてその各々のメモリ領域に「キューごとのコア」が作られ、ゲスト(VM)と共有されます。
-先に述べたように、Locklessデザインの制約によりあるキューはそれぞれ対応するCPUからしかアクセスされないため、
-あるCPU(とその上で動くホスト/ゲスト上のスレッド)は常に自分から近いメモリ領域のみを触る様になります。
-これは全てのホスト-ゲスト間のみならず、ゲスト-ゲスト間でのパケットのやりとりでも有効であり、最終的に
-NICにパケットを引き渡すまでlocalityを維持したまま通信ができるようになります。</p>
-
-<a name="L............"></a>
-<h1>終わりに</h1>
-
-<p>ここではNSDI&#8217;14より&#8221;NetVM&#8221;の紹介をしました。こういったNFV的なプラットフォームはネットワークベンダやキャリアなど各社それぞれ様々な構想を出しており、それらの一例として作り方まで踏み込んだものとして面白い論文ですが、なによりもチューニングに結構命かけているあたりがこのNetVMの面白いところです。</p>
-
-<a name="L.........................................."></a>
-<h2>今回ボツになった他の候補者達</h2>
-
-<p>最後に、今回読もうと思ってた論文の候補たちを並べておきます。</p>
-
-<ol>
-<li>Unikernels: Library Operating Systems for the Cloud (ATC&#8217;13)</li>
-<li>HACK: Hierarchical ACKs for Efﬁcient Wireless Medium Utilization (ATC&#8217;14)</li>
-<li>Hyper-Switch: A Scalable Software Virtual Switching Architecture (ATC&#8217;13)</li>
-<li>Rekindling Network Protocol Innovation with User-Level Stacks (SIGCOMM Computer Communication Review)</li>
-</ol>
-
-
-<p>Unikernelsは@suma90h さんが既にシステム系論文輪読会で<a href="http://www.slideshare.net/suma_/reading-unikernels">お読みになってた</a> のでパス。HACKは、無線LAN系 &amp; 今年のATCでのBest Paperということもあって気になっているのですが別枠で読むことに。3や4は、NetVMと同じく&#8221;えすでーえぬ&#8221;とか&#8221;えぬえふぶい&#8221;といった類いに属しそうなのと、先日のIIJ-II セミナーで&#8221;ClickOS and the Art of Network Function Virtualization&#8221;のお話があったので関連文献として上げてみました。</p>
-
-		
-		
-	</div>
-
-</article>
-
 </div>
 <nav id="pagenavi">
     
         <a href="1" class="prev">Prev</a>
     
+    
+        <a href="3" class="next">Next</a>
     
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav></div>

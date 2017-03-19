@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 802.11 | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/802-dot-11/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-01-12T00:41:09+09:00</updated>
+  <updated>2017-03-20T02:24:07+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -18,11 +18,12 @@
     <link href="http://enukane.github.io/blog/2017/01/11/c91-wifi/"/>
     <updated>2017-01-11T23:59:31+09:00</updated>
     <id>http://enukane.github.io/blog/2017/01/11/c91-wifi</id>
-    <content type="html"><![CDATA[<p>いつものやつ書きました。「C91 Wi-Fi 〜ららら、(無線的に)素敵なComiket Space〜」。</p>
+    <content type="html"><![CDATA[<p>だんだんと自分にしか意味のない指標&amp;グラフが増えすぎてて大変に読みづらいものになったけど、
+いつものやつ書きました。「C91 Wi-Fi 〜ららら、(無線的に)素敵なComiket Space〜」。</p>
 
 <p><iframe src="http://www.slideshare.net/slideshow/embed_code/70907756 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
 
-<p>今回は、自スペースが西1にまた戻ってきました。
+<p>今回は、また自スペースが西1に戻ってきました。
 そのため<a href="http://www.slideshare.net/enukane/c90-wifi-comiket-space">前回のC90 (西3だった)</a>とはまた様子が異なっています。
 比較のために、次はできれば東に割り当てられたいですね。</p>
 
@@ -76,6 +77,12 @@
 </li>
 </ul>
 
+
+<p>FCS badなフレームのDurationがどれくらい正確なのかは今後要検証。
+これが正確にとれており、Durationの合計がチャネル使用率と合致するならサンプリング精度が良いという指標になりそう。</p>
+
+<p>また、FCS badなデュレーションと
+これと、プリアンブルだけの情報が上手く取れると高レートなフレームの流れが</p>
 ]]></content>
   </entry>
   
@@ -84,32 +91,8 @@
     <link href="http://enukane.github.io/blog/2017/01/11/hap/"/>
     <updated>2017-01-11T09:35:12+09:00</updated>
     <id>http://enukane.github.io/blog/2017/01/11/hap</id>
-    <content type="html"><![CDATA[<p><ul>
- <li><a href="#L......">概要</a></li>
- <li><a href="#L..................AP............">ハニーポットAPの見え方</a></li>
- <li><a href="#L..................AP.....................">ハニーポットAPの機材について</a>
- <ul>
-  <li><a href="#AP......">AP本体</a></li>
-  <li><a href="#AP..................">APへの電源供給</a></li>
-  <li><a href="#L.....................................on.OpenWRT">簡易キャプティブポータル on OpenWRT</a></li>
-  <li><a href="#L............">設置場所</a></li>
- </ul>
- </li>
- <li><a href="#L............">提供結果</a>
- <ul>
-  <li><a href="#L......LAN">無線LAN</a></li>
-  <li><a href="#DHCP">DHCP</a></li>
-  <li><a href="#DNS..........">DNS クエリ</a></li>
-  <li><a href="#L..............................">キャプティブポータル</a></li>
- </ul>
- </li>
- <li><a href="#L.........">まとめ</a></li>
- <li><a href="#Future.Work">Future Work</a></li>
-</ul>
+    <content type="html"><![CDATA[<p>{:TOC}</p>
 
-</p>
-
-<a name="L......"></a>
 <h1>概要</h1>
 
 <p>今冬のコミックマーケット91にて、1日目 西1 み-18a &ldquo;glenda9&rdquo; で出展するにあたって
@@ -153,7 +136,6 @@ SSIDをつけるという案もあります。
 -->
 
 
-<a name="L..................AP............"></a>
 <h1>ハニーポットAPの見え方</h1>
 
 <p>ハニポAPのSSIDとして「  Not Free Wi-Fi」を告知するようにしました。
@@ -173,10 +155,8 @@ Androidのスマホで見ると、ハニーポットAPのSSIDを選択後しば�
 
 <p><img class="center" src="/images/2017-01-11/sp-captive.jpg" width="300"></p>
 
-<a name="L..................AP....................."></a>
 <h1>ハニーポットAPの機材について</h1>
 
-<a name="AP......"></a>
 <h2>AP本体</h2>
 
 <p>ハニーポットAPには、Buffalo WZR-HP-AG300H に OpenWRT を載せたものを用いました。</p>
@@ -193,7 +173,6 @@ Androidのスマホで見ると、ハニーポットAPのSSIDを選択後しば�
 2.4GHz/5GHz帯の同時運用も可能です。
 OpenWRT を導入できカスタマイズ性も高いため今回はこれを用いてハニーポットAPを実装しました。</p>
 
-<a name="AP.................."></a>
 <h2>APへの電源供給</h2>
 
 <p>WZR-HP-AG300Hの消費電力は最大13.2Wであり、付属のACアダプタは定格 12V/2.0A となっています。
@@ -221,7 +200,6 @@ OpenWRT を導入できカスタマイズ性も高いため今回はこれを用
 
 <p><img class="center" src="/images/2017-01-11/hap-power.jpg" width="350"></p>
 
-<a name="L.....................................on.OpenWRT"></a>
 <h2>簡易キャプティブポータル on OpenWRT</h2>
 
 <p>簡易キャプティブポータル実現のため、以下の細工を入れています。</p>
@@ -266,7 +244,6 @@ AliasMatch でこれを実現します。</p>
 <p>これにより全てのHTTP アクセスに対して /index.html の中見を返すようになります。
 このHTMLファイル中に、先に挙げたWebページを詰め込んでおきます。</p>
 
-<a name="L............"></a>
 <h2>設置場所</h2>
 
 <p>ハニーポットAP は コミックマーケット91 1日目 (2016/12/29) の西ホール1、
@@ -279,12 +256,10 @@ AliasMatch でこれを実現します。</p>
 <p>机の上の可能な限り高いところに、
 設置しましたができればポスタースタンドなどにくくりつけてより高さを稼ぎたいところではあります。</p>
 
-<a name="L............"></a>
 <h1>提供結果</h1>
 
 <p>ハニーポットAPの提供は 12/29 09:05:29 から 15:09:15 までの期間、6時間3分46秒に渡って実施しました。</p>
 
-<a name="L......LAN"></a>
 <h2>無線LAN</h2>
 
 <p>接続しにきたユニーククライアント数は 62 台でした。
@@ -316,7 +291,6 @@ AliasMatch でこれを実現します。</p>
 
 <p><img src="/images/2017-01-11/sta_dur_histogram.png" alt="sta-dur-histogram" /></p>
 
-<a name="DHCP"></a>
 <h2>DHCP</h2>
 
 <p>DHCPサーバがアドレスを割り当てた端末は 50 台でした。
@@ -358,7 +332,6 @@ androidだと<strong>android-XXXXXXXX</strong>といった乱数要素を含ん�
 </ul>
 
 
-<a name="DNS.........."></a>
 <h2>DNS クエリ</h2>
 
 <p>ハニポAPで動作しているDNSサーバでは期間中に合計556回 DNS クエリを受け取っており、
@@ -391,7 +364,6 @@ IPv6はサポートしていないため、一律NODATAを返しています。<
 </ul>
 
 
-<a name="L.............................."></a>
 <h2>キャプティブポータル</h2>
 
 <p>名前でねじ曲げられた先のキャプティブポータルに対するアクセスは以下のようになっています。</p>
@@ -508,7 +480,6 @@ CaptiveNetworkSupport-306.20.1 wispr
 --->
 
 
-<a name="L........."></a>
 <h1>まとめ</h1>
 
 <ul>
@@ -531,7 +502,6 @@ CaptiveNetworkSupport-306.20.1 wispr
 </ul>
 
 
-<a name="Future.Work"></a>
 <h1>Future Work</h1>
 
 <p>お次やるとしたらこう工夫しようというToDoリスト</p>
@@ -579,12 +549,10 @@ CaptiveNetworkSupport-306.20.1 wispr
     <link href="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/"/>
     <updated>2015-08-31T18:20:55+09:00</updated>
     <id>http://enukane.github.io/blog/2015/08/31/event-radio-utilization</id>
-    <content type="html"><![CDATA[<a name="L......"></a>
-<h2>概要</h2>
+    <content type="html"><![CDATA[<h2>概要</h2>
 
 <p>いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。</p>
 
-<a name="L............"></a>
 <h3>計測対象</h3>
 
 <p>今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、定点観測的に収集をしています。</p>
@@ -645,17 +613,14 @@ CaptiveNetworkSupport-306.20.1 wispr
 </table>
 
 
-<a name="L.........................................."></a>
 <h2>チャネル利用率のヒートマップ</h2>
 
 <p>5分毎に区切って、チャネルごとにヒートマップ化したものを並べてみる。</p>
 
-<a name="L2015.08.02........................."></a>
 <h3>2015/08/02 あたりのイベント</h3>
 
 <p><img src="/images/2015-08-31/ev0802-util.png" alt="2015-08-02-util" /></p>
 
-<a name="L...........C88."></a>
 <h3>コミケ (C88)</h3>
 
 <p>コミケでは、1日目および2日目は一般参加、三日目のみサークル参加だったため東 P-18b にて定点観測を実施。
@@ -686,42 +651,34 @@ CaptiveNetworkSupport-306.20.1 wispr
 </ul>
 
 
-<a name="L1........2015.08.14."></a>
 <h4>1日目 (2015/08/14)</h4>
 
 <p><img src="/images/2015-08-31/c88-d1.png" alt="2015-08-14-util" /></p>
 
-<a name="L2........2015.08.15."></a>
 <h4>2日目 (2015/08/15)</h4>
 
 <p><img src="/images/2015-08-31/c88-d2.png" alt="2015-08-15-util" /></p>
 
-<a name="L3........2015.08.16."></a>
 <h4>3日目 (2015/08/16)</h4>
 
 <p><img src="/images/2015-08-31/c88-d3.png" alt="2015-08-16-util" /></p>
 
-<a name="YAPC::Asia.Tokyo.2015"></a>
 <h3>YAPC::Asia Tokyo 2015</h3>
 
 <p>こちらは CONBU チーム (いわゆる Wi-Fi 班)として参加したときのもの. 作業時に邪魔にならない場合、ショルダーバッグにデバイスを入れて彷徨うようにはしていました. が、バックヤードに起きっぱなしの時間も大分あったため有為なデータが取れていない可能性は多々ありそう。</p>
 
-<a name="L1........2015.08.21."></a>
 <h4>1日目 (2015/08/21)</h4>
 
 <p><img src="/images/2015-08-31/yapc2015-d1.png" alt="2015-08-21-util" /></p>
 
-<a name="L2........2015.08.22."></a>
 <h4>2日目 (2015/08/22)</h4>
 
 <p><img src="/images/2015-08-31/yapc2015-d2.png" alt="2015-08-22-util" /></p>
 
-<a name="L...............113..2015.08.30."></a>
 <h3>コミティア113 (2015/08/30)</h3>
 
 <p><img src="/images/2015-08-31/comitia113.png" alt="2015-08-22-util" /></p>
 
-<a name="L......"></a>
 <h2>考察</h2>
 
 <ul>
@@ -775,12 +732,10 @@ CaptiveNetworkSupport-306.20.1 wispr
 </ul>
 
 
-<a name="L......"></a>
 <h2>実装</h2>
 
 <p>以下、軽く実装についてメモ</p>
 
-<a name="L................................."></a>
 <h3>情報源として用いる情報</h3>
 
 <p>チャネル利用率の算出には iw コマンドの以下のオプションを用いました。</p>
@@ -809,7 +764,6 @@ channel active time = busy time + idle time
 
 <p>チップによっては transmit time の他に receive time も個別に取り出せるので other つまり 802.11 以外の電波により送受信ができていなかった時間も取れるのですが今回は対象外としました。</p>
 
-<a name="tochkad............."></a>
 <h3>tochkad での記録</h3>
 
 <p>このように取れるチャネル利用率を、パケットキャプチャデバイスの主観部分を担う <a href="https://github.com/enukane/tochka/">tochkad</a> のチャネル遷移部分で取得するようにしました。</p>
@@ -835,8 +789,7 @@ channel active time = busy time + idle time
     <link href="http://enukane.github.io/blog/2015/08/28/sigcomm2015-large-scale-wlan-net/"/>
     <updated>2015-08-28T09:10:56+09:00</updated>
     <id>http://enukane.github.io/blog/2015/08/28/sigcomm2015-large-scale-wlan-net</id>
-    <content type="html"><![CDATA[<a name="L......"></a>
-<h2>概要</h2>
+    <content type="html"><![CDATA[<h2>概要</h2>
 
 <p>リンク: <a href="http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf">http://conferences.sigcomm.org/sigcomm/2015/pdf/papers/p153.pdf</a></p>
 
@@ -847,7 +800,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="L.............................."></a>
 <h3>読んだモチベーション</h3>
 
 <ul>
@@ -856,12 +808,10 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="L......"></a>
 <h2>内容</h2>
 
 <p><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">落合先生フォーマット</a>に従って並べてみる</p>
 
-<a name="L.................."></a>
 <h3>どんなもの？</h3>
 
 <ul>
@@ -916,7 +866,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="L........................................................."></a>
 <h3>先行研究と比べて何がすごい？何が違う？</h3>
 
 <ul>
@@ -949,7 +898,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="L......................................."></a>
 <h3>技術の手法とかキモはどこ？</h3>
 
 <ul>
@@ -969,7 +917,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="L.........................................."></a>
 <h3>どうやって有効だと検証した？</h3>
 
 <ul>
@@ -978,7 +925,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="L.................."></a>
 <h3>議論はある？</h3>
 
 <ul>
@@ -986,7 +932,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="L.............................."></a>
 <h3>次に読むべき論文は？</h3>
 
 <ul>
@@ -1022,8 +967,7 @@ channel active time = busy time + idle time
     <link href="http://enukane.github.io/blog/2015/05/01/bimbo-spectrum-analyzer/"/>
     <updated>2015-05-01T12:51:00+09:00</updated>
     <id>http://enukane.github.io/blog/2015/05/01/bimbo-spectrum-analyzer</id>
-    <content type="html"><![CDATA[<a name="L......................................................"></a>
-<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
+    <content type="html"><![CDATA[<h2>貧乏人でもスペアナがしたい!(掲題ママ)</h2>
 
 <p>新品を買うと, 数十万〜数百万だし, ヤフオク等の中古品でも明らかなジャンク品でないものに限ったとしても十〜数十万ぐらいは行ってしまう.</p>
 
@@ -1077,7 +1021,6 @@ channel active time = busy time + idle time
 
 <p>おおよそ2つの側面があって, きちんとしたスペアナ買ってお勉強したいというのと, 今までやってきている無線LANキャプチャに織り交ぜたいという2つの方向からの要求が混ざっている. 分けた方がいいような気はする.</p>
 
-<a name="L................................."></a>
 <h2>候補になりそうな人たち</h2>
 
 <p>中古のスペアナをヤフオクで探すのは継続するとして, ハンディに使えそうな子達.</p>
@@ -1193,7 +1136,6 @@ channel active time = busy time + idle time
 </table>
 
 
-<a name="L..............."></a>
 <h3>諸々の前提</h3>
 
 <ul>
@@ -1213,10 +1155,8 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="L......"></a>
 <h2>候補</h2>
 
-<a name="GigaSt.v5c"></a>
 <h3>GigaSt v5c</h3>
 
 <ul>
@@ -1246,7 +1186,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="RF.Explorer.6G.Combo...WiFi.Combo"></a>
 <h2>RF Explorer 6G Combo / WiFi Combo</h2>
 
 <ul>
@@ -1288,7 +1227,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="Aaronia.SPECTRAN.HF-6060V4...HF-6060V4.X"></a>
 <h2>Aaronia SPECTRAN HF-6060V4 / HF-6060V4 X</h2>
 
 <ul>
@@ -1344,7 +1282,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="WiSpy.DBx"></a>
 <h2>WiSpy DBx</h2>
 
 <ul>
@@ -1432,7 +1369,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="Signal.Hound.USB-SA124B...BB60C"></a>
 <h2>Signal Hound USB-SA124B / BB60C</h2>
 
 <ul>
@@ -1462,7 +1398,6 @@ channel active time = busy time + idle time
 </ul>
 
 
-<a name="Tektronix.RSA306"></a>
 <h2>Tektronix RSA306</h2>
 
 <ul>
