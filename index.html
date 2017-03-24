@@ -9,8 +9,7 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="life, memo Comments レベル 30 にあがった 2017/03/19 でレベル30になった。不毛の20代が終わり、そして不毛の30代が始まった。
-節目でもあるのでざっくりとここ10年を振り返って思い出せることをつらつらと書いてみる。 2007 大学生3年生 &hellip;">
+	<meta name="description" content="tech Comments Fluent-plugin-sflow でっちあげた fluent-plugin-sflow JuniperやAlaxala, NEC製品などでサポートされているsFlowプロトコルのサンプルを受信するFluentdプラグインを書きました。 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,6 +96,165 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-03-24T19:13:10+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2017/03/24/fluent-plugin-sflow-release/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2017/03/24/fluent-plugin-sflow-release/" itemprop="url">Fluent-plugin-sflow でっちあげた</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><a href="https://github.com/enukane/fluent-plugin-sflow">fluent-plugin-sflow</a></p>
+
+<p>JuniperやAlaxala, NEC製品などでサポートされているsFlowプロトコルのサンプルを受信するFluentdプラグインを書きました。</p>
+
+<p>netflowプロトコルについては repeatedly さんが既に<a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>を公開されています。
+今回NECのIXシリーズからフローデータを送りつけたいという要望が某所であったため、実装してみました。
+とはいえsflowのプロトコルを捌く部分は別の方のパーサに頼っています。</p>
+
+<h1>使い方</h1>
+
+<p>fluent-gemやtd-agent-gemでインストールするだけです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% fluent-gem install fluent-plugin-sflow</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定項目は以下の通りです。 待ち受けアドレス(bind)、待ち受けポート(port)そしてタグ名ぐらいしかありません。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;source&gt;
+</span><span class='line'>  @type sflow
+</span><span class='line'>  tag sflow.example
+</span><span class='line'>
+</span><span class='line'>  bind 0.0.0.0
+</span><span class='line'>  port 6343
+</span><span class='line'>&lt;/source&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;match sflow.example&gt;
+</span><span class='line'>  @type stdout
+</span><span class='line'>&lt;/match&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>host-sflow と組み合わせたテスト</h1>
+
+<p>実際のテストにはスイッチやルータが必要ですが、手元で簡単に試すために <a href="http://www.sflow.net/">host-sflow</a> を導入します。
+ここではMac OS X (MacBookPro)上に導入しWi-Fiのインタフェース(en0)のデータをサンプリング、先に挙げた設定で同一ホスト上で動作するfluentdに投げ込んでみます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% git clone https://github.com/sflow/host-sflow.git
+</span><span class='line'>% cd host-sflow
+</span><span class='line'>
+</span><span class='line'>% make
+</span><span class='line'>
+</span><span class='line'># pcap のターゲットデバイスとして en0 を指定する
+</span><span class='line'>% cat &gt; /tmp/test.conf
+</span><span class='line'>sflow {
+</span><span class='line'>  polling=10
+</span><span class='line'>  collector { ip = 127.0.0.1 udpport=6343 }
+</span><span class='line'>  pcap { dev=en0 }
+</span><span class='line'>}
+</span><span class='line'>^D
+</span><span class='line'>
+</span><span class='line'># host-sflowの起動(デバッグ目的で -dddd としている)
+</span><span class='line'>% sudo ./src/Darwin/hsflowd -dddd -f /tmp/test.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>fluentdの標準出力をしばらく眺めていると、以下の様にフローサンプルが出力されます。この時は *.twttr.com (twitter) への通信がキャッチされたようです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% fluentd -vv -c example/fluentd.conf
+</span><span class='line'>(中略)
+</span><span class='line'>2017-03-24 18:52:50.054347000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
+</span><span class='line'>2017-03-24 18:52:52.519715000 +0900 example.sflow: {"agent_address":null,"sampling_rate":"400","i_iface_value":0,"o_iface_value":0,"ipv4_src":"199.59.148.241","ipv4_dst":"192.168.10.17","udp_src_port":1900,"udp_dst_port":57347,"frame_length":1486,"frame_length_multiplied":594400,"tcp_src_port":443,"tcp_dst_port":58076}
+</span><span class='line'>2017-03-24 18:53:01.984184000 +0900 example.sflow: {"agent_address":null}
+</span><span class='line'>2017-03-24 18:53:09.934539000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
+</span><span class='line'>(中略)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ネットワーク機器にてよく見られるカウンタサンプルとフローサンプル以外にも、host-sflowはOSやアプリケーションの各種メトリックを集めsFlowプロトコルに載せて送信します。
+現状の fluent-plugin-sflow ではカウンタ/フローサンプルのパースしかサポートしていないため、それらのメトリックは空扱いになります(上記5行目)。</p>
+
+<h1>ToDo</h1>
+
+<ul>
+<li>bindata 1.8.1以上への対応
+
+<ul>
+<li>現状 Sflow5rawpacketdataVLAN の type メンバが BinData::Record あたりで定義されてる名前と被ってるらしく怒られるので、1.8.1にしている</li>
+<li><a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>は2.5.3ベースであり、こちらと揃えたい</li>
+<li>名前の変更にはおそらく次の項目をクリアする必要がある</li>
+</ul>
+</li>
+<li>パーサーの取り込み
+
+<ul>
+<li>現状、<a href="https://github.com/NETWAYS/sflow/">NETWAYS/sflow</a>のパーサをリポジトリごと丸っと使っている</li>
+<li>ライセンスとオリジナルを明記した上でパーサとモデルの部分だけコピーしてくる</li>
+<li>または全部1から書き直す</li>
+</ul>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -1454,284 +1612,6 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 
 
 <p>合計 17000円弱?</p>
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-08-31T18:20:55+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/radio/'>radio</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2015/08/31/event-radio-utilization/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/08/31/event-radio-utilization/" itemprop="url">イベント無線LANでのチャネル使用率調査</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>概要</h2>
-
-<p>いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。</p>
-
-<h3>計測対象</h3>
-
-<p>今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、定点観測的に収集をしています。</p>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">イベント              </th>
-<th style="text-align:left;">日             </th>
-<th style="text-align:center;">場所                           </th>
-<th style="text-align:center;"> 固定? </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">なにか                </td>
-<td style="text-align:left;"> 2015/08/02    </td>
-<td style="text-align:center;">どこか                         </td>
-<td style="text-align:center;"> <strong>Y</strong> </td>
-</tr>
-<tr>
-<td style="text-align:left;">コミケ (C88)          </td>
-<td style="text-align:left;"> 2015/08/14    </td>
-<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
-<td style="text-align:center;"> N     </td>
-</tr>
-<tr>
-<td style="text-align:left;">                      </td>
-<td style="text-align:left;"> 2015/08/15    </td>
-<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
-<td style="text-align:center;"> N     </td>
-</tr>
-<tr>
-<td style="text-align:left;">                      </td>
-<td style="text-align:left;"> 2015/08/16    </td>
-<td style="text-align:center;">東京ビッグサイト ホール(東)    </td>
-<td style="text-align:center;"> <strong>Y</strong> </td>
-</tr>
-<tr>
-<td style="text-align:left;">YAPC::Asia Tokyo 2015 </td>
-<td style="text-align:left;"> 2015/08/14    </td>
-<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
-<td style="text-align:center;"> N     </td>
-</tr>
-<tr>
-<td style="text-align:left;">                      </td>
-<td style="text-align:left;"> 2015/08/14    </td>
-<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
-<td style="text-align:center;"> N     </td>
-</tr>
-<tr>
-<td style="text-align:left;">コミティア113         </td>
-<td style="text-align:left;"> 2015/08/30    </td>
-<td style="text-align:center;">東京ビッグサイト ホール(2,3)   </td>
-<td style="text-align:center;"> N     </td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>チャネル利用率のヒートマップ</h2>
-
-<p>5分毎に区切って、チャネルごとにヒートマップ化したものを並べてみる。</p>
-
-<h3>2015/08/02 あたりのイベント</h3>
-
-<p><img src="/images/2015-08-31/ev0802-util.png" alt="2015-08-02-util" /></p>
-
-<h3>コミケ (C88)</h3>
-
-<p>コミケでは、1日目および2日目は一般参加、三日目のみサークル参加だったため東 P-18b にて定点観測を実施。
-動的観測の場合、列に並んだあとに観測開始し買い物が終わってビッグサイトから出て国際展示場に行くまでの間のどこかで停止している。</p>
-
-<ul>
-<li>列に並んだ時間 (西)
-
-<ul>
-<li>1日目: 10:15頃</li>
-<li>2日目: 10:10頃</li>
-</ul>
-</li>
-<li>ビッグサイトを出た時間
-
-<ul>
-<li>1日目: 12:50頃</li>
-<li>2日目: 11:10頃</li>
-</ul>
-</li>
-<li>彷徨ったルート (覚えてる範囲で)
-
-<ul>
-<li>1日目: 西(入場) → 東123→東456→西(退場)</li>
-<li>2日目: 西(入場) → 東123→東456→西(ホール)→西(退場)</li>
-</ul>
-</li>
-</ul>
-
-
-<h4>1日目 (2015/08/14)</h4>
-
-<p><img src="/images/2015-08-31/c88-d1.png" alt="2015-08-14-util" /></p>
-
-<h4>2日目 (2015/08/15)</h4>
-
-<p><img src="/images/2015-08-31/c88-d2.png" alt="2015-08-15-util" /></p>
-
-<h4>3日目 (2015/08/16)</h4>
-
-<p><img src="/images/2015-08-31/c88-d3.png" alt="2015-08-16-util" /></p>
-
-<h3>YAPC::Asia Tokyo 2015</h3>
-
-<p>こちらは CONBU チーム (いわゆる Wi-Fi 班)として参加したときのもの. 作業時に邪魔にならない場合、ショルダーバッグにデバイスを入れて彷徨うようにはしていました. が、バックヤードに起きっぱなしの時間も大分あったため有為なデータが取れていない可能性は多々ありそう。</p>
-
-<h4>1日目 (2015/08/21)</h4>
-
-<p><img src="/images/2015-08-31/yapc2015-d1.png" alt="2015-08-21-util" /></p>
-
-<h4>2日目 (2015/08/22)</h4>
-
-<p><img src="/images/2015-08-31/yapc2015-d2.png" alt="2015-08-22-util" /></p>
-
-<h3>コミティア113 (2015/08/30)</h3>
-
-<p><img src="/images/2015-08-31/comitia113.png" alt="2015-08-22-util" /></p>
-
-<h2>考察</h2>
-
-<ul>
-<li>何となく移動が見える
-
-<ul>
-<li>特にビッグサイト(ホール)
-
-<ul>
-<li>5GHz帯 36、48、64、100 chの濃淡
-
-<ul>
-<li>ホールから抜けたかどうかが判断できそう</li>
-</ul>
-</li>
-<li>C88 1日目、2日目の移動に連動していそう?</li>
-</ul>
-</li>
-<li>YAPCの結果を見ても、場所変化には連動している模様</li>
-<li>Wi-Fiをオフされた時も同様の状況になりうるので一概に逆は言えないが&hellip;.</li>
-</ul>
-</li>
-<li>2.4GHz帯側の分布具合
-
-<ul>
-<li>8/2 と YAPCのそれはだいぶ綺麗にみえる
-
-<ul>
-<li>1、6、11 chの中央とそれらの両隣が濃く出ている</li>
-<li>これらのイベントでは、会場内無線LANのコントロールが提供側でそこそこなされていたため？</li>
-<li>野良APまたはクライアントの絶対数の有無?</li>
-</ul>
-</li>
-<li>&ldquo;人の密集度 == 2.4GHz帯側の濃度&rdquo; という仮説
-
-<ul>
-<li>C88 1日目、2日目の2.4GHz と 5GHz の比較より</li>
-<li>ホールから出て 5GHz 帯側が明らかに薄くなっていて、2.4GHz帯側はそこまで落ちない時間がある
-
-<ul>
-<li>まだ列に並んでると思しき時間</li>
-<li>ホール間移動と思しき時間</li>
-<li>帰途についてビッグサイトを出たと思しき時間</li>
-</ul>
-</li>
-<li>モバイルルータの影響？</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>実装</h2>
-
-<p>以下、軽く実装についてメモ</p>
-
-<h3>情報源として用いる情報</h3>
-
-<p>チャネル利用率の算出には iw コマンドの以下のオプションを用いました。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>% iw wlan0 survey dump</span></code></pre></td></tr></table></div></figure>
-
-
-<p>survey dumpでは以下の様にそのチャネルに移動してからのアクティブ時間(=移動後の経過時間)とビジーだった時間が得られます。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Survey data from wlan0
-</span><span class='line'>        frequency:                      2412 MHz [in use]
-</span><span class='line'>        noise:                          -83 dBm
-</span><span class='line'>        channel active time:            35900 ms
-</span><span class='line'>        channel busy time:              24814 ms
-</span><span class='line'>        channel transmit time:          0 ms</span></code></pre></td></tr></table></div></figure>
-
-
-<p>今回用いたデバイス(WLP-UC-AG300, チップはRT2870)の場合、この値はソースコード上の以下の部分で計算しています。
-<a href="https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984">https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984</a></p>
-
-<p>なおここでの&#8221;ビジー&#8221;は、送受信またはノイズによりこれらがストップしていたチップの動作時間であり、以下の様な関係式がなりたちます。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>channel busy time   = receive time + transmit time + other time
-</span><span class='line'>channel active time = busy time + idle time</span></code></pre></td></tr></table></div></figure>
-
-
-<p>チップによっては transmit time の他に receive time も個別に取り出せるので other つまり 802.11 以外の電波により送受信ができていなかった時間も取れるのですが今回は対象外としました。</p>
-
-<h3>tochkad での記録</h3>
-
-<p>このように取れるチャネル利用率を、パケットキャプチャデバイスの主観部分を担う <a href="https://github.com/enukane/tochka/">tochkad</a> のチャネル遷移部分で取得するようにしました。</p>
-
-<ul>
-<li><a href="https://github.com/enukane/tochka/blob/master/lib/tochka/athsurvey.rb">athsurvey.rb</a></li>
-</ul>
-
-
-<p>tochkadは0.5秒毎にチャネル遷移するので大分短い時間ではありますが、ログ上に以下の様に utilization (利用率)が載るようになります。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[2015-08-02 15:20:43 +0900]     DEBUG: channel moved to 11 from 10 (dur=6510、size=481767780、walk=6062、utilization=59.68 uch=10)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>この利用率は tochka デバイスについている LCD ディスプレイ (tochka-miniui) にも出すようにしています (赤枠部分)</p>
-
-<p><img src="/images/2015-08-31/tochka-miniui.jpg" alt="tochka-miniui" /></p>
 
 		
 		

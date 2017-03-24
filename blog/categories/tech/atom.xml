@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-03-20T15:59:31+09:00</updated>
+  <updated>2017-03-24T19:50:06+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[fluent-plugin-sflow でっちあげた]]></title>
+    <link href="http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release/"/>
+    <updated>2017-03-24T19:13:10+09:00</updated>
+    <id>http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/enukane/fluent-plugin-sflow">fluent-plugin-sflow</a></p>
+
+<p>JuniperやAlaxala, NEC製品などでサポートされているsFlowプロトコルのサンプルを受信するFluentdプラグインを書きました。</p>
+
+<p>netflowプロトコルについては repeatedly さんが既に<a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>を公開されています。
+今回NECのIXシリーズからフローデータを送りつけたいという要望が某所であったため、実装してみました。
+とはいえsflowのプロトコルを捌く部分は別の方のパーサに頼っています。</p>
+
+<h1>使い方</h1>
+
+<p>fluent-gemやtd-agent-gemでインストールするだけです。</p>
+
+<pre><code>% fluent-gem install fluent-plugin-sflow
+</code></pre>
+
+<p>設定項目は以下の通りです。 待ち受けアドレス(bind)、待ち受けポート(port)そしてタグ名ぐらいしかありません。</p>
+
+<pre><code>&lt;source&gt;
+  @type sflow
+  tag sflow.example
+
+  bind 0.0.0.0
+  port 6343
+&lt;/source&gt;
+
+&lt;match sflow.example&gt;
+  @type stdout
+&lt;/match&gt;
+</code></pre>
+
+<h1>host-sflow と組み合わせたテスト</h1>
+
+<p>実際のテストにはスイッチやルータが必要ですが、手元で簡単に試すために <a href="http://www.sflow.net/">host-sflow</a> を導入します。
+ここではMac OS X (MacBookPro)上に導入しWi-Fiのインタフェース(en0)のデータをサンプリング、先に挙げた設定で同一ホスト上で動作するfluentdに投げ込んでみます。</p>
+
+<pre><code>% git clone https://github.com/sflow/host-sflow.git
+% cd host-sflow
+
+% make
+
+# pcap のターゲットデバイスとして en0 を指定する
+% cat &gt; /tmp/test.conf
+sflow {
+    polling=10
+    collector { ip = 127.0.0.1 udpport=6343 }
+    pcap { dev=en0 }
+}
+^D
+
+# host-sflowの起動(デバッグ目的で -dddd としている)
+% sudo ./src/Darwin/hsflowd -dddd -f /tmp/test.conf
+</code></pre>
+
+<p>fluentdの標準出力をしばらく眺めていると、以下の様にフローサンプルが出力されます。この時は *.twttr.com (twitter) への通信がキャッチされたようです。</p>
+
+<pre><code>% fluentd -vv -c example/fluentd.conf
+(中略)
+2017-03-24 18:52:50.054347000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
+2017-03-24 18:52:52.519715000 +0900 example.sflow: {"agent_address":null,"sampling_rate":"400","i_iface_value":0,"o_iface_value":0,"ipv4_src":"199.59.148.241","ipv4_dst":"192.168.10.17","udp_src_port":1900,"udp_dst_port":57347,"frame_length":1486,"frame_length_multiplied":594400,"tcp_src_port":443,"tcp_dst_port":58076}
+2017-03-24 18:53:01.984184000 +0900 example.sflow: {"agent_address":null}
+2017-03-24 18:53:09.934539000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
+(中略)
+</code></pre>
+
+<p>ネットワーク機器にてよく見られるカウンタサンプルとフローサンプル以外にも、host-sflowはOSやアプリケーションの各種メトリックを集めsFlowプロトコルに載せて送信します。
+現状の fluent-plugin-sflow ではカウンタ/フローサンプルのパースしかサポートしていないため、それらのメトリックは空扱いになります(上記5行目)。</p>
+
+<h1>ToDo</h1>
+
+<ul>
+<li>bindata 1.8.1以上への対応
+
+<ul>
+<li>現状 Sflow5rawpacketdataVLAN の type メンバが BinData::Record あたりで定義されてる名前と被ってるらしく怒られるので、1.8.1にしている</li>
+<li><a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>は2.5.3ベースであり、こちらと揃えたい</li>
+<li>名前の変更にはおそらく次の項目をクリアする必要がある</li>
+</ul>
+</li>
+<li>パーサーの取り込み
+
+<ul>
+<li>現状、<a href="https://github.com/NETWAYS/sflow/">NETWAYS/sflow</a>のパーサをリポジトリごと丸っと使っている</li>
+<li>ライセンスとオリジナルを明記した上でパーサとモデルの部分だけコピーしてくる</li>
+<li>または全部1から書き直す</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[コミケ91 1日目の無線LAN模様]]></title>
@@ -651,20 +747,6 @@ CaptiveNetworkSupport-306.20.1 wispr
 <blockquote><p><a href="http://qiita.com/n_kane/items/f4d098d6332f44ce5f8e">SEIL で OPEN IPv6 DDNS for NGN の DDNS 機能だけを使う</a></p></blockquote>
 
 <p>IPoE契約してるとお外から名前で引けるようになるの便利。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[\"Fluent Dashboard + SDR デバイスで周囲の電波状況を可視化してみる\" 書いた]]></title>
-    <link href="http://enukane.github.io/blog/2016/09/13/fluentdashboard-with-sdr/"/>
-    <updated>2016-09-13T23:02:15+09:00</updated>
-    <id>http://enukane.github.io/blog/2016/09/13/fluentdashboard-with-sdr</id>
-    <content type="html"><![CDATA[<p>久々に Qiita に記事書いた。</p>
-
-<blockquote><p><a href="http://qiita.com/n_kane/items/d9037c8744634053dbab">Fluentd Dashboard + SDR デバイスで周囲の電波状況を可視化してみる</a></p></blockquote>
-
-<p>Google SpreadSheet は便利だけど、描画の遅延とかが半端ないんでお次は App Engine + BigQuery かな。
-ElasticSearch + Kibana でいい感じに横並びなメトリックが掛けるならそれが一番なんだけど&hellip;</p>
 ]]></content>
   </entry>
   

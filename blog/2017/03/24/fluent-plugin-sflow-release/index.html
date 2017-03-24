@@ -1,0 +1,293 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>fluent-plugin-sflow でっちあげた - #error NO_MONEY</title>
+	<meta name="author" content="n_kane">
+
+	
+	<meta name="description" content="Fluent-plugin-sflow でっちあげた fluent-plugin-sflow JuniperやAlaxala, NEC製品などでサポートされているsFlowプロトコルのサンプルを受信するFluentdプラグインを書きました。 netflowプロトコルについては &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("enukane@glenda9.org") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/">About</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="https://github.com/enukane">GitHub</a></li>
+    <li><a href="http://twitter.com/n_kane">Twitter</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    /var/crash/n_kane
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:enukane@glenda9.org" title="Email">Email</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Fluent-plugin-sflow でっちあげた</h1>
+	<div class="entry-content" itemprop="articleBody"><p><a href="https://github.com/enukane/fluent-plugin-sflow">fluent-plugin-sflow</a></p>
+
+<p>JuniperやAlaxala, NEC製品などでサポートされているsFlowプロトコルのサンプルを受信するFluentdプラグインを書きました。</p>
+
+<p>netflowプロトコルについては repeatedly さんが既に<a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>を公開されています。
+今回NECのIXシリーズからフローデータを送りつけたいという要望が某所であったため、実装してみました。
+とはいえsflowのプロトコルを捌く部分は別の方のパーサに頼っています。</p>
+
+<h1>使い方</h1>
+
+<p>fluent-gemやtd-agent-gemでインストールするだけです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% fluent-gem install fluent-plugin-sflow</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定項目は以下の通りです。 待ち受けアドレス(bind)、待ち受けポート(port)そしてタグ名ぐらいしかありません。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;source&gt;
+</span><span class='line'>  @type sflow
+</span><span class='line'>  tag sflow.example
+</span><span class='line'>
+</span><span class='line'>  bind 0.0.0.0
+</span><span class='line'>  port 6343
+</span><span class='line'>&lt;/source&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;match sflow.example&gt;
+</span><span class='line'>  @type stdout
+</span><span class='line'>&lt;/match&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>host-sflow と組み合わせたテスト</h1>
+
+<p>実際のテストにはスイッチやルータが必要ですが、手元で簡単に試すために <a href="http://www.sflow.net/">host-sflow</a> を導入します。
+ここではMac OS X (MacBookPro)上に導入しWi-Fiのインタフェース(en0)のデータをサンプリング、先に挙げた設定で同一ホスト上で動作するfluentdに投げ込んでみます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% git clone https://github.com/sflow/host-sflow.git
+</span><span class='line'>% cd host-sflow
+</span><span class='line'>
+</span><span class='line'>% make
+</span><span class='line'>
+</span><span class='line'># pcap のターゲットデバイスとして en0 を指定する
+</span><span class='line'>% cat &gt; /tmp/test.conf
+</span><span class='line'>sflow {
+</span><span class='line'>  polling=10
+</span><span class='line'>  collector { ip = 127.0.0.1 udpport=6343 }
+</span><span class='line'>  pcap { dev=en0 }
+</span><span class='line'>}
+</span><span class='line'>^D
+</span><span class='line'>
+</span><span class='line'># host-sflowの起動(デバッグ目的で -dddd としている)
+</span><span class='line'>% sudo ./src/Darwin/hsflowd -dddd -f /tmp/test.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>fluentdの標準出力をしばらく眺めていると、以下の様にフローサンプルが出力されます。この時は *.twttr.com (twitter) への通信がキャッチされたようです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% fluentd -vv -c example/fluentd.conf
+</span><span class='line'>(中略)
+</span><span class='line'>2017-03-24 18:52:50.054347000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
+</span><span class='line'>2017-03-24 18:52:52.519715000 +0900 example.sflow: {"agent_address":null,"sampling_rate":"400","i_iface_value":0,"o_iface_value":0,"ipv4_src":"199.59.148.241","ipv4_dst":"192.168.10.17","udp_src_port":1900,"udp_dst_port":57347,"frame_length":1486,"frame_length_multiplied":594400,"tcp_src_port":443,"tcp_dst_port":58076}
+</span><span class='line'>2017-03-24 18:53:01.984184000 +0900 example.sflow: {"agent_address":null}
+</span><span class='line'>2017-03-24 18:53:09.934539000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
+</span><span class='line'>(中略)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ネットワーク機器にてよく見られるカウンタサンプルとフローサンプル以外にも、host-sflowはOSやアプリケーションの各種メトリックを集めsFlowプロトコルに載せて送信します。
+現状の fluent-plugin-sflow ではカウンタ/フローサンプルのパースしかサポートしていないため、それらのメトリックは空扱いになります(上記5行目)。</p>
+
+<h1>ToDo</h1>
+
+<ul>
+<li>bindata 1.8.1以上への対応
+
+<ul>
+<li>現状 Sflow5rawpacketdataVLAN の type メンバが BinData::Record あたりで定義されてる名前と被ってるらしく怒られるので、1.8.1にしている</li>
+<li><a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>は2.5.3ベースであり、こちらと揃えたい</li>
+<li>名前の変更にはおそらく次の項目をクリアする必要がある</li>
+</ul>
+</li>
+<li>パーサーの取り込み
+
+<ul>
+<li>現状、<a href="https://github.com/NETWAYS/sflow/">NETWAYS/sflow</a>のパーサをリポジトリごと丸っと使っている</li>
+<li>ライセンスとオリジナルを明記した上でパーサとモデルの部分だけコピーしてくる</li>
+<li>または全部1から書き直す</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2017
+
+    n_kane
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+<script type="text/javascript">
+      var disqus_shortname = 'enukane';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release/';
+        var disqus_url = 'http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-03-20T15:59:31+09:00</updated>
+  <updated>2017-03-24T19:50:06+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,137 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[fluent-plugin-sflow でっちあげた]]></title>
+    <link href="http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release/"/>
+    <updated>2017-03-24T19:13:10+09:00</updated>
+    <id>http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/enukane/fluent-plugin-sflow">fluent-plugin-sflow</a></p>
+
+<p>JuniperやAlaxala, NEC製品などでサポートされているsFlowプロトコルのサンプルを受信するFluentdプラグインを書きました。</p>
+
+<p>netflowプロトコルについては repeatedly さんが既に<a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>を公開されています。
+今回NECのIXシリーズからフローデータを送りつけたいという要望が某所であったため、実装してみました。
+とはいえsflowのプロトコルを捌く部分は別の方のパーサに頼っています。</p>
+
+<h1>使い方</h1>
+
+<p>fluent-gemやtd-agent-gemでインストールするだけです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% fluent-gem install fluent-plugin-sflow</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定項目は以下の通りです。 待ち受けアドレス(bind)、待ち受けポート(port)そしてタグ名ぐらいしかありません。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;source&gt;
+</span><span class='line'>  @type sflow
+</span><span class='line'>  tag sflow.example
+</span><span class='line'>
+</span><span class='line'>  bind 0.0.0.0
+</span><span class='line'>  port 6343
+</span><span class='line'>&lt;/source&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;match sflow.example&gt;
+</span><span class='line'>  @type stdout
+</span><span class='line'>&lt;/match&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>host-sflow と組み合わせたテスト</h1>
+
+<p>実際のテストにはスイッチやルータが必要ですが、手元で簡単に試すために <a href="http://www.sflow.net/">host-sflow</a> を導入します。
+ここではMac OS X (MacBookPro)上に導入しWi-Fiのインタフェース(en0)のデータをサンプリング、先に挙げた設定で同一ホスト上で動作するfluentdに投げ込んでみます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% git clone https://github.com/sflow/host-sflow.git
+</span><span class='line'>% cd host-sflow
+</span><span class='line'>
+</span><span class='line'>% make
+</span><span class='line'>
+</span><span class='line'># pcap のターゲットデバイスとして en0 を指定する
+</span><span class='line'>% cat &gt; /tmp/test.conf
+</span><span class='line'>sflow {
+</span><span class='line'>  polling=10
+</span><span class='line'>  collector { ip = 127.0.0.1 udpport=6343 }
+</span><span class='line'>  pcap { dev=en0 }
+</span><span class='line'>}
+</span><span class='line'>^D
+</span><span class='line'>
+</span><span class='line'># host-sflowの起動(デバッグ目的で -dddd としている)
+</span><span class='line'>% sudo ./src/Darwin/hsflowd -dddd -f /tmp/test.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>fluentdの標準出力をしばらく眺めていると、以下の様にフローサンプルが出力されます。この時は *.twttr.com (twitter) への通信がキャッチされたようです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>% fluentd -vv -c example/fluentd.conf
+</span><span class='line'>(中略)
+</span><span class='line'>2017-03-24 18:52:50.054347000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
+</span><span class='line'>2017-03-24 18:52:52.519715000 +0900 example.sflow: {"agent_address":null,"sampling_rate":"400","i_iface_value":0,"o_iface_value":0,"ipv4_src":"199.59.148.241","ipv4_dst":"192.168.10.17","udp_src_port":1900,"udp_dst_port":57347,"frame_length":1486,"frame_length_multiplied":594400,"tcp_src_port":443,"tcp_dst_port":58076}
+</span><span class='line'>2017-03-24 18:53:01.984184000 +0900 example.sflow: {"agent_address":null}
+</span><span class='line'>2017-03-24 18:53:09.934539000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
+</span><span class='line'>(中略)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ネットワーク機器にてよく見られるカウンタサンプルとフローサンプル以外にも、host-sflowはOSやアプリケーションの各種メトリックを集めsFlowプロトコルに載せて送信します。
+現状の fluent-plugin-sflow ではカウンタ/フローサンプルのパースしかサポートしていないため、それらのメトリックは空扱いになります(上記5行目)。</p>
+
+<h1>ToDo</h1>
+
+<ul>
+<li>bindata 1.8.1以上への対応
+
+<ul>
+<li>現状 Sflow5rawpacketdataVLAN の type メンバが BinData::Record あたりで定義されてる名前と被ってるらしく怒られるので、1.8.1にしている</li>
+<li><a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>は2.5.3ベースであり、こちらと揃えたい</li>
+<li>名前の変更にはおそらく次の項目をクリアする必要がある</li>
+</ul>
+</li>
+<li>パーサーの取り込み
+
+<ul>
+<li>現状、<a href="https://github.com/NETWAYS/sflow/">NETWAYS/sflow</a>のパーサをリポジトリごと丸っと使っている</li>
+<li>ライセンスとオリジナルを明記した上でパーサとモデルの部分だけコピーしてくる</li>
+<li>または全部1から書き直す</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[レベル 30 にあがった]]></title>
@@ -3119,59 +3250,6 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 
 
 <p>これで合計金額を取ると, 月4000円ぐらい？</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2014年のまとめをちらほらと、2015年にやりたいことをだらだらと]]></title>
-    <link href="http://enukane.github.io/blog/2015/01/01/newyear/"/>
-    <updated>2015-01-01T09:24:55+09:00</updated>
-    <id>http://enukane.github.io/blog/2015/01/01/newyear</id>
-    <content type="html"><![CDATA[<h1>2014年のまとめ</h1>
-
-<ul>
-<li>犬吠埼に初日の出観に行った。寒かった。</li>
-<li>C85のデータをまとめて公開した: <a href="http://www.slideshare.net/enukane/comiket-space-29723016">&ldquo;続・ららら、(無線的に)素敵なComiket Space&rdquo;</a></li>
-<li>部署名が一昨年のそれに戻った</li>
-<li>某文学系イベントでの無線LANネットワーク構築の準備・面倒見その他をした</li>
-<li>会社が神保町から飯田橋に引っ越した</li>
-<li>ロードバイクかった。2013年に比べるとあんまり乗ってない。</li>
-<li>秋山郷ハッカソン行ってきた。成果はない。星空綺麗だった。</li>
-<li>夏のコミケで<a href="https://github.com/enukane/c86book">&ldquo;キャプチャリング802.11&rdquo;</a>を出した</li>
-<li>C86のデータをまとめて公開した: <a href="http://www.slideshare.net/enukane/comiket-space-c86">続々・ららら、(無線的に)素敵なComiket Space C86</a></li>
-<li>某ゲーム系イベントで一部無線LAN周りの面倒見をした</li>
-<li>亀有から王子に引っ越した。githubで管理しようと思ってたけどうまくできなかった ( <a href="https://github.com/enukane/HIKKOSHI2014">残骸</a> )</li>
-<li>冬コミ落ちて、引越を言い訳に何もしなかった (最終日だけデバイス動かした)</li>
-<li>リバウンドしてた (一昨年の体重に戻った)</li>
-</ul>
-
-
-<h1>2015年にやりたいこと</h1>
-
-<ul>
-<li>夏コミ(C88)に受かりますように</li>
-<li>C87で取ったデータの分析 &amp; まとめ。手法の再検討とC88でのリトライをしたい。</li>
-<li>&ldquo;Linuxのブートプロセスをみる&#8221;のPlan 9版を書いてコミケで出したい</li>
-<li>9load の EFI対応? とりあえず勉強するところから&hellip;</li>
-<li>OSvでNetVM的なことできないか遊んでみる</li>
-<li>DPDKで遊びたい</li>
-<li>オレオレネットワークツールをきちんとまとめよう</li>
-<li>集めたデータ分析の方向の掘り下げ方を考えよう</li>
-<li>通信速度その他を図りながらの計測デバイスを作ってみる</li>
-<li>Raspberry Piで玄関先カメラシステム作りたい</li>
-<li>ネットワーク自動化周りをきちんと自宅に組み込む, 生活で使う</li>
-<li>自宅鯖環境の復旧</li>
-<li>監視系の作り込みをしよう</li>
-<li>こんどこそちゃんと背景透過なグレンダさんステッカーを作る</li>
-<li>忍耐を要求しないHTML/JavaScriptというよりWebUIの書き方・常道を勉強する</li>
-<li>論文読んだらきちんとまとめと所感を書く習慣をつけよう</li>
-<li>手元でてきとーに作ったツールをきちんと見直してどこかに放り込んでおく習慣をつけよう</li>
-<li>2016年の初日の出は犬吠埼か九十九里のどこかで観たい</li>
-<li>電子書籍になれよう</li>
-<li>やせよう ( -15kg )</li>
-<li>もっと馬鹿をやろう. Keep it stupid, simple (誤字にあらず)</li>
-</ul>
-
 ]]></content>
   </entry>
   
