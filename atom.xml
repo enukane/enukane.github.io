@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-03-24T19:50:06+09:00</updated>
+  <updated>2017-03-24T19:58:54+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -139,6 +139,7 @@
 <li>または全部1から書き直す</li>
 </ul>
 </li>
+<li>IPv6対応</li>
 </ul>
 
 ]]></content>
