@@ -9,7 +9,9 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="802.11, radio, tech Comments イベント無線LANでのチャネル使用率調査 概要 いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。 計測対象 今回、計測対象にしたのは以下の4イベント(7回)。大抵、 &hellip;">
+	<meta name="description" content="radio, tech Comments DIY電波望遠鏡 - 部材検討 HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる. 参考 マイ・電波望遠鏡とExcelで電波地図を作る
+宇宙の電波をキャッチしてみよう
+BSアンテナ電波望遠鏡で 7/22 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +98,210 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-08T21:36:21+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/radio/'>radio</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2015/09/08/2015-09-08-radio-telescope/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/09/08/2015-09-08-radio-telescope/" itemprop="url">DIY電波望遠鏡 - 部材検討</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる.</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/2012_105_10/105_631.pdf">マイ・電波望遠鏡とExcelで電波地図を作る</a></li>
+<li><a href="https://www.jarl.org/Japanese/1_Tanoshimo/1-3_Ham-Fair/2010/radio-observation.pdf">宇宙の電波をキャッチしてみよう</a></li>
+<li><a href="http://tenkyo.net/kaiho/pdf/2009_05/2009-05-03.pdf">BSアンテナ電波望遠鏡で 7/22 部分日食を観察しよう</a></li>
+<li><a href="http://www.nhao.jp/research/annual_report/docs/ar2011-2.pdf">ＢＳアンテナを用いた電波望遠鏡の教育利用</a></li>
+<li><a href="http://ir.lib.osaka-kyoiku.ac.jp/dspace/bitstream/123456789/5789/1/KJ382300123.pdf">簡単なアンテナによる銀河電波の測定</a></li>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/1989/pdf/19890707.pdf">簡単な電波望遠鏡による低周波電波天文学</a></li>
+<li><a href="http://www.asj.or.jp/geppou/archive_open/1993/pdf/19930402c.pdf">私の電波望遠鏡 - II</a></li>
+<li><a href="http://www.rtl-sdr.com/tag/simple_ra/">RTL-SDR FOR BUDGET RADIO ASTRONOMY</a></li>
+<li><a href="http://www.britastro.org/radio/projects/An_SDR_Radio_Telescope.pdf">Experiments with a Software Defined Radio Telescope</a></li>
+</ul>
+
+
+<h2>構成</h2>
+
+<p><img src="/images/2015-09-08/plan-diy-radio-telescope.png" alt="2015-09-08-diy-rt" /></p>
+
+<ul>
+<li>SDRデバイスはRaspiで操作</li>
+<li><a href="https://github.com/patchvonbraun/simple_ra">simple_ra</a>を利用して観測・記録
+
+<ul>
+<li>場合によっては改造すること</li>
+<li>要ソース読み</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>必要な物品</h2>
+
+<h3>既に持っているもの</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">部材</th>
+<th style="text-align:center;">品目</th>
+<th style="text-align:right;">値段</th>
+<th style="text-align:center;">個数</th>
+<th style="text-align:left;">用途</th>
+<th style="text-align:left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">SDRデバイス</td>
+<td style="text-align:center;"> DVB-T+DAB+FM USB チューナ</td>
+<td style="text-align:right;"> 1,420 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SDR用 </td>
+<td style="text-align:left;"> BNC端子へのアダプタ必要, できればこっちを使う </td>
+</tr>
+<tr>
+<td style="text-align:center;"></td>
+<td style="text-align:center;"> HackRF One </td>
+<td style="text-align:right;"> $300.00 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SDR用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:center;">BNC-SMA コネクタ </td>
+<td style="text-align:center;"> ??? </td>
+<td style="text-align:right;"> ??? </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> DVB-T用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:center;">同軸ケーブル(SMA) </td>
+<td style="text-align:center;"> ??? </td>
+<td style="text-align:right;"> ??? </td>
+<td style="text-align:center;"> 2 </td>
+<td style="text-align:left;"> SDRデバイスへの接続用 </td>
+<td style="text-align:left;"> </td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>買うべき物</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">部材</th>
+<th style="text-align:center;">品目(候補)</th>
+<th style="text-align:right;">値段</th>
+<th style="text-align:center;">個数</th>
+<th style="text-align:left;">用途</th>
+<th style="text-align:left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;"> BS/CSアンテナ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B00XZX39EI">東芝 BCA-453A</a> </td>
+<td style="text-align:right;"> 4,580 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> 受信用 </td>
+<td style="text-align:left;"> 周波数範囲(11.7〜12.75GHz), ビックカメラの方が<a href="http://www.biccamera.com/bc/disp/CSfGoodsPage_001.jsp?GOODS_NO=3118307">安いかも</a> </td>
+</tr>
+<tr>
+<td style="text-align:center;"> アンテナ取り付け金具 </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B006ZCFGH4">DXアンテナ VM321H</a> </td>
+<td style="text-align:right;"> 3,730 (送料込み) </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> ベランダ取り付け用 </td>
+<td style="text-align:left;"> 9cm幅, 7cm下がる様な金具 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> BS/CS ブースタ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B000TW9D66">日本アンテナ CSB-C25-SP</a> </td>
+<td style="text-align:right;"> 2,370 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> アンプ用 </td>
+<td style="text-align:left;"> 電源供給が必要, 場合に依っては電源付きのブースタの方がいいかも </td>
+</tr>
+<tr>
+<td style="text-align:center;"> パワーインサータ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B008R6A3QK">プレクス PX-LNBADAPTOR</a> </td>
+<td style="text-align:right;"> 1,980 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> アンテナへの電源供給(ラインブースタの場合) </td>
+<td style="text-align:left;"> 分配器が必要 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 分配器 </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B003WSYUNK">HORIC BCUV-971</a> </td>
+<td style="text-align:right;"> 880 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> パワーインサータと入出力の結合 </td>
+<td style="text-align:left;"> 40cmのケーブル x 2が付属 </td>
+</tr>
+<tr>
+<td style="text-align:center;"> すき間ケーブル(F形) </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B005025U0I">SOLIDCABLE #3232E/0.3</a> </td>
+<td style="text-align:right;"> 1080 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> 窓通す用 </td>
+<td style="text-align:left;"> 30cm </td>
+</tr>
+<tr>
+<td style="text-align:center;"> 同軸ケーブル(F形) </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B00IJ2H1Z8">S-4C-FB</a> </td>
+<td style="text-align:right;"> 570 </td>
+<td style="text-align:center;"> 2 </td>
+<td style="text-align:left;"> 外用 + 中用 </td>
+<td style="text-align:left;"> 1.5m </td>
+</tr>
+<tr>
+<td style="text-align:center;"> F-SMA変換アダプタ </td>
+<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B0057STB8W">F-SMAP 変換アダプタ</a> </td>
+<td style="text-align:right;"> 563 </td>
+<td style="text-align:center;"> 1 </td>
+<td style="text-align:left;"> SMA同軸ケーブルへの接続用 </td>
+<td style="text-align:left;"> SMAJ-SMAJが必要 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>合計 17000円弱?</p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -2160,214 +2366,6 @@ embulkのよさげなところを活かせそうなのが良い感じです.</p>
 
 <p>&ldquo;@t.vodafone.ne.jp&#8221;なメアドが消滅したので, 何人かとのリンクが消滅したことになる.
 数年来連絡とってないひとばっかりなので問題にはならないでしょう, きっと.</p>
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-16T21:03:33+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>life</a>, <a class='category' href='/blog/categories/mobile/'>mobile</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2015/01/16/simfreeornot/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/01/16/simfreeornot/" itemprop="url">SIM Freeか否か</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>今月がちょうど Softbank の2年縛りが切れる月なのでそろそろどうするか考えてみる.
-&ldquo;@vodafone.ne.jp&#8221;なアドレスに執着が無ければ移るかも.</p>
-
-<h3>直近4ヶ月の Softbank 請求金額</h3>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:center;">月</th>
-<th style="text-align:right;">1月(計算中)</th>
-<th style="text-align:right;">12月</th>
-<th style="text-align:right;">11月</th>
-<th style="text-align:right;">10月</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">合計</td>
-<td style="text-align:right;"> 8232 </td>
-<td style="text-align:right;"> 9214 </td>
-<td style="text-align:right;"> 9344 </td>
-<td style="text-align:right;"> 8847 </td>
-</tr>
-<tr>
-<td style="text-align:center;">基本使用料</td>
-<td style="text-align:right;"> 934 </td>
-<td style="text-align:right;"> 934 </td>
-<td style="text-align:right;"> 934 </td>
-<td style="text-align:right;"> 934 </td>
-</tr>
-<tr>
-<td style="text-align:center;">パケット定額料等</td>
-<td style="text-align:right;"> 5200 </td>
-<td style="text-align:right;"> 5200 </td>
-<td style="text-align:right;"> 5200 </td>
-<td style="text-align:right;">  5200 </td>
-</tr>
-<tr>
-<td style="text-align:center;">通話料</td>
-<td style="text-align:right;"> 400 </td>
-<td style="text-align:right;"> 340 </td>
-<td style="text-align:right;"> 460 </td>
-<td style="text-align:right;"> 0 </td>
-</tr>
-<tr>
-<td style="text-align:center;">オプションサービス料</td>
-<td style="text-align:right;"> 1685</td>
-<td style="text-align:right;"> 1250 </td>
-<td style="text-align:right;"> 1250 </td>
-<td style="text-align:right;"> 1250 </td>
-</tr>
-<tr>
-<td style="text-align:center;">その他</td>
-<td style="text-align:right;"> 13 </td>
-<td style="text-align:right;"> 13 </td>
-<td style="text-align:right;"> 13 </td>
-<td style="text-align:right;"> 13 </td>
-</tr>
-<tr>
-<td style="text-align:center;">端末台(月月割引き後) </td>
-<td style="text-align:right;"> 0 </td>
-<td style="text-align:right;">  1018 </td>
-<td style="text-align:right;"> 1018 </td>
-<td style="text-align:right;"> 1018 </td>
-</tr>
-<tr>
-<td style="text-align:center;"> 消費税 </td>
-<td style="text-align:right;">  - </td>
-<td style="text-align:right;"> 459 </td>
-<td style="text-align:right;"> 469 </td>
-<td style="text-align:right;"> 432 </td>
-</tr>
-<tr>
-<td style="text-align:center;"> 通信料 </td>
-<td style="text-align:right;"> - </td>
-<td style="text-align:right;"> 2.55GB </td>
-<td style="text-align:right;"> 5.08GB </td>
-<td style="text-align:right;"> 3.23GB</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>オプションサービス料はこんな感じらしい。削ったつもりだったけど、まだいろいろついてんね。</p>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:center;">月</th>
-<th style="text-align:right;"> 2月 </th>
-<th style="text-align:right;"> 1月 </th>
-<th style="text-align:right;"> 10〜12月 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">合計</td>
-<td style="text-align:right;"> 1750 </td>
-<td style="text-align:right;"> 1685 </td>
-<td style="text-align:right;"> 1250 </td>
-</tr>
-<tr>
-<td style="text-align:center;">S!ベーシックパック(i) </td>
-<td style="text-align:right;"> 300 </td>
-<td style="text-align:right;"> 300 </td>
-<td style="text-align:right;"> 300 </td>
-</tr>
-<tr>
-<td style="text-align:center;">Wi-FIスポット(割引後) </td>
-<td style="text-align:right;"> 0 </td>
-<td style="text-align:right;"> 0 </td>
-<td style="text-align:right;"> 0 </td>
-</tr>
-<tr>
-<td style="text-align:center;">あんしん保証パック(i) </td>
-<td style="text-align:right;"> 475 </td>
-<td style="text-align:right;"> 475 </td>
-<td style="text-align:right;"> 475 </td>
-</tr>
-<tr>
-<td style="text-align:center;">テザリングオプション(割引後) </td>
-<td style="text-align:right;"> 500 </td>
-<td style="text-align:right;"> 435 </td>
-<td style="text-align:right;"> 0 </td>
-</tr>
-<tr>
-<td style="text-align:center;"> iphone基本パック </td>
-<td style="text-align:right;"> 475 </td>
-<td style="text-align:right;"> 475 </td>
-<td style="text-align:right;"> 475 </td>
-</tr>
-</tbody>
-</table>
-
-
-<p>少なくとも以下のオプションは削れそう。950円のマイナス。</p>
-
-<ul>
-<li>iPhone基本パック (475)</li>
-<li>あんしん保証パック (475)</li>
-</ul>
-
-
-<p>削ったとして結局のところ1月換算で行くなら,  8232 - 950 + 460 (消費税概算) = 7700ぐらい。
-なお、MNP転出手数料は2000円。</p>
-
-<h3>みおふぉんに変えてみるプラン</h3>
-
-<p>とりあえず端末代は度外視するとして。</p>
-
-<ul>
-<li>ファミリーシェアプラン 7GB : 2560円/月 (税抜)</li>
-<li>SIMカード(一枚目): 音声通話機能付き 700円 (税抜)</li>
-<li>SIMカード(二枚目): データ専用 0円(税抜き)</li>
-</ul>
-
-
-<p>初期費用、通話料、ユニバーサルサービス料は含まれてない。音声通話は20円/o.5分(税抜き)とのこと。</p>
-
-<ul>
-<li>初期費用: 3000
-
-<ul>
-<li>ここに転出手数料 2000</li>
-</ul>
-</li>
-<li>通話料: ソフトバンク側と同じく400円程度とする</li>
-<li>ユニバーサルサービス料: 誤差なので含めない</li>
-</ul>
-
-
-<p>これで合計金額を取ると, 月4000円ぐらい？</p>
 
 		
 		

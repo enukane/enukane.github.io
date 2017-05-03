@@ -9,7 +9,7 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="tech Comments Fluent-plugin-sflow でっちあげた fluent-plugin-sflow JuniperやAlaxala, NEC製品などでサポートされているsFlowプロトコルのサンプルを受信するFluentdプラグインを書きました。 &hellip;">
+	<meta name="description" content="802.11, tech Comments Got Aruba IAP-103-JP どこからともなく予算が割り当たったことにしたので、Aruba IAP-103-JP が降ってきました。 Aruba 103 シリーズ 機体筐体はこんな感じ。 裏側のネジ4つを外すと表カバー、裏カバー、 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,97 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-05-03T23:42:11+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2017/05/03/iap103/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2017/05/03/iap103/" itemprop="url">Got Aruba IAP-103-JP</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>どこからともなく予算が割り当たったことにしたので、Aruba IAP-103-JP が降ってきました。</p>
+
+<ul>
+<li><a href="http://www.arubanetworks.com/ja/products/networking/access-points/103-series/">Aruba 103 シリーズ</a></li>
+</ul>
+
+
+<p>機体筐体はこんな感じ。</p>
+
+<p><img class="center" src="/images/2017-05-03/iap103.jpg" width="480"></p>
+
+<p>裏側のネジ4つを外すと表カバー、裏カバー、基板の3つに綺麗に分かれる。分解はしやすい。</p>
+
+<p>アンテナ(基板の表カバー側)はこんな感じ。いわゆる逆Fアンテナの模様。
+見ての通りアンテナは2つだけで、2.4/5GHz帯共用らしい。</p>
+
+<p><img class="center" src="/images/2017-05-03/iap103_ant.jpg" width="480"></p>
+
+<p>チップ実装面はこんな感じ。シールドを一部外した状態。
+右側のシールド内のチップはAtheros AR9582-AR1A。
+左の黒いヒートシンクが付いているシールドからちらっと見えている石はAtheros AR9344-BC2AでこちらはSoC。
+前者で5GHz帯、後者でCPU兼2.4GHz帯を捌いてる模様。
+中央上部、ACアダプタソケットとEthernetソケットの間にピンヘッダが出ている。
+細かく調べてはいないがシリアルコンソールが取れるのかもしれない。</p>
+
+<p><img class="center" src="/images/2017-05-03/iap103_chip.png" width="480"></p>
+
+<p>この子はIAPタイプなのでコントローラとしても動作する。ダッシュボードはこんな感じ。
+1台だけだからかもしれないがCisco WLCと比べるとだいぶシンプル、というか設定できるところが少なめっぽい。</p>
+
+<p><img class="center" src="/images/2017-05-03/iap103_db_ap.png" width="480"></p>
+
+<p>AppRFを有効にしてると以下の様に通信内容の分析がAP/クライアントの単位でできるらしい。</p>
+
+<p><img class="center" src="/images/2017-05-03/iap103_db_apprf.png" width="640"></p>
+
+<p>今のところ自宅ではAP機能(アクセスモード)に用はないので、スペクトルもモニターモードで動作させている。
+このモードだと「スペクトラム」メニューにて非802.11デバイス一覧や、全チャネルのチャネル使用率&amp;品質が見れるらしい。
+なおアクセスモードだと動作中チャネルのそれに限定される。</p>
+
+<p><img class="center" src="/images/2017-05-03/iap103_mon_gen.png" width="480">
+<img class="center" src="/images/2017-05-03/iap103_mon_24g.png" width="480">
+<img class="center" src="/images/2017-05-03/iap103_mon_5g.png" width="480"></p>
+
+<p>ところでIAPが一台あれば、Remote APモデルのもの仕入れて繋げて遊べたりするのかな？
+AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡単に中規模ネットワークは組めそう。
+なお一部のAruba APは某用途向けにファーム/基板ごと特殊モデルと聞くので対象外になりそうではある。</p>
+
+<p>軽くぐぐってみた限り、以下のスレッドにあるとおりクラスタのAP数上限というのはないらしい。
+推奨値128とあるようだがここまで巨大なものを組む予定はないので遊ぶ分には困らなさそう。</p>
+
+<ul>
+<li><a href="https://community.arubanetworks.com/t5/Aruba-Instant-Cloud-Wi-Fi/IAP-MAX-AP-per-Cluster/td-p/214997">IAP MAX AP per Cluster</a></li>
+</ul>
+
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -1409,210 +1500,6 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 
 <p>ところで手持ちの受信機で HF 帯まで受信できるの ALINCO の DJ-X7 しかない。早くア
 ップコンバータが欲しい。</p>
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-09-08T21:36:21+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/radio/'>radio</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2015/09/08/2015-09-08-radio-telescope/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/09/08/2015-09-08-radio-telescope/" itemprop="url">DIY電波望遠鏡 - 部材検討</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>HackRF の遊び方を広げるための一手段として電波望遠鏡の実装に使えないかを考えてみる.</p>
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://www.asj.or.jp/geppou/archive_open/2012_105_10/105_631.pdf">マイ・電波望遠鏡とExcelで電波地図を作る</a></li>
-<li><a href="https://www.jarl.org/Japanese/1_Tanoshimo/1-3_Ham-Fair/2010/radio-observation.pdf">宇宙の電波をキャッチしてみよう</a></li>
-<li><a href="http://tenkyo.net/kaiho/pdf/2009_05/2009-05-03.pdf">BSアンテナ電波望遠鏡で 7/22 部分日食を観察しよう</a></li>
-<li><a href="http://www.nhao.jp/research/annual_report/docs/ar2011-2.pdf">ＢＳアンテナを用いた電波望遠鏡の教育利用</a></li>
-<li><a href="http://ir.lib.osaka-kyoiku.ac.jp/dspace/bitstream/123456789/5789/1/KJ382300123.pdf">簡単なアンテナによる銀河電波の測定</a></li>
-<li><a href="http://www.asj.or.jp/geppou/archive_open/1989/pdf/19890707.pdf">簡単な電波望遠鏡による低周波電波天文学</a></li>
-<li><a href="http://www.asj.or.jp/geppou/archive_open/1993/pdf/19930402c.pdf">私の電波望遠鏡 - II</a></li>
-<li><a href="http://www.rtl-sdr.com/tag/simple_ra/">RTL-SDR FOR BUDGET RADIO ASTRONOMY</a></li>
-<li><a href="http://www.britastro.org/radio/projects/An_SDR_Radio_Telescope.pdf">Experiments with a Software Defined Radio Telescope</a></li>
-</ul>
-
-
-<h2>構成</h2>
-
-<p><img src="/images/2015-09-08/plan-diy-radio-telescope.png" alt="2015-09-08-diy-rt" /></p>
-
-<ul>
-<li>SDRデバイスはRaspiで操作</li>
-<li><a href="https://github.com/patchvonbraun/simple_ra">simple_ra</a>を利用して観測・記録
-
-<ul>
-<li>場合によっては改造すること</li>
-<li>要ソース読み</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>必要な物品</h2>
-
-<h3>既に持っているもの</h3>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:center;">部材</th>
-<th style="text-align:center;">品目</th>
-<th style="text-align:right;">値段</th>
-<th style="text-align:center;">個数</th>
-<th style="text-align:left;">用途</th>
-<th style="text-align:left;">備考</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">SDRデバイス</td>
-<td style="text-align:center;"> DVB-T+DAB+FM USB チューナ</td>
-<td style="text-align:right;"> 1,420 </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> SDR用 </td>
-<td style="text-align:left;"> BNC端子へのアダプタ必要, できればこっちを使う </td>
-</tr>
-<tr>
-<td style="text-align:center;"></td>
-<td style="text-align:center;"> HackRF One </td>
-<td style="text-align:right;"> $300.00 </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> SDR用 </td>
-<td style="text-align:left;"> </td>
-</tr>
-<tr>
-<td style="text-align:center;">BNC-SMA コネクタ </td>
-<td style="text-align:center;"> ??? </td>
-<td style="text-align:right;"> ??? </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> DVB-T用 </td>
-<td style="text-align:left;"> </td>
-</tr>
-<tr>
-<td style="text-align:center;">同軸ケーブル(SMA) </td>
-<td style="text-align:center;"> ??? </td>
-<td style="text-align:right;"> ??? </td>
-<td style="text-align:center;"> 2 </td>
-<td style="text-align:left;"> SDRデバイスへの接続用 </td>
-<td style="text-align:left;"> </td>
-</tr>
-</tbody>
-</table>
-
-
-<h3>買うべき物</h3>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:center;">部材</th>
-<th style="text-align:center;">品目(候補)</th>
-<th style="text-align:right;">値段</th>
-<th style="text-align:center;">個数</th>
-<th style="text-align:left;">用途</th>
-<th style="text-align:left;">備考</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;"> BS/CSアンテナ </td>
-<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B00XZX39EI">東芝 BCA-453A</a> </td>
-<td style="text-align:right;"> 4,580 </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> 受信用 </td>
-<td style="text-align:left;"> 周波数範囲(11.7〜12.75GHz), ビックカメラの方が<a href="http://www.biccamera.com/bc/disp/CSfGoodsPage_001.jsp?GOODS_NO=3118307">安いかも</a> </td>
-</tr>
-<tr>
-<td style="text-align:center;"> アンテナ取り付け金具 </td>
-<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B006ZCFGH4">DXアンテナ VM321H</a> </td>
-<td style="text-align:right;"> 3,730 (送料込み) </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> ベランダ取り付け用 </td>
-<td style="text-align:left;"> 9cm幅, 7cm下がる様な金具 </td>
-</tr>
-<tr>
-<td style="text-align:center;"> BS/CS ブースタ </td>
-<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B000TW9D66">日本アンテナ CSB-C25-SP</a> </td>
-<td style="text-align:right;"> 2,370 </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> アンプ用 </td>
-<td style="text-align:left;"> 電源供給が必要, 場合に依っては電源付きのブースタの方がいいかも </td>
-</tr>
-<tr>
-<td style="text-align:center;"> パワーインサータ </td>
-<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B008R6A3QK">プレクス PX-LNBADAPTOR</a> </td>
-<td style="text-align:right;"> 1,980 </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> アンテナへの電源供給(ラインブースタの場合) </td>
-<td style="text-align:left;"> 分配器が必要 </td>
-</tr>
-<tr>
-<td style="text-align:center;"> 分配器 </td>
-<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B003WSYUNK">HORIC BCUV-971</a> </td>
-<td style="text-align:right;"> 880 </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> パワーインサータと入出力の結合 </td>
-<td style="text-align:left;"> 40cmのケーブル x 2が付属 </td>
-</tr>
-<tr>
-<td style="text-align:center;"> すき間ケーブル(F形) </td>
-<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B005025U0I">SOLIDCABLE #3232E/0.3</a> </td>
-<td style="text-align:right;"> 1080 </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> 窓通す用 </td>
-<td style="text-align:left;"> 30cm </td>
-</tr>
-<tr>
-<td style="text-align:center;"> 同軸ケーブル(F形) </td>
-<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B00IJ2H1Z8">S-4C-FB</a> </td>
-<td style="text-align:right;"> 570 </td>
-<td style="text-align:center;"> 2 </td>
-<td style="text-align:left;"> 外用 + 中用 </td>
-<td style="text-align:left;"> 1.5m </td>
-</tr>
-<tr>
-<td style="text-align:center;"> F-SMA変換アダプタ </td>
-<td style="text-align:center;"> <a href="http://www.amazon.co.jp/dp/B0057STB8W">F-SMAP 変換アダプタ</a> </td>
-<td style="text-align:right;"> 563 </td>
-<td style="text-align:center;"> 1 </td>
-<td style="text-align:left;"> SMA同軸ケーブルへの接続用 </td>
-<td style="text-align:left;"> SMAJ-SMAJが必要 </td>
-</tr>
-</tbody>
-</table>
-
-
-<p>合計 17000円弱?</p>
 
 		
 		
