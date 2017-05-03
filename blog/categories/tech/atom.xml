@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2017-05-04T01:56:50+09:00</updated>
+  <updated>2017-05-04T02:00:07+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -25,7 +25,7 @@
 </ul>
 
 
-<p>機体筐体はこんな感じ。</p>
+<p>機体筐体はこんな感じ。Cisco Aironet 3602i やらと比べるとだいぶコンパクトでカワイイ。</p>
 
 <p><img class="center" src="/images/2017-05-03/iap103.jpg" width="480"></p>
 
@@ -46,7 +46,7 @@
 <p><img class="center" src="/images/2017-05-03/iap103_chip.png" width="480"></p>
 
 <p>この子はIAPタイプなのでコントローラとしても動作する。ダッシュボードはこんな感じ。
-1台だけだからかもしれないがCisco WLCと比べるとだいぶシンプル、というか設定できるところが少なめっぽい。</p>
+1台だけだからかもしれないがCisco WLCと比べるとだいぶシンプル、というか設定できるところが少なめっぽい。よしなに調整してくれるのかな？</p>
 
 <p><img class="center" src="/images/2017-05-03/iap103_db_ap.png" width="480"></p>
 
