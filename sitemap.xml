@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://enukane.github.io/blog/2017/06/27/bitvisor-on-pxe/</loc>
+<lastmod>2017-06-27T14:17:13+09:00</lastmod>
+</url>
+<url>
 <loc>http://enukane.github.io/blog/2017/05/03/iap103/</loc>
 <lastmod>2017-05-03T23:42:11+09:00</lastmod>
 </url>
@@ -136,5 +140,14 @@
 </url>
 <url>
 <loc>http://enukane.github.io/blog/categories/radio/</loc>
+</url>
+<url>
+<loc>http://enukane.github.io/blog/categories/bitvisor/</loc>
+</url>
+<url>
+<loc>http://enukane.github.io/posts/2/</loc>
+</url>
+<url>
+<loc>http://enukane.github.io/posts/3/</loc>
 </url>
 </urlset>

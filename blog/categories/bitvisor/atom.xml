@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: bitvisor | #error NO_MONEY]]></title>
+  <link href="http://enukane.github.io/blog/categories/bitvisor/atom.xml" rel="self"/>
+  <link href="http://enukane.github.io/"/>
+  <updated>2017-06-27T14:18:42+09:00</updated>
+  <id>http://enukane.github.io/</id>
+  <author>
+    <name><![CDATA[n_kane]]></name>
+    <email><![CDATA[enukane@glenda9.org]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PXEブートによるBitVisor開発環境の構築]]></title>
+    <link href="http://enukane.github.io/blog/2017/06/27/bitvisor-on-pxe/"/>
+    <updated>2017-06-27T14:17:13+09:00</updated>
+    <id>http://enukane.github.io/blog/2017/06/27/bitvisor-on-pxe</id>
+    <content type="html"><![CDATA[<p>書いた。これでBitVisor遊びが捗る。</p>
+
+<ul>
+<li><a href="http://qiita.com/n_kane/items/0f55218371f2b1b6bb9f">PXEブートによるBitVisor開発環境の構築</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

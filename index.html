@@ -9,7 +9,7 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="802.11, tech Comments Got Aruba IAP-103-JP どこからともなく予算が割り当たったことにしたので、Aruba IAP-103-JP が降ってきました。 Aruba 103 シリーズ 機体筐体はこんな感じ。Cisco Aironet 3602i &hellip;">
+	<meta name="description" content="bitvisor, tech Comments PXEブートによるBitVisor開発環境の構築 書いた。これでBitVisor遊びが捗る。 PXEブートによるBitVisor開発環境の構築 802.11, tech Comments Got Aruba IAP-103-JP &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,48 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-06-27T14:17:13+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/bitvisor/'>bitvisor</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2017/06/27/bitvisor-on-pxe/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2017/06/27/bitvisor-on-pxe/" itemprop="url">PXEブートによるBitVisor開発環境の構築</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>書いた。これでBitVisor遊びが捗る。</p>
+
+<ul>
+<li><a href="http://qiita.com/n_kane/items/0f55218371f2b1b6bb9f">PXEブートによるBitVisor開発環境の構築</a></li>
+</ul>
+
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -1431,75 +1473,6 @@ CaptiveNetworkSupportの文字列の出典および後続する数値列の意�
 
 <p>Google SpreadSheet は便利だけど、描画の遅延とかが半端ないんでお次は App Engine + BigQuery かな。
 ElasticSearch + Kibana でいい感じに横並びなメトリックが掛けるならそれが一番なんだけど&hellip;</p>
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-09-13T08:43:54+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/radio/'>radio</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2016/09/13/balun/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/09/13/balun/" itemprop="url">バランを作る</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>特に必須ではないらしいけど、ワイヤーアンテナにはバランを噛ましましょうという記述
-があったので試しに作ってみた。 無線機側の同軸ケーブルは外部導体が GND に落ちてい
-る「不平衡」である一方、アンテナからの入力は 内部・外部導体ともに電気的に対称で
-「平衡」なのでこれが必要なのだとか。</p>
-
-<ol>
-<li><a href="http://www.geocities.jp/gomafu_club/ham/wireant/wireant.html">バランから作るお手軽HFワイヤ・アンテナの製作</a></li>
-<li><a href="http://mk1502.web.fc2.com/sokuteiki/barun.htm">簡単に作れる、バランの作り方</a></li>
-<li><a href="http://mk1502.web.fc2.com/sokuteiki/barun.htm">パッチンコア(クランプコア)でバランを自作する</a></li>
-<li><a href="http://www.geocities.jp/bfgyjl3284/Balun.htm">バランの製作</a></li>
-<li><a href="http://www.ndxc.org/tech/horibapdf/000811-001.pdf">長波対応ロングワイヤ用バランの製作</a></li>
-<li><a href="http://www.na.rim.or.jp/~ja3haw/NO58B.PDF">バランの製作</a></li>
-</ol>
-
-
-<p>基本的な作り方は1番目のエントリを丸々なぞった。FT-50-43なるトロイダルコアを使う
-のが筋らしい。が見つからなかったので秋月のそれっぽいやつで代用した。5番目のエン
-トリを見ると巻き数にきちんと計算が必要らしいのでてきとう極まりない。</p>
-
-<p>巻いたトロイダルコアはこんな感じ。 なおどこのサイトの記述か忘れたが、撚り線を作
-るには電動ドライバに束ねた線の端を噛ませて作ると良いらしいとのこと。 もう一方の
-端を手かペンチで保持してゆっくりドライバを回すといい感じに撚れる。</p>
-
-<p><img src="/images/2016-09-13/bounded-toroidal-core.jpg" alt="束縛されるトロイダルコア" /></p>
-
-<p>完成したバランはこんな感じ。赤黒のターミナルがアンテナ行き、SMAが無線機行き。</p>
-
-<p><img src="/images/2016-09-13/balun-0.jpg" alt="バラン試作0号" /></p>
-
-<p>SWR計を持ってないんでどれほどきちんと作れてるのかは不明。</p>
-
-<p>ところで手持ちの受信機で HF 帯まで受信できるの ALINCO の DJ-X7 しかない。早くア
-ップコンバータが欲しい。</p>
 
 		
 		
