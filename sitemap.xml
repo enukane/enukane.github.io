@@ -103,6 +103,9 @@
 <loc>http://enukane.github.io/</loc>
 </url>
 <url>
+<loc>http://enukane.github.io/about_jp/</loc>
+</url>
+<url>
 <loc>http://enukane.github.io/blog/categories/</loc>
 </url>
 <url>
@@ -143,5 +146,11 @@
 </url>
 <url>
 <loc>http://enukane.github.io/blog/categories/bitvisor/</loc>
+</url>
+<url>
+<loc>http://enukane.github.io/posts/2/</loc>
+</url>
+<url>
+<loc>http://enukane.github.io/posts/3/</loc>
 </url>
 </urlset>
