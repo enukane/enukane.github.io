@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://enukane.github.io/blog/2018/01/01/2018-100-wish/</loc>
+<lastmod>2018-01-01T18:50:01+09:00</lastmod>
+</url>
+<url>
 <loc>http://enukane.github.io/blog/2017/12/02/dfs-radar-site/</loc>
 <lastmod>2017-12-02T01:36:58+09:00</lastmod>
 </url>
@@ -107,10 +111,13 @@
 <loc>http://enukane.github.io/</loc>
 </url>
 <url>
+<loc>http://enukane.github.io/blog/categories/</loc>
+</url>
+<url>
 <loc>http://enukane.github.io/about_jp/</loc>
 </url>
 <url>
-<loc>http://enukane.github.io/blog/categories/</loc>
+<loc>http://enukane.github.io/env/</loc>
 </url>
 <url>
 <loc>http://enukane.github.io/about/</loc>
@@ -150,11 +157,5 @@
 </url>
 <url>
 <loc>http://enukane.github.io/blog/categories/bitvisor/</loc>
-</url>
-<url>
-<loc>http://enukane.github.io/posts/2/</loc>
-</url>
-<url>
-<loc>http://enukane.github.io/posts/3/</loc>
 </url>
 </urlset>
