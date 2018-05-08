@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 802.11 | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/802-dot-11/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2018-05-08T20:07:55+09:00</updated>
+  <updated>2018-05-08T20:24:44+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2018-05-08 論文100本ノック 2: IEEE802.11ac: Dynamic Bandwidth Channel Access]]></title>
+    <link href="http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-02/"/>
+    <updated>2018-05-08T20:08:42+09:00</updated>
+    <id>http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-02</id>
+    <content type="html"><![CDATA[<pre><code>  - from: 1
+  - 著者: Myoung Park
+  - 所属: Intel Labs
+  - 発行年: 2011
+  - 学会: IEEE ICC 2011 http://icc2011.ieee-icc.org/index.php
+  - どんなもの
+    ○ 802.11acでサポートされた80Mhz幅での転送にあたって20/40/80MHzをセカンダリチャネル以降の20MHz幅ごとの空き状況を見て切り替える方式
+    ○ セカンダリチャネルのCCA sensitivityの影響や802.11ac利用地のプライマリチャネルの選び方がスループットに与える影響を調べた。
+  - 先行研究と比べてどこがすごい
+    ○ 先行研究: 802.11ac, 802.11n
+    ○ セカンダリチャネルに定常的にトラフィックが有る場合のスループットを85%改善
+    ○ もともとは802.11nの20/40切り替えテクニックだが、これを802.11acに適用した
+  - 技術や手法のキモはどこ？
+    ○ Dynamicに20/40/80とチャネル幅を変えるところ
+    ○ もともと802.11nの20/40Mhz幅切り替えという前例がある
+      § 40MHz幅運用の場合、セカンダリチャネルでは
+        □ プライマリより低い感度のCCA感度で運用される: -82 or -79 vs -62 dBm (ED-CCAだけが動く): プライマリで必要なプリアンブルデコード等が不要なため
+        □ NAVをセットしない: セカンダリチャネルのみで動作する802.11aなどのデバイスのプリアンブルをデコードしないため
+      § まずプライマリチャネルがDIFS + CWの後に空いているか見る + PIFSの後にセカンダリが空いているか見る
+        □  (正確にはプライマリチャネルのCW(3〜1023us)中の後ろPIFS(9us)がクリアなら、プライマリと同期できる)
+        □ staticの場合: 両方空いていれば送信  or 再度バックオフ
+        □ dynamicの倍: 20mhzに縮退して送信
+      § 80MHz幅運用の問題点
+    ○ 20/40/80の切り替えについて
+      § 80MHzを占有できることはまずないという現状がある
+        □ staticだと遅れる機会がなかなかこない
+        □ プライマリとセカンダリとでCCAのレベルが異なることによる問題: セカンダリチャネルで-82〜-62dBmあたりの強度のフレームの送信と衝突する可能性 =&gt; 結局Ackが帰ってこずフレームが欠損し、双方にretryが必要になり、また時間を消費する...
+      § プライマリチャネルの選び方
+        □ 大抵40/80の先頭か末尾が多い
+        □ これだとセカンダリが1つに限られるため20Mhzにフォールバックする確率がたかい
+        □ 真ん中にプライマリを持ってこれる方式が望ましい場合がある
+  - どうやって技術・手法の有効性を検証した？
+    ○ MATLABのシミュレーションで実施
+    ○ 1台のAP、それに接続する1台の802.11ac STA、セカンダリチャネルに1〜3台のAP + 1, 2台のSTAsを配備した環境を想定
+    ○ セカンダリチャネルに干渉する通信がある場合のスループットの改善を計測
+    ○ 80MHz staticだとそちらの通信の空きでしか通信できないため、かなり下がるはず -&gt; これが改善していれば有意であることが示せる
+    ○ スタティックvsダイナミックの比較 (Fig 4a vs Fig 4b)
+      § セカンダリチャネルのSTAの送信確率を０〜100% (0-1)で換えたグラフ
+      § セカンダリチャネルでの受信出力はED-CCAの閾値 -62dBmより上を想定
+      § 4aのスタティックの場合
+        □ 台数1台の場合、TxProb =1でも200Mbps程度でる
+          - 縮退運転はしないため、
+        □ が、台数が増えるごとに0Mbpsに近づく
+            ◊ TxProb &gt;= 0.6のときは2台でダイナミック方式に抜かれる
+      § 4bのダイナミック方式の場合
+        □ 台数1台の場合、TxProb = 1で144Mbps程度に落ちる
+          - 20MHzに縮退運転するため、スタティックよりも遅い
+        □ 但し台数が増えても100Mbps程度を維持
+          - セカンダリチャネルにいる他局の影響を抑えることに成功している
+      § 改善の度合い(Table III)
+        □ Tx Prob = 0.6 (中程度) で85%
+        □ Tx prob = 1.0 (重程度) で 569%
+    ○ セカンダリチャネルの他局の強度がED-CCAに引っかからない場合(-82 &lt; RSSI &lt; -62) (Fig 5)
+      § 802.11ac側は気づかずに潰しに掛かる(コリジョンが発生)
+      § セカンダリにいる802.11a側の局は潰されるか、CCAでより多く待たされる =&gt; バックオフの増加
+      § このため802.11a側の局の合計スループットが大幅に低下する
+      § Fig 4a/bと比べて、802.11ac側BSSへの悪影響は低い
+      =&gt; 強度を-62 dBmに押さえることでセカンダリ側に割を食わすということはできる
+    ○ プライマリチャネルを中間におくことの効用 (Fig6)
+      § 中間に置いた場合(例: W52の40ch)と末尾に置いた場合(例: W52の48ch)の比較
+      § 中程度(TxProb=0.6)以上のトラフィックが全部のセカンダリチャネルに発生している場合は+10Mbps程度の効用
+        □ 最大で20Mbps程度、20%の改善
+        □ これは40MHz幅を2方向に取れることに起因する
+  - 議論はある？
+    ○ 50台ぐらいになり、BAR/BA/RTS/CTS等のコントロール系フレームが多くなった場合でも同様の傾向になるのか？
+    ○ セカンダリチャネルに居る他局の出力が弱いと割を食いやすい問題への解決策の議論は...?
+  - この中ででてきた次に読むべき論文リスト
+    ○ 参考文献に論文がねぇ！
+    ○ [5]: Kim, Y,. "Enhanced CCA for Non-Primary Channels Using Guard Interval", IEEE 802.11-10/0012r0, Jan2010
+      セカンダリチャネルでのCCAが高いことによる問題 (論文ではないけど)
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF with Hidden Nodes]]></title>
@@ -277,14 +356,14 @@
 
 <p>機体筐体はこんな感じ。Cisco Aironet 3602i やらと比べるとだいぶコンパクトでカワイイ。</p>
 
-<p>{% img center /images/2017-05-03/iap103.jpg 480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103.jpg" width="480"></p>
 
 <p>裏側のネジ4つを外すと表カバー、裏カバー、基板の3つに綺麗に分かれる。分解はしやすい。</p>
 
 <p>アンテナ(基板の表カバー側)はこんな感じ。いわゆる逆Fアンテナの模様。
 見ての通りアンテナは2つだけで、2.4/5GHz帯共用らしい。</p>
 
-<p>{% img center /images/2017-05-03/iap103_ant.jpg 480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_ant.jpg" width="480"></p>
 
 <p>チップ実装面はこんな感じ。シールドを一部外した状態。
 右側のシールド内のチップはAtheros AR9582-AR1A。
@@ -293,24 +372,24 @@
 中央上部、ACアダプタソケットとEthernetソケットの間にピンヘッダが出ている。
 細かく調べてはいないがシリアルコンソールが取れるのかもしれない。</p>
 
-<p>{% img center /images/2017-05-03/iap103_chip.png 480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_chip.png" width="480"></p>
 
 <p>この子はIAPタイプなのでコントローラとしても動作する。ダッシュボードはこんな感じ。
 1台だけだからかもしれないがCisco WLCと比べるとだいぶシンプル、というか設定できるところが少なめっぽい。よしなに調整してくれるのかな？</p>
 
-<p>{% img center /images/2017-05-03/iap103_db_ap.png 480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_db_ap.png" width="480"></p>
 
 <p>AppRFを有効にしてると以下の様に通信内容の分析がAP/クライアントの単位でできるらしい。</p>
 
-<p>{% img center /images/2017-05-03/iap103_db_apprf.png 640 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_db_apprf.png" width="640"></p>
 
 <p>今のところ自宅ではAP機能(アクセスモード)に用はないので、スペクトルもモニターモードで動作させている。
 このモードだと「スペクトラム」メニューにて非802.11デバイス一覧や、全チャネルのチャネル使用率&amp;品質が見れるらしい。
 なおアクセスモードだと動作中チャネルのそれに限定される。</p>
 
-<p>{% img center /images/2017-05-03/iap103_mon_gen.png 480 %}
-{% img center /images/2017-05-03/iap103_mon_24g.png 480 %}
-{% img center /images/2017-05-03/iap103_mon_5g.png  480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_mon_gen.png" width="480">
+<img class="center" src="/images/2017-05-03/iap103_mon_24g.png" width="480">
+<img class="center" src="/images/2017-05-03/iap103_mon_5g.png" width="480"></p>
 
 <p>ところでIAPが一台あれば、Remote APモデルのもの仕入れて繋げて遊べたりするのかな？
 AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡単に中規模ネットワークは組めそう。
@@ -334,7 +413,7 @@ AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡
     <content type="html"><![CDATA[<p>だんだんと自分にしか意味のない指標&amp;グラフが増えすぎてて大変に読みづらいものになったけど、
 いつものやつ書きました。「C91 Wi-Fi 〜ららら、(無線的に)素敵なComiket Space〜」。</p>
 
-<p>{% slideshare 70907756 %}</p>
+<p><iframe src="http://www.slideshare.net/slideshow/embed_code/70907756 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
 
 <p>今回は、また自スペースが西1に戻ってきました。
 そのため<a href="http://www.slideshare.net/enukane/c90-wifi-comiket-space">前回のC90 (西3だった)</a>とはまた様子が異なっています。
@@ -396,464 +475,6 @@ AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡
 
 <p>また、FCS badなデュレーションと
 これと、プリアンブルだけの情報が上手く取れると高レートなフレームの流れが</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2017-01-11 コミケ91で、ハニーポット無線LANアクセスポイント立てたお話]]></title>
-    <link href="http://enukane.github.io/blog/2017/01/11/hap/"/>
-    <updated>2017-01-11T09:35:12+09:00</updated>
-    <id>http://enukane.github.io/blog/2017/01/11/hap</id>
-    <content type="html"><![CDATA[<p>{:TOC}</p>
-
-<h1>概要</h1>
-
-<p>今冬のコミックマーケット91にて、1日目 西1 み-18a &ldquo;glenda9&rdquo; で出展するにあたって
-自スペースにハニーポット無線LANアクセスポイント(以下 ハニポAP)を立てました。
-ここではその提供方法、構成および結果について記述します。</p>
-
-<p>この手のイベントでは「応仁のLAN」といった面白SSIDを告知する遊びをする人がいます。
-これに倣って自分のスペース名をSSIDで告知というのも可能ですが、
-せっかくAPを立てるからにはもうすこし遊びを入れたいところです。</p>
-
-<p>もうちょっと真面目な目的としては各種プラットフォームが備えているキャプティブポータル検知の実装を見てみたい、
-この手のイベントでいかにもセキュリティの甘そうなAPをおいておくと
-どれくらいの人が引っかかるのか見てみたいといったモチベーションがありました。</p>
-
-<p>ここではAPとキャプティブポータルを組み合わせてイベント環境にデプロイし、
-クライアントの通信を特定コンテンツにねじ曲げて以下の様なページを強制表示するようにしつつ各種ログを収集しました。</p>
-
-<p>{% img center /images/2017-01-11/captive-webui.png 350 %}</p>
-
-<!---
-# 目的
-
-- APを用いた宣伝、お客さんを釣る
-- どれくらいの人がハニポAPに引っかかるかをみる
-- キャプティブポータル検知の仕組みを実際に引っかけて調べる
-
-先にも述べたように単純にSSIDを「み-18a glenda9」などとして宣伝する方法もあります。
-が、一般的なハニーポットとしては"Free Wi-Fi"といったそれらしいSSIDをつけておきたいところです。
-威力業務妨害扱いにもなりそうなので、今回はやりませんでしたが他のFree Wi-Fiで用いている
-SSIDをつけるという案もあります。
-コミケの環境では、PCというよりスマホ・タブレットが主として用いられると思われ
-またさらにいえばWi-Fiよりは3G/LTEを用いるであろうと思われるためあまり引っかかる人はいなさそうです。
-しかし、無線LANがデフォルト有効かつ暗号化なしSSIDに自動的に接続しに行くデバイスや、
-テザリング接続時にたまたまフリーっぽいSSIDを見つけて手動接続するユーザはいると思われます。
-これらをターゲットとしてSSIDを告知します。
-
-各種プラットフォームではそれぞれ [HOW AUTOMATIC DETECTION OF CAPTIVE PORTAL WORKS](https://success.tanaza.com/s/article/How-Automatic-Detection-of-Captive-Portal-works)にあるようなキャプティブポータル検知の仕組みを導入しています。
-これを実際に調べるとともに、この際に発生する接続からアドレス取得、名前解決からHTTPアクセスまでの
-一連の流れから読み取れることを探ってみます。
-
--->
-
-
-<h1>ハニーポットAPの見え方</h1>
-
-<p>ハニポAPのSSIDとして「  Not Free Wi-Fi」を告知するようにしました。
-SSIDの先頭に半角スペースを2つ入れることで、
-「0000」で始まるものやアンダースコアから始まるSSIDよりも上位に出現するようにしています。
-2.4GHz帯と5GHz帯でSSIDを分けており、
-下記の様に2.4GHz帯側には&#8221;-g&#8221;とのサフィクスをつけました。</p>
-
-<p>{% img center /images/2017-01-11/not-free-wifi-ssid_hide.png 300 %}</p>
-
-<!--- 引っかかると --->
-
-
-<p>このSSIDに接続すると、
-大抵のプラットフォームに入っているキャプティブポータル検知の仕組みによりスプラッシュページが表示されます。
-Androidのスマホで見ると、ハニーポットAPのSSIDを選択後しばらくすると以下の画面がポップアップします。</p>
-
-<p>{% img center /images/2017-01-11/sp-captive.jpg 300 %}</p>
-
-<h1>ハニーポットAPの機材について</h1>
-
-<h2>AP本体</h2>
-
-<p>ハニーポットAPには、Buffalo WZR-HP-AG300H に OpenWRT を載せたものを用いました。</p>
-
-<p>{% img center /images/2017-01-11/hap.png 300 %}</p>
-
-<p>C90で同様の試みをしたときは Raspberry Pi と USB Wi-Fi アダプタを用いていました(以下)。
-その際は、混雑している2.4GHz帯でしか運用せず出力も弱めであったため、
-あまり接続数を稼げませんでした。</p>
-
-<p>{% img center /images/2017-01-11/old-hap.png 300 %}</p>
-
-<p>WZR-HP-AG300H は家庭用APとしてそれなりにきちんとしたアンテナを備え、
-2.4GHz/5GHz帯の同時運用も可能です。
-OpenWRT を導入できカスタマイズ性も高いため今回はこれを用いてハニーポットAPを実装しました。</p>
-
-<h2>APへの電源供給</h2>
-
-<p>WZR-HP-AG300Hの消費電力は最大13.2Wであり、付属のACアダプタは定格 12V/2.0A となっています。
-通常のUSBモバイルバッテリーではここまでの電圧は出せないため、
-簡単にやるにはACが取れる電源などの大きめのバッテリーを用意する必要があります。
-これらは価格も高い上にでかいし重いしで大変に邪魔なので、
-ここでは以下のページに従ってQuickCharge 2.0対応のバッテリー(今回は AUKEY PB-T4 を利用)から12Vを引き出すようにしました。</p>
-
-<ul>
-<li><a href="https://lowreal.net/2015/12/07/3">Quick Charge 2.0 電源から 12V とる</a></li>
-</ul>
-
-
-<p>なお上記ページのコードでは上手く動かなかったため、
-挿入するディレイの長さを変更して運用しています。コードは下記をご参照ください。</p>
-
-<ul>
-<li><a href="https://gist.github.com/enukane/26f3af8938ed2a775296f472b1c71168">https://gist.github.com/enukane/26f3af8938ed2a775296f472b1c71168</a></li>
-</ul>
-
-
-<p>後述するとおり 10000mAh のバッテリーで6時間程度は運用できました。
-基板に起こすのは間に合わなかったので Arduino そのままとブレッドボードで動かしていました。
-たまに結線が外れてリブートしてたり。。。。</p>
-
-<p>{% img center /images/2017-01-11/hap-power.jpg 350 %}</p>
-
-<h2>簡易キャプティブポータル on OpenWRT</h2>
-
-<p>簡易キャプティブポータル実現のため、以下の細工を入れています。</p>
-
-<ul>
-<li>管理用WebUIはWAN側インタフェースでのみ受付</li>
-<li>LAN から WAN への通信を全て遮断</li>
-<li>DHCPで配布するDNSサーバを自身(10.0.0.1)に設定</li>
-<li>DNSサーバにて全てのAレコードのクエリに対して自身のアドレスで応答</li>
-<li>LAN側(キャプティブポータル提供側)では Apache で HTTP アクセスを待ち受け
-
-<ul>
-<li>全てのHTTPアクセスを /index.html に置き換え</li>
-</ul>
-</li>
-</ul>
-
-
-<p>dnsmasqのレコード上書き機能を用いて全てのホスト名に対して自分のアドレスを返すことで、
-アクセスを自身にねじ曲げます。
-現状 /etc/init.d/dnsmasq にて dnsmasq コマンドの引数に以下を
-加えてこれを実現しています。本来的には /etc/config/dhcp に list address の
-行を追加すれば動くはずですが、上手く動作しないようでした。</p>
-
-<pre><code>--address='/#/10.0.0.1'
-</code></pre>
-
-<p>キャプティブポータルとして HTTP アクセスを受け付ける側には Apache を用います。
-上記 DNS の細工により、HTTP アクセスはこちらに向きますがパスは不定のためリダイレクト等が必要です。
-OpenWRT デフォルトの apache では mod_rewrite が使えないため、
-AliasMatch でこれを実現します。</p>
-
-<pre><code>AliasMatch ^/.+$ /root/www/index.html
-&lt;Directory "/root/www"&gt;
-    Options Indexes FollowSymLinks SymLinksIfOwnerMatch
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-&lt;/Directory&gt;
-</code></pre>
-
-<p>これにより全てのHTTP アクセスに対して /index.html の中見を返すようになります。
-このHTMLファイル中に、先に挙げたWebページを詰め込んでおきます。</p>
-
-<h2>設置場所</h2>
-
-<p>ハニーポットAP は コミックマーケット91 1日目 (2016/12/29) の西ホール1、
-み-18a の机の上に設置しました。西ホールのだいたい赤丸の位置に自スペースがあります。</p>
-
-<p>{% img center /images/2017-01-11/map.png 200 %}</p>
-
-<p>{% img /images/2017-01-11/my-space_cap.png %}</p>
-
-<p>机の上の可能な限り高いところに、
-設置しましたができればポスタースタンドなどにくくりつけてより高さを稼ぎたいところではあります。</p>
-
-<h1>提供結果</h1>
-
-<p>ハニーポットAPの提供は 12/29 09:05:29 から 15:09:15 までの期間、6時間3分46秒に渡って実施しました。</p>
-
-<h2>無線LAN</h2>
-
-<p>接続しにきたユニーククライアント数は 62 台でした。
-この値は、ログ中の接続(Authentication)イベントに紐付くMACアドレスのユニークアドレス数を計上したものです。
-なお、いくつかの端末は Authentication Response に対してACKを返せていないため実際にAssociationまで至ったクライアントは
-56 台です。</p>
-
-<p>MACアドレスのOUIからベンダ名を引き、分布を図示した物が以下になります。
-全体でベンダは10種類でした。コミケという利用環境上、大半がスマートフォンであると推測できます。
-この中でも大半が Apple (おそらくiPhone/iPad) と Huawei で占められています。
-&ldquo;IEEE Registration Authority&#8221;という名前になっているものがありますが、
-一部のスマホでは自社のベンダ名を登録していないためこうなっているようです。</p>
-
-<p><img src="/images/2017-01-11/sta_oui_histogram.png" alt="sta-oui-histogram" /></p>
-
-<p>ハニーポットAPでは2.4/5GHz帯でそれぞれ別のSSIDを告知しています。
-以下は帯域毎のユニーク接続クライアント数の分布です。
-2.4GHz帯は18端末、5GHz帯は42端末と後者に寄っています。
-接続イベント数上も2.4GHz帯は 33回、5GHz帯は 63回となっており、
-5GHz帯側に接続しにくることが多かったようです。</p>
-
-<p><img src="/images/2017-01-11/sta_per_band.png" alt="sta-per-band" /></p>
-
-<p>以下は端末の接続持続時間のヒストグラムです。端末が接続してから切断するまでの期間(秒)と発生回数をプロットしています。
-10秒単位で丸めています。大半は1分以内ですが、最長で1030秒(17分程度)の場合もあったようです。
-300秒にて山がありますが、これは5分毎に走るGTKの更新失敗やらのタイムアウトに起因するものと推測しています。
-移動が激しいコミケのような環境では、接続後そのまま明示的に切断せずにクライアントが離脱することが多いため、
-このような傾向があるものと考えています。</p>
-
-<p><img src="/images/2017-01-11/sta_dur_histogram.png" alt="sta-dur-histogram" /></p>
-
-<h2>DHCP</h2>
-
-<p>DHCPサーバがアドレスを割り当てた端末は 50 台でした。
-先に述べたとおり、Assocした端末数は56端末であるため6台はDHCPによるアドレス取得まで至らなかったようです。</p>
-
-<p>割り当てたアドレスは10.0.0.0/8から 45 アドレス分でした。
-dnsmasqは比較的割り当てアドレスをばらけさせる傾向にありますが、うち5アドレスは重複して配布しています。
-デフォルトでは DHCP Lease Time が 1h であるため再利用されたようです。</p>
-
-<p>DHCPクライアントは DHCP Requestのオプションとしてホスト名を付与する場合があります。
-このホスト名のユニーク数は今回 39 種でした。
-ホスト名文字列として何が付与されるかは端末により異なります。
-iOS系だと<strong>〜のiPhone</strong>といった形式、
-androidだと<strong>android-XXXXXXXX</strong>といった乱数要素を含んだ文字列を用いる場合があります。
-詳細は伏せますが、今回は以下の様な文字列が検出されました。</p>
-
-<ul>
-<li>iPhone/iPod Touchと推測されるもの(&ldquo;iphone&rdquo;, &ldquo;ipod&#8221;が含まれる): 14 個</li>
-<li>iPadと推測されるもの(&ldquo;ipad&#8221;が含まれる): 5 個</li>
-<li>androidと推測されるもの
-
-<ul>
-<li>&ldquo;android-XXXXX&rdquo; の形式: 12 個</li>
-<li>機種名: 4 個</li>
-</ul>
-</li>
-<li>不明(端末を推測可能な文字列を含まない): 4 個</li>
-</ul>
-
-
-<p>上記に挙げたとおり android にてホスト名に機種名を用いている例が4つありました。
-以下の通り全てHuawei製品であり、このベンダでは一律このポリシーを採っているのかもしれません。</p>
-
-<ul>
-<li>HUAWEI_P9</li>
-<li>HUAWEI_P9_lite</li>
-<li>HUAWEI_Mate_9</li>
-<li>Honor_8</li>
-</ul>
-
-
-<h2>DNS クエリ</h2>
-
-<p>ハニポAPで動作しているDNSサーバでは期間中に合計556回 DNS クエリを受け取っており、
-この対象レコードの内訳は以下の通りです。</p>
-
-<ul>
-<li>Aレコード: 504回</li>
-<li>AAAAレコード: 50回</li>
-<li>PTRレコード: 2回</li>
-</ul>
-
-
-<p>合計 123 個の名前にたいしてクエリを受信しました。
-以下はその中で回数の多いほうからトップ10をプロットしたグラフです。
-<em>connectivitycheck.gstatic.com</em> や <em>captive.apple.com</em>
-のようにキャプティブポータル検知に用いられるホストが多く現れています。
-またプッシュ通知を司るホスト向けの通信が多いことも伺えます。</p>
-
-<p><img src="/images/2017-01-11/query_top10.png" alt="query-top10" /></p>
-
-<p>AAAA レコードへのクエリのみを抽出すると、以下の5ホストに対してのクエリを受信していました。
-IPv6はサポートしていないため、一律NODATAを返しています。</p>
-
-<ul>
-<li>connectivitycheck.gstatic.com</li>
-<li>clients3.google.com</li>
-<li>mobile.pipe.aria.microsoft.com</li>
-<li>a.config.skype.com</li>
-<li>b.config.skype.com</li>
-</ul>
-
-
-<h2>キャプティブポータル</h2>
-
-<p>名前でねじ曲げられた先のキャプティブポータルに対するアクセスは以下のようになっています。</p>
-
-<ul>
-<li>HTTPアクセス回数: 246 回</li>
-<li>HTTPアクセスのユニーク送信元アドレス数: 43 個
-
-<ul>
-<li>うち5つのアドレスは重複割り当ての可能性あり</li>
-</ul>
-</li>
-<li>HTTPアクセス対象ホストのユニーク数: 21 ホスト
-
-<ul>
-<li>先のクエリ対象ホストが123だったのに比べるとだいぶ少なめ</li>
-<li>HTTPのみ対象のため？</li>
-</ul>
-</li>
-</ul>
-
-
-<p>以下はアクセス数の多いほうから、ホスト名のトップ10をプロットしたグラフです。
-やはりキャプティブポータル検知用ホストへのアクセスが多めです。</p>
-
-<p><img src="/images/2017-01-11/http_host_histogram.png" alt="http-host-histogram" /></p>
-
-<p>アクセス数のヒストグラムをURL全体に拡張し、そのトップ10を並べたものを以下に記載します。
-全体では31個のURLに対するアクセスを記録しています。</p>
-
-<p><img src="/images/2017-01-11/http_url_histogram.png" alt="http-url-histogram" /></p>
-
-<p>通常のWebアクセスらしきものや、Simejiの通信なども見えますが
-大多数はキャプティブポータル検知用のURLに対するアクセスです。</p>
-
-<ul>
-<li>Apple系
-
-<ul>
-<li><a href="http://captive.apple.com/hotspot-detect.html">http://captive.apple.com/hotspot-detect.html</a></li>
-<li><a href="http://captive.apple.com/XXXXXXXXXX/YYYYYYYYYYY/ZZZZZZZZZZZZZZZZZZZZZ.html">http://captive.apple.com/XXXXXXXXXX/YYYYYYYYYYY/ZZZZZZZZZZZZZZZZZZZZZ.html</a>
-
-<ul>
-<li>captive.apple.com はどのパスでも固定の応答が返る模様</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Android系
-
-<ul>
-<li><a href="http://connectivitycheck.gstatic.com/generate_204">http://connectivitycheck.gstatic.com/generate_204</a></li>
-<li><a href="http://clients3.google.com/generate_204">http://clients3.google.com/generate_204</a></li>
-<li><a href="http://connectivitycheck.android.com/generate_204">http://connectivitycheck.android.com/generate_204</a></li>
-<li><a href="http://10.0.0.1/generate_204">http://10.0.0.1/generate_204</a></li>
-</ul>
-</li>
-</ul>
-
-
-<p>今回検出したアクセス時のUser-Agentは大別すると以下の4種類に分けられそれぞれ一定の役割のもと
-用いられているようです。</p>
-
-<ul>
-<li>CaptiveNetworkSupport系</li>
-<li>Dalvik系</li>
-<li>WebKit系</li>
-<li>その他</li>
-</ul>
-
-
-<p>CaptivePortalSupportは主に captive.apple.com 向けの通信に使われていました。
-ただしこれだけ、と言うわけではなく以下の様に CaptiveNetworkSupport系とMozilla系のUser-Agentを交互に利用しているようです。</p>
-
-<pre><code>10.0.0.73 GET /hotspot-detect.html FryingPan.lan captive.apple.com "CaptiveNetworkSupport-325.10.1 wispr" 200
-10.0.0.73 GET /hotspot-detect.html FryingPan.lan captive.apple.com "Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G34" 200
-</code></pre>
-
-<p>CaptiveNetworkSupportを含むUser-Agent文字列には以下のパターンが存在していました。
-WISPrの仕様上、User-Agent文字列は &ldquo;WISPR!任意の文字列&rdquo; ということになっているので
-CaptiveNetworkSupportの文字列の出典および後続する数値列の意味は不明です。</p>
-
-<pre><code>CaptiveNetworkSupport-346 wispr
-CaptiveNetworkSupport-325.10.1 wispr
-CaptiveNetworkSupport-277.10.5 wispr
-CaptiveNetworkSupport-306.20.1 wispr
-</code></pre>
-
-<p>Android向けであると推測される connectivitycheck.gstatic.com等へのアクセスは主に Dalvik系 User-Agent から
-なされています。が、Apple系とおなじくMozilla系Uer-Agentでのアクセスも確認されています。</p>
-
-<pre><code>10.0.0.13 GET /generate_204 FryingPan.lan connectivitycheck.gstatic.com "Dalvik/2.1.0 (Linux; U; Android 7.0; Nexus 6 Build/NBD91P)" 200
-10.0.0.13 GET /generate_204 FryingPan.lan connectivitycheck.gstatic.com "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD91P; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/55.0.2883.91 Mobile Safari/537.36" 200
-</code></pre>
-
-<!---
-
-- "KT/6.0.1 An/4.4.2 ko"
-  - アプリ内の広告表示アクセスっぽい
-- なし
-  - simejiっぽい
-- "iPad5,3/9.3.3 (13G34)"
-  - iOSのPush通知関連？
-- "dianxinos-user-agent"
-  - Baidu系っぽい
-- "LINE/2016.1114.1637 CFNetwork/758.5.3 Darwin/15.6.0"
-  - LINE?
-- "DXCoreService"
-- "com.baidujp.Simeji.SimejiKB/243 CFNetwork/758.5.3 Darwin/15.6.0"
-  - Simeji
-- "Alamofire"
-  - Simejiっぽい
-
---->
-
-
-<h1>まとめ</h1>
-
-<ul>
-<li>コミケ91 1日目にてハニーポットAPを動かしてみた</li>
-<li>62人のお客さんが釣れた
-
-<ul>
-<li>うち43人程度にはキャプティブWebページを見てもらえた模様</li>
-<li>前回 (C90, 10人程度) に比べてだいぶアクセスしてもらえた</li>
-</ul>
-</li>
-<li>キャプティブポータル検知をしてるらしい動きが見れた
-
-<ul>
-<li>iphone &amp; android がメイン?</li>
-<li>PC系は今回はほぼいないのもあって確認できず</li>
-<li>1台だけ Ubuntu マシンがいたが、キャプティブ検知っぽい動作はしていなかった</li>
-</ul>
-</li>
-</ul>
-
-
-<h1>Future Work</h1>
-
-<p>お次やるとしたらこう工夫しようというToDoリスト</p>
-
-<ul>
-<li>DHCP リースタイムの延長
-
-<ul>
-<li>1日程度の方が良さそう</li>
-</ul>
-</li>
-<li>運用時の可視化方法
-
-<ul>
-<li>本当は ruby 動かして管理用 WebUI が見れるはずだったけど、上手く動かなかった</li>
-</ul>
-</li>
-<li>自律的な時刻同期
-
-<ul>
-<li>会期中一回落ちて時刻がおかしくなった</li>
-<li>3G/LTE で NTP ?</li>
-</ul>
-</li>
-<li>電源モジュールの基板化
-
-<ul>
-<li>ブレッドボードはつらい</li>
-</ul>
-</li>
-<li>DHCP Fingerprinting で遊びたい</li>
-<li>別の場所での運用
-
-<ul>
-<li>PC が多そうな環境で見てみたい</li>
-</ul>
-</li>
-</ul>
-
 ]]></content>
   </entry>
   

@@ -9,7 +9,24 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="100papers, 802.11, tech Comments 2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF With Hidden Nodes 人もすなる論文100本ノックといふものを、 &hellip;">
+	<meta name="description" content="100papers, 802.11, tech Comments 2018-05-08 論文100本ノック 2: IEEE802.11ac: Dynamic Bandwidth Channel Access 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -114,6 +131,183 @@
   
 
 
+<time datetime="2018-05-08T20:08:42+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/100papers/'>100papers</a>, <a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2018/05/08/2018-05-08-100papers-02/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2018/05/08/2018-05-08-100papers-02/" itemprop="url">2018-05-08 論文100本ノック 2: IEEE802.11ac: Dynamic Bandwidth Channel Access</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  - from: 1
+</span><span class='line'>  - 著者: Myoung Park
+</span><span class='line'>  - 所属: Intel Labs
+</span><span class='line'>  - 発行年: 2011
+</span><span class='line'>  - 学会: IEEE ICC 2011 http://icc2011.ieee-icc.org/index.php
+</span><span class='line'>  - どんなもの
+</span><span class='line'>    ○ 802.11acでサポートされた80Mhz幅での転送にあたって20/40/80MHzをセカンダリチャネル以降の20MHz幅ごとの空き状況を見て切り替える方式
+</span><span class='line'>    ○ セカンダリチャネルのCCA sensitivityの影響や802.11ac利用地のプライマリチャネルの選び方がスループットに与える影響を調べた。
+</span><span class='line'>  - 先行研究と比べてどこがすごい
+</span><span class='line'>    ○ 先行研究: 802.11ac, 802.11n
+</span><span class='line'>    ○ セカンダリチャネルに定常的にトラフィックが有る場合のスループットを85%改善
+</span><span class='line'>    ○ もともとは802.11nの20/40切り替えテクニックだが、これを802.11acに適用した
+</span><span class='line'>  - 技術や手法のキモはどこ？
+</span><span class='line'>    ○ Dynamicに20/40/80とチャネル幅を変えるところ
+</span><span class='line'>    ○ もともと802.11nの20/40Mhz幅切り替えという前例がある
+</span><span class='line'>      § 40MHz幅運用の場合、セカンダリチャネルでは
+</span><span class='line'>        □ プライマリより低い感度のCCA感度で運用される: -82 or -79 vs -62 dBm (ED-CCAだけが動く): プライマリで必要なプリアンブルデコード等が不要なため
+</span><span class='line'>        □ NAVをセットしない: セカンダリチャネルのみで動作する802.11aなどのデバイスのプリアンブルをデコードしないため
+</span><span class='line'>      § まずプライマリチャネルがDIFS + CWの後に空いているか見る + PIFSの後にセカンダリが空いているか見る
+</span><span class='line'>        □  (正確にはプライマリチャネルのCW(3〜1023us)中の後ろPIFS(9us)がクリアなら、プライマリと同期できる)
+</span><span class='line'>        □ staticの場合: 両方空いていれば送信  or 再度バックオフ
+</span><span class='line'>        □ dynamicの倍: 20mhzに縮退して送信
+</span><span class='line'>      § 80MHz幅運用の問題点
+</span><span class='line'>    ○ 20/40/80の切り替えについて
+</span><span class='line'>      § 80MHzを占有できることはまずないという現状がある
+</span><span class='line'>        □ staticだと遅れる機会がなかなかこない
+</span><span class='line'>        □ プライマリとセカンダリとでCCAのレベルが異なることによる問題: セカンダリチャネルで-82〜-62dBmあたりの強度のフレームの送信と衝突する可能性 =&gt; 結局Ackが帰ってこずフレームが欠損し、双方にretryが必要になり、また時間を消費する...
+</span><span class='line'>      § プライマリチャネルの選び方
+</span><span class='line'>        □ 大抵40/80の先頭か末尾が多い
+</span><span class='line'>        □ これだとセカンダリが1つに限られるため20Mhzにフォールバックする確率がたかい
+</span><span class='line'>        □ 真ん中にプライマリを持ってこれる方式が望ましい場合がある
+</span><span class='line'>  - どうやって技術・手法の有効性を検証した？
+</span><span class='line'>    ○ MATLABのシミュレーションで実施
+</span><span class='line'>    ○ 1台のAP、それに接続する1台の802.11ac STA、セカンダリチャネルに1〜3台のAP + 1, 2台のSTAsを配備した環境を想定
+</span><span class='line'>    ○ セカンダリチャネルに干渉する通信がある場合のスループットの改善を計測
+</span><span class='line'>    ○ 80MHz staticだとそちらの通信の空きでしか通信できないため、かなり下がるはず -&gt; これが改善していれば有意であることが示せる
+</span><span class='line'>    ○ スタティックvsダイナミックの比較 (Fig 4a vs Fig 4b)
+</span><span class='line'>      § セカンダリチャネルのSTAの送信確率を０〜100% (0-1)で換えたグラフ
+</span><span class='line'>      § セカンダリチャネルでの受信出力はED-CCAの閾値 -62dBmより上を想定
+</span><span class='line'>      § 4aのスタティックの場合
+</span><span class='line'>        □ 台数1台の場合、TxProb =1でも200Mbps程度でる
+</span><span class='line'>          - 縮退運転はしないため、
+</span><span class='line'>        □ が、台数が増えるごとに0Mbpsに近づく
+</span><span class='line'>            ◊ TxProb &gt;= 0.6のときは2台でダイナミック方式に抜かれる
+</span><span class='line'>      § 4bのダイナミック方式の場合
+</span><span class='line'>        □ 台数1台の場合、TxProb = 1で144Mbps程度に落ちる
+</span><span class='line'>          - 20MHzに縮退運転するため、スタティックよりも遅い
+</span><span class='line'>        □ 但し台数が増えても100Mbps程度を維持
+</span><span class='line'>          - セカンダリチャネルにいる他局の影響を抑えることに成功している
+</span><span class='line'>      § 改善の度合い(Table III)
+</span><span class='line'>        □ Tx Prob = 0.6 (中程度) で85%
+</span><span class='line'>        □ Tx prob = 1.0 (重程度) で 569%
+</span><span class='line'>    ○ セカンダリチャネルの他局の強度がED-CCAに引っかからない場合(-82 &lt; RSSI &lt; -62) (Fig 5)
+</span><span class='line'>      § 802.11ac側は気づかずに潰しに掛かる(コリジョンが発生)
+</span><span class='line'>      § セカンダリにいる802.11a側の局は潰されるか、CCAでより多く待たされる =&gt; バックオフの増加
+</span><span class='line'>      § このため802.11a側の局の合計スループットが大幅に低下する
+</span><span class='line'>      § Fig 4a/bと比べて、802.11ac側BSSへの悪影響は低い
+</span><span class='line'>      =&gt; 強度を-62 dBmに押さえることでセカンダリ側に割を食わすということはできる
+</span><span class='line'>    ○ プライマリチャネルを中間におくことの効用 (Fig6)
+</span><span class='line'>      § 中間に置いた場合(例: W52の40ch)と末尾に置いた場合(例: W52の48ch)の比較
+</span><span class='line'>      § 中程度(TxProb=0.6)以上のトラフィックが全部のセカンダリチャネルに発生している場合は+10Mbps程度の効用
+</span><span class='line'>        □ 最大で20Mbps程度、20%の改善
+</span><span class='line'>        □ これは40MHz幅を2方向に取れることに起因する
+</span><span class='line'>  - 議論はある？
+</span><span class='line'>    ○ 50台ぐらいになり、BAR/BA/RTS/CTS等のコントロール系フレームが多くなった場合でも同様の傾向になるのか？
+</span><span class='line'>    ○ セカンダリチャネルに居る他局の出力が弱いと割を食いやすい問題への解決策の議論は...?
+</span><span class='line'>  - この中ででてきた次に読むべき論文リスト
+</span><span class='line'>    ○ 参考文献に論文がねぇ！
+</span><span class='line'>    ○ [5]: Kim, Y,. "Enhanced CCA for Non-Primary Channels Using Guard Interval", IEEE 802.11-10/0012r0, Jan2010
+</span><span class='line'>      セカンダリチャネルでのCCAが高いことによる問題 (論文ではないけど)</span></code></pre></td></tr></table></div></figure>
+
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
 <time datetime="2018-05-08T19:39:17+09:00" data-updated="true" itemprop="datePublished"></time></div>
 		<div class="tags">
 
@@ -182,8 +376,8 @@
 <ul>
 <li>先行研究: [1], [2]</li>
 <li>新しい規格への対応: 既存802.11aまで -> 802.11acまでやる</li>
-<li>Hidden Nodeの考慮</li>
-<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象害</li>
+<li>Hidden Node(隠れ端末)の考慮</li>
+<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象外</li>
 </ul>
 </li>
 <li>技術や手法のキモはどこ？
@@ -273,11 +467,19 @@
 
 <ul>
 <li>RTS/CTS方式の場合
-◊ 上手く通信できる方はスループットが上がる
-◊ 上手く通信出来ない方は、スループットは上がらない</li>
+
+<ul>
+<li>上手く通信できる方はスループットが上がる</li>
+<li>上手く通信出来ない方は、スループットは上がらない</li>
+</ul>
+</li>
 <li>basic方式の場合
-◊ 上手く通信できる方はスループットが上がる
-◊ 上手く通信出来ない方はほぼ通信できないまま</li>
+
+<ul>
+<li>上手く通信できる方はスループットが上がる</li>
+<li>上手く通信出来ない方はほぼ通信できないまま</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>結論
@@ -339,9 +541,17 @@
 
 <ul>
 <li>[1]: モデリングの元となる論文
-G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+
+<ul>
+<li>G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+</ul>
+</li>
 <li>[8]: 本論文の調査結果として明らかになったHN x 802.11acの組合せ問題への解決策となりうる RTS/CTSの改良を扱っているらしい
-M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+
+<ul>
+<li>M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>所感
@@ -1601,115 +1811,6 @@ CaptiveNetworkSupportの文字列の出典および後続する数値列の意�
 <li>PC が多そうな環境で見てみたい</li>
 </ul>
 </li>
-</ul>
-
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2017-01-01T00:06:53+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/memo/'>memo</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2017/01/01/2017-01-01-hofu/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2017/01/01/2017-01-01-hofu/" itemprop="url">今年やりたいこと＠2017</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>2016年やれたこと</h2>
-
-<ul>
-<li>新年初日からておくれた(初日の出号のチケットが無駄に…)</li>
-<li>メガネっ漢はじめました。本格的に目がだめだ。</li>
-<li>生まれ年のウィスキー買った(グレンタレット 1986, 27年物)</li>
-<li>同人誌2冊新刊だせた(Plan9 と 802.11それぞれ)
-
-<ul>
-<li>頒布同人誌、昨年比で併せて2.5倍ぐらいの数刷った、個人的にはかなり冒険な数だけどなんとか捌けた。感謝。</li>
-<li>念願の、印刷所に印刷お願いした同人誌だせた。仕上がりとっても綺麗。</li>
-</ul>
-</li>
-<li>一陸特とった。4.9Ghz帯で遊ぶためだったのにデバイスはまだない。</li>
-<li>ジョギングはじめた(頻度は低い)</li>
-<li>イベント向け無線LAN構築: 8件
-
-<ul>
-<li>主担当1件、お手伝い7件。基本的に無線LANの運用監視中心。</li>
-</ul>
-</li>
-<li>はじめてのJANOG参加と沖縄</li>
-<li>島
-
-<ul>
-<li>八丈島と沖縄いった</li>
-</ul>
-</li>
-<li>葉巻始めました</li>
-<li>西洋剃刀で髭剃る趣味始めました</li>
-</ul>
-
-
-<h2>2017年にやりたいこと</h2>
-
-<p>追記中</p>
-
-<ul>
-<li>厳かに而立を迎える＠3月</li>
-<li>言語系
-
-<ul>
-<li>仏検(2017/06, 4or3級)とる</li>
-<li>独検(2017/06/25, 4or3級)とる</li>
-<li>漢語水平考試(12/03, 2級)とる</li>
-<li>アイスランド語勉強する</li>
-<li>仏語で「Le Mythe de Sisyphe」読み切る</li>
-</ul>
-</li>
-<li>一陸技(秋)とる</li>
-<li>CCNA WIFUNDとる、たぶんCCENTが事前に必要っぽい</li>
-<li>IEEE WCETうけたい(一陸技が必要で、受験料55k、つらい)</li>
-<li>無線LAN利用状況監視の新しい方向性を作る</li>
-<li>作る物の半分をgolangにしてみる (from ruby)</li>
-<li>CAD覚える
-
-<ul>
-<li>3DプリンタでPiZero版キャプチャ箱のケースつくってみる</li>
-<li>基板を起こしてみる(quickcharge用)</li>
-</ul>
-</li>
-<li>ネットワークアナライザの使い方を覚える</li>
-<li>FPGAとRFフロントエンドでなにかやりたい(ぼくの考えたさいきょーのキャプチャ箱とか)</li>
-<li>IndesignまたはScribusへのｳｽｲﾎﾝ作成環境の移行(vivliostyleでもいいかも): acrobat proからの脱却</li>
-<li>HarveyOS入門まとめる。今までの内容盛り込みつつ。</li>
-<li>今年こそ「Plan9のブートプロセスを見る」の同人誌を作る</li>
-<li>オペラ「ニーベルングの指環」第三夜見にいく@三月</li>
-<li>片方の系の財政健全化</li>
-<li>原付免許とる</li>
-<li>船舶免許取りたい(2級?)</li>
-<li>生活用の和服一式ほしい</li>
 </ul>
 
 

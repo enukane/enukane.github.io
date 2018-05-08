@@ -152,8 +152,8 @@
 <ul>
 <li>先行研究: [1], [2]</li>
 <li>新しい規格への対応: 既存802.11aまで -> 802.11acまでやる</li>
-<li>Hidden Nodeの考慮</li>
-<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象害</li>
+<li>Hidden Node(隠れ端末)の考慮</li>
+<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象外</li>
 </ul>
 </li>
 <li>技術や手法のキモはどこ？
@@ -243,11 +243,19 @@
 
 <ul>
 <li>RTS/CTS方式の場合
-◊ 上手く通信できる方はスループットが上がる
-◊ 上手く通信出来ない方は、スループットは上がらない</li>
+
+<ul>
+<li>上手く通信できる方はスループットが上がる</li>
+<li>上手く通信出来ない方は、スループットは上がらない</li>
+</ul>
+</li>
 <li>basic方式の場合
-◊ 上手く通信できる方はスループットが上がる
-◊ 上手く通信出来ない方はほぼ通信できないまま</li>
+
+<ul>
+<li>上手く通信できる方はスループットが上がる</li>
+<li>上手く通信出来ない方はほぼ通信できないまま</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>結論
@@ -309,9 +317,17 @@
 
 <ul>
 <li>[1]: モデリングの元となる論文
-G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+
+<ul>
+<li>G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+</ul>
+</li>
 <li>[8]: 本論文の調査結果として明らかになったHN x 802.11acの組合せ問題への解決策となりうる RTS/CTSの改良を扱っているらしい
-M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+
+<ul>
+<li>M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>所感

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2018-05-08T20:07:55+09:00</updated>
+  <updated>2018-05-08T20:24:44+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2018-05-08 論文100本ノック 2: IEEE802.11ac: Dynamic Bandwidth Channel Access]]></title>
+    <link href="http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-02/"/>
+    <updated>2018-05-08T20:08:42+09:00</updated>
+    <id>http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-02</id>
+    <content type="html"><![CDATA[<pre><code>  - from: 1
+  - 著者: Myoung Park
+  - 所属: Intel Labs
+  - 発行年: 2011
+  - 学会: IEEE ICC 2011 http://icc2011.ieee-icc.org/index.php
+  - どんなもの
+    ○ 802.11acでサポートされた80Mhz幅での転送にあたって20/40/80MHzをセカンダリチャネル以降の20MHz幅ごとの空き状況を見て切り替える方式
+    ○ セカンダリチャネルのCCA sensitivityの影響や802.11ac利用地のプライマリチャネルの選び方がスループットに与える影響を調べた。
+  - 先行研究と比べてどこがすごい
+    ○ 先行研究: 802.11ac, 802.11n
+    ○ セカンダリチャネルに定常的にトラフィックが有る場合のスループットを85%改善
+    ○ もともとは802.11nの20/40切り替えテクニックだが、これを802.11acに適用した
+  - 技術や手法のキモはどこ？
+    ○ Dynamicに20/40/80とチャネル幅を変えるところ
+    ○ もともと802.11nの20/40Mhz幅切り替えという前例がある
+      § 40MHz幅運用の場合、セカンダリチャネルでは
+        □ プライマリより低い感度のCCA感度で運用される: -82 or -79 vs -62 dBm (ED-CCAだけが動く): プライマリで必要なプリアンブルデコード等が不要なため
+        □ NAVをセットしない: セカンダリチャネルのみで動作する802.11aなどのデバイスのプリアンブルをデコードしないため
+      § まずプライマリチャネルがDIFS + CWの後に空いているか見る + PIFSの後にセカンダリが空いているか見る
+        □  (正確にはプライマリチャネルのCW(3〜1023us)中の後ろPIFS(9us)がクリアなら、プライマリと同期できる)
+        □ staticの場合: 両方空いていれば送信  or 再度バックオフ
+        □ dynamicの倍: 20mhzに縮退して送信
+      § 80MHz幅運用の問題点
+    ○ 20/40/80の切り替えについて
+      § 80MHzを占有できることはまずないという現状がある
+        □ staticだと遅れる機会がなかなかこない
+        □ プライマリとセカンダリとでCCAのレベルが異なることによる問題: セカンダリチャネルで-82〜-62dBmあたりの強度のフレームの送信と衝突する可能性 =&gt; 結局Ackが帰ってこずフレームが欠損し、双方にretryが必要になり、また時間を消費する...
+      § プライマリチャネルの選び方
+        □ 大抵40/80の先頭か末尾が多い
+        □ これだとセカンダリが1つに限られるため20Mhzにフォールバックする確率がたかい
+        □ 真ん中にプライマリを持ってこれる方式が望ましい場合がある
+  - どうやって技術・手法の有効性を検証した？
+    ○ MATLABのシミュレーションで実施
+    ○ 1台のAP、それに接続する1台の802.11ac STA、セカンダリチャネルに1〜3台のAP + 1, 2台のSTAsを配備した環境を想定
+    ○ セカンダリチャネルに干渉する通信がある場合のスループットの改善を計測
+    ○ 80MHz staticだとそちらの通信の空きでしか通信できないため、かなり下がるはず -&gt; これが改善していれば有意であることが示せる
+    ○ スタティックvsダイナミックの比較 (Fig 4a vs Fig 4b)
+      § セカンダリチャネルのSTAの送信確率を０〜100% (0-1)で換えたグラフ
+      § セカンダリチャネルでの受信出力はED-CCAの閾値 -62dBmより上を想定
+      § 4aのスタティックの場合
+        □ 台数1台の場合、TxProb =1でも200Mbps程度でる
+          - 縮退運転はしないため、
+        □ が、台数が増えるごとに0Mbpsに近づく
+            ◊ TxProb &gt;= 0.6のときは2台でダイナミック方式に抜かれる
+      § 4bのダイナミック方式の場合
+        □ 台数1台の場合、TxProb = 1で144Mbps程度に落ちる
+          - 20MHzに縮退運転するため、スタティックよりも遅い
+        □ 但し台数が増えても100Mbps程度を維持
+          - セカンダリチャネルにいる他局の影響を抑えることに成功している
+      § 改善の度合い(Table III)
+        □ Tx Prob = 0.6 (中程度) で85%
+        □ Tx prob = 1.0 (重程度) で 569%
+    ○ セカンダリチャネルの他局の強度がED-CCAに引っかからない場合(-82 &lt; RSSI &lt; -62) (Fig 5)
+      § 802.11ac側は気づかずに潰しに掛かる(コリジョンが発生)
+      § セカンダリにいる802.11a側の局は潰されるか、CCAでより多く待たされる =&gt; バックオフの増加
+      § このため802.11a側の局の合計スループットが大幅に低下する
+      § Fig 4a/bと比べて、802.11ac側BSSへの悪影響は低い
+      =&gt; 強度を-62 dBmに押さえることでセカンダリ側に割を食わすということはできる
+    ○ プライマリチャネルを中間におくことの効用 (Fig6)
+      § 中間に置いた場合(例: W52の40ch)と末尾に置いた場合(例: W52の48ch)の比較
+      § 中程度(TxProb=0.6)以上のトラフィックが全部のセカンダリチャネルに発生している場合は+10Mbps程度の効用
+        □ 最大で20Mbps程度、20%の改善
+        □ これは40MHz幅を2方向に取れることに起因する
+  - 議論はある？
+    ○ 50台ぐらいになり、BAR/BA/RTS/CTS等のコントロール系フレームが多くなった場合でも同様の傾向になるのか？
+    ○ セカンダリチャネルに居る他局の出力が弱いと割を食いやすい問題への解決策の議論は...?
+  - この中ででてきた次に読むべき論文リスト
+    ○ 参考文献に論文がねぇ！
+    ○ [5]: Kim, Y,. "Enhanced CCA for Non-Primary Channels Using Guard Interval", IEEE 802.11-10/0012r0, Jan2010
+      セカンダリチャネルでのCCAが高いことによる問題 (論文ではないけど)
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF with Hidden Nodes]]></title>
@@ -291,14 +370,14 @@
 
 <p>機体筐体はこんな感じ。Cisco Aironet 3602i やらと比べるとだいぶコンパクトでカワイイ。</p>
 
-<p>{% img center /images/2017-05-03/iap103.jpg 480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103.jpg" width="480"></p>
 
 <p>裏側のネジ4つを外すと表カバー、裏カバー、基板の3つに綺麗に分かれる。分解はしやすい。</p>
 
 <p>アンテナ(基板の表カバー側)はこんな感じ。いわゆる逆Fアンテナの模様。
 見ての通りアンテナは2つだけで、2.4/5GHz帯共用らしい。</p>
 
-<p>{% img center /images/2017-05-03/iap103_ant.jpg 480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_ant.jpg" width="480"></p>
 
 <p>チップ実装面はこんな感じ。シールドを一部外した状態。
 右側のシールド内のチップはAtheros AR9582-AR1A。
@@ -307,24 +386,24 @@
 中央上部、ACアダプタソケットとEthernetソケットの間にピンヘッダが出ている。
 細かく調べてはいないがシリアルコンソールが取れるのかもしれない。</p>
 
-<p>{% img center /images/2017-05-03/iap103_chip.png 480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_chip.png" width="480"></p>
 
 <p>この子はIAPタイプなのでコントローラとしても動作する。ダッシュボードはこんな感じ。
 1台だけだからかもしれないがCisco WLCと比べるとだいぶシンプル、というか設定できるところが少なめっぽい。よしなに調整してくれるのかな？</p>
 
-<p>{% img center /images/2017-05-03/iap103_db_ap.png 480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_db_ap.png" width="480"></p>
 
 <p>AppRFを有効にしてると以下の様に通信内容の分析がAP/クライアントの単位でできるらしい。</p>
 
-<p>{% img center /images/2017-05-03/iap103_db_apprf.png 640 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_db_apprf.png" width="640"></p>
 
 <p>今のところ自宅ではAP機能(アクセスモード)に用はないので、スペクトルもモニターモードで動作させている。
 このモードだと「スペクトラム」メニューにて非802.11デバイス一覧や、全チャネルのチャネル使用率&amp;品質が見れるらしい。
 なおアクセスモードだと動作中チャネルのそれに限定される。</p>
 
-<p>{% img center /images/2017-05-03/iap103_mon_gen.png 480 %}
-{% img center /images/2017-05-03/iap103_mon_24g.png 480 %}
-{% img center /images/2017-05-03/iap103_mon_5g.png  480 %}</p>
+<p><img class="center" src="/images/2017-05-03/iap103_mon_gen.png" width="480">
+<img class="center" src="/images/2017-05-03/iap103_mon_24g.png" width="480">
+<img class="center" src="/images/2017-05-03/iap103_mon_5g.png" width="480"></p>
 
 <p>ところでIAPが一台あれば、Remote APモデルのもの仕入れて繋げて遊べたりするのかな？
 AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡単に中規模ネットワークは組めそう。
@@ -335,103 +414,6 @@ AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡
 
 <ul>
 <li><a href="https://community.arubanetworks.com/t5/Aruba-Instant-Cloud-Wi-Fi/IAP-MAX-AP-per-Cluster/td-p/214997">IAP MAX AP per Cluster</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[fluent-plugin-sflow でっちあげた]]></title>
-    <link href="http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release/"/>
-    <updated>2017-03-24T19:13:10+09:00</updated>
-    <id>http://enukane.github.io/blog/2017/03/24/fluent-plugin-sflow-release</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/enukane/fluent-plugin-sflow">fluent-plugin-sflow</a></p>
-
-<p>JuniperやAlaxala, NEC製品などでサポートされているsFlowプロトコルのサンプルを受信するFluentdプラグインを書きました。</p>
-
-<p>netflowプロトコルについては repeatedly さんが既に<a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>を公開されています。
-今回NECのIXシリーズからフローデータを送りつけたいという要望が某所であったため、実装してみました。
-とはいえsflowのプロトコルを捌く部分は別の方のパーサに頼っています。</p>
-
-<h1>使い方</h1>
-
-<p>fluent-gemやtd-agent-gemでインストールするだけです。</p>
-
-<pre><code>% fluent-gem install fluent-plugin-sflow
-</code></pre>
-
-<p>設定項目は以下の通りです。 待ち受けアドレス(bind)、待ち受けポート(port)そしてタグ名ぐらいしかありません。</p>
-
-<pre><code>&lt;source&gt;
-  @type sflow
-  tag sflow.example
-
-  bind 0.0.0.0
-  port 6343
-&lt;/source&gt;
-
-&lt;match sflow.example&gt;
-  @type stdout
-&lt;/match&gt;
-</code></pre>
-
-<h1>host-sflow と組み合わせたテスト</h1>
-
-<p>実際のテストにはスイッチやルータが必要ですが、手元で簡単に試すために <a href="http://www.sflow.net/">host-sflow</a> を導入します。
-ここではMac OS X (MacBookPro)上に導入しWi-Fiのインタフェース(en0)のデータをサンプリング、先に挙げた設定で同一ホスト上で動作するfluentdに投げ込んでみます。</p>
-
-<pre><code>% git clone https://github.com/sflow/host-sflow.git
-% cd host-sflow
-
-% make
-
-# pcap のターゲットデバイスとして en0 を指定する
-% cat &gt; /tmp/test.conf
-sflow {
-    polling=10
-    collector { ip = 127.0.0.1 udpport=6343 }
-    pcap { dev=en0 }
-}
-^D
-
-# host-sflowの起動(デバッグ目的で -dddd としている)
-% sudo ./src/Darwin/hsflowd -dddd -f /tmp/test.conf
-</code></pre>
-
-<p>fluentdの標準出力をしばらく眺めていると、以下の様にフローサンプルが出力されます。この時は *.twttr.com (twitter) への通信がキャッチされたようです。</p>
-
-<pre><code>% fluentd -vv -c example/fluentd.conf
-(中略)
-2017-03-24 18:52:50.054347000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
-2017-03-24 18:52:52.519715000 +0900 example.sflow: {"agent_address":null,"sampling_rate":"400","i_iface_value":0,"o_iface_value":0,"ipv4_src":"199.59.148.241","ipv4_dst":"192.168.10.17","udp_src_port":1900,"udp_dst_port":57347,"frame_length":1486,"frame_length_multiplied":594400,"tcp_src_port":443,"tcp_dst_port":58076}
-2017-03-24 18:53:01.984184000 +0900 example.sflow: {"agent_address":null}
-2017-03-24 18:53:09.934539000 +0900 example.sflow: {"agent_address":null,"i_octets":0,"o_octets":0,"interface":6,"input_packets_error":0,"output_packets_error":0}
-(中略)
-</code></pre>
-
-<p>ネットワーク機器にてよく見られるカウンタサンプルとフローサンプル以外にも、host-sflowはOSやアプリケーションの各種メトリックを集めsFlowプロトコルに載せて送信します。
-現状の fluent-plugin-sflow ではカウンタ/フローサンプルのパースしかサポートしていないため、それらのメトリックは空扱いになります(上記5行目)。</p>
-
-<h1>ToDo</h1>
-
-<ul>
-<li>bindata 1.8.1以上への対応
-
-<ul>
-<li>現状 Sflow5rawpacketdataVLAN の type メンバが BinData::Record あたりで定義されてる名前と被ってるらしく怒られるので、1.8.1にしている</li>
-<li><a href="https://github.com/repeatedly/fluent-plugin-netflow">fluent-plugin-netflow</a>は2.5.3ベースであり、こちらと揃えたい</li>
-<li>名前の変更にはおそらく次の項目をクリアする必要がある</li>
-</ul>
-</li>
-<li>パーサーの取り込み
-
-<ul>
-<li>現状、<a href="https://github.com/NETWAYS/sflow/">NETWAYS/sflow</a>のパーサをリポジトリごと丸っと使っている</li>
-<li>ライセンスとオリジナルを明記した上でパーサとモデルの部分だけコピーしてくる</li>
-<li>または全部1から書き直す</li>
-</ul>
-</li>
-<li>IPv6対応</li>
 </ul>
 
 ]]></content>
