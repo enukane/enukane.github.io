@@ -4,7 +4,7 @@
   <title><![CDATA[#error NO_MONEY]]></title>
   <link href="http://enukane.github.io/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2018-01-02T02:46:40+09:00</updated>
+  <updated>2018-05-08T20:01:10+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,238 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF with Hidden Nodes]]></title>
+    <link href="http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00/"/>
+    <updated>2018-05-08T19:39:17+09:00</updated>
+    <id>http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00</id>
+    <content type="html"><![CDATA[<p>人もすなる論文100本ノックといふものを、我もしてみむとてするなり。
+どこまで続くか分からないけどぼちぼち読んでたりしているのを吐き出す良い機会ではあるのでちょびちょびやっていこうと思う。</p>
+
+<p>フォーマットは以下の落合先生フォーマットをアレンジしたものを使う。</p>
+
+<ul>
+<li><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">高速で論文がバリバリ読める落合先生のフォーマットがいい感じだったのでメモ</a></li>
+</ul>
+
+
+<p>だいたい以下の項目を埋めるイメージ</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>- from: 別のノックからの続きモノの場合、その番号。系統図書けると面白そうなので。
+</span><span class='line'>- 著者: ファーストオーサーの名前
+</span><span class='line'>- 著者団体: 著者の所属研究機関がわかるように
+</span><span class='line'>- 発行年: 旬のものなのかそうでないのかわかるように
+</span><span class='line'>- 学会: どれくらいのランクの学会のモノなのかわかるように
+</span><span class='line'>- どんなもの
+</span><span class='line'>- 技術や手法のキモはどこ？
+</span><span class='line'>- どうやって技術・手法の有効性を検証した？
+</span><span class='line'>- 議論はある？
+</span><span class='line'>- この中で出てきた次に読むべき論文リスト
+</span><span class='line'>- 所感
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>from: none</li>
+<li>著者: Zheng Chang et al</li>
+<li>著者団体: Magister Solutions, Nokia Research Center, U of Jyvaskyla</li>
+<li>発行年: 2012</li>
+<li>学会: VTC012 Spring <a href="http://www.ieeevtc.org/vtc2012spring/">http://www.ieeevtc.org/vtc2012spring/</a></li>
+<li>どんなもの
+
+<ul>
+<li>802.11 DCF x Hidden Node x 802.11acの組合せでパフォーマンス解析を行っている</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>先行研究: [1], [2]</li>
+<li>新しい規格への対応: 既存802.11aまで -> 802.11acまでやる</li>
+<li>Hidden Nodeの考慮</li>
+<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象害</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>どこに差異を見いだしているか</li>
+<li>[1]のモデリングにblockackおよびHNの情報を考慮したモデルを構築</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>上記モデルの理論値とIEEE802.11で定められたチャネル伝搬モデル(ビットエラー起こしやすい環境)に基づくシミュレーション値で比較</li>
+<li>40MHz幅のときの比較値として10STAs, 40Mhz basic DCFおよび50 STAs 40MHz basic DCFの場合に、モデルとシミュレーションがほぼ一致していることから適用できると判断</li>
+<li>これを台数換えたりRTS/CTSにしたり、チャネル幅換えたりして適用し傾向を見ている</li>
+<li>fig 5a: 40Mhz幅と80MHz幅の比較における検証
+
+<ul>
+<li>DCFの方式間の差異について
+□ 10 STAs 40Mhzの場合だと、大きな差があり basic の方がよい
+□ 50STAsやあるいは80, 160MHz幅以上だと差はほぼない</li>
+<li>チャネル幅を上げる効果について
+
+<ul>
+<li>50STAs程度になると40Mhz -> 80Mhz幅に換えても、実際のところ2Mbps程度しか改善しない傾向にある</li>
+<li>10STAs程度の場合、むしろ40MHz幅の方が良い場合もある(+10Mbps程度)</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が性能が良い。ボンディング幅が狭いとより効果がある。</li>
+<li>多い台数の場合、この差異はほぼなくなる</li>
+<li>チャネル幅を上げることによる効果はあまりない(+2Mbps程度)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>fig 5b: 80MHz幅と160Mhz幅の比較における検証
+
+<ul>
+<li>DCFの方式の差異について
+
+<ul>
+<li>basicの方が優位 (10STAsで+20Mbps,  50STAsで+5Mbps)
+
+<ul>
+<li>台数が上がると方式間の差異は縮まるが、引き続きbasicが優位</li>
+</ul>
+</li>
+<li>チャネル幅を 80 -> 160MHzに上げるとbasic vs RTS/CTSの差が縮まる</li>
+<li>50STAsの場合、RTS/CTSの方が性能がよい</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>このチャネル伝搬モデルだと80 -> 160MHzしても差異がない=> チャネル幅上げることによる効果はない？</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が良い</li>
+<li>多い台数の場合、RTS/CTSの方が良い</li>
+<li>このチャネル伝搬モデルではチャネル幅を上げることによる効果はあまりない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OBSSとHNを考慮したシミュレーションの検証
+
+<ul>
+<li>BSSで同じprrimary チャネルを用いている場合 (fig 7)
+
+<ul>
+<li>それぞれのSTAがそれぞれのAPにアップリンク送信</li>
+<li>BSS2が大幅にペナルティを受ける(図の下に張り付いてる4本の線</li>
+<li>DCF方式間の差異について
+
+<ul>
+<li>HNにAPが直接干渉されない方(BSS1)はbasic > RTS/CTS</li>
+<li>HNにAPが干渉される方(BSS2)は RTS/CTS > basic となり、むしろbasicだとほぼ通信できない</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>RTS/CTS方式の場合
+◊ 上手く通信できる方はスループットが上がる
+◊ 上手く通信出来ない方は、スループットは上がらない</li>
+<li>basic方式の場合
+◊ 上手く通信できる方はスループットが上がる
+◊ 上手く通信出来ない方はほぼ通信できないまま</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>RTS/CTSを用いることでこのモデルではHNの影響を受ける</li>
+<li>basic方式の場合、通信出来るBSSとHNの影響を受けやすいBSSとの間に、通信できないほどの不公平を生じる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>異なるprimary チャネルを用いているがsecoundaryにprimaryが被ってる場合 (fig 8a)
+
+<ul>
+<li>BSS1 40MHzのセカンダリをBSS2 80MHzがprimaryとして使っている
+
+<ul>
+<li>たとえばBSS1 40MHz 44+ vs BSS2 80MHz 48-の場合</li>
+<li>BSS1にとって48chはセカンダリ、BSS2にとってはプライマリ</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送にプリマリで被さる</li>
+</ul>
+</li>
+<li>プライマリがオーバーラップしている方(BSS2)ガbasicだと大きく割を食う (その文をBSS1が持っていく)</li>
+<li>RTS/CTS方式だとBSS2のスループットが一定のレベルで改善する一方、BS1のスループットは低下する</li>
+</ul>
+</li>
+<li>異なるprimaryチャネルを用いておりsecondaryにprimaryが被っていない場合 (fig 8b)
+
+<ul>
+<li>BSS1 40MHzのセカンダリとBSS2 80MHzのプライマリが被っていない場合
+
+<ul>
+<li>たとえばBSS1 40MHz 36+ vs BSS2 80MHz 48-の場合</li>
+<li>36, 40チャネルは被っているがプライマリではない</li>
+<li>BSS1からはSTA2は見えないので、80MHz幅転送の影響は受けない</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送がセカンダリ以降で被さる</li>
+</ul>
+</li>
+<li>fig 8aと同じ傾向
+
+<ul>
+<li>RTS/CTSで一部改善はしているが、BSS2が80MHz幅の利点を活かして通信できるほどではない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>議論はある？
+
+<ul>
+<li>このチャネル伝搬モデルの妥当性は？イベント無線LAN環境などと比べるとどうなのだろう？</li>
+<li>チャネル伝搬モデルを換えるとどうなる？換えられる対象はある？</li>
+</ul>
+</li>
+<li>この中ででてきた次に読むべき論文リスト
+
+<ul>
+<li>[1]: モデリングの元となる論文
+G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+<li>[8]: 本論文の調査結果として明らかになったHN x 802.11acの組合せ問題への解決策となりうる RTS/CTSの改良を扱っているらしい
+M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>モデルについて疑問はあるものの、DCF方式の差異、チャネル幅の差異、クライアント数の差異という観点でパラメータがどのように影響するのかが調査されているのは参考になった</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2018年 抱負]]></title>
@@ -2504,112 +2736,6 @@ ElasticSearch + Kibana でいい感じに横並びなメトリックが掛ける
 
 
 <p></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2015-02-23 Released embulk-input-pcapng-files 0.1.0]]></title>
-    <link href="http://enukane.github.io/blog/2015/02/24/2015-02-23-embulk-input-pcapng-files/"/>
-    <updated>2015-02-24T09:07:52+09:00</updated>
-    <id>http://enukane.github.io/blog/2015/02/24/2015-02-23-embulk-input-pcapng-files</id>
-    <content type="html"><![CDATA[<p>pcapngファイルを読み込むembulk inputプラグインの新しいのをリリースしました.</p>
-
-<ul>
-<li><a href="https://rubygems.org/gems/embulk-input-pcapng-files">embulk-input-pcapng-files</a></li>
-<li><a href="https://github.com/enukane/embulk-input-pcapng-files">enukane/embulk-input-pcapng-files</a></li>
-</ul>
-
-
-<p>embulk 0.4.X系ではプラグイン体系が0.3.X系のそれとは異なっているため,
-これまで晒していた<a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">embulk-plugin-input-pcapng-files</a>
-が動作しません. これを修正したものが上記になります.</p>
-
-<p>使い方自体は変わらず, 以下の様なconfig.ymlを書いて実行すると&hellip;</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>exec: {}
-</span><span class='line'>in:
-</span><span class='line'>  type: pcapng_files
-</span><span class='line'>  paths: [ /Users/enukane/Desktop/emtestpcap/ ]
-</span><span class='line'>  threads: 2
-</span><span class='line'>  schema:
-</span><span class='line'>    - { name: frame.number,                 type: long }
-</span><span class='line'>    - { name: frame.time_epoch,             type: long }
-</span><span class='line'>    - { name: frame.len,                    type: long }
-</span><span class='line'>    - { name: radiotap.length,              type: long }
-</span><span class='line'>    - { name: radiotap.mactime,             type: long }
-</span><span class='line'>    - { name: radiotap.flags.preamble,      type: long }
-</span><span class='line'>    - { name: radiotap.flags.wep,           type: long }
-</span><span class='line'>    - { name: radiotap.flags.fcs,           type: long }
-</span><span class='line'>    - { name: radiotap.flags.shortgi,       type: long }
-</span><span class='line'>    - { name: radiotap.datarate,            type: long }
-</span><span class='line'>    - { name: radiotap.channel.freq,        type: long }
-</span><span class='line'>    - { name: radiotap.channel.type.ofdm,   type: long }
-</span><span class='line'>    - { name: radiotap.dbm_antsignal,       type: long }
-</span><span class='line'>    - { name: radiotap.dbm_antnoise,        type: long }
-</span><span class='line'>    - { name: radiotap.xchannel,            type: long }
-</span><span class='line'>    - { name: radiotap.xchannel.freq,       type: long }
-</span><span class='line'>    - { name: radiotap.xchannel.type.ofdm,  type: long }
-</span><span class='line'>    - { name: radiotap.mcs.gi,              type: long }
-</span><span class='line'>    - { name: radiotap.mcs.bw,              type: long }
-</span><span class='line'>    - { name: radiotap.mcs.index,           type: long }
-</span><span class='line'>    - { name: wlan.fc.type_subtype,         type: long }
-</span><span class='line'>    - { name: wlan.ta,                      type: string }
-</span><span class='line'>    - { name: wlan.ra,                      type: string }
-</span><span class='line'>    - { name: wlan.sa,                      type: string }
-</span><span class='line'>    - { name: wlan.da,                      type: string }
-</span><span class='line'>out:
-</span><span class='line'>  type: mysql
-</span><span class='line'>  host: localhost
-</span><span class='line'>  user: testuser
-</span><span class='line'>  password: testpassword
-</span><span class='line'>  database: testdb
-</span><span class='line'>  table: testtb
-</span><span class='line'>  mode: insert
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>こんな感じにoutput先 (今回の場合はMySQL) にデータをはき出してくれます.</p>
-
-<p><img src="http://enukane.github.io/images/2015-02-23-pcapngmysql.png" alt="pcapng-mysql" /></p>
 ]]></content>
   </entry>
   

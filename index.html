@@ -9,9 +9,7 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="life, memo Comments 2018年 抱負 2018/01/01 なので、今年のだけというわけではないけれどここ10年ぐらいでやりたいことを100個思い付く限り書き出してみた。 一陸技を取る
-2018/01を生き延びる
-FPGA + &hellip;">
+	<meta name="description" content="100papers, 802.11, tech Comments 2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF With Hidden Nodes 人もすなる論文100本ノックといふものを、 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -100,6 +98,266 @@ FPGA + &hellip;">
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-05-08T19:39:17+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/100papers/'>100papers</a>, <a class='category' href='/blog/categories/802-dot-11/'>802.11</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2018/05/08/2018-05-08-100papers-00/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2018/05/08/2018-05-08-100papers-00/" itemprop="url">2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF With Hidden Nodes</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>人もすなる論文100本ノックといふものを、我もしてみむとてするなり。
+どこまで続くか分からないけどぼちぼち読んでたりしているのを吐き出す良い機会ではあるのでちょびちょびやっていこうと思う。</p>
+
+<p>フォーマットは以下の落合先生フォーマットをアレンジしたものを使う。</p>
+
+<ul>
+<li><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">高速で論文がバリバリ読める落合先生のフォーマットがいい感じだったのでメモ</a></li>
+</ul>
+
+
+<p>だいたい以下の項目を埋めるイメージ</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>- from: 別のノックからの続きモノの場合、その番号。系統図書けると面白そうなので。
+</span><span class='line'>- 著者: ファーストオーサーの名前
+</span><span class='line'>- 著者団体: 著者の所属研究機関がわかるように
+</span><span class='line'>- 発行年: 旬のものなのかそうでないのかわかるように
+</span><span class='line'>- 学会: どれくらいのランクの学会のモノなのかわかるように
+</span><span class='line'>- どんなもの
+</span><span class='line'>- 技術や手法のキモはどこ？
+</span><span class='line'>- どうやって技術・手法の有効性を検証した？
+</span><span class='line'>- 議論はある？
+</span><span class='line'>- この中で出てきた次に読むべき論文リスト
+</span><span class='line'>- 所感
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>from: none</li>
+<li>著者: Zheng Chang et al</li>
+<li>著者団体: Magister Solutions, Nokia Research Center, U of Jyvaskyla</li>
+<li>発行年: 2012</li>
+<li>学会: VTC012 Spring <a href="http://www.ieeevtc.org/vtc2012spring/">http://www.ieeevtc.org/vtc2012spring/</a></li>
+<li>どんなもの
+
+<ul>
+<li>802.11 DCF x Hidden Node x 802.11acの組合せでパフォーマンス解析を行っている</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>先行研究: [1], [2]</li>
+<li>新しい規格への対応: 既存802.11aまで -> 802.11acまでやる</li>
+<li>Hidden Nodeの考慮</li>
+<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象害</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>どこに差異を見いだしているか</li>
+<li>[1]のモデリングにblockackおよびHNの情報を考慮したモデルを構築</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>上記モデルの理論値とIEEE802.11で定められたチャネル伝搬モデル(ビットエラー起こしやすい環境)に基づくシミュレーション値で比較</li>
+<li>40MHz幅のときの比較値として10STAs, 40Mhz basic DCFおよび50 STAs 40MHz basic DCFの場合に、モデルとシミュレーションがほぼ一致していることから適用できると判断</li>
+<li>これを台数換えたりRTS/CTSにしたり、チャネル幅換えたりして適用し傾向を見ている</li>
+<li>fig 5a: 40Mhz幅と80MHz幅の比較における検証
+
+<ul>
+<li>DCFの方式間の差異について
+□ 10 STAs 40Mhzの場合だと、大きな差があり basic の方がよい
+□ 50STAsやあるいは80, 160MHz幅以上だと差はほぼない</li>
+<li>チャネル幅を上げる効果について
+
+<ul>
+<li>50STAs程度になると40Mhz -> 80Mhz幅に換えても、実際のところ2Mbps程度しか改善しない傾向にある</li>
+<li>10STAs程度の場合、むしろ40MHz幅の方が良い場合もある(+10Mbps程度)</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が性能が良い。ボンディング幅が狭いとより効果がある。</li>
+<li>多い台数の場合、この差異はほぼなくなる</li>
+<li>チャネル幅を上げることによる効果はあまりない(+2Mbps程度)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>fig 5b: 80MHz幅と160Mhz幅の比較における検証
+
+<ul>
+<li>DCFの方式の差異について
+
+<ul>
+<li>basicの方が優位 (10STAsで+20Mbps,  50STAsで+5Mbps)
+
+<ul>
+<li>台数が上がると方式間の差異は縮まるが、引き続きbasicが優位</li>
+</ul>
+</li>
+<li>チャネル幅を 80 -> 160MHzに上げるとbasic vs RTS/CTSの差が縮まる</li>
+<li>50STAsの場合、RTS/CTSの方が性能がよい</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>このチャネル伝搬モデルだと80 -> 160MHzしても差異がない=> チャネル幅上げることによる効果はない？</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が良い</li>
+<li>多い台数の場合、RTS/CTSの方が良い</li>
+<li>このチャネル伝搬モデルではチャネル幅を上げることによる効果はあまりない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OBSSとHNを考慮したシミュレーションの検証
+
+<ul>
+<li>BSSで同じprrimary チャネルを用いている場合 (fig 7)
+
+<ul>
+<li>それぞれのSTAがそれぞれのAPにアップリンク送信</li>
+<li>BSS2が大幅にペナルティを受ける(図の下に張り付いてる4本の線</li>
+<li>DCF方式間の差異について
+
+<ul>
+<li>HNにAPが直接干渉されない方(BSS1)はbasic > RTS/CTS</li>
+<li>HNにAPが干渉される方(BSS2)は RTS/CTS > basic となり、むしろbasicだとほぼ通信できない</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>RTS/CTS方式の場合
+◊ 上手く通信できる方はスループットが上がる
+◊ 上手く通信出来ない方は、スループットは上がらない</li>
+<li>basic方式の場合
+◊ 上手く通信できる方はスループットが上がる
+◊ 上手く通信出来ない方はほぼ通信できないまま</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>RTS/CTSを用いることでこのモデルではHNの影響を受ける</li>
+<li>basic方式の場合、通信出来るBSSとHNの影響を受けやすいBSSとの間に、通信できないほどの不公平を生じる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>異なるprimary チャネルを用いているがsecoundaryにprimaryが被ってる場合 (fig 8a)
+
+<ul>
+<li>BSS1 40MHzのセカンダリをBSS2 80MHzがprimaryとして使っている
+
+<ul>
+<li>たとえばBSS1 40MHz 44+ vs BSS2 80MHz 48-の場合</li>
+<li>BSS1にとって48chはセカンダリ、BSS2にとってはプライマリ</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送にプリマリで被さる</li>
+</ul>
+</li>
+<li>プライマリがオーバーラップしている方(BSS2)ガbasicだと大きく割を食う (その文をBSS1が持っていく)</li>
+<li>RTS/CTS方式だとBSS2のスループットが一定のレベルで改善する一方、BS1のスループットは低下する</li>
+</ul>
+</li>
+<li>異なるprimaryチャネルを用いておりsecondaryにprimaryが被っていない場合 (fig 8b)
+
+<ul>
+<li>BSS1 40MHzのセカンダリとBSS2 80MHzのプライマリが被っていない場合
+
+<ul>
+<li>たとえばBSS1 40MHz 36+ vs BSS2 80MHz 48-の場合</li>
+<li>36, 40チャネルは被っているがプライマリではない</li>
+<li>BSS1からはSTA2は見えないので、80MHz幅転送の影響は受けない</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送がセカンダリ以降で被さる</li>
+</ul>
+</li>
+<li>fig 8aと同じ傾向
+
+<ul>
+<li>RTS/CTSで一部改善はしているが、BSS2が80MHz幅の利点を活かして通信できるほどではない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>議論はある？
+
+<ul>
+<li>このチャネル伝搬モデルの妥当性は？イベント無線LAN環境などと比べるとどうなのだろう？</li>
+<li>チャネル伝搬モデルを換えるとどうなる？換えられる対象はある？</li>
+</ul>
+</li>
+<li>この中ででてきた次に読むべき論文リスト
+
+<ul>
+<li>[1]: モデリングの元となる論文
+G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+<li>[8]: 本論文の調査結果として明らかになったHN x 802.11acの組合せ問題への解決策となりうる RTS/CTSの改良を扱っているらしい
+M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>モデルについて疑問はあるものの、DCF方式の差異、チャネル幅の差異、クライアント数の差異という観点でパラメータがどのように影響するのかが調査されているのは参考になった</li>
+</ul>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -1452,131 +1710,6 @@ CaptiveNetworkSupportの文字列の出典および後続する数値列の意�
 <li>原付免許とる</li>
 <li>船舶免許取りたい(2級?)</li>
 <li>生活用の和服一式ほしい</li>
-</ul>
-
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-12-04T10:58:41+09:00" data-updated="true" itemprop="datePublished"></time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/research/'>research</a>, <a class='category' href='/blog/categories/tech/'>tech</a>
-
-
-</div>
-		
-			<span class="comments"><a href="/blog/2016/12/04/2016-system-paper-adv-calendar/#disqus_thread">Comments</a></span>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/12/04/2016-system-paper-adv-calendar/" itemprop="url">システム系論文紹介 Advent Calendar 2016 - 時刻同期話</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h1>論文紹介: “Globally Synchronized Time via Datacenter Networks”</h1>
-
-<p>本記事は システム系論文紹介 Advent Calendar 2016の4日目, 12/04 のための記事です.</p>
-
-<h2>はじめに</h2>
-
-<p>4日目 n_kane の担当分では今年の ACM SIGCOMM 2016 より時刻同期話ということで以下の論文を取り上げます.</p>
-
-<ul>
-<li>タイトル: Globally Synchronized Time via Datacenter Networks
-
-<ul>
-<li>著者 Ki Suh Lee et al. (Cornell University)</li>
-<li>出展: ACM SIGCOMM 2016, Session 5, Datacenters 1</li>
-<li><a href="http://dl.acm.org/authorize?N19282">論文へのリンク</a></li>
-<li><a href="http://conferences.sigcomm.org/sigcomm/2016/files/program/sigcomm/Session05-Paper01-Global-Ki.pdf">スライド資料へのリンク</a></li>
-</ul>
-</li>
-</ul>
-
-
-<p>セッション自体の括りはデータセンター, 内容としても DC 環境での分散システム向けの時刻同期をターゲットにしています. このあたりは個人的な興味ではなかったのですが, 最近時刻同期関連(GPS, NTP, PTP 等等)を勉強しようと思っておりました. その矢先にこの論文を見つけたため今回取り上げることにしました.</p>
-
-<h2>対象としている問題</h2>
-
-<p>NTPやPTPをベースにした時刻同期はもはや無くてはならないプロトコルですが, ナノ秒レベルでの時刻同期が必要な場合, 精度に非決定性があるというのが本論文で取り上げ解決策を提示している問題です.</p>
-
-<p>NTPはマイクロ〜ミリ秒, PTPはサブナノ秒の精度で時刻(クロック)同期が可能なプロトコルです. これらのプロトコルでは細かい差異はあるにせよ共に, 2台の計算機の間でRTTを測定し これをもとに一方向遅延(OWD One Way Delay)と相互のクロックの差(Offset)を算出, 時刻やクロックを合わせ, クロック発振器がそれを維持し定期的に再計測を行うという方法で 同期を行います.</p>
-
-<p>この流れの RTT 計測, クロックの維持, 再計測に非決定的な誤差を生む要因がある, と本論文では主張しています. NTP, PTPはともに UDP ベースのプロトコルでありネットワーク帯域を消費しているため 間の経路の経路, 輻輳, 機器類のバッファリングや送受信のスケジューリングによる影響を受けます. ベースとなるRTT計測は往路復路が同じであることを前提としていますが, これが常に満たされるとは限りません. クロックの維持も誤差要因となります. 原子時計と異なり一般的なx86の計算機に積まれたクロックはそれぞれに 一定の誤差を生じながら動くため, 時が進むにつれズレが発生します. この補正のためには頻繁な再計測・再同期を行う必要がありますが, あまりに同期対象や頻度が多い場合に時刻同期に帯域を取られてしまうといった問題があります.</p>
-
-<h2>解決策</h2>
-
-<p>この論文では時刻同期を Ethernet で直結された2台の計算機間において PHY レイヤで行うことで 前節の問題を解決しようとしています. キモはEthernet で接続された計算機間では「既にNIC同士のクロックが同期されている」という点です. Figure 2 にクロックドメインについての図が掲載されていますが, Ethernetのフレームを送受信するにあたって送信側と受信側は実質同じ回路になっており 送信側のクロックに併せて動作をしていると考えることができます.</p>
-
-<p>このNICレベルでのクロック同期を, システムレベルでのクロック同期に利用するというのが 本論文で提示する手法になっています. この手法を用いたクロック同期として DTP (Datacenter Time Protocol) とそれを実装した 10Gbit Ethernet PHY を取り上げています.</p>
-
-<h2>ポイント</h2>
-
-<p>この論文で DTP の推しポイントとして主張されているのは以下の3点です.</p>
-
-<ol>
-<li>802.3プロトコルのハックによるオーバーヘッド実質0のプロトコル</li>
-<li>ナノ秒レベルでの同期で誤差が予測可能</li>
-<li>スイッチを用いたスケーラブルなクロック同期が可能</li>
-</ol>
-
-
-<h3>1. オーバーヘッド実質0のプロトコル</h3>
-
-<p>NTPやPTPと同じく DTP も RTT の計測からの一方向遅延の算出を基本としています. 最終的なクロック合わせをオフセットの計算ではなく「一番速いやつに合わせる」 というアルゴリズムの違いはありますが, やっていることはあまり替わりません.</p>
-
-<p>大きな違いは先にも述べたとおり DTP では Ethernet の PHY レイヤで伝送を行う点です. 具体的には PHY の PCS (Protocol Control Sublayer) のスクランブル/デスクランブル化の直前に, 処理を差し込むことでこのレイヤで伝送されているコントロールブロックに載せて DTPのデータを送受信します.</p>
-
-<p>このレイヤでは実際のデータ(Ethernetフレーム)転送の間にリンク維持やエラー通知を目的とした コントロールブロックの送受信が行われています. このうちDTPが有効なリンクでは Idle キャラクタの部分に DTP のデータを載せ送受信することとしています. PCSの上位レイヤには Idle キャラクタを正しく戻してやることで, Ethernetのデータ転送の帯域を実質的に 使うこと無くDTPのやりとりを行うことが可能となっています.</p>
-
-<p>この方法の利点として Ethernet の伝送を邪魔しないこと, 高頻度にクロック同期が可能であることが挙げられます. Idleキャラクタのコントロールブロックは Ethernet フレームが流れる時はその前後に, 何も流れていない時は継続的に差し込まれるため Ethernet の帯域を消費しません. いわゆる10GbE, 100GbEといった速度はこの制御系の通信を除いたものであるためです. このコントロールブロックは輻輳している場合でも 1280〜7680ns の間隔で挿入が可能です. ワーストケースでも数usの周期でクロック同期を回すことが可能であるため, 精度の維持</p>
-
-<h3>2. ナノ秒レベルで誤差予測可能なクロック同期</h3>
-
-<p>DTP では同期誤差が「4T」に決定的(deterministic)に収まるように設計されています. ここで T は最も速いクロックの周期であり, 10Gbit Ethernetの場合は T = 1 / f = 1 / 156.25MHz = 6.4 nsとなるため, 25.6ns内に収まることになります.</p>
-
-<p>この誤差予測が可能なのは PHY レイヤで同期しているためソフトウェアスタックが介在しないこと, 直結されているため間に何も入らないことにより誤差導入要素が(ほぼ)無いためです. 遅延要因としてはケーブル上の伝搬遅延やエンドポイントでの処理遅延が存在しますが これらは動的には変化しないと仮定を置くことができ, 事前に予測が可能です 一部 Clock Domaing Crossing, 相手のTXに乗ったクロックと自分のTXのクロック間の 遅延を解決するのにランダム性のある誤差が生じますがこれもどちらか速いほうの1クロック内に 収まるということのようです.</p>
-
-<p>複数のPHYを計算機に挿すことでPTPのBoundary Clockのようにネットワークを跨がって時刻を 同期することも可能です. この場合でも「4TD + 8T」に誤差が収まるとしています. ここで D はホップ数を挿します. スモールワールド現象に則って6ホップ経由すればデータセンターの 全ての計算機にリーチできると仮定すると, どの計算機の間でも 153.6ns 以内に誤差が収まる クロック同期が可能となります.</p>
-
-<h3>3. スケーラブルな時刻同期</h3>
-
-<p>DTP は Ethernet が直結された2台間で行うことが基本ですが, スイッチがDTPをサポートすることで 2台以上のクロック同期が可能となっています. 前提としてスイッチの全ポートが同じクロックを共有するスイッチチップにより制御されていることが 必須にはなりますが, これを基軸として全ポートと DTP のやりとりを行うことで現在の最速クロックに 合わせるという動作が可能です.</p>
-
-<h2>評価</h2>
-
-<p>有効性の評価としてこの論文では DTP が PTP と比べて非決定性を抑制できていることを確認しています. PTPでは負荷の状況をなし, 中度, 重度と変えたときに300ns程度内, 25us程度内, 100us程度内と 誤差が大きくなっていきまた定常的にもブレが大きいことが見て取れます. 一方の DTP ではMTU 1500バイトの通常のEthernetややジャンボフレームの場合に負荷を掛けても ワーストケースで 4T = 25.6 ns内に常に収まっていることが確認できます.</p>
-
-<h2>まとめとおわりに</h2>
-
-<p>ここでは Ethernet の PHY レイヤを用いたクロック同期手法 DTP (Datacenter Time Protocol) についての論文を取り上げました. 時刻同期というよりはクロック同期であり, PTPと比してさらにハードウェアのサポートが必要であること, 同期ピア間でケーブルの直結が必要であることなど制約がより強い手法ではあります. ただし誤差の予測がネットワークを跨いでも可能であり必ずしも局所的にしか使えないといったものでもないようです.</p>
-
-<p>スイッチの実装はまだ構想段階のようなので論文中の前提がフィールドで適用できるかどうかや, DTP を実装する NIC PHY のコストや性能への実際の影響についてはより調査や実験が必要と感じました. 個人的には IEEE 802.11ae の PCS をある意味ハックしているのが面白く感じました. また REFERENCES に時刻同期関連の一通りが並んでいるので大変にありがたい文章です.</p>
-
-<h2>後付け: 他の候補</h2>
-
-<p>その他, 今回紹介しようと思った候補としては以下に挙げるものがありました.</p>
-
-<ul>
-<li>ACM SIGCOMM 2016: Inter-Technology Backscatter: Towards Internet Connectivity for Implanted Devices, Iyer et al (University of Washington)</li>
-<li>ACM SIGCOMM 2016: Evolve or Die: High-Availability Design Principles Drawn from Google’s Network Infrastructure, Govindan et al (Google/USC)</li>
 </ul>
 
 

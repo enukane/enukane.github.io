@@ -1,0 +1,396 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF with Hidden Nodes - #error NO_MONEY</title>
+	<meta name="author" content="n_kane">
+
+	
+	<meta name="description" content="2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF With Hidden Nodes 人もすなる論文100本ノックといふものを、我もしてみむとてするなり。 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("enukane@glenda9.org") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/about_jp">About(JP)</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="https://github.com/enukane">GitHub</a></li>
+    <li><a href="http://twitter.com/n_kane">Twitter</a></li>
+    <li><a href="/env">Env</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    /var/crash/n_kane
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:enukane@glenda9.org" title="Email">Email</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF With Hidden Nodes</h1>
+	<div class="entry-content" itemprop="articleBody"><p>人もすなる論文100本ノックといふものを、我もしてみむとてするなり。
+どこまで続くか分からないけどぼちぼち読んでたりしているのを吐き出す良い機会ではあるのでちょびちょびやっていこうと思う。</p>
+
+<p>フォーマットは以下の落合先生フォーマットをアレンジしたものを使う。</p>
+
+<ul>
+<li><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">高速で論文がバリバリ読める落合先生のフォーマットがいい感じだったのでメモ</a></li>
+</ul>
+
+
+<p>だいたい以下の項目を埋めるイメージ</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>- from: 別のノックからの続きモノの場合、その番号。系統図書けると面白そうなので。
+</span><span class='line'>- 著者: ファーストオーサーの名前
+</span><span class='line'>- 著者団体: 著者の所属研究機関がわかるように
+</span><span class='line'>- 発行年: 旬のものなのかそうでないのかわかるように
+</span><span class='line'>- 学会: どれくらいのランクの学会のモノなのかわかるように
+</span><span class='line'>- どんなもの
+</span><span class='line'>- 技術や手法のキモはどこ？
+</span><span class='line'>- どうやって技術・手法の有効性を検証した？
+</span><span class='line'>- 議論はある？
+</span><span class='line'>- この中で出てきた次に読むべき論文リスト
+</span><span class='line'>- 所感
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>from: none</li>
+<li>著者: Zheng Chang et al</li>
+<li>著者団体: Magister Solutions, Nokia Research Center, U of Jyvaskyla</li>
+<li>発行年: 2012</li>
+<li>学会: VTC012 Spring <a href="http://www.ieeevtc.org/vtc2012spring/">http://www.ieeevtc.org/vtc2012spring/</a></li>
+<li>どんなもの
+
+<ul>
+<li>802.11 DCF x Hidden Node x 802.11acの組合せでパフォーマンス解析を行っている</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>先行研究: [1], [2]</li>
+<li>新しい規格への対応: 既存802.11aまで -> 802.11acまでやる</li>
+<li>Hidden Nodeの考慮</li>
+<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象害</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>どこに差異を見いだしているか</li>
+<li>[1]のモデリングにblockackおよびHNの情報を考慮したモデルを構築</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>上記モデルの理論値とIEEE802.11で定められたチャネル伝搬モデル(ビットエラー起こしやすい環境)に基づくシミュレーション値で比較</li>
+<li>40MHz幅のときの比較値として10STAs, 40Mhz basic DCFおよび50 STAs 40MHz basic DCFの場合に、モデルとシミュレーションがほぼ一致していることから適用できると判断</li>
+<li>これを台数換えたりRTS/CTSにしたり、チャネル幅換えたりして適用し傾向を見ている</li>
+<li>fig 5a: 40Mhz幅と80MHz幅の比較における検証
+
+<ul>
+<li>DCFの方式間の差異について
+□ 10 STAs 40Mhzの場合だと、大きな差があり basic の方がよい
+□ 50STAsやあるいは80, 160MHz幅以上だと差はほぼない</li>
+<li>チャネル幅を上げる効果について
+
+<ul>
+<li>50STAs程度になると40Mhz -> 80Mhz幅に換えても、実際のところ2Mbps程度しか改善しない傾向にある</li>
+<li>10STAs程度の場合、むしろ40MHz幅の方が良い場合もある(+10Mbps程度)</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が性能が良い。ボンディング幅が狭いとより効果がある。</li>
+<li>多い台数の場合、この差異はほぼなくなる</li>
+<li>チャネル幅を上げることによる効果はあまりない(+2Mbps程度)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>fig 5b: 80MHz幅と160Mhz幅の比較における検証
+
+<ul>
+<li>DCFの方式の差異について
+
+<ul>
+<li>basicの方が優位 (10STAsで+20Mbps,  50STAsで+5Mbps)
+
+<ul>
+<li>台数が上がると方式間の差異は縮まるが、引き続きbasicが優位</li>
+</ul>
+</li>
+<li>チャネル幅を 80 -> 160MHzに上げるとbasic vs RTS/CTSの差が縮まる</li>
+<li>50STAsの場合、RTS/CTSの方が性能がよい</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>このチャネル伝搬モデルだと80 -> 160MHzしても差異がない=> チャネル幅上げることによる効果はない？</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が良い</li>
+<li>多い台数の場合、RTS/CTSの方が良い</li>
+<li>このチャネル伝搬モデルではチャネル幅を上げることによる効果はあまりない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OBSSとHNを考慮したシミュレーションの検証
+
+<ul>
+<li>BSSで同じprrimary チャネルを用いている場合 (fig 7)
+
+<ul>
+<li>それぞれのSTAがそれぞれのAPにアップリンク送信</li>
+<li>BSS2が大幅にペナルティを受ける(図の下に張り付いてる4本の線</li>
+<li>DCF方式間の差異について
+
+<ul>
+<li>HNにAPが直接干渉されない方(BSS1)はbasic > RTS/CTS</li>
+<li>HNにAPが干渉される方(BSS2)は RTS/CTS > basic となり、むしろbasicだとほぼ通信できない</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>RTS/CTS方式の場合
+◊ 上手く通信できる方はスループットが上がる
+◊ 上手く通信出来ない方は、スループットは上がらない</li>
+<li>basic方式の場合
+◊ 上手く通信できる方はスループットが上がる
+◊ 上手く通信出来ない方はほぼ通信できないまま</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>RTS/CTSを用いることでこのモデルではHNの影響を受ける</li>
+<li>basic方式の場合、通信出来るBSSとHNの影響を受けやすいBSSとの間に、通信できないほどの不公平を生じる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>異なるprimary チャネルを用いているがsecoundaryにprimaryが被ってる場合 (fig 8a)
+
+<ul>
+<li>BSS1 40MHzのセカンダリをBSS2 80MHzがprimaryとして使っている
+
+<ul>
+<li>たとえばBSS1 40MHz 44+ vs BSS2 80MHz 48-の場合</li>
+<li>BSS1にとって48chはセカンダリ、BSS2にとってはプライマリ</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送にプリマリで被さる</li>
+</ul>
+</li>
+<li>プライマリがオーバーラップしている方(BSS2)ガbasicだと大きく割を食う (その文をBSS1が持っていく)</li>
+<li>RTS/CTS方式だとBSS2のスループットが一定のレベルで改善する一方、BS1のスループットは低下する</li>
+</ul>
+</li>
+<li>異なるprimaryチャネルを用いておりsecondaryにprimaryが被っていない場合 (fig 8b)
+
+<ul>
+<li>BSS1 40MHzのセカンダリとBSS2 80MHzのプライマリが被っていない場合
+
+<ul>
+<li>たとえばBSS1 40MHz 36+ vs BSS2 80MHz 48-の場合</li>
+<li>36, 40チャネルは被っているがプライマリではない</li>
+<li>BSS1からはSTA2は見えないので、80MHz幅転送の影響は受けない</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送がセカンダリ以降で被さる</li>
+</ul>
+</li>
+<li>fig 8aと同じ傾向
+
+<ul>
+<li>RTS/CTSで一部改善はしているが、BSS2が80MHz幅の利点を活かして通信できるほどではない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>議論はある？
+
+<ul>
+<li>このチャネル伝搬モデルの妥当性は？イベント無線LAN環境などと比べるとどうなのだろう？</li>
+<li>チャネル伝搬モデルを換えるとどうなる？換えられる対象はある？</li>
+</ul>
+</li>
+<li>この中ででてきた次に読むべき論文リスト
+
+<ul>
+<li>[1]: モデリングの元となる論文
+G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+<li>[8]: 本論文の調査結果として明らかになったHN x 802.11acの組合せ問題への解決策となりうる RTS/CTSの改良を扱っているらしい
+M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>モデルについて疑問はあるものの、DCF方式の差異、チャネル幅の差異、クライアント数の差異という観点でパラメータがどのように影響するのかが調査されているのは参考になった</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2018
+
+    n_kane
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+<script type="text/javascript">
+      var disqus_shortname = 'enukane';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00/';
+        var disqus_url = 'http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

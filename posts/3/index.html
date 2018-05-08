@@ -9,8 +9,8 @@
 	<meta name="author" content="n_kane">
 
 	
-	<meta name="description" content="memo, network, tech Comments 2015-02-12 DS-Liteいれてみた 追記 2015/02/13 「速度計測その2」を追加
-2015/02/16 「速度計測その3」を追加 はじめに 新居でのフレッツv6オプションおよび IIJmio FiberAccess/ &hellip;">
+	<meta name="description" content="tech Comments 2015-02-23 Released Embulk-input-pcapng-files 0.1.0 pcapngファイルを読み込むembulk inputプラグインの新しいのをリリースしました. embulk-input-pcapng-files
+enukane/ &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,6 +99,140 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-02-24T09:07:52+09:00" data-updated="true" itemprop="datePublished"></time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/tech/'>tech</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2015/02/24/2015-02-23-embulk-input-pcapng-files/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/02/24/2015-02-23-embulk-input-pcapng-files/" itemprop="url">2015-02-23 Released Embulk-input-pcapng-files 0.1.0</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>pcapngファイルを読み込むembulk inputプラグインの新しいのをリリースしました.</p>
+
+<ul>
+<li><a href="https://rubygems.org/gems/embulk-input-pcapng-files">embulk-input-pcapng-files</a></li>
+<li><a href="https://github.com/enukane/embulk-input-pcapng-files">enukane/embulk-input-pcapng-files</a></li>
+</ul>
+
+
+<p>embulk 0.4.X系ではプラグイン体系が0.3.X系のそれとは異なっているため,
+これまで晒していた<a href="https://rubygems.org/gems/embulk-plugin-input-pcapng-files">embulk-plugin-input-pcapng-files</a>
+が動作しません. これを修正したものが上記になります.</p>
+
+<p>使い方自体は変わらず, 以下の様なconfig.ymlを書いて実行すると&hellip;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>exec: {}
+</span><span class='line'>in:
+</span><span class='line'>  type: pcapng_files
+</span><span class='line'>  paths: [ /Users/enukane/Desktop/emtestpcap/ ]
+</span><span class='line'>  threads: 2
+</span><span class='line'>  schema:
+</span><span class='line'>    - { name: frame.number,                 type: long }
+</span><span class='line'>    - { name: frame.time_epoch,             type: long }
+</span><span class='line'>    - { name: frame.len,                    type: long }
+</span><span class='line'>    - { name: radiotap.length,              type: long }
+</span><span class='line'>    - { name: radiotap.mactime,             type: long }
+</span><span class='line'>    - { name: radiotap.flags.preamble,      type: long }
+</span><span class='line'>    - { name: radiotap.flags.wep,           type: long }
+</span><span class='line'>    - { name: radiotap.flags.fcs,           type: long }
+</span><span class='line'>    - { name: radiotap.flags.shortgi,       type: long }
+</span><span class='line'>    - { name: radiotap.datarate,            type: long }
+</span><span class='line'>    - { name: radiotap.channel.freq,        type: long }
+</span><span class='line'>    - { name: radiotap.channel.type.ofdm,   type: long }
+</span><span class='line'>    - { name: radiotap.dbm_antsignal,       type: long }
+</span><span class='line'>    - { name: radiotap.dbm_antnoise,        type: long }
+</span><span class='line'>    - { name: radiotap.xchannel,            type: long }
+</span><span class='line'>    - { name: radiotap.xchannel.freq,       type: long }
+</span><span class='line'>    - { name: radiotap.xchannel.type.ofdm,  type: long }
+</span><span class='line'>    - { name: radiotap.mcs.gi,              type: long }
+</span><span class='line'>    - { name: radiotap.mcs.bw,              type: long }
+</span><span class='line'>    - { name: radiotap.mcs.index,           type: long }
+</span><span class='line'>    - { name: wlan.fc.type_subtype,         type: long }
+</span><span class='line'>    - { name: wlan.ta,                      type: string }
+</span><span class='line'>    - { name: wlan.ra,                      type: string }
+</span><span class='line'>    - { name: wlan.sa,                      type: string }
+</span><span class='line'>    - { name: wlan.da,                      type: string }
+</span><span class='line'>out:
+</span><span class='line'>  type: mysql
+</span><span class='line'>  host: localhost
+</span><span class='line'>  user: testuser
+</span><span class='line'>  password: testpassword
+</span><span class='line'>  database: testdb
+</span><span class='line'>  table: testtb
+</span><span class='line'>  mode: insert
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな感じにoutput先 (今回の場合はMySQL) にデータをはき出してくれます.</p>
+
+<p><img src="/images/2015-02-23-pcapngmysql.png" alt="pcapng-mysql" /></p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">

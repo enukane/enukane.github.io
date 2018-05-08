@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2018-01-02T02:46:40+09:00</updated>
+  <updated>2018-05-08T20:03:30+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,242 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF with Hidden Nodes]]></title>
+    <link href="http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00/"/>
+    <updated>2018-05-08T19:39:17+09:00</updated>
+    <id>http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00</id>
+    <content type="html"><![CDATA[<p>人もすなる論文100本ノックといふものを、我もしてみむとてするなり。
+どこまで続くか分からないけどぼちぼち読んでたりしているのを吐き出す良い機会ではあるのでちょびちょびやっていこうと思う。</p>
+
+<p>フォーマットは以下の落合先生フォーマットをアレンジしたものを使う。</p>
+
+<ul>
+<li><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">高速で論文がバリバリ読める落合先生のフォーマットがいい感じだったのでメモ</a></li>
+</ul>
+
+
+<p>だいたい以下の項目を埋めるイメージ</p>
+
+<pre><code class="text">- from: 別のノックからの続きモノの場合、その番号。系統図書けると面白そうなので。
+- 著者: ファーストオーサーの名前
+- 著者団体: 著者の所属研究機関がわかるように
+- 発行年: 旬のものなのかそうでないのかわかるように
+- 学会: どれくらいのランクの学会のモノなのかわかるように
+- どんなもの
+- 技術や手法のキモはどこ？
+- どうやって技術・手法の有効性を検証した？
+- 議論はある？
+- この中で出てきた次に読むべき論文リスト
+- 所感
+</code></pre>
+
+<ul>
+<li>from: none</li>
+<li>著者: Zheng Chang et al</li>
+<li>著者団体: Magister Solutions, Nokia Research Center, U of Jyvaskyla</li>
+<li>発行年: 2012</li>
+<li>学会: VTC012 Spring <a href="http://www.ieeevtc.org/vtc2012spring/">http://www.ieeevtc.org/vtc2012spring/</a></li>
+<li>どんなもの
+
+<ul>
+<li>802.11 DCF x Hidden Node x 802.11acの組合せでパフォーマンス解析を行っている</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>先行研究: [1], [2]</li>
+<li>新しい規格への対応: 既存802.11aまで -> 802.11acまでやる</li>
+<li>Hidden Node(隠れ端末)の考慮</li>
+<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象外</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>どこに差異を見いだしているか</li>
+<li>[1]のモデリングにblockackおよびHNの情報を考慮したモデルを構築</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>上記モデルの理論値とIEEE802.11で定められたチャネル伝搬モデル(ビットエラー起こしやすい環境)に基づくシミュレーション値で比較</li>
+<li>40MHz幅のときの比較値として10STAs, 40Mhz basic DCFおよび50 STAs 40MHz basic DCFの場合に、モデルとシミュレーションがほぼ一致していることから適用できると判断</li>
+<li>これを台数換えたりRTS/CTSにしたり、チャネル幅換えたりして適用し傾向を見ている</li>
+<li>fig 5a: 40Mhz幅と80MHz幅の比較における検証
+
+<ul>
+<li>DCFの方式間の差異について
+□ 10 STAs 40Mhzの場合だと、大きな差があり basic の方がよい
+□ 50STAsやあるいは80, 160MHz幅以上だと差はほぼない</li>
+<li>チャネル幅を上げる効果について
+
+<ul>
+<li>50STAs程度になると40Mhz -> 80Mhz幅に換えても、実際のところ2Mbps程度しか改善しない傾向にある</li>
+<li>10STAs程度の場合、むしろ40MHz幅の方が良い場合もある(+10Mbps程度)</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が性能が良い。ボンディング幅が狭いとより効果がある。</li>
+<li>多い台数の場合、この差異はほぼなくなる</li>
+<li>チャネル幅を上げることによる効果はあまりない(+2Mbps程度)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>fig 5b: 80MHz幅と160Mhz幅の比較における検証
+
+<ul>
+<li>DCFの方式の差異について
+
+<ul>
+<li>basicの方が優位 (10STAsで+20Mbps,  50STAsで+5Mbps)
+
+<ul>
+<li>台数が上がると方式間の差異は縮まるが、引き続きbasicが優位</li>
+</ul>
+</li>
+<li>チャネル幅を 80 -> 160MHzに上げるとbasic vs RTS/CTSの差が縮まる</li>
+<li>50STAsの場合、RTS/CTSの方が性能がよい</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>このチャネル伝搬モデルだと80 -> 160MHzしても差異がない=> チャネル幅上げることによる効果はない？</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が良い</li>
+<li>多い台数の場合、RTS/CTSの方が良い</li>
+<li>このチャネル伝搬モデルではチャネル幅を上げることによる効果はあまりない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OBSSとHNを考慮したシミュレーションの検証
+
+<ul>
+<li>BSSで同じprrimary チャネルを用いている場合 (fig 7)
+
+<ul>
+<li>それぞれのSTAがそれぞれのAPにアップリンク送信</li>
+<li>BSS2が大幅にペナルティを受ける(図の下に張り付いてる4本の線</li>
+<li>DCF方式間の差異について
+
+<ul>
+<li>HNにAPが直接干渉されない方(BSS1)はbasic > RTS/CTS</li>
+<li>HNにAPが干渉される方(BSS2)は RTS/CTS > basic となり、むしろbasicだとほぼ通信できない</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>RTS/CTS方式の場合
+
+<ul>
+<li>上手く通信できる方はスループットが上がる</li>
+<li>上手く通信出来ない方は、スループットは上がらない</li>
+</ul>
+</li>
+<li>basic方式の場合
+
+<ul>
+<li>上手く通信できる方はスループットが上がる</li>
+<li>上手く通信出来ない方はほぼ通信できないまま</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>RTS/CTSを用いることでこのモデルではHNの影響を受ける</li>
+<li>basic方式の場合、通信出来るBSSとHNの影響を受けやすいBSSとの間に、通信できないほどの不公平を生じる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>異なるprimary チャネルを用いているがsecoundaryにprimaryが被ってる場合 (fig 8a)
+
+<ul>
+<li>BSS1 40MHzのセカンダリをBSS2 80MHzがprimaryとして使っている
+
+<ul>
+<li>たとえばBSS1 40MHz 44+ vs BSS2 80MHz 48-の場合</li>
+<li>BSS1にとって48chはセカンダリ、BSS2にとってはプライマリ</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送にプリマリで被さる</li>
+</ul>
+</li>
+<li>プライマリがオーバーラップしている方(BSS2)ガbasicだと大きく割を食う (その文をBSS1が持っていく)</li>
+<li>RTS/CTS方式だとBSS2のスループットが一定のレベルで改善する一方、BS1のスループットは低下する</li>
+</ul>
+</li>
+<li>異なるprimaryチャネルを用いておりsecondaryにprimaryが被っていない場合 (fig 8b)
+
+<ul>
+<li>BSS1 40MHzのセカンダリとBSS2 80MHzのプライマリが被っていない場合
+
+<ul>
+<li>たとえばBSS1 40MHz 36+ vs BSS2 80MHz 48-の場合</li>
+<li>36, 40チャネルは被っているがプライマリではない</li>
+<li>BSS1からはSTA2は見えないので、80MHz幅転送の影響は受けない</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送がセカンダリ以降で被さる</li>
+</ul>
+</li>
+<li>fig 8aと同じ傾向
+
+<ul>
+<li>RTS/CTSで一部改善はしているが、BSS2が80MHz幅の利点を活かして通信できるほどではない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>議論はある？
+
+<ul>
+<li>このチャネル伝搬モデルの妥当性は？イベント無線LAN環境などと比べるとどうなのだろう？</li>
+<li>チャネル伝搬モデルを換えるとどうなる？換えられる対象はある？</li>
+</ul>
+</li>
+<li>この中ででてきた次に読むべき論文リスト
+
+<ul>
+<li>[1]: モデリングの元となる論文
+
+<ul>
+<li>G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+</ul>
+</li>
+<li>[8]: 本論文の調査結果として明らかになったHN x 802.11acの組合せ問題への解決策となりうる RTS/CTSの改良を扱っているらしい
+
+<ul>
+<li>M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>モデルについて疑問はあるものの、DCF方式の差異、チャネル幅の差異、クライアント数の差異という観点でパラメータがどのように影響するのかが調査されているのは参考になった</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[日本の5.3GHz帯DFS対象レーダー局をプロットしてみた]]></title>
@@ -55,14 +291,14 @@
 
 <p>機体筐体はこんな感じ。Cisco Aironet 3602i やらと比べるとだいぶコンパクトでカワイイ。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103.jpg" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103.jpg 480 %}</p>
 
 <p>裏側のネジ4つを外すと表カバー、裏カバー、基板の3つに綺麗に分かれる。分解はしやすい。</p>
 
 <p>アンテナ(基板の表カバー側)はこんな感じ。いわゆる逆Fアンテナの模様。
 見ての通りアンテナは2つだけで、2.4/5GHz帯共用らしい。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_ant.jpg" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103_ant.jpg 480 %}</p>
 
 <p>チップ実装面はこんな感じ。シールドを一部外した状態。
 右側のシールド内のチップはAtheros AR9582-AR1A。
@@ -71,24 +307,24 @@
 中央上部、ACアダプタソケットとEthernetソケットの間にピンヘッダが出ている。
 細かく調べてはいないがシリアルコンソールが取れるのかもしれない。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_chip.png" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103_chip.png 480 %}</p>
 
 <p>この子はIAPタイプなのでコントローラとしても動作する。ダッシュボードはこんな感じ。
 1台だけだからかもしれないがCisco WLCと比べるとだいぶシンプル、というか設定できるところが少なめっぽい。よしなに調整してくれるのかな？</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_db_ap.png" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103_db_ap.png 480 %}</p>
 
 <p>AppRFを有効にしてると以下の様に通信内容の分析がAP/クライアントの単位でできるらしい。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_db_apprf.png" width="640"></p>
+<p>{% img center /images/2017-05-03/iap103_db_apprf.png 640 %}</p>
 
 <p>今のところ自宅ではAP機能(アクセスモード)に用はないので、スペクトルもモニターモードで動作させている。
 このモードだと「スペクトラム」メニューにて非802.11デバイス一覧や、全チャネルのチャネル使用率&amp;品質が見れるらしい。
 なおアクセスモードだと動作中チャネルのそれに限定される。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_mon_gen.png" width="480">
-<img class="center" src="/images/2017-05-03/iap103_mon_24g.png" width="480">
-<img class="center" src="/images/2017-05-03/iap103_mon_5g.png" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103_mon_gen.png 480 %}
+{% img center /images/2017-05-03/iap103_mon_24g.png 480 %}
+{% img center /images/2017-05-03/iap103_mon_5g.png  480 %}</p>
 
 <p>ところでIAPが一台あれば、Remote APモデルのもの仕入れて繋げて遊べたりするのかな？
 AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡単に中規模ネットワークは組めそう。
@@ -198,79 +434,6 @@ sflow {
 <li>IPv6対応</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[コミケ91 1日目の無線LAN模様]]></title>
-    <link href="http://enukane.github.io/blog/2017/01/11/c91-wifi/"/>
-    <updated>2017-01-11T23:59:31+09:00</updated>
-    <id>http://enukane.github.io/blog/2017/01/11/c91-wifi</id>
-    <content type="html"><![CDATA[<p>だんだんと自分にしか意味のない指標&amp;グラフが増えすぎてて大変に読みづらいものになったけど、
-いつものやつ書きました。「C91 Wi-Fi 〜ららら、(無線的に)素敵なComiket Space〜」。</p>
-
-<p><iframe src="http://www.slideshare.net/slideshow/embed_code/70907756 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
-
-<p>今回は、また自スペースが西1に戻ってきました。
-そのため<a href="http://www.slideshare.net/enukane/c90-wifi-comiket-space">前回のC90 (西3だった)</a>とはまた様子が異なっています。
-比較のために、次はできれば東に割り当てられたいですね。</p>
-
-<p>今回は新要素として以下を追加しています。</p>
-
-<ul>
-<li>&ldquo;18.1 AP滞在時間のヒストグラム(10分以上のみ抽出)&rdquo;
-
-<ul>
-<li>APが見えていた時間をプロット</li>
-<li>大半がヒットアンドランで0秒付近に張り付く傾向があるので、一定時間以上に絞って長期傾向を見る</li>
-</ul>
-</li>
-<li>&ldquo;19.1 端末の滞在時間ヒストグラム(10分以上のみ抽出)&rdquo;
-
-<ul>
-<li>同上</li>
-</ul>
-</li>
-<li>&ldquo;20. Data &amp; BlockAckフレームの収集数/s&rdquo;
-
-<ul>
-<li>&ldquo;14. 正常フレームの収集数/s&rdquo; のうち、さらに Dataフレームと Block Ackフレームに絞り込み</li>
-<li>サンプリングが妥当であれば、このFPSがデータ送信の活発さの指標になりうる</li>
-<li>ただし長さは考慮されない</li>
-<li>ただし高レートすぎて見えないフレームは Block Ack でしか考慮されない
-
-<ul>
-<li>Block Ack またはその他の要素から、これらのフレームを復元する方法が必要</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>&ldquo;21. FCS OKフレームの時間的占有率&rdquo;
-
-<ul>
-<li>毎回1秒キャプチャしてた間に見つけたFCS good なフレームの Duration (秒) と 1秒内の割合の推移をプロット</li>
-<li>「13. チャネル使用率」のうち、どれくらいが有効に使われていたかを判断できるはず
-
-<ul>
-<li>正確な一致には FCS bad なフレームの考慮による検証が必要 (TODO)</li>
-</ul>
-</li>
-<li>チャネル使用率との差分が、無駄になった時間
-
-<ul>
-<li>このDurationのうち、データフレームに使えた時間と長さを考慮してチャネル使用率との対比を取ると、有効に使えた度合いが取れる？</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<p>FCS badなフレームのDurationがどれくらい正確なのかは今後要検証。
-これが正確にとれており、Durationの合計がチャネル使用率と合致するならサンプリング精度が良いという指標になりそう。</p>
-
-<p>また、FCS badなデュレーションと
-これと、プリアンブルだけの情報が上手く取れると高レートなフレームの流れが</p>
 ]]></content>
   </entry>
   

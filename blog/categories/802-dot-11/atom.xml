@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 802.11 | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/802-dot-11/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2018-01-02T02:46:40+09:00</updated>
+  <updated>2018-05-08T20:03:30+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,242 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF with Hidden Nodes]]></title>
+    <link href="http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00/"/>
+    <updated>2018-05-08T19:39:17+09:00</updated>
+    <id>http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00</id>
+    <content type="html"><![CDATA[<p>人もすなる論文100本ノックといふものを、我もしてみむとてするなり。
+どこまで続くか分からないけどぼちぼち読んでたりしているのを吐き出す良い機会ではあるのでちょびちょびやっていこうと思う。</p>
+
+<p>フォーマットは以下の落合先生フォーマットをアレンジしたものを使う。</p>
+
+<ul>
+<li><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">高速で論文がバリバリ読める落合先生のフォーマットがいい感じだったのでメモ</a></li>
+</ul>
+
+
+<p>だいたい以下の項目を埋めるイメージ</p>
+
+<pre><code class="text">- from: 別のノックからの続きモノの場合、その番号。系統図書けると面白そうなので。
+- 著者: ファーストオーサーの名前
+- 著者団体: 著者の所属研究機関がわかるように
+- 発行年: 旬のものなのかそうでないのかわかるように
+- 学会: どれくらいのランクの学会のモノなのかわかるように
+- どんなもの
+- 技術や手法のキモはどこ？
+- どうやって技術・手法の有効性を検証した？
+- 議論はある？
+- この中で出てきた次に読むべき論文リスト
+- 所感
+</code></pre>
+
+<ul>
+<li>from: none</li>
+<li>著者: Zheng Chang et al</li>
+<li>著者団体: Magister Solutions, Nokia Research Center, U of Jyvaskyla</li>
+<li>発行年: 2012</li>
+<li>学会: VTC012 Spring <a href="http://www.ieeevtc.org/vtc2012spring/">http://www.ieeevtc.org/vtc2012spring/</a></li>
+<li>どんなもの
+
+<ul>
+<li>802.11 DCF x Hidden Node x 802.11acの組合せでパフォーマンス解析を行っている</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>先行研究: [1], [2]</li>
+<li>新しい規格への対応: 既存802.11aまで -> 802.11acまでやる</li>
+<li>Hidden Node(隠れ端末)の考慮</li>
+<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象外</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>どこに差異を見いだしているか</li>
+<li>[1]のモデリングにblockackおよびHNの情報を考慮したモデルを構築</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>上記モデルの理論値とIEEE802.11で定められたチャネル伝搬モデル(ビットエラー起こしやすい環境)に基づくシミュレーション値で比較</li>
+<li>40MHz幅のときの比較値として10STAs, 40Mhz basic DCFおよび50 STAs 40MHz basic DCFの場合に、モデルとシミュレーションがほぼ一致していることから適用できると判断</li>
+<li>これを台数換えたりRTS/CTSにしたり、チャネル幅換えたりして適用し傾向を見ている</li>
+<li>fig 5a: 40Mhz幅と80MHz幅の比較における検証
+
+<ul>
+<li>DCFの方式間の差異について
+□ 10 STAs 40Mhzの場合だと、大きな差があり basic の方がよい
+□ 50STAsやあるいは80, 160MHz幅以上だと差はほぼない</li>
+<li>チャネル幅を上げる効果について
+
+<ul>
+<li>50STAs程度になると40Mhz -> 80Mhz幅に換えても、実際のところ2Mbps程度しか改善しない傾向にある</li>
+<li>10STAs程度の場合、むしろ40MHz幅の方が良い場合もある(+10Mbps程度)</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が性能が良い。ボンディング幅が狭いとより効果がある。</li>
+<li>多い台数の場合、この差異はほぼなくなる</li>
+<li>チャネル幅を上げることによる効果はあまりない(+2Mbps程度)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>fig 5b: 80MHz幅と160Mhz幅の比較における検証
+
+<ul>
+<li>DCFの方式の差異について
+
+<ul>
+<li>basicの方が優位 (10STAsで+20Mbps,  50STAsで+5Mbps)
+
+<ul>
+<li>台数が上がると方式間の差異は縮まるが、引き続きbasicが優位</li>
+</ul>
+</li>
+<li>チャネル幅を 80 -> 160MHzに上げるとbasic vs RTS/CTSの差が縮まる</li>
+<li>50STAsの場合、RTS/CTSの方が性能がよい</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>このチャネル伝搬モデルだと80 -> 160MHzしても差異がない=> チャネル幅上げることによる効果はない？</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>低い台数の場合、basicの方が良い</li>
+<li>多い台数の場合、RTS/CTSの方が良い</li>
+<li>このチャネル伝搬モデルではチャネル幅を上げることによる効果はあまりない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OBSSとHNを考慮したシミュレーションの検証
+
+<ul>
+<li>BSSで同じprrimary チャネルを用いている場合 (fig 7)
+
+<ul>
+<li>それぞれのSTAがそれぞれのAPにアップリンク送信</li>
+<li>BSS2が大幅にペナルティを受ける(図の下に張り付いてる4本の線</li>
+<li>DCF方式間の差異について
+
+<ul>
+<li>HNにAPが直接干渉されない方(BSS1)はbasic > RTS/CTS</li>
+<li>HNにAPが干渉される方(BSS2)は RTS/CTS > basic となり、むしろbasicだとほぼ通信できない</li>
+</ul>
+</li>
+<li>チャネル幅の差異について
+
+<ul>
+<li>RTS/CTS方式の場合
+
+<ul>
+<li>上手く通信できる方はスループットが上がる</li>
+<li>上手く通信出来ない方は、スループットは上がらない</li>
+</ul>
+</li>
+<li>basic方式の場合
+
+<ul>
+<li>上手く通信できる方はスループットが上がる</li>
+<li>上手く通信出来ない方はほぼ通信できないまま</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>結論
+
+<ul>
+<li>RTS/CTSを用いることでこのモデルではHNの影響を受ける</li>
+<li>basic方式の場合、通信出来るBSSとHNの影響を受けやすいBSSとの間に、通信できないほどの不公平を生じる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>異なるprimary チャネルを用いているがsecoundaryにprimaryが被ってる場合 (fig 8a)
+
+<ul>
+<li>BSS1 40MHzのセカンダリをBSS2 80MHzがprimaryとして使っている
+
+<ul>
+<li>たとえばBSS1 40MHz 44+ vs BSS2 80MHz 48-の場合</li>
+<li>BSS1にとって48chはセカンダリ、BSS2にとってはプライマリ</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送にプリマリで被さる</li>
+</ul>
+</li>
+<li>プライマリがオーバーラップしている方(BSS2)ガbasicだと大きく割を食う (その文をBSS1が持っていく)</li>
+<li>RTS/CTS方式だとBSS2のスループットが一定のレベルで改善する一方、BS1のスループットは低下する</li>
+</ul>
+</li>
+<li>異なるprimaryチャネルを用いておりsecondaryにprimaryが被っていない場合 (fig 8b)
+
+<ul>
+<li>BSS1 40MHzのセカンダリとBSS2 80MHzのプライマリが被っていない場合
+
+<ul>
+<li>たとえばBSS1 40MHz 36+ vs BSS2 80MHz 48-の場合</li>
+<li>36, 40チャネルは被っているがプライマリではない</li>
+<li>BSS1からはSTA2は見えないので、80MHz幅転送の影響は受けない</li>
+<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送がセカンダリ以降で被さる</li>
+</ul>
+</li>
+<li>fig 8aと同じ傾向
+
+<ul>
+<li>RTS/CTSで一部改善はしているが、BSS2が80MHz幅の利点を活かして通信できるほどではない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>議論はある？
+
+<ul>
+<li>このチャネル伝搬モデルの妥当性は？イベント無線LAN環境などと比べるとどうなのだろう？</li>
+<li>チャネル伝搬モデルを換えるとどうなる？換えられる対象はある？</li>
+</ul>
+</li>
+<li>この中ででてきた次に読むべき論文リスト
+
+<ul>
+<li>[1]: モデリングの元となる論文
+
+<ul>
+<li>G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
+</ul>
+</li>
+<li>[8]: 本論文の調査結果として明らかになったHN x 802.11acの組合せ問題への解決策となりうる RTS/CTSの改良を扱っているらしい
+
+<ul>
+<li>M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>モデルについて疑問はあるものの、DCF方式の差異、チャネル幅の差異、クライアント数の差異という観点でパラメータがどのように影響するのかが調査されているのは参考になった</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[日本の5.3GHz帯DFS対象レーダー局をプロットしてみた]]></title>
@@ -41,14 +277,14 @@
 
 <p>機体筐体はこんな感じ。Cisco Aironet 3602i やらと比べるとだいぶコンパクトでカワイイ。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103.jpg" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103.jpg 480 %}</p>
 
 <p>裏側のネジ4つを外すと表カバー、裏カバー、基板の3つに綺麗に分かれる。分解はしやすい。</p>
 
 <p>アンテナ(基板の表カバー側)はこんな感じ。いわゆる逆Fアンテナの模様。
 見ての通りアンテナは2つだけで、2.4/5GHz帯共用らしい。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_ant.jpg" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103_ant.jpg 480 %}</p>
 
 <p>チップ実装面はこんな感じ。シールドを一部外した状態。
 右側のシールド内のチップはAtheros AR9582-AR1A。
@@ -57,24 +293,24 @@
 中央上部、ACアダプタソケットとEthernetソケットの間にピンヘッダが出ている。
 細かく調べてはいないがシリアルコンソールが取れるのかもしれない。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_chip.png" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103_chip.png 480 %}</p>
 
 <p>この子はIAPタイプなのでコントローラとしても動作する。ダッシュボードはこんな感じ。
 1台だけだからかもしれないがCisco WLCと比べるとだいぶシンプル、というか設定できるところが少なめっぽい。よしなに調整してくれるのかな？</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_db_ap.png" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103_db_ap.png 480 %}</p>
 
 <p>AppRFを有効にしてると以下の様に通信内容の分析がAP/クライアントの単位でできるらしい。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_db_apprf.png" width="640"></p>
+<p>{% img center /images/2017-05-03/iap103_db_apprf.png 640 %}</p>
 
 <p>今のところ自宅ではAP機能(アクセスモード)に用はないので、スペクトルもモニターモードで動作させている。
 このモードだと「スペクトラム」メニューにて非802.11デバイス一覧や、全チャネルのチャネル使用率&amp;品質が見れるらしい。
 なおアクセスモードだと動作中チャネルのそれに限定される。</p>
 
-<p><img class="center" src="/images/2017-05-03/iap103_mon_gen.png" width="480">
-<img class="center" src="/images/2017-05-03/iap103_mon_24g.png" width="480">
-<img class="center" src="/images/2017-05-03/iap103_mon_5g.png" width="480"></p>
+<p>{% img center /images/2017-05-03/iap103_mon_gen.png 480 %}
+{% img center /images/2017-05-03/iap103_mon_24g.png 480 %}
+{% img center /images/2017-05-03/iap103_mon_5g.png  480 %}</p>
 
 <p>ところでIAPが一台あれば、Remote APモデルのもの仕入れて繋げて遊べたりするのかな？
 AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡単に中規模ネットワークは組めそう。
@@ -98,7 +334,7 @@ AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡
     <content type="html"><![CDATA[<p>だんだんと自分にしか意味のない指標&amp;グラフが増えすぎてて大変に読みづらいものになったけど、
 いつものやつ書きました。「C91 Wi-Fi 〜ららら、(無線的に)素敵なComiket Space〜」。</p>
 
-<p><iframe src="http://www.slideshare.net/slideshow/embed_code/70907756 " width="595" height="446" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen></iframe> </p>
+<p>{% slideshare 70907756 %}</p>
 
 <p>今回は、また自スペースが西1に戻ってきました。
 そのため<a href="http://www.slideshare.net/enukane/c90-wifi-comiket-space">前回のC90 (西3だった)</a>とはまた様子が異なっています。
@@ -187,7 +423,7 @@ AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡
 <p>ここではAPとキャプティブポータルを組み合わせてイベント環境にデプロイし、
 クライアントの通信を特定コンテンツにねじ曲げて以下の様なページを強制表示するようにしつつ各種ログを収集しました。</p>
 
-<p><img class="center" src="/images/2017-01-11/captive-webui.png" width="350"></p>
+<p>{% img center /images/2017-01-11/captive-webui.png 350 %}</p>
 
 <!---
 # 目的
@@ -221,7 +457,7 @@ SSIDの先頭に半角スペースを2つ入れることで、
 2.4GHz帯と5GHz帯でSSIDを分けており、
 下記の様に2.4GHz帯側には&#8221;-g&#8221;とのサフィクスをつけました。</p>
 
-<p><img class="center" src="/images/2017-01-11/not-free-wifi-ssid_hide.png" width="300"></p>
+<p>{% img center /images/2017-01-11/not-free-wifi-ssid_hide.png 300 %}</p>
 
 <!--- 引っかかると --->
 
@@ -230,7 +466,7 @@ SSIDの先頭に半角スペースを2つ入れることで、
 大抵のプラットフォームに入っているキャプティブポータル検知の仕組みによりスプラッシュページが表示されます。
 Androidのスマホで見ると、ハニーポットAPのSSIDを選択後しばらくすると以下の画面がポップアップします。</p>
 
-<p><img class="center" src="/images/2017-01-11/sp-captive.jpg" width="300"></p>
+<p>{% img center /images/2017-01-11/sp-captive.jpg 300 %}</p>
 
 <h1>ハニーポットAPの機材について</h1>
 
@@ -238,13 +474,13 @@ Androidのスマホで見ると、ハニーポットAPのSSIDを選択後しば�
 
 <p>ハニーポットAPには、Buffalo WZR-HP-AG300H に OpenWRT を載せたものを用いました。</p>
 
-<p><img class="center" src="/images/2017-01-11/hap.png" width="300"></p>
+<p>{% img center /images/2017-01-11/hap.png 300 %}</p>
 
 <p>C90で同様の試みをしたときは Raspberry Pi と USB Wi-Fi アダプタを用いていました(以下)。
 その際は、混雑している2.4GHz帯でしか運用せず出力も弱めであったため、
 あまり接続数を稼げませんでした。</p>
 
-<p><img class="center" src="/images/2017-01-11/old-hap.png" width="300"></p>
+<p>{% img center /images/2017-01-11/old-hap.png 300 %}</p>
 
 <p>WZR-HP-AG300H は家庭用APとしてそれなりにきちんとしたアンテナを備え、
 2.4GHz/5GHz帯の同時運用も可能です。
@@ -275,7 +511,7 @@ OpenWRT を導入できカスタマイズ性も高いため今回はこれを用
 基板に起こすのは間に合わなかったので Arduino そのままとブレッドボードで動かしていました。
 たまに結線が外れてリブートしてたり。。。。</p>
 
-<p><img class="center" src="/images/2017-01-11/hap-power.jpg" width="350"></p>
+<p>{% img center /images/2017-01-11/hap-power.jpg 350 %}</p>
 
 <h2>簡易キャプティブポータル on OpenWRT</h2>
 
@@ -326,9 +562,9 @@ AliasMatch でこれを実現します。</p>
 <p>ハニーポットAP は コミックマーケット91 1日目 (2016/12/29) の西ホール1、
 み-18a の机の上に設置しました。西ホールのだいたい赤丸の位置に自スペースがあります。</p>
 
-<p><img class="center" src="/images/2017-01-11/map.png" width="200"></p>
+<p>{% img center /images/2017-01-11/map.png 200 %}</p>
 
-<p><img src="/images/2017-01-11/my-space_cap.png"></p>
+<p>{% img /images/2017-01-11/my-space_cap.png %}</p>
 
 <p>机の上の可能な限り高いところに、
 設置しましたができればポスタースタンドなどにくくりつけてより高さを稼ぎたいところではあります。</p>
@@ -618,246 +854,6 @@ CaptiveNetworkSupport-306.20.1 wispr
 </li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[イベント無線LANでのチャネル使用率調査]]></title>
-    <link href="http://enukane.github.io/blog/2015/08/31/event-radio-utilization/"/>
-    <updated>2015-08-31T18:20:55+09:00</updated>
-    <id>http://enukane.github.io/blog/2015/08/31/event-radio-utilization</id>
-    <content type="html"><![CDATA[<h2>概要</h2>
-
-<p>いつもやっている、イベント会場でのパケットキャプチャに加えてここ最近チャネルごとの使用率の収集も始めました。</p>
-
-<h3>計測対象</h3>
-
-<p>今回、計測対象にしたのは以下の4イベント(7回)。大抵、鞄の中にデバイスを入れて移動しつつパケットキャプチャを行っています。設置場所を確保できた場合、定点観測的に収集をしています。</p>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">イベント              </th>
-<th style="text-align:left;">日             </th>
-<th style="text-align:center;">場所                           </th>
-<th style="text-align:center;"> 固定? </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">なにか                </td>
-<td style="text-align:left;"> 2015/08/02    </td>
-<td style="text-align:center;">どこか                         </td>
-<td style="text-align:center;"> <strong>Y</strong> </td>
-</tr>
-<tr>
-<td style="text-align:left;">コミケ (C88)          </td>
-<td style="text-align:left;"> 2015/08/14    </td>
-<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
-<td style="text-align:center;"> N     </td>
-</tr>
-<tr>
-<td style="text-align:left;">                      </td>
-<td style="text-align:left;"> 2015/08/15    </td>
-<td style="text-align:center;">東京ビッグサイト ホール(東、西)</td>
-<td style="text-align:center;"> N     </td>
-</tr>
-<tr>
-<td style="text-align:left;">                      </td>
-<td style="text-align:left;"> 2015/08/16    </td>
-<td style="text-align:center;">東京ビッグサイト ホール(東)    </td>
-<td style="text-align:center;"> <strong>Y</strong> </td>
-</tr>
-<tr>
-<td style="text-align:left;">YAPC::Asia Tokyo 2015 </td>
-<td style="text-align:left;"> 2015/08/14    </td>
-<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
-<td style="text-align:center;"> N     </td>
-</tr>
-<tr>
-<td style="text-align:left;">                      </td>
-<td style="text-align:left;"> 2015/08/14    </td>
-<td style="text-align:center;">東京ビッグサイト 会議棟        </td>
-<td style="text-align:center;"> N     </td>
-</tr>
-<tr>
-<td style="text-align:left;">コミティア113         </td>
-<td style="text-align:left;"> 2015/08/30    </td>
-<td style="text-align:center;">東京ビッグサイト ホール(2,3)   </td>
-<td style="text-align:center;"> N     </td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>チャネル利用率のヒートマップ</h2>
-
-<p>5分毎に区切って、チャネルごとにヒートマップ化したものを並べてみる。</p>
-
-<h3>2015/08/02 あたりのイベント</h3>
-
-<p><img src="/images/2015-08-31/ev0802-util.png" alt="2015-08-02-util" /></p>
-
-<h3>コミケ (C88)</h3>
-
-<p>コミケでは、1日目および2日目は一般参加、三日目のみサークル参加だったため東 P-18b にて定点観測を実施。
-動的観測の場合、列に並んだあとに観測開始し買い物が終わってビッグサイトから出て国際展示場に行くまでの間のどこかで停止している。</p>
-
-<ul>
-<li>列に並んだ時間 (西)
-
-<ul>
-<li>1日目: 10:15頃</li>
-<li>2日目: 10:10頃</li>
-</ul>
-</li>
-<li>ビッグサイトを出た時間
-
-<ul>
-<li>1日目: 12:50頃</li>
-<li>2日目: 11:10頃</li>
-</ul>
-</li>
-<li>彷徨ったルート (覚えてる範囲で)
-
-<ul>
-<li>1日目: 西(入場) → 東123→東456→西(退場)</li>
-<li>2日目: 西(入場) → 東123→東456→西(ホール)→西(退場)</li>
-</ul>
-</li>
-</ul>
-
-
-<h4>1日目 (2015/08/14)</h4>
-
-<p><img src="/images/2015-08-31/c88-d1.png" alt="2015-08-14-util" /></p>
-
-<h4>2日目 (2015/08/15)</h4>
-
-<p><img src="/images/2015-08-31/c88-d2.png" alt="2015-08-15-util" /></p>
-
-<h4>3日目 (2015/08/16)</h4>
-
-<p><img src="/images/2015-08-31/c88-d3.png" alt="2015-08-16-util" /></p>
-
-<h3>YAPC::Asia Tokyo 2015</h3>
-
-<p>こちらは CONBU チーム (いわゆる Wi-Fi 班)として参加したときのもの. 作業時に邪魔にならない場合、ショルダーバッグにデバイスを入れて彷徨うようにはしていました. が、バックヤードに起きっぱなしの時間も大分あったため有為なデータが取れていない可能性は多々ありそう。</p>
-
-<h4>1日目 (2015/08/21)</h4>
-
-<p><img src="/images/2015-08-31/yapc2015-d1.png" alt="2015-08-21-util" /></p>
-
-<h4>2日目 (2015/08/22)</h4>
-
-<p><img src="/images/2015-08-31/yapc2015-d2.png" alt="2015-08-22-util" /></p>
-
-<h3>コミティア113 (2015/08/30)</h3>
-
-<p><img src="/images/2015-08-31/comitia113.png" alt="2015-08-22-util" /></p>
-
-<h2>考察</h2>
-
-<ul>
-<li>何となく移動が見える
-
-<ul>
-<li>特にビッグサイト(ホール)
-
-<ul>
-<li>5GHz帯 36、48、64、100 chの濃淡
-
-<ul>
-<li>ホールから抜けたかどうかが判断できそう</li>
-</ul>
-</li>
-<li>C88 1日目、2日目の移動に連動していそう?</li>
-</ul>
-</li>
-<li>YAPCの結果を見ても、場所変化には連動している模様</li>
-<li>Wi-Fiをオフされた時も同様の状況になりうるので一概に逆は言えないが&hellip;.</li>
-</ul>
-</li>
-<li>2.4GHz帯側の分布具合
-
-<ul>
-<li>8/2 と YAPCのそれはだいぶ綺麗にみえる
-
-<ul>
-<li>1、6、11 chの中央とそれらの両隣が濃く出ている</li>
-<li>これらのイベントでは、会場内無線LANのコントロールが提供側でそこそこなされていたため？</li>
-<li>野良APまたはクライアントの絶対数の有無?</li>
-</ul>
-</li>
-<li>&ldquo;人の密集度 == 2.4GHz帯側の濃度&rdquo; という仮説
-
-<ul>
-<li>C88 1日目、2日目の2.4GHz と 5GHz の比較より</li>
-<li>ホールから出て 5GHz 帯側が明らかに薄くなっていて、2.4GHz帯側はそこまで落ちない時間がある
-
-<ul>
-<li>まだ列に並んでると思しき時間</li>
-<li>ホール間移動と思しき時間</li>
-<li>帰途についてビッグサイトを出たと思しき時間</li>
-</ul>
-</li>
-<li>モバイルルータの影響？</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>実装</h2>
-
-<p>以下、軽く実装についてメモ</p>
-
-<h3>情報源として用いる情報</h3>
-
-<p>チャネル利用率の算出には iw コマンドの以下のオプションを用いました。</p>
-
-<pre><code>% iw wlan0 survey dump
-</code></pre>
-
-<p>survey dumpでは以下の様にそのチャネルに移動してからのアクティブ時間(=移動後の経過時間)とビジーだった時間が得られます。</p>
-
-<pre><code>Survey data from wlan0
-        frequency:                      2412 MHz [in use]
-        noise:                          -83 dBm
-        channel active time:            35900 ms
-        channel busy time:              24814 ms
-        channel transmit time:          0 ms
-</code></pre>
-
-<p>今回用いたデバイス(WLP-UC-AG300, チップはRT2870)の場合、この値はソースコード上の以下の部分で計算しています。
-<a href="https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984">https://github.com/torvalds/linux/blob/master/drivers/net/wireless/rt2x00/rt2800lib.c#L7984</a></p>
-
-<p>なおここでの&#8221;ビジー&#8221;は、送受信またはノイズによりこれらがストップしていたチップの動作時間であり、以下の様な関係式がなりたちます。</p>
-
-<pre><code>channel busy time   = receive time + transmit time + other time
-channel active time = busy time + idle time
-</code></pre>
-
-<p>チップによっては transmit time の他に receive time も個別に取り出せるので other つまり 802.11 以外の電波により送受信ができていなかった時間も取れるのですが今回は対象外としました。</p>
-
-<h3>tochkad での記録</h3>
-
-<p>このように取れるチャネル利用率を、パケットキャプチャデバイスの主観部分を担う <a href="https://github.com/enukane/tochka/">tochkad</a> のチャネル遷移部分で取得するようにしました。</p>
-
-<ul>
-<li><a href="https://github.com/enukane/tochka/blob/master/lib/tochka/athsurvey.rb">athsurvey.rb</a></li>
-</ul>
-
-
-<p>tochkadは0.5秒毎にチャネル遷移するので大分短い時間ではありますが、ログ上に以下の様に utilization (利用率)が載るようになります。</p>
-
-<pre><code>[2015-08-02 15:20:43 +0900]     DEBUG: channel moved to 11 from 10 (dur=6510、size=481767780、walk=6062、utilization=59.68 uch=10)
-</code></pre>
-
-<p>この利用率は tochka デバイスについている LCD ディスプレイ (tochka-miniui) にも出すようにしています (赤枠部分)</p>
-
-<p><img src="/images/2015-08-31/tochka-miniui.jpg" alt="tochka-miniui" /></p>
 ]]></content>
   </entry>
   
