@@ -1,0 +1,287 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>2018-05-11 論文100本ノック 3: Wireless MAC Processors: Programming MAC Protocols on Commodity Hardware - #error NO_MONEY</title>
+	<meta name="author" content="n_kane">
+
+	
+	<meta name="description" content="2018-05-11 論文100本ノック 3: Wireless MAC Processors: Programming MAC Protocols on Commodity Hardware from: none
+著者: I.Tinnirello et al
+所属: CNIT U degli &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://enukane.github.io/blog/2018/05/11/2018-05-11-100papers-03/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("enukane@glenda9.org") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/about_jp">About(JP)</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="https://github.com/enukane">GitHub</a></li>
+    <li><a href="http://twitter.com/n_kane">Twitter</a></li>
+    <li><a href="/env">Env</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    /var/crash/n_kane
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:enukane@glenda9.org" title="Email">Email</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">2018-05-11 論文100本ノック 3: Wireless MAC Processors: Programming MAC Protocols on Commodity Hardware</h1>
+	<div class="entry-content" itemprop="articleBody"><ul>
+<li>from: none</li>
+<li>著者: I.Tinnirello et al</li>
+<li>所属: CNIT U degli Studi di Palermo, U degli Studi di Roma-Tor Vergata, U degli Studi di Brescia</li>
+<li>発行年: Mar. 2012</li>
+<li>学会: IEEE INFOROM 2012 <a href="http://infocom2012.ieee-infocom.org/">http://infocom2012.ieee-infocom.org/</a></li>
+<li>どんなもの
+
+<ul>
+<li>Wireless MAC Processorsの概念の提唱
+
+<ul>
+<li>MAC(メディアアクセスコントロール)のプログラマビリティ提供のための抽象化</li>
+</ul>
+</li>
+<li>コモディティハードウェア(bcm43xx)での実装</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>SDRやFPGAベースでは同様の取り組みは存在する
+
+<ul>
+<li>そもそも既存の802.11の機能を達成するハードルが高い</li>
+</ul>
+</li>
+<li>bcm43xx(802.11チップ)、普通のハードウェアでこれを実現した
+
+<ul>
+<li>802.11ハードウェアに載っている諸機能は部品として再活用</li>
+</ul>
+</li>
+<li>その上にWMPとしての抽象化をAPIで提供</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>OpenFWWF(Open FirmWare for Wi-Fi networks)の成果を活用
+
+<ul>
+<li>コモディティハードウェアにデプロイできるという強み</li>
+<li>著者グループの成果らしい</li>
+</ul>
+</li>
+<li>WMPによる802.11含むMACの抽象化: ステートマシン(イベントと状態)とステートレスなコマンドへの分離
+
+<ul>
+<li>ホスト側にlower MAC部分を持ってくることなく、デバイスのファームウェア上で時間制約の厳しい挙動は簡潔させた</li>
+<li>一方でプログラマビリティは一定のレベルで担保</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>Piggyback Ackや擬似TDMA、チャネルまたぎのメディアアクセスなどの機能を実現
+
+<ul>
+<li>WMPのアーキテクチャで実装した普通の802.11 DCFに少し変更を加えることでできることを図示</li>
+<li>抽象化の適切さを提示</li>
+</ul>
+</li>
+<li>実装した機能が時間制約を満たした上で有効に動作できることを例示
+
+<ul>
+<li>抽象化したオペレーションが802.11の要件を満たせることを提示</li>
+</ul>
+</li>
+<li>これらによりWMPのアーキテクチャの有用性を提示</li>
+</ul>
+</li>
+<li>議論はある？
+
+<ul>
+<li>性能
+
+<ul>
+<li>柔軟な機能追加ができること、時間制約の厳しい802.11に適用できることというのを主眼に評価している</li>
+<li>このWMPレイヤが入ることによるパフォーマンスオーバーヘッドについてどうなるかは言及がない(特に後述する暗号化周り)</li>
+</ul>
+</li>
+<li>暗号化へのサポート
+
+<ul>
+<li>現在のチップにはAESやTKIP, WEPの各種ビット長の暗号化・復号化を行う機能がある
+
+<ul>
+<li>これらを活用するアクションは欲しい</li>
+</ul>
+</li>
+<li>あるいはたとえば既存のOWE(RFC8110 Opportunistic Wireless Encryption)をソフトウェアではなくWMPのような枠組みでサポートすることを考えると何が必要になるだろう？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>この中ででてきた次に読むべき論文リスト
+
+<ul>
+<li>[15]: M. Newfeld &ldquo;Soft MAC - Flexible Wireless Research Platgorm&rdquo; HotNets, Nov.2005</li>
+<li>[18]: M.H. Lu &ldquo;Using commodity hardware platform to develop and evaluate CSMA protocols&rdquo;, ACM WiNTECH 2008</li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>open-ath9k-htc-firmwareで同じようなことができるとおもしろそう</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2018
+
+    n_kane
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+<script type="text/javascript">
+      var disqus_shortname = 'enukane';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://enukane.github.io/blog/2018/05/11/2018-05-11-100papers-03/';
+        var disqus_url = 'http://enukane.github.io/blog/2018/05/11/2018-05-11-100papers-03/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

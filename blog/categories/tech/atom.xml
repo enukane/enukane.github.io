@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/tech/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2018-05-08T20:28:02+09:00</updated>
+  <updated>2018-05-11T16:04:42+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,127 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2018-05-11 論文100本ノック 3: Wireless MAC Processors: Programming MAC Protocols on Commodity Hardware]]></title>
+    <link href="http://enukane.github.io/blog/2018/05/11/2018-05-11-100papers-03/"/>
+    <updated>2018-05-11T15:52:29+09:00</updated>
+    <id>http://enukane.github.io/blog/2018/05/11/2018-05-11-100papers-03</id>
+    <content type="html"><![CDATA[<ul>
+<li>from: none</li>
+<li>著者: I.Tinnirello et al</li>
+<li>所属: CNIT U degli Studi di Palermo, U degli Studi di Roma-Tor Vergata, U degli Studi di Brescia</li>
+<li>発行年: Mar. 2012</li>
+<li>学会: IEEE INFOROM 2012 <a href="http://infocom2012.ieee-infocom.org/">http://infocom2012.ieee-infocom.org/</a></li>
+<li>どんなもの
+
+<ul>
+<li>Wireless MAC Processorsの概念の提唱
+
+<ul>
+<li>MAC(メディアアクセスコントロール)のプログラマビリティ提供のための抽象化</li>
+</ul>
+</li>
+<li>コモディティハードウェア(bcm43xx)での実装</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>SDRやFPGAベースでは同様の取り組みは存在する
+
+<ul>
+<li>そもそも既存の802.11の機能を達成するハードルが高い</li>
+</ul>
+</li>
+<li>bcm43xx(802.11チップ)、普通のハードウェアでこれを実現した
+
+<ul>
+<li>802.11ハードウェアに載っている諸機能は部品として再活用</li>
+</ul>
+</li>
+<li>その上にWMPとしての抽象化をAPIで提供</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>OpenFWWF(Open FirmWare for Wi-Fi networks)の成果を活用
+
+<ul>
+<li>コモディティハードウェアにデプロイできるという強み</li>
+<li>著者グループの成果らしい</li>
+</ul>
+</li>
+<li>WMPによる802.11含むMACの抽象化: ステートマシン(イベントと状態)とステートレスなコマンドへの分離
+
+<ul>
+<li>ホスト側にlower MAC部分を持ってくることなく、デバイスのファームウェア上で時間制約の厳しい挙動は簡潔させた</li>
+<li>一方でプログラマビリティは一定のレベルで担保</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>Piggyback Ackや擬似TDMA、チャネルまたぎのメディアアクセスなどの機能を実現
+
+<ul>
+<li>WMPのアーキテクチャで実装した普通の802.11 DCFに少し変更を加えることでできることを図示</li>
+<li>抽象化の適切さを提示</li>
+</ul>
+</li>
+<li>実装した機能が時間制約を満たした上で有効に動作できることを例示
+
+<ul>
+<li>抽象化したオペレーションが802.11の要件を満たせることを提示</li>
+</ul>
+</li>
+<li>これらによりWMPのアーキテクチャの有用性を提示</li>
+</ul>
+</li>
+<li>議論はある？
+
+<ul>
+<li>性能
+
+<ul>
+<li>柔軟な機能追加ができること、時間制約の厳しい802.11に適用できることというのを主眼に評価している</li>
+<li>このWMPレイヤが入ることによるパフォーマンスオーバーヘッドについてどうなるかは言及がない(特に後述する暗号化周り)</li>
+</ul>
+</li>
+<li>暗号化へのサポート
+
+<ul>
+<li>現在のチップにはAESやTKIP, WEPの各種ビット長の暗号化・復号化を行う機能がある
+
+<ul>
+<li>これらを活用するアクションは欲しい</li>
+</ul>
+</li>
+<li>あるいはたとえば既存のOWE(RFC8110 Opportunistic Wireless Encryption)をソフトウェアではなくWMPのような枠組みでサポートすることを考えると何が必要になるだろう？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>この中ででてきた次に読むべき論文リスト
+
+<ul>
+<li>[15]: M. Newfeld &ldquo;Soft MAC - Flexible Wireless Research Platgorm&rdquo; HotNets, Nov.2005</li>
+<li>[18]: M.H. Lu &ldquo;Using commodity hardware platform to develop and evaluate CSMA protocols&rdquo;, ACM WiNTECH 2008</li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>open-ath9k-htc-firmwareで同じようなことができるとおもしろそう</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2018-05-08 論文100本ノック 2: IEEE802.11ac: Dynamic Bandwidth Channel Access]]></title>
@@ -445,69 +566,6 @@
 
 <ul>
 <li><a href="http://qiita.com/n_kane/items/0f55218371f2b1b6bb9f">PXEブートによるBitVisor開発環境の構築</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Got Aruba IAP-103-JP]]></title>
-    <link href="http://enukane.github.io/blog/2017/05/03/iap103/"/>
-    <updated>2017-05-03T23:42:11+09:00</updated>
-    <id>http://enukane.github.io/blog/2017/05/03/iap103</id>
-    <content type="html"><![CDATA[<p>どこからともなく予算が割り当たったことにしたので、Aruba IAP-103-JP が降ってきました。</p>
-
-<ul>
-<li><a href="http://www.arubanetworks.com/ja/products/networking/access-points/103-series/">Aruba 103 シリーズ</a></li>
-</ul>
-
-
-<p>機体筐体はこんな感じ。Cisco Aironet 3602i やらと比べるとだいぶコンパクトでカワイイ。</p>
-
-<p><img class="center" src="/images/2017-05-03/iap103.jpg" width="480"></p>
-
-<p>裏側のネジ4つを外すと表カバー、裏カバー、基板の3つに綺麗に分かれる。分解はしやすい。</p>
-
-<p>アンテナ(基板の表カバー側)はこんな感じ。いわゆる逆Fアンテナの模様。
-見ての通りアンテナは2つだけで、2.4/5GHz帯共用らしい。</p>
-
-<p><img class="center" src="/images/2017-05-03/iap103_ant.jpg" width="480"></p>
-
-<p>チップ実装面はこんな感じ。シールドを一部外した状態。
-右側のシールド内のチップはAtheros AR9582-AR1A。
-左の黒いヒートシンクが付いているシールドからちらっと見えている石はAtheros AR9344-BC2AでこちらはSoC。
-前者で5GHz帯、後者でCPU兼2.4GHz帯を捌いてる模様。
-中央上部、ACアダプタソケットとEthernetソケットの間にピンヘッダが出ている。
-細かく調べてはいないがシリアルコンソールが取れるのかもしれない。</p>
-
-<p><img class="center" src="/images/2017-05-03/iap103_chip.png" width="480"></p>
-
-<p>この子はIAPタイプなのでコントローラとしても動作する。ダッシュボードはこんな感じ。
-1台だけだからかもしれないがCisco WLCと比べるとだいぶシンプル、というか設定できるところが少なめっぽい。よしなに調整してくれるのかな？</p>
-
-<p><img class="center" src="/images/2017-05-03/iap103_db_ap.png" width="480"></p>
-
-<p>AppRFを有効にしてると以下の様に通信内容の分析がAP/クライアントの単位でできるらしい。</p>
-
-<p><img class="center" src="/images/2017-05-03/iap103_db_apprf.png" width="640"></p>
-
-<p>今のところ自宅ではAP機能(アクセスモード)に用はないので、スペクトルもモニターモードで動作させている。
-このモードだと「スペクトラム」メニューにて非802.11デバイス一覧や、全チャネルのチャネル使用率&amp;品質が見れるらしい。
-なおアクセスモードだと動作中チャネルのそれに限定される。</p>
-
-<p><img class="center" src="/images/2017-05-03/iap103_mon_gen.png" width="480">
-<img class="center" src="/images/2017-05-03/iap103_mon_24g.png" width="480">
-<img class="center" src="/images/2017-05-03/iap103_mon_5g.png" width="480"></p>
-
-<p>ところでIAPが一台あれば、Remote APモデルのもの仕入れて繋げて遊べたりするのかな？
-AP105はヤフオクで1500〜2000円/台の価格で数多く出ており、簡単に中規模ネットワークは組めそう。
-なお一部のAruba APは某用途向けにファーム/基板ごと特殊モデルと聞くので対象外になりそうではある。</p>
-
-<p>軽くぐぐってみた限り、以下のスレッドにあるとおりクラスタのAP数上限というのはないらしい。
-推奨値128とあるようだがここまで巨大なものを組む予定はないので遊ぶ分には困らなさそう。</p>
-
-<ul>
-<li><a href="https://community.arubanetworks.com/t5/Aruba-Instant-Cloud-Wi-Fi/IAP-MAX-AP-per-Cluster/td-p/214997">IAP MAX AP per Cluster</a></li>
 </ul>
 
 ]]></content>
