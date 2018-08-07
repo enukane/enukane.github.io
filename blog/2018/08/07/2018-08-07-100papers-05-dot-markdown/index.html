@@ -1,0 +1,310 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>2018-08-07 論文100本ノック 5: LAMP: Lightweight and Accurate Malicious Access Points Localization via Channel Phase Information - #error NO_MONEY</title>
+	<meta name="author" content="n_kane">
+
+	
+	<meta name="description" content="2018-08-07 論文100本ノック 5: LAMP: Lightweight and Accurate Malicious Access Points Localization via Channel Phase Information from: none
+著者: Liangyi &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="#error NO_MONEY" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://enukane.github.io/blog/2018/08/07/2018-08-07-100papers-05-dot-markdown/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("enukane@glenda9.org") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/about_jp">About(JP)</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+    <li><a href="https://github.com/enukane">GitHub</a></li>
+    <li><a href="http://twitter.com/n_kane">Twitter</a></li>
+    <li><a href="/env">Env</a></li>
+</ul>
+
+
+<section class="aboutme">
+  <p>
+    /var/crash/n_kane
+  </p>
+</section>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="email" href="mailto:enukane@glenda9.org" title="Email">Email</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">2018-08-07 論文100本ノック 5: LAMP: Lightweight and Accurate Malicious Access Points Localization via Channel Phase Information</h1>
+	<div class="entry-content" itemprop="articleBody"><ul>
+<li>from: none</li>
+<li>著者: Liangyi Gong</li>
+<li>所属; Tianjin University of Technology (天津理工大学)</li>
+<li>発行年: 2018</li>
+<li>学会: The 13th Internatinal Conference on Wireless Algorithms, Systems and Applications (<a href="http://wasa-conference.org/WASA2018/index.html">WASA2018</a>)</li>
+<li>どんなもの:
+
+<ul>
+<li>悪意のあるAPの場所特定をChannel State Informationを使ってコモディティハードウェアで実現</li>
+<li>LAMP(Leightweight and Accurate Malicious access Point localization)の提案</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>RSSI ではなく CSI を利用
+
+<ul>
+<li>indoor multipathの影響を抑える</li>
+</ul>
+</li>
+<li>単一デバイスによる三角測量
+
+<ul>
+<li>複数デバイスをばらまくことなく実現</li>
+</ul>
+</li>
+<li>精度: 方向 5度以内、位置 35cm 以内で特定</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>要素
+
+<ul>
+<li>Channel Phase Information を取得</li>
+<li>特徴抽出: フィルタでフェーズ情報をサニタイズ</li>
+<li>方向検知
+
+<ul>
+<li>self-adaptive MUSIC (MUltiple SIgnal Classification)アルゴリズムを利用</li>
+</ul>
+</li>
+<li>三点測量</li>
+</ul>
+</li>
+<li>特徴抽出
+
+<ul>
+<li>CSIからのフェーズ情報の逆算に Linear Transformation を利用、ランダム誤りを抑制</li>
+<li>ノイズ除去にはSavitsky-Golay フィルタを適用</li>
+</ul>
+</li>
+<li>方向測定
+
+<ul>
+<li>RFオシレータによるCSI中のフェーズオフセットによるエラーを self adaptive MUSICで補正</li>
+</ul>
+</li>
+<li>方向キャリブレーション
+
+<ul>
+<li>アンテナをチェイン1とチェイン2、チェイン2とチェイン3の組み合わせでグループ化</li>
+</ul>
+</li>
+<li>位置特定
+
+<ul>
+<li>1地点で、位置(x1, y1)と方向θ1がわかる</li>
+<li>これを複数子(>2)測定して組み合わせ、基本的には2より上の地点数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>壁ありのオフィスフロアにAPをおいて、三点測量を実施
+
+<ul>
+<li>クライアントには Intel Wi-Fi Link 5300を利用 + Linux CSI Tools</li>
+<li>モニタモードで5.32GHz帯を見る</li>
+</ul>
+</li>
+<li>位置特定の精度
+
+<ul>
+<li>見通し(LOS)ありなら50%は35cm以内の誤差で特定できることを確認</li>
+<li>LOSなしでも50%は45cm以内の誤差</li>
+</ul>
+</li>
+<li>方向の精度
+
+<ul>
+<li>self adaptive MUSICの有効性として 50% 以内は6度以内の誤差であることを確認</li>
+<li>単なるMUSICだと11度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>議論はある
+
+<ul>
+<li>self-adaptive MUSICも本研究の貢献ぽいけど理論的背景が述べられていない気がする</li>
+</ul>
+</li>
+<li>この中で出てきた次に読むべき論文リスト
+
+<ul>
+<li>6, 7: プロフェッショナルハードウェアを用いた位置測定
+
+<ul>
+<li>[6]: Shah, S.F.A., Srirangarajan, S., Tewfik, A.H.: Implementation of a directional beacon-based position location algorithm in a signal processing framework. IEEE  Trans. Wirel. Commun. 9(3), 1044–1053 (2010)</li>
+<li>[7] Subramanian, A.P., Deshpande, P., Jie, G., Das, S.R.: Drive-by localization of road-side WiFi networks. In: The Conference on Computer Communications, INFOCOM  2008, pp. 718–725. IEEE (2008)</li>
+</ul>
+</li>
+<li>1, 5, 8: RSSIベース
+
+<ul>
+<li>[1]: Adelstein, F., Alla, P., Joyce, R., Iii, G.G.R.: Physically locating wireless intruders. In: Proceedings of the International Conference on Information Technology: Coding and Computing, ITCC, vol. 1, pp. 482–489 (2004)</li>
+<li>[5]: Schweitzer, D., Brown, W., Boleng, J.: Using visualization to locate rogue access points. Consortium for Computing Sciences in Colleges (2007)</li>
+<li>[8]: Yang, Z., Zhou, Z., Liu, Y.: From RSSI to CSI: indoor localization via channel response. ACM Comput. Surv. 46(2), 1–32 (2013)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>手元にあるデバイスだしやりたいことに一番近いことだったんで、もうすこしこまかい情報を載せてほしい感じ&hellip;</li>
+<li>self adaptive MUSICとかあまりに説明がなかったけどMUSICはともかくとしてself-adaptiveの方は有名なの？</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2018
+
+    n_kane
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+<script type="text/javascript">
+      var disqus_shortname = 'enukane';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://enukane.github.io/blog/2018/08/07/2018-08-07-100papers-05-dot-markdown/';
+        var disqus_url = 'http://enukane.github.io/blog/2018/08/07/2018-08-07-100papers-05-dot-markdown/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 802.11 | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/802-dot-11/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2018-08-06T15:41:24+09:00</updated>
+  <updated>2018-08-07T12:05:09+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,151 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2018-08-07 論文100本ノック 5: LAMP: Lightweight and Accurate Malicious Access Points Localization via Channel Phase Information]]></title>
+    <link href="http://enukane.github.io/blog/2018/08/07/2018-08-07-100papers-05-dot-markdown/"/>
+    <updated>2018-08-07T11:37:25+09:00</updated>
+    <id>http://enukane.github.io/blog/2018/08/07/2018-08-07-100papers-05-dot-markdown</id>
+    <content type="html"><![CDATA[<ul>
+<li>from: none</li>
+<li>著者: Liangyi Gong</li>
+<li>所属; Tianjin University of Technology (天津理工大学)</li>
+<li>発行年: 2018</li>
+<li>学会: The 13th Internatinal Conference on Wireless Algorithms, Systems and Applications (<a href="http://wasa-conference.org/WASA2018/index.html">WASA2018</a>)</li>
+<li>どんなもの:
+
+<ul>
+<li>悪意のあるAPの場所特定をChannel State Informationを使ってコモディティハードウェアで実現</li>
+<li>LAMP(Leightweight and Accurate Malicious access Point localization)の提案</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>RSSI ではなく CSI を利用
+
+<ul>
+<li>indoor multipathの影響を抑える</li>
+</ul>
+</li>
+<li>単一デバイスによる三角測量
+
+<ul>
+<li>複数デバイスをばらまくことなく実現</li>
+</ul>
+</li>
+<li>精度: 方向 5度以内、位置 35cm 以内で特定</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>要素
+
+<ul>
+<li>Channel Phase Information を取得</li>
+<li>特徴抽出: フィルタでフェーズ情報をサニタイズ</li>
+<li>方向検知
+
+<ul>
+<li>self-adaptive MUSIC (MUltiple SIgnal Classification)アルゴリズムを利用</li>
+</ul>
+</li>
+<li>三点測量</li>
+</ul>
+</li>
+<li>特徴抽出
+
+<ul>
+<li>CSIからのフェーズ情報の逆算に Linear Transformation を利用、ランダム誤りを抑制</li>
+<li>ノイズ除去にはSavitsky-Golay フィルタを適用</li>
+</ul>
+</li>
+<li>方向測定
+
+<ul>
+<li>RFオシレータによるCSI中のフェーズオフセットによるエラーを self adaptive MUSICで補正</li>
+</ul>
+</li>
+<li>方向キャリブレーション
+
+<ul>
+<li>アンテナをチェイン1とチェイン2、チェイン2とチェイン3の組み合わせでグループ化</li>
+</ul>
+</li>
+<li>位置特定
+
+<ul>
+<li>1地点で、位置(x1, y1)と方向θ1がわかる</li>
+<li>これを複数子(>2)測定して組み合わせ、基本的には2より上の地点数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>壁ありのオフィスフロアにAPをおいて、三点測量を実施
+
+<ul>
+<li>クライアントには Intel Wi-Fi Link 5300を利用 + Linux CSI Tools</li>
+<li>モニタモードで5.32GHz帯を見る</li>
+</ul>
+</li>
+<li>位置特定の精度
+
+<ul>
+<li>見通し(LOS)ありなら50%は35cm以内の誤差で特定できることを確認</li>
+<li>LOSなしでも50%は45cm以内の誤差</li>
+</ul>
+</li>
+<li>方向の精度
+
+<ul>
+<li>self adaptive MUSICの有効性として 50% 以内は6度以内の誤差であることを確認</li>
+<li>単なるMUSICだと11度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>議論はある
+
+<ul>
+<li>self-adaptive MUSICも本研究の貢献ぽいけど理論的背景が述べられていない気がする</li>
+</ul>
+</li>
+<li>この中で出てきた次に読むべき論文リスト
+
+<ul>
+<li>6, 7: プロフェッショナルハードウェアを用いた位置測定
+
+<ul>
+<li>[6]: Shah, S.F.A., Srirangarajan, S., Tewfik, A.H.: Implementation of a directional beacon-based position location algorithm in a signal processing framework. IEEE  Trans. Wirel. Commun. 9(3), 1044–1053 (2010)</li>
+<li>[7] Subramanian, A.P., Deshpande, P., Jie, G., Das, S.R.: Drive-by localization of road-side WiFi networks. In: The Conference on Computer Communications, INFOCOM  2008, pp. 718–725. IEEE (2008)</li>
+</ul>
+</li>
+<li>1, 5, 8: RSSIベース
+
+<ul>
+<li>[1]: Adelstein, F., Alla, P., Joyce, R., Iii, G.G.R.: Physically locating wireless intruders. In: Proceedings of the International Conference on Information Technology: Coding and Computing, ITCC, vol. 1, pp. 482–489 (2004)</li>
+<li>[5]: Schweitzer, D., Brown, W., Boleng, J.: Using visualization to locate rogue access points. Consortium for Computing Sciences in Colleges (2007)</li>
+<li>[8]: Yang, Z., Zhou, Z., Liu, Y.: From RSSI to CSI: indoor localization via channel response. ACM Comput. Surv. 46(2), 1–32 (2013)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>手元にあるデバイスだしやりたいことに一番近いことだったんで、もうすこしこまかい情報を載せてほしい感じ&hellip;</li>
+<li>self adaptive MUSICとかあまりに説明がなかったけどMUSICはともかくとしてself-adaptiveの方は有名なの？</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2018-08-06 論文100本ノック 4: Demystifing 802.11n power consumption]]></title>
@@ -748,20 +893,6 @@
 <li>モデルについて疑問はあるものの、DCF方式の差異、チャネル幅の差異、クライアント数の差異という観点でパラメータがどのように影響するのかが調査されているのは参考になった</li>
 </ul>
 </li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[日本の5.3GHz帯DFS対象レーダー局をプロットしてみた]]></title>
-    <link href="http://enukane.github.io/blog/2017/12/02/dfs-radar-site/"/>
-    <updated>2017-12-02T01:36:58+09:00</updated>
-    <id>http://enukane.github.io/blog/2017/12/02/dfs-radar-site</id>
-    <content type="html"><![CDATA[<p>先日参加したInternetWeek2017 NOCチーム内で、「5GHz帯 DFS 対象のレーダーが飛んでくる場所」という話題が出たので試しにプロットしてみました。</p>
-
-<ul>
-<li><a href="https://www.google.com/maps/d/viewer?mid=1HN0HXt1HLAMVClb2YfaTzyM_hLM0QVjS&amp;hl=ja&amp;usp=sharing">DFS対象レーダー局</a></li>
 </ul>
 
 ]]></content>
