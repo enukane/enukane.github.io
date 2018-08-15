@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 802.11 | #error NO_MONEY]]></title>
   <link href="http://enukane.github.io/blog/categories/802-dot-11/atom.xml" rel="self"/>
   <link href="http://enukane.github.io/"/>
-  <updated>2018-08-11T10:13:40+09:00</updated>
+  <updated>2018-08-15T10:53:19+09:00</updated>
   <id>http://enukane.github.io/</id>
   <author>
     <name><![CDATA[n_kane]]></name>
@@ -12,6 +12,212 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2018-08-14 論文100本ノック 6: CSI-MIMO: Indoor Wi-Fi Fingerprinting System]]></title>
+    <link href="http://enukane.github.io/blog/2018/08/14/100papers-06/"/>
+    <updated>2018-08-14T10:47:36+09:00</updated>
+    <id>http://enukane.github.io/blog/2018/08/14/100papers-06</id>
+    <content type="html"><![CDATA[<ul>
+<li>from:</li>
+<li>著者: Yogita Chapre et al</li>
+<li>所属: School of Computer Science &amp; Engineering, University of New South Wales</li>
+<li>発行年: 2014</li>
+<li>学会:IEEE Local Computer Networks Conference (<a href="https://www.ieeelcn.org/prior/LCN39/index.html">LCN2014</a>)</li>
+<li>どんなもの
+
+<ul>
+<li>CSI-MIMOの提案</li>
+<li>Channel State Informationを使って精度の高い屋内測位を実現</li>
+<li>MIMOの情報を活かすのがキモ</li>
+</ul>
+</li>
+<li>先行研究と比べてどこがすごい
+
+<ul>
+<li>RSSIベースはよくあるが精度が悪い
+
+<ul>
+<li>RSSIを複数APから見地して k近傍法で分類し位置情報を測定する手法 [1][2]</li>
+<li>RSSIは平均電力としての値</li>
+<li>マルチパスの影響を受けやすい</li>
+<li>環境(人、モノの動き)により容易に揺蕩う</li>
+<li>2〜3m程度の精度</li>
+<li>Signal Streangth Difference(SSD)手法も環境の変化には弱い</li>
+<li>k近傍法は活用するが、RSSIといった集約値をターゲットにしないのが本手法</li>
+</ul>
+</li>
+<li>CIR (Channel Implulse Response)は
+
+<ul>
+<li>これをベースにした位置フィンガープリント手法</li>
+<li>200MHzの帯域幅が見れるスペアナといった高価かつでかい機材が必要</li>
+<li>Artificial neural networkを使って測定するが、精度は帯域幅による</li>
+<li>下記の通りコモディティハードウェアでもできるのが本手法</li>
+</ul>
+</li>
+<li>CSI
+
+<ul>
+<li>OFDMでは周波数ダイバーシチ・空間ダイバーシチを効かせているため、サブキャリアごとに異なるこれらによる変動を調整するための仕組みとしてCSIを用いる</li>
+<li>コモディティハードウェアである5300ではこれらを取り出すことが可能</li>
+<li>平均電力に集約されてしまうRSSIと異なり、サブキャリアごとにチャネルの情報が取得できる
+§ サブキャリアごとの波の振幅と位相が含まれる
+§ マルチパスによりサブキャリアごとにことなる経路をたどりバラバラの値になる</li>
+<li>[8][9]でもCSIを使っていたが、そちらはSISOを想定していた</li>
+</ul>
+</li>
+<li>MIMO
+
+<ul>
+<li>空間ダイバーシチを効かせて速度を上げているのが802.11n以降のMIMO</li>
+<li>これを活用して位置のフィンガープリンティングを行う</li>
+<li>[10]でも空間ダイバーシチを活用しているが電力を対象にしており、位置に紐付けようとはしていない。</li>
+<li>[8][10][9]では同じくCSIを活用していたが、MIMOという意味で複数のアンテナをうまく使うという技術的課題をクリアできていなかった
+§ 空間・周波数ダイバーシチの双方を活用して位置情報に活かすのがこの研究のキモ</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>技術や手法のキモはどこ？
+
+<ul>
+<li>CSI x MIMO の組み合わせ
+
+<ul>
+<li>CSIの利用によりRSSIの弱点である精度を改善</li>
+<li>MIMOを考慮することで、空間・周波数ダイバーシチの双方を活用した、より精度の高いフィンガープリンティング</li>
+</ul>
+</li>
+<li>トレーニングフェーズでこれらの情報により各地点のフィンガープリントを蓄積
+
+<ul>
+<li>amplitude difference vectorとphase difference vectorがフィンガープリント</li>
+<li>全サブキャリアについてCSI値を合算(虚数の合算)</li>
+<li>それぞれその絶対値をHavg-amp, 位相をHavg-phとしておく</li>
+<li>各サブキャリアごとに隣のサブキャリアとのamp, phaseの差分をとり、Hampi, Hphiとする</li>
+<li>それらをサブキャリアすべてに渡って足し合わせたHamp-diff, Hph-diffをシグネチャとする</li>
+</ul>
+</li>
+<li>ポジショニングフェーズにて、現地点のそれをk近傍法でトレーニングしたものと近似をとる or ベイズ推定で最もらしい位置を割り出す
+
+<ul>
+<li>トレーニングサンプルとのユークリッド距離の算出→一推定</li>
+<li>「このCSIフィンタープリントの時、あるロケーションである確率」のうち最大のロケーションとなりうる場所であると推定
+§ (細かい式はよくわからん)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>どうやって技術・手法の有効性を検証した？
+
+<ul>
+<li>ラボの室内(6 x 7.5m平方)の19地点で24時間トレーニング、APは2台
+
+<ul>
+<li>およそ10万サンプル</li>
+</ul>
+</li>
+<li>FIFSや通常のCSIシグネチャ方式との比較
+
+<ul>
+<li>比較対象は振幅とフェーズ情報を合算してしまっている手法</li>
+<li>FIFSはCSI-MIMOと同じくkNN &amp; ベイズ推定を用いている手法</li>
+</ul>
+</li>
+<li>不明な地点で1000サンプル集めて位置推定を実施、精度を比較した</li>
+<li>また、100, 1000, 10000トレーニングサンプルの場合や、100, 1000テストサンプルの場合に精度がどう変わるかも検証
+
+<ul>
+<li>k近傍法をもちいた場合:
+§ 1000トレーニング100テストで 0.95mの誤差(最小)
+§ CSI-MIMOの法がだいたいの場合、FIFSやCSIに勝っていることを確認</li>
+<li>ベイズ推定を用いた場合:
+§ 最も良い精度でも1000トレーニング100テストで1.02mと、k近傍法より悪い</li>
+</ul>
+</li>
+<li>全体的にはFIFS/シンプルCSIに比べて良い性能</li>
+<li>ただしFIFSが優位になる点もあり
+
+<ul>
+<li>ベイズ推定を用いた10000 or 1000 サンプルの場合 (Fig6の左下)</li>
+<li>サンプル数が多くなると中央値や分散値の影響で良くなる場合がある？</li>
+</ul>
+</li>
+<li>平均距離の誤差比較(table 1)
+
+<ul>
+<li>最大でFIFSより57%(k近傍法), 26%(ベイズ推定)良い。1000トレーニング1000テストの場合。</li>
+</ul>
+</li>
+<li>1000トレーニング、100テストが一番成績がよい
+
+<ul>
+<li>これが最適な計測時のパラメータ</li>
+<li>またほかの手法よりも優位にたっているパラメータでもある</li>
+</ul>
+</li>
+<li>k近傍法とベイズ推定の比較
+
+<ul>
+<li>CSI-MIMOではどちらでも同じくらいの性能が出せる (Fig7の左下はどうなの&hellip;)</li>
+<li>全体的にはk近傍法の法がCSI-MIMO(およびシンプルCSI)においては良い値を出す
+§ 一方でFIFSはベイズの方が良いらしい</li>
+<li>k近傍法においては、CSI-MIMOのサブキャリアごとの計算という前提が活きる
+§ 一方で誤差をうまく丸めているベイズ推定においては、FIFSのほうが使える場合がある？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>議論はある？
+
+<ul>
+<li>トレーニングにどれくらいの時間が最低限いるのか？ => 1000トレーニング程度でよいらしい</li>
+<li>環境変動への耐性評価が入ってない気がする
+
+<ul>
+<li>人の動きやモノの移動があった場合にどうなるのか知りたい</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>この中ででてきた次に読むべき論文リスト
+
+<ul>
+<li>[10] J. Xiao, K. Wu, Y. Yi, and L. Ni, “FIFS: Fine-grained indoor fin- gerprinting system,” in 21st International Conference on Computer Communications and Networks (ICCCN), 2012, pp. 1–7.
+
+<ul>
+<li>FIFSの論文</li>
+<li>アルゴリズム(ベイズ推定)によってはこちらの法が良くなる場合があったため</li>
+<li>計算手法がシンプルならむしろあり</li>
+</ul>
+</li>
+<li>[8] K. Wu, J. Xiao, Y. Yi, D. Chen, X. Luo, and L. Ni, “CSI-based indoor localization,” IEEE Transactions on Parallel and Distributed Systems, vol. 24, no. 7, pp. 1300–1309, 2013.
+
+<ul>
+<li>FILA。シンプルCSI。</li>
+</ul>
+</li>
+<li>[9] S. Sen, R. R. Choudhury, B. Radunovic, and T. Minka, “Precise indoor localization using PHY layer information,” in Proceedings of the 10th ACM Workshop on Hot Topics in Networks, ser. HotNets-X. New York, NY, USA: ACM, 2011, pp. 18:1–18:6. [Online]. Available: <a href="http://doi.acm.org/10.1145/2070562.2070580">http://doi.acm.org/10.1145/2070562.2070580</a>
+
+<ul>
+<li>PinLoc, シンプルCSI。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>所感
+
+<ul>
+<li>事前トレーニングが必要なタイプなので個人的な興味とはちょっとずれてる予感</li>
+<li>前のMUSICアルゴリズム使ってモノのほうが個人的な目的には合致していそう</li>
+<li>FIFSの方が優れている場合がある理由の掘り下げがちょっと足りてない？理解が足りてないだけな気もするが&hellip;</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2018-08-07 論文100本ノック 5: LAMP: Lightweight and Accurate Malicious Access Points Localization via Channel Phase Information]]></title>
@@ -655,242 +861,6 @@
 <li>参考文献に論文がねぇ！</li>
 <li>[5]: Kim- Y-. &ldquo;Enhanced CCA for Non-Primary Channels Using Guard Interval&rdquo;- IEEE 802.11-10/0012r0- Jan2010
 セカンダリチャネルでのCCAが高いことによる問題 (論文ではないけど)</li>
-</ul>
-</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2018-05-08 論文100本ノック 1: Performance Analysis of IEEE 802.11ac DCF with Hidden Nodes]]></title>
-    <link href="http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00/"/>
-    <updated>2018-05-08T19:39:17+09:00</updated>
-    <id>http://enukane.github.io/blog/2018/05/08/2018-05-08-100papers-00</id>
-    <content type="html"><![CDATA[<p>人もすなる論文100本ノックといふものを、我もしてみむとてするなり。
-どこまで続くか分からないけどぼちぼち読んでたりしているのを吐き出す良い機会ではあるのでちょびちょびやっていこうと思う。</p>
-
-<p>フォーマットは以下の落合先生フォーマットをアレンジしたものを使う。</p>
-
-<ul>
-<li><a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205">高速で論文がバリバリ読める落合先生のフォーマットがいい感じだったのでメモ</a></li>
-</ul>
-
-
-<p>だいたい以下の項目を埋めるイメージ</p>
-
-<pre><code class="text">- from: 別のノックからの続きモノの場合、その番号。系統図書けると面白そうなので。
-- 著者: ファーストオーサーの名前
-- 著者団体: 著者の所属研究機関がわかるように
-- 発行年: 旬のものなのかそうでないのかわかるように
-- 学会: どれくらいのランクの学会のモノなのかわかるように
-- どんなもの
-- 技術や手法のキモはどこ？
-- どうやって技術・手法の有効性を検証した？
-- 議論はある？
-- この中で出てきた次に読むべき論文リスト
-- 所感
-</code></pre>
-
-<ul>
-<li>from: none</li>
-<li>著者: Zheng Chang et al</li>
-<li>著者団体: Magister Solutions, Nokia Research Center, U of Jyvaskyla</li>
-<li>発行年: 2012</li>
-<li>学会: VTC012 Spring <a href="http://www.ieeevtc.org/vtc2012spring/">http://www.ieeevtc.org/vtc2012spring/</a></li>
-<li>どんなもの
-
-<ul>
-<li>802.11 DCF x Hidden Node x 802.11acの組合せでパフォーマンス解析を行っている</li>
-</ul>
-</li>
-<li>先行研究と比べてどこがすごい
-
-<ul>
-<li>先行研究: [1], [2]</li>
-<li>新しい規格への対応: 既存802.11aまで -> 802.11acまでやる</li>
-<li>Hidden Node(隠れ端末)の考慮</li>
-<li>異なるプライマリチャネルを用いたOverlapping BSS環境を想定: これまでのDCFをターゲットにした研究では対象外</li>
-</ul>
-</li>
-<li>技術や手法のキモはどこ？
-
-<ul>
-<li>どこに差異を見いだしているか</li>
-<li>[1]のモデリングにblockackおよびHNの情報を考慮したモデルを構築</li>
-</ul>
-</li>
-<li>どうやって技術・手法の有効性を検証した？
-
-<ul>
-<li>上記モデルの理論値とIEEE802.11で定められたチャネル伝搬モデル(ビットエラー起こしやすい環境)に基づくシミュレーション値で比較</li>
-<li>40MHz幅のときの比較値として10STAs, 40Mhz basic DCFおよび50 STAs 40MHz basic DCFの場合に、モデルとシミュレーションがほぼ一致していることから適用できると判断</li>
-<li>これを台数換えたりRTS/CTSにしたり、チャネル幅換えたりして適用し傾向を見ている</li>
-<li>fig 5a: 40Mhz幅と80MHz幅の比較における検証
-
-<ul>
-<li>DCFの方式間の差異について
-□ 10 STAs 40Mhzの場合だと、大きな差があり basic の方がよい
-□ 50STAsやあるいは80, 160MHz幅以上だと差はほぼない</li>
-<li>チャネル幅を上げる効果について
-
-<ul>
-<li>50STAs程度になると40Mhz -> 80Mhz幅に換えても、実際のところ2Mbps程度しか改善しない傾向にある</li>
-<li>10STAs程度の場合、むしろ40MHz幅の方が良い場合もある(+10Mbps程度)</li>
-</ul>
-</li>
-<li>結論
-
-<ul>
-<li>低い台数の場合、basicの方が性能が良い。ボンディング幅が狭いとより効果がある。</li>
-<li>多い台数の場合、この差異はほぼなくなる</li>
-<li>チャネル幅を上げることによる効果はあまりない(+2Mbps程度)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>fig 5b: 80MHz幅と160Mhz幅の比較における検証
-
-<ul>
-<li>DCFの方式の差異について
-
-<ul>
-<li>basicの方が優位 (10STAsで+20Mbps,  50STAsで+5Mbps)
-
-<ul>
-<li>台数が上がると方式間の差異は縮まるが、引き続きbasicが優位</li>
-</ul>
-</li>
-<li>チャネル幅を 80 -> 160MHzに上げるとbasic vs RTS/CTSの差が縮まる</li>
-<li>50STAsの場合、RTS/CTSの方が性能がよい</li>
-</ul>
-</li>
-<li>チャネル幅の差異について
-
-<ul>
-<li>このチャネル伝搬モデルだと80 -> 160MHzしても差異がない=> チャネル幅上げることによる効果はない？</li>
-</ul>
-</li>
-<li>結論
-
-<ul>
-<li>低い台数の場合、basicの方が良い</li>
-<li>多い台数の場合、RTS/CTSの方が良い</li>
-<li>このチャネル伝搬モデルではチャネル幅を上げることによる効果はあまりない</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>OBSSとHNを考慮したシミュレーションの検証
-
-<ul>
-<li>BSSで同じprrimary チャネルを用いている場合 (fig 7)
-
-<ul>
-<li>それぞれのSTAがそれぞれのAPにアップリンク送信</li>
-<li>BSS2が大幅にペナルティを受ける(図の下に張り付いてる4本の線</li>
-<li>DCF方式間の差異について
-
-<ul>
-<li>HNにAPが直接干渉されない方(BSS1)はbasic > RTS/CTS</li>
-<li>HNにAPが干渉される方(BSS2)は RTS/CTS > basic となり、むしろbasicだとほぼ通信できない</li>
-</ul>
-</li>
-<li>チャネル幅の差異について
-
-<ul>
-<li>RTS/CTS方式の場合
-
-<ul>
-<li>上手く通信できる方はスループットが上がる</li>
-<li>上手く通信出来ない方は、スループットは上がらない</li>
-</ul>
-</li>
-<li>basic方式の場合
-
-<ul>
-<li>上手く通信できる方はスループットが上がる</li>
-<li>上手く通信出来ない方はほぼ通信できないまま</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>結論
-
-<ul>
-<li>RTS/CTSを用いることでこのモデルではHNの影響を受ける</li>
-<li>basic方式の場合、通信出来るBSSとHNの影響を受けやすいBSSとの間に、通信できないほどの不公平を生じる</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>異なるprimary チャネルを用いているがsecoundaryにprimaryが被ってる場合 (fig 8a)
-
-<ul>
-<li>BSS1 40MHzのセカンダリをBSS2 80MHzがprimaryとして使っている
-
-<ul>
-<li>たとえばBSS1 40MHz 44+ vs BSS2 80MHz 48-の場合</li>
-<li>BSS1にとって48chはセカンダリ、BSS2にとってはプライマリ</li>
-<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送にプリマリで被さる</li>
-</ul>
-</li>
-<li>プライマリがオーバーラップしている方(BSS2)ガbasicだと大きく割を食う (その文をBSS1が持っていく)</li>
-<li>RTS/CTS方式だとBSS2のスループットが一定のレベルで改善する一方、BS1のスループットは低下する</li>
-</ul>
-</li>
-<li>異なるprimaryチャネルを用いておりsecondaryにprimaryが被っていない場合 (fig 8b)
-
-<ul>
-<li>BSS1 40MHzのセカンダリとBSS2 80MHzのプライマリが被っていない場合
-
-<ul>
-<li>たとえばBSS1 40MHz 36+ vs BSS2 80MHz 48-の場合</li>
-<li>36, 40チャネルは被っているがプライマリではない</li>
-<li>BSS1からはSTA2は見えないので、80MHz幅転送の影響は受けない</li>
-<li>STA1から40MHz転送が行われるとSTA2からの80MHz転送がセカンダリ以降で被さる</li>
-</ul>
-</li>
-<li>fig 8aと同じ傾向
-
-<ul>
-<li>RTS/CTSで一部改善はしているが、BSS2が80MHz幅の利点を活かして通信できるほどではない</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>議論はある？
-
-<ul>
-<li>このチャネル伝搬モデルの妥当性は？イベント無線LAN環境などと比べるとどうなのだろう？</li>
-<li>チャネル伝搬モデルを換えるとどうなる？換えられる対象はある？</li>
-</ul>
-</li>
-<li>この中ででてきた次に読むべき論文リスト
-
-<ul>
-<li>[1]: モデリングの元となる論文
-
-<ul>
-<li>G.Bianchi &ldquo;Performance Analysis of the IEEE802.11 Distributed Coordination Function&rdquo; IEEE Journal on Selected Areas in Communication, vol.18, No.3, pp.535-547, Mar, 2000</li>
-</ul>
-</li>
-<li>[8]: 本論文の調査結果として明らかになったHN x 802.11acの組合せ問題への解決策となりうる RTS/CTSの改良を扱っているらしい
-
-<ul>
-<li>M.Park &ldquo;IEEE80211ac : Dynamic Bandwidth Channel Access&rdquo; IEEE ICC 2011<a href="http://icc2011.ieee-icc.org/">http://icc2011.ieee-icc.org/</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>所感
-
-<ul>
-<li>モデルについて疑問はあるものの、DCF方式の差異、チャネル幅の差異、クライアント数の差異という観点でパラメータがどのように影響するのかが調査されているのは参考になった</li>
 </ul>
 </li>
 </ul>
